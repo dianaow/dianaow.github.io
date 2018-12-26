@@ -1,0 +1,2510 @@
+FATALITY_YEAR,FATALITY_MONTH,DEPLOYMENT_PROVINCE,count
+1961,Apr,Ho Chi Minh City|Ho Chi Minh,1
+1961,Apr,Unknown,2
+1961,Dec,Unknown,1
+1961,Jun,Ho Chi Minh City|Ho Chi Minh,1
+1961,Mar,Unknown,7
+1962,Apr,Ho Chi Minh City|Ho Chi Minh,1
+1962,Apr,Unknown,4
+1962,Dec,Unknown,2
+1962,Feb,Dong Nai,3
+1962,Feb,Lam Dong,1
+1962,Feb,Unknown,8
+1962,Jan,Unknown,3
+1962,Jul,Kon Tum,1
+1962,Jul,Unknown,5
+1962,Jun,Unknown,3
+1962,May,Khanh Hoa,1
+1962,May,Unknown,2
+1962,Nov,An Xugen,2
+1962,Nov,Unknown,2
+1962,Oct,Dak Lak|Dac Lac,2
+1962,Oct,Quang Nam,5
+1962,Oct,Quang Tin,2
+1962,Oct,Unknown,2
+1963,Apr,Kon Tum,2
+1963,Apr,Unknown,1
+1963,Aug,Dong Nai,1
+1963,Aug,Ho Chi Minh City|Ho Chi Minh,1
+1963,Aug,Quang Ngai,2
+1963,Aug,Unknown,6
+1963,Dec,Ba Xugen,2
+1963,Dec,Binh Duong,1
+1963,Dec,Dak Lak|Dac Lac,1
+1963,Dec,Offshore,3
+1963,Dec,Unknown,14
+1963,Feb,Ba Xugen,1
+1963,Feb,Gia Lai,1
+1963,Feb,Unknown,6
+1963,Jan,Unknown,14
+1963,Jul,Unknown,7
+1963,Jun,Ho Chi Minh City|Ho Chi Minh,1
+1963,Jun,Unknown,4
+1963,Mar,Ho Chi Minh City|Ho Chi Minh,1
+1963,Mar,Unknown,5
+1963,May,Ho Chi Minh City|Ho Chi Minh,2
+1963,May,Unknown,4
+1963,Nov,Anxuyen,1
+1963,Nov,Unknown,4
+1963,Oct,Quang Nam,13
+1963,Oct,Unknown,9
+1963,Sep,Unknown,2
+1964,Apr,Quang Nam,1
+1964,Apr,Unknown,10
+1964,Aug,Dong Nai,1
+1964,Aug,Ho Chi Minh City|Ho Chi Minh,1
+1964,Aug,Long Khanh,2
+1964,Aug,Unknown,12
+1964,Dec,Offshore,2
+1964,Dec,Unknown,25
+1964,Feb,Ho Chi Minh City|Ho Chi Minh,3
+1964,Feb,Phong Dinh,1
+1964,Feb,Unknown,7
+1964,Jan,Ho Chi Minh City|Ho Chi Minh,1
+1964,Jan,Offshore,2
+1964,Jan,Unknown,9
+1964,Jul,Go Cong,1
+1964,Jul,Unknown,16
+1964,Jun,Unknown,14
+1964,Mar,Ba Xugen,1
+1964,Mar,Kien Phong,1
+1964,Mar,Tay Ninh,1
+1964,Mar,Unknown,13
+1964,May,Dinh Tuong,1
+1964,May,Ho Chi Minh City|Ho Chi Minh,1
+1964,May,Unknown,13
+1964,Nov,Offshore,2
+1964,Nov,Quang Nam,4
+1964,Nov,Unknown,11
+1964,Oct,Dong Nai,4
+1964,Oct,Ho Chi Minh City|Ho Chi Minh,1
+1964,Oct,Unknown,21
+1964,Sep,Unknown,4
+1965,Apr,Binh Dinh,1
+1965,Apr,Chuong Thien,1
+1965,Apr,Ho Chi Minh City|Ho Chi Minh,1
+1965,Apr,Khanh Hoa,1
+1965,Apr,Quang Nam,3
+1965,Apr,Thua Thien - Hue,2
+1965,Apr,Unknown,30
+1965,Aug,Binh Dinh,5
+1965,Aug,Khanh Hoa,3
+1965,Aug,Offshore,1
+1965,Aug,Quang Nam,19
+1965,Aug,Quang Tin,56
+1965,Aug,Quang Tri,3
+1965,Aug,Unknown,23
+1965,Dec,Binh Dinh,3
+1965,Dec,Binh Duong,1
+1965,Dec,Gia Lai,1
+1965,Dec,Ho Chi Minh City|Ho Chi Minh,2
+1965,Dec,Hua Nghia,1
+1965,Dec,Khanh Hoa,1
+1965,Dec,Kon Tum,2
+1965,Dec,Ninh Thuan,9
+1965,Dec,Offshore,1
+1965,Dec,Quang Nam,62
+1965,Dec,Quang Tin,39
+1965,Dec,Thua Thien - Hue,2
+1965,Dec,Tuyen Duc,2
+1965,Dec,Unknown,153
+1965,Feb,Binh Dinh,1
+1965,Feb,Dong Nai,2
+1965,Feb,Khanh Hoa,2
+1965,Feb,Quang Nam,1
+1965,Feb,Unknown,43
+1965,Jan,Dong Nai,1
+1965,Jan,Ho Chi Minh City|Ho Chi Minh,2
+1965,Jan,Quang Nam,1
+1965,Jan,Unknown,14
+1965,Jul,Binh Dinh,2
+1965,Jul,Ho Chi Minh City|Ho Chi Minh,1
+1965,Jul,Khanh Hoa,1
+1965,Jul,Kon Tum,1
+1965,Jul,Offshore,3
+1965,Jul,Phu Bon,1
+1965,Jul,Phuoc Long,6
+1965,Jul,Quang Nam,24
+1965,Jul,Quang Tin,14
+1965,Jul,Tay Ninh,1
+1965,Jul,Unknown,41
+1965,Jun,Dong Nai,1
+1965,Jun,Gia Lai,8
+1965,Jun,Ho Chi Minh City|Ho Chi Minh,5
+1965,Jun,Khanh Hoa,2
+1965,Jun,Offshore,17
+1965,Jun,Phu Bon,2
+1965,Jun,Phu Yen,1
+1965,Jun,Quang Nam,20
+1965,Jun,Quang Ngai,1
+1965,Jun,Quang Tin,12
+1965,Jun,Thua Thien - Hue,1
+1965,Jun,Unknown,46
+1965,Mar,Gia Lai,1
+1965,Mar,Khanh Hoa,3
+1965,Mar,Ninh Thuan,1
+1965,Mar,Offshore,1
+1965,Mar,Phong Dinh,2
+1965,Mar,Quang Nam,5
+1965,Mar,Unknown,5
+1965,May,Dong Nai,26
+1965,May,Ho Chi Minh City|Ho Chi Minh,3
+1965,May,Offshore,2
+1965,May,Quang Nam,6
+1965,May,Quang Ngai,1
+1965,May,Quang Tin,6
+1965,May,Unknown,35
+1965,Nov,Binh Dinh,1
+1965,Nov,Binh Thuan,1
+1965,Nov,Gia Lai,2
+1965,Nov,Ho Chi Minh City|Ho Chi Minh,1
+1965,Nov,Khanh Hoa,1
+1965,Nov,Offshore,1
+1965,Nov,Quang Nam,30
+1965,Nov,Quang Tin,9
+1965,Nov,Thua Thien - Hue,2
+1965,Nov,Unknown,453
+1965,Oct,Binh Dinh,7
+1965,Oct,Khanh Hoa,1
+1965,Oct,Offshore,3
+1965,Oct,Phu Yen,1
+1965,Oct,Quang Nam,47
+1965,Oct,Quang Tin,9
+1965,Oct,Thua Thien - Hue,5
+1965,Oct,Unknown,130
+1965,Sep,Ba Xugen,1
+1965,Sep,Binh Dinh,4
+1965,Sep,Dinh Tuong,1
+1965,Sep,Khanh Hoa,1
+1965,Sep,Kien Giang,1
+1965,Sep,Kon Tum,1
+1965,Sep,Offshore,3
+1965,Sep,Quang Nam,37
+1965,Sep,Quang Tin,10
+1965,Sep,Thua Thien - Hue,2
+1965,Sep,Unknown,72
+1966,Apr,Ho Chi Minh City|Ho Chi Minh,1
+1966,Apr,Offshore,1
+1966,Apr,Phu Yen,1
+1966,Apr,Quang Nam,67
+1966,Apr,Quang Ngai,10
+1966,Apr,Quang Tin,8
+1966,Apr,Thua Thien - Hue,19
+1966,Apr,Unknown,260
+1966,Apr,Vinh Long,1
+1966,Aug,Ba Ria - VTau|Ba Ria-Vung Tau,3
+1966,Aug,Dong Nai,1
+1966,Aug,Gia Lai,1
+1966,Aug,Long An,1
+1966,Aug,Ninh Thuan,1
+1966,Aug,Quang Nam,70
+1966,Aug,Quang Ngai,3
+1966,Aug,Quang Tin,36
+1966,Aug,Quang Tri,37
+1966,Aug,Thua Thien - Hue,6
+1966,Aug,Unknown,299
+1966,Dec,Binh Dinh,2
+1966,Dec,Dong Nai,1
+1966,Dec,Gia Lai,1
+1966,Dec,Ho Chi Minh City|Ho Chi Minh,4
+1966,Dec,Khanh Hoa,1
+1966,Dec,Ninh Thuan,2
+1966,Dec,Offshore,1
+1966,Dec,Phong Dinh,1
+1966,Dec,Quang Nam,70
+1966,Dec,Quang Ngai,8
+1966,Dec,Quang Tin,27
+1966,Dec,Quang Tri,55
+1966,Dec,Thua Thien - Hue,7
+1966,Dec,Unknown,306
+1966,Feb,Ba Xugen,1
+1966,Feb,Binh Dinh,3
+1966,Feb,Ho Chi Minh City|Ho Chi Minh,6
+1966,Feb,Long An,1
+1966,Feb,Offshore,4
+1966,Feb,Quang Nam,37
+1966,Feb,Quang Ngai,24
+1966,Feb,Quang Tin,14
+1966,Feb,Quang Tri,1
+1966,Feb,Thua Thien - Hue,2
+1966,Feb,Unknown,370
+1966,Jan,Ba Xugen,1
+1966,Jan,Binh Dinh,50
+1966,Jan,Binh Long,1
+1966,Jan,Gia Lai,5
+1966,Jan,Ho Chi Minh City|Ho Chi Minh,1
+1966,Jan,Hua Nghia,1
+1966,Jan,Khanh Hoa,5
+1966,Jan,Offshore,3
+1966,Jan,Quang Nam,54
+1966,Jan,Quang Ngai,6
+1966,Jan,Quang Tin,9
+1966,Jan,Thua Thien - Hue,3
+1966,Jan,Unknown,195
+1966,Jul,Binh Duong,1
+1966,Jul,Dinh Tuong,1
+1966,Jul,Dong Nai,1
+1966,Jul,Gia Lai,1
+1966,Jul,Ho Chi Minh City|Ho Chi Minh,2
+1966,Jul,Khanh Hoa,2
+1966,Jul,Kien Giang,1
+1966,Jul,Offshore,1
+1966,Jul,Phong Dinh,1
+1966,Jul,Quang Nam,79
+1966,Jul,Quang Ngai,15
+1966,Jul,Quang Tin,12
+1966,Jul,Quang Tri,125
+1966,Jul,Thua Thien - Hue,4
+1966,Jul,Unknown,267
+1966,Jun,Binh Dinh,1
+1966,Jun,Binh Duong,1
+1966,Jun,Gia Lai,3
+1966,Jun,Ho Chi Minh City|Ho Chi Minh,3
+1966,Jun,Khanh Hoa,2
+1966,Jun,Kon Tum,2
+1966,Jun,Ninh Thuan,1
+1966,Jun,Offshore,11
+1966,Jun,Phu Yen,5
+1966,Jun,Quang Nam,70
+1966,Jun,Quang Ngai,8
+1966,Jun,Quang Tin,27
+1966,Jun,Quang Tri,8
+1966,Jun,Thua Thien - Hue,33
+1966,Jun,Unknown,384
+1966,Mar,Ba Xugen,1
+1966,Mar,Binh Dinh,3
+1966,Mar,Dinh Tuong,1
+1966,Mar,Gia Lai,4
+1966,Mar,Ho Chi Minh City|Ho Chi Minh,3
+1966,Mar,Lam Dong,1
+1966,Mar,Offshore,5
+1966,Mar,Phong Dinh,1
+1966,Mar,Quang Nam,67
+1966,Mar,Quang Ngai,162
+1966,Mar,Quang Tin,13
+1966,Mar,Quang Tri,1
+1966,Mar,Thua Thien - Hue,38
+1966,Mar,Unknown,236
+1966,May,Binh Dinh,4
+1966,May,Dong Nai,1
+1966,May,Gia Lai,1
+1966,May,Khanh Hoa,3
+1966,May,Kon Tum,1
+1966,May,Offshore,2
+1966,May,Phong Dinh,1
+1966,May,Quang Nam,106
+1966,May,Quang Ngai,3
+1966,May,Quang Tin,19
+1966,May,Thua Thien - Hue,35
+1966,May,Unknown,352
+1966,Nov,Dong Nai,1
+1966,Nov,Gia Lai,1
+1966,Nov,Ho Chi Minh City|Ho Chi Minh,27
+1966,Nov,Long An,1
+1966,Nov,Offshore,11
+1966,Nov,Phu Yen,2
+1966,Nov,Quang Nam,83
+1966,Nov,Quang Ngai,10
+1966,Nov,Quang Tin,12
+1966,Nov,Quang Tri,16
+1966,Nov,Thua Thien - Hue,6
+1966,Nov,Unknown,429
+1966,Nov,Vinh Long,1
+1966,Oct,Ba Ria - VTau|Ba Ria-Vung Tau,1
+1966,Oct,Binh Dinh,6
+1966,Oct,Dong Nai,1
+1966,Oct,Gia Lai,1
+1966,Oct,Ho Chi Minh City|Ho Chi Minh,4
+1966,Oct,Khanh Hoa,5
+1966,Oct,Kien Hoa,2
+1966,Oct,Offshore,4
+1966,Oct,Phong Dinh,1
+1966,Oct,Quang Nam,61
+1966,Oct,Quang Ngai,7
+1966,Oct,Quang Tin,17
+1966,Oct,Quang Tri,57
+1966,Oct,Thua Thien - Hue,3
+1966,Oct,Unknown,291
+1966,Sep,Ba Ria - VTau|Ba Ria-Vung Tau,2
+1966,Sep,Binh Dinh,1
+1966,Sep,Dinh Tuong,1
+1966,Sep,Gia Lai,1
+1966,Sep,Ho Chi Minh City|Ho Chi Minh,2
+1966,Sep,Khanh Hoa,6
+1966,Sep,Ninh Thuan,2
+1966,Sep,Offshore,1
+1966,Sep,Phu Yen,2
+1966,Sep,Phuoc Long,1
+1966,Sep,Quang Nam,93
+1966,Sep,Quang Ngai,9
+1966,Sep,Quang Tin,17
+1966,Sep,Quang Tri,120
+1966,Sep,Thua Thien - Hue,6
+1966,Sep,Unknown,221
+1966,Sep,Vinh Long,1
+1967,Apr,Ba Ria - VTau|Ba Ria-Vung Tau,9
+1967,Apr,Binh Dinh,83
+1967,Apr,Binh Duong,32
+1967,Apr,Binh Long,6
+1967,Apr,Binh Thuan,3
+1967,Apr,Dak Lak|Dac Lac,1
+1967,Apr,Dinh Tuong,5
+1967,Apr,Dong Nai,9
+1967,Apr,Gia Lai,18
+1967,Apr,Ho Chi Minh City|Ho Chi Minh,16
+1967,Apr,Hua Nghia,15
+1967,Apr,Khanh Hoa,19
+1967,Apr,Kien Hoa,2
+1967,Apr,Kien Tuong,1
+1967,Apr,Kon Tum,1
+1967,Apr,Lam Dong,3
+1967,Apr,Long An,46
+1967,Apr,Long Khanh,5
+1967,Apr,Offshore,11
+1967,Apr,Phu Yen,1
+1967,Apr,Phuoc Long,2
+1967,Apr,Quang Nam,128
+1967,Apr,Quang Ngai,54
+1967,Apr,Quang Tin,13
+1967,Apr,Quang Tri,116
+1967,Apr,Tay Ninh,77
+1967,Apr,Thua Thien - Hue,47
+1967,Apr,Unknown,80
+1967,Apr,Vinh Binh,1
+1967,Aug,Ba Ria - VTau|Ba Ria-Vung Tau,3
+1967,Aug,Binh Dinh,34
+1967,Aug,Binh Duong,25
+1967,Aug,Binh Long,8
+1967,Aug,Binh Thuan,6
+1967,Aug,Binh Thuy,4
+1967,Aug,Dak Lak|Dac Lac,3
+1967,Aug,Dinh Tuong,10
+1967,Aug,Dong Nai,12
+1967,Aug,Gia Lai,5
+1967,Aug,Ho Chi Minh City|Ho Chi Minh,9
+1967,Aug,Hua Nghia,12
+1967,Aug,Khanh Hoa,3
+1967,Aug,Kien Hoa,3
+1967,Aug,Kien Phong,2
+1967,Aug,Kien Tuong,3
+1967,Aug,Kon Tum,5
+1967,Aug,Long An,5
+1967,Aug,Long Khanh,6
+1967,Aug,Offshore,2
+1967,Aug,Phong Dinh,1
+1967,Aug,Phuoc Long,3
+1967,Aug,Quang Nam,125
+1967,Aug,Quang Ngai,46
+1967,Aug,Quang Tin,73
+1967,Aug,Quang Tri,79
+1967,Aug,Tay Ninh,10
+1967,Aug,Thua Thien - Hue,24
+1967,Aug,Unknown,107
+1967,Aug,Vinh Binh,1
+1967,Aug,Vinh Long,1
+1967,Dec,An Xugen,1
+1967,Dec,Ba Ria - VTau|Ba Ria-Vung Tau,7
+1967,Dec,Ba Xugen,1
+1967,Dec,Binh Dinh,112
+1967,Dec,Binh Duong,88
+1967,Dec,Binh Long,18
+1967,Dec,Binh Thuan,13
+1967,Dec,Binh Thuy,14
+1967,Dec,Dak Lak|Dac Lac,3
+1967,Dec,Dinh Tuong,12
+1967,Dec,Dong Nai,41
+1967,Dec,Gia Lai,7
+1967,Dec,Ho Chi Minh City|Ho Chi Minh,5
+1967,Dec,Hua Nghia,21
+1967,Dec,Khanh Hoa,9
+1967,Dec,Kien Hoa,1
+1967,Dec,Kien Phong,7
+1967,Dec,Kien Tuong,2
+1967,Dec,Kon Tum,66
+1967,Dec,Lam Dong,13
+1967,Dec,Long An,24
+1967,Dec,Long Khanh,1
+1967,Dec,Offshore,4
+1967,Dec,Phong Dinh,7
+1967,Dec,Phu Bon,1
+1967,Dec,Phu Yen,15
+1967,Dec,Phuoc Long,16
+1967,Dec,Quang Nam,125
+1967,Dec,Quang Ngai,20
+1967,Dec,Quang Tin,26
+1967,Dec,Quang Tri,100
+1967,Dec,Sa Dec,2
+1967,Dec,Tay Ninh,56
+1967,Dec,Thua Thien - Hue,58
+1967,Dec,Tuyen Duc,5
+1967,Dec,Unknown,15
+1967,Dec,Vinh Binh,1
+1967,Dec,Vinh Long,2
+1967,Feb,Ba Ria - VTau|Ba Ria-Vung Tau,4
+1967,Feb,Binh Dinh,93
+1967,Feb,Binh Duong,39
+1967,Feb,Binh Long,4
+1967,Feb,Binh Thuan,7
+1967,Feb,Binh Thuy,4
+1967,Feb,Chuong Thien,2
+1967,Feb,Dak Lak|Dac Lac,2
+1967,Feb,Dinh Tuong,1
+1967,Feb,Dong Nai,29
+1967,Feb,Gia Lai,1
+1967,Feb,Go Cong,4
+1967,Feb,Ho Chi Minh City|Ho Chi Minh,16
+1967,Feb,Hua Nghia,11
+1967,Feb,Khanh Hoa,3
+1967,Feb,Kien Tuong,4
+1967,Feb,Kon Tum,67
+1967,Feb,Lam Dong,8
+1967,Feb,Long An,13
+1967,Feb,Long Khanh,2
+1967,Feb,Offshore,2
+1967,Feb,Phu Yen,7
+1967,Feb,Phuoc Long,9
+1967,Feb,Quang Nam,78
+1967,Feb,Quang Ngai,53
+1967,Feb,Quang Tin,8
+1967,Feb,Quang Tri,26
+1967,Feb,Tay Ninh,105
+1967,Feb,Thua Thien - Hue,28
+1967,Feb,Unknown,90
+1967,Feb,Vinh Binh,1
+1967,Feb,Vinh Long,1
+1967,Jan,An Xugen,1
+1967,Jan,Ba Ria - VTau|Ba Ria-Vung Tau,9
+1967,Jan,Binh Dinh,48
+1967,Jan,Binh Duong,136
+1967,Jan,Binh Long,2
+1967,Jan,Binh Thuan,3
+1967,Jan,Binh Thuy,3
+1967,Jan,Dong Nai,27
+1967,Jan,Gia Lai,5
+1967,Jan,Go Cong,2
+1967,Jan,Ho Chi Minh City|Ho Chi Minh,17
+1967,Jan,Hua Nghia,11
+1967,Jan,Kien Hoa,7
+1967,Jan,Kien Tuong,1
+1967,Jan,Kon Tum,14
+1967,Jan,Long An,5
+1967,Jan,Long Khanh,6
+1967,Jan,Ninh Thuan,1
+1967,Jan,Offshore,14
+1967,Jan,Phong Dinh,1
+1967,Jan,Phu Yen,13
+1967,Jan,Quang Nam,92
+1967,Jan,Quang Ngai,22
+1967,Jan,Quang Tin,22
+1967,Jan,Quang Tri,16
+1967,Jan,Tay Ninh,13
+1967,Jan,Thua Thien - Hue,16
+1967,Jan,Unknown,67
+1967,Jul,Ba Ria - VTau|Ba Ria-Vung Tau,6
+1967,Jul,Binh Dinh,28
+1967,Jul,Binh Duong,44
+1967,Jul,Binh Long,6
+1967,Jul,Binh Thuan,1
+1967,Jul,Chau Doc,1
+1967,Jul,Dinh Tuong,11
+1967,Jul,Dong Nai,16
+1967,Jul,Gia Lai,59
+1967,Jul,Go Cong,1
+1967,Jul,Ho Chi Minh City|Ho Chi Minh,4
+1967,Jul,Hua Nghia,12
+1967,Jul,Khanh Hoa,2
+1967,Jul,Kien Giang,3
+1967,Jul,Kien Tuong,1
+1967,Jul,Kon Tum,43
+1967,Jul,Long An,27
+1967,Jul,Long Khanh,15
+1967,Jul,Ninh Thuan,1
+1967,Jul,Offshore,4
+1967,Jul,Phong Dinh,4
+1967,Jul,Phu Yen,1
+1967,Jul,Quang Nam,110
+1967,Jul,Quang Ngai,49
+1967,Jul,Quang Tin,26
+1967,Jul,Quang Tri,259
+1967,Jul,Tay Ninh,10
+1967,Jul,Thua Thien - Hue,30
+1967,Jul,Unknown,229
+1967,Jun,Ba Ria - VTau|Ba Ria-Vung Tau,13
+1967,Jun,Binh Dinh,52
+1967,Jun,Binh Duong,36
+1967,Jun,Binh Long,7
+1967,Jun,Binh Thuan,1
+1967,Jun,Dinh Tuong,7
+1967,Jun,Dong Nai,13
+1967,Jun,Gia Lai,16
+1967,Jun,Ho Chi Minh City|Ho Chi Minh,55
+1967,Jun,Hua Nghia,37
+1967,Jun,Kien Hoa,9
+1967,Jun,Kien Tuong,6
+1967,Jun,Kon Tum,85
+1967,Jun,Long An,12
+1967,Jun,Long Khanh,2
+1967,Jun,Ninh Thuan,2
+1967,Jun,Offshore,4
+1967,Jun,Phuoc Long,37
+1967,Jun,Quang Nam,76
+1967,Jun,Quang Ngai,76
+1967,Jun,Quang Tin,112
+1967,Jun,Quang Tri,128
+1967,Jun,Tay Ninh,4
+1967,Jun,Thua Thien - Hue,32
+1967,Jun,Unknown,70
+1967,Mar,Ba Ria - VTau|Ba Ria-Vung Tau,2
+1967,Mar,Binh Dinh,113
+1967,Mar,Binh Duong,23
+1967,Mar,Binh Long,11
+1967,Mar,Binh Thuan,7
+1967,Mar,Binh Thuy,1
+1967,Mar,Dinh Tuong,14
+1967,Mar,Dong Nai,5
+1967,Mar,Gia Lai,36
+1967,Mar,Go Cong,1
+1967,Mar,Ho Chi Minh City|Ho Chi Minh,16
+1967,Mar,Hua Nghia,10
+1967,Mar,Khanh Hoa,1
+1967,Mar,Kien Hoa,5
+1967,Mar,Kien Tuong,1
+1967,Mar,Kon Tum,55
+1967,Mar,Long An,58
+1967,Mar,Long Khanh,5
+1967,Mar,Ninh Thuan,10
+1967,Mar,Offshore,7
+1967,Mar,Phu Yen,18
+1967,Mar,Phuoc Long,5
+1967,Mar,Quang Duc,2
+1967,Mar,Quang Nam,98
+1967,Mar,Quang Ngai,71
+1967,Mar,Quang Tin,13
+1967,Mar,Quang Tri,183
+1967,Mar,Tay Ninh,147
+1967,Mar,Thua Thien - Hue,19
+1967,Mar,Tuyen Duc,1
+1967,Mar,Unknown,115
+1967,Mar,Vinh Binh,3
+1967,May,Ba Ria - VTau|Ba Ria-Vung Tau,6
+1967,May,Binh Dinh,39
+1967,May,Binh Duong,52
+1967,May,Binh Long,8
+1967,May,Binh Thuy,1
+1967,May,Chuong Thien,1
+1967,May,Dak Lak|Dac Lac,4
+1967,May,Dinh Tuong,14
+1967,May,Dong Nai,18
+1967,May,Gia Lai,88
+1967,May,Go Cong,1
+1967,May,Ho Chi Minh City|Ho Chi Minh,7
+1967,May,Hua Nghia,22
+1967,May,Kien Giang,2
+1967,May,Kien Hoa,1
+1967,May,Kien Tuong,3
+1967,May,Kon Tum,4
+1967,May,Lam Dong,1
+1967,May,Long An,35
+1967,May,Long Khanh,18
+1967,May,Ninh Thuan,1
+1967,May,Offshore,15
+1967,May,Phu Bon,1
+1967,May,Phu Yen,4
+1967,May,Phuoc Long,1
+1967,May,Quang Nam,143
+1967,May,Quang Ngai,143
+1967,May,Quang Tin,117
+1967,May,Quang Tri,419
+1967,May,Tay Ninh,27
+1967,May,Thua Thien - Hue,22
+1967,May,Unknown,122
+1967,May,Vinh Binh,4
+1967,May,Vinh Long,1
+1967,Nov,An Xugen,2
+1967,Nov,Ba Ria - VTau|Ba Ria-Vung Tau,5
+1967,Nov,Ba Xugen,1
+1967,Nov,Binh Dinh,29
+1967,Nov,Binh Duong,52
+1967,Nov,Binh Long,43
+1967,Nov,Binh Thuan,14
+1967,Nov,Chau Doc,1
+1967,Nov,Dak Lak|Dac Lac,13
+1967,Nov,Dinh Tuong,25
+1967,Nov,Dong Nai,31
+1967,Nov,Gia Lai,15
+1967,Nov,Ho Chi Minh City|Ho Chi Minh,7
+1967,Nov,Hua Nghia,21
+1967,Nov,Khanh Hoa,7
+1967,Nov,Kien Giang,2
+1967,Nov,Kien Hoa,2
+1967,Nov,Kien Tuong,4
+1967,Nov,Kon Tum,271
+1967,Nov,Long An,12
+1967,Nov,Long Khanh,9
+1967,Nov,Ninh Thuan,2
+1967,Nov,Offshore,6
+1967,Nov,Phong Dinh,1
+1967,Nov,Phu Yen,3
+1967,Nov,Phuoc Long,12
+1967,Nov,Quang Nam,169
+1967,Nov,Quang Ngai,29
+1967,Nov,Quang Tin,62
+1967,Nov,Quang Tri,62
+1967,Nov,Tay Ninh,21
+1967,Nov,Thua Thien - Hue,19
+1967,Nov,Tuyen Duc,1
+1967,Nov,Unknown,33
+1967,Nov,Vinh Binh,3
+1967,Nov,Vinh Long,2
+1967,Oct,Ba Ria - VTau|Ba Ria-Vung Tau,5
+1967,Oct,Binh Dinh,39
+1967,Oct,Binh Duong,96
+1967,Oct,Binh Long,80
+1967,Oct,Binh Thuan,5
+1967,Oct,Binh Thuy,1
+1967,Oct,Dak Lak|Dac Lac,2
+1967,Oct,Dinh Tuong,18
+1967,Oct,Dong Nai,15
+1967,Oct,Gia Lai,9
+1967,Oct,Ho Chi Minh City|Ho Chi Minh,17
+1967,Oct,Hua Nghia,19
+1967,Oct,Khanh Hoa,5
+1967,Oct,Kien Hoa,3
+1967,Oct,Kon Tum,1
+1967,Oct,Lam Dong,2
+1967,Oct,Long An,30
+1967,Oct,Long Khanh,2
+1967,Oct,Offshore,7
+1967,Oct,Phu Bon,3
+1967,Oct,Phu Yen,14
+1967,Oct,Phuoc Long,5
+1967,Oct,Quang Duc,1
+1967,Oct,Quang Nam,126
+1967,Oct,Quang Ngai,26
+1967,Oct,Quang Tin,111
+1967,Oct,Quang Tri,137
+1967,Oct,Tay Ninh,17
+1967,Oct,Thua Thien - Hue,51
+1967,Oct,Unknown,28
+1967,Oct,Vinh Long,1
+1967,Sep,Ba Ria - VTau|Ba Ria-Vung Tau,3
+1967,Sep,Binh Dinh,46
+1967,Sep,Binh Duong,40
+1967,Sep,Binh Long,2
+1967,Sep,Binh Thuan,1
+1967,Sep,Dinh Tuong,15
+1967,Sep,Dong Nai,25
+1967,Sep,Gia Lai,12
+1967,Sep,Go Cong,1
+1967,Sep,Ho Chi Minh City|Ho Chi Minh,3
+1967,Sep,Hua Nghia,17
+1967,Sep,Khanh Hoa,1
+1967,Sep,Kien Hoa,7
+1967,Sep,Lam Dong,10
+1967,Sep,Long An,9
+1967,Sep,Long Khanh,6
+1967,Sep,Offshore,2
+1967,Sep,Phu Yen,6
+1967,Sep,Quang Nam,129
+1967,Sep,Quang Ngai,30
+1967,Sep,Quang Tin,130
+1967,Sep,Quang Tri,266
+1967,Sep,Tay Ninh,11
+1967,Sep,Thua Thien - Hue,21
+1967,Sep,Unknown,77
+1967,Sep,Vinh Binh,1
+1967,Sep,Vinh Long,1
+1968,Apr,Ba Ria - VTau|Ba Ria-Vung Tau,2
+1968,Apr,Ba Xugen,1
+1968,Apr,Binh Dinh,47
+1968,Apr,Binh Duong,97
+1968,Apr,Binh Long,5
+1968,Apr,Binh Thuan,1
+1968,Apr,Binh Thuy,5
+1968,Apr,Dak Lak|Dac Lac,2
+1968,Apr,Dinh Tuong,42
+1968,Apr,Dong Nai,46
+1968,Apr,Gia Lai,21
+1968,Apr,Go Cong,1
+1968,Apr,Ho Chi Minh City|Ho Chi Minh,31
+1968,Apr,Hua Nghia,34
+1968,Apr,Khanh Hoa,5
+1968,Apr,Kien Giang,1
+1968,Apr,Kien Hoa,35
+1968,Apr,Kien Tuong,5
+1968,Apr,Kon Tum,63
+1968,Apr,Long An,29
+1968,Apr,Long Khanh,6
+1968,Apr,Ninh Thuan,2
+1968,Apr,Offshore,15
+1968,Apr,Phong Dinh,4
+1968,Apr,Phu Bon,8
+1968,Apr,Phu Yen,3
+1968,Apr,Phuoc Long,9
+1968,Apr,Quang Duc,1
+1968,Apr,Quang Nam,90
+1968,Apr,Quang Ngai,51
+1968,Apr,Quang Tin,46
+1968,Apr,Quang Tri,422
+1968,Apr,Tay Ninh,48
+1968,Apr,Thua Thien - Hue,294
+1968,Apr,Tuyen Duc,3
+1968,Apr,Unknown,10
+1968,Apr,Vinh Long,1
+1968,Aug,Ba Ria - VTau|Ba Ria-Vung Tau,2
+1968,Aug,Binh Dinh,32
+1968,Aug,Binh Duong,39
+1968,Aug,Binh Long,27
+1968,Aug,Binh Thuan,4
+1968,Aug,Binh Thuy,2
+1968,Aug,Chau Doc,2
+1968,Aug,Chuong Thien,1
+1968,Aug,Dak Lak|Dac Lac,18
+1968,Aug,Dinh Tuong,20
+1968,Aug,Dong Nai,20
+1968,Aug,Gia Lai,12
+1968,Aug,Go Cong,1
+1968,Aug,Ho Chi Minh City|Ho Chi Minh,33
+1968,Aug,Hua Nghia,35
+1968,Aug,Khanh Hoa,8
+1968,Aug,Kien Hoa,9
+1968,Aug,Kien Tuong,4
+1968,Aug,Kon Tum,19
+1968,Aug,Lam Dong,9
+1968,Aug,Long An,68
+1968,Aug,Long Khanh,10
+1968,Aug,Ninh Thuan,1
+1968,Aug,Offshore,4
+1968,Aug,Phong Dinh,4
+1968,Aug,Phu Yen,2
+1968,Aug,Phuoc Long,6
+1968,Aug,Quang Duc,9
+1968,Aug,Quang Nam,236
+1968,Aug,Quang Ngai,47
+1968,Aug,Quang Tin,38
+1968,Aug,Quang Tri,172
+1968,Aug,Sa Dec,2
+1968,Aug,Tay Ninh,117
+1968,Aug,Thua Thien - Hue,130
+1968,Aug,Tuyen Duc,1
+1968,Aug,Unknown,19
+1968,Aug,Vinh Binh,1
+1968,Aug,Vinh Long,6
+1968,Dec,Ba Ria - VTau|Ba Ria-Vung Tau,4
+1968,Dec,Binh Dinh,28
+1968,Dec,Binh Duong,67
+1968,Dec,Binh Long,43
+1968,Dec,Binh Thuan,5
+1968,Dec,Chuong Thien,1
+1968,Dec,Dak Lak|Dac Lac,6
+1968,Dec,Dinh Tuong,34
+1968,Dec,Dong Nai,26
+1968,Dec,Gia Lai,7
+1968,Dec,Go Cong,3
+1968,Dec,Ho Chi Minh City|Ho Chi Minh,19
+1968,Dec,Hua Nghia,57
+1968,Dec,Khanh Hoa,5
+1968,Dec,Kien Giang,2
+1968,Dec,Kien Hoa,22
+1968,Dec,Kien Phong,3
+1968,Dec,Kien Tuong,1
+1968,Dec,Kon Tum,4
+1968,Dec,Lam Dong,9
+1968,Dec,Long An,18
+1968,Dec,Long Khanh,2
+1968,Dec,Ninh Thuan,4
+1968,Dec,Offshore,2
+1968,Dec,Phong Dinh,2
+1968,Dec,Phu Yen,2
+1968,Dec,Phuoc Long,50
+1968,Dec,Quang Duc,4
+1968,Dec,Quang Nam,210
+1968,Dec,Quang Ngai,30
+1968,Dec,Quang Tin,28
+1968,Dec,Quang Tri,62
+1968,Dec,Sa Dec,2
+1968,Dec,Tay Ninh,77
+1968,Dec,Thua Thien - Hue,19
+1968,Dec,Unknown,16
+1968,Dec,Vinh Binh,1
+1968,Dec,Vinh Long,1
+1968,Feb,Ba Ria - VTau|Ba Ria-Vung Tau,5
+1968,Feb,Ba Xugen,8
+1968,Feb,Binh Dinh,35
+1968,Feb,Binh Duong,128
+1968,Feb,Binh Long,24
+1968,Feb,Binh Thuan,24
+1968,Feb,Binh Thuy,2
+1968,Feb,Chau Doc,2
+1968,Feb,Chuong Thien,3
+1968,Feb,Dak Lak|Dac Lac,12
+1968,Feb,Dinh Tuong,62
+1968,Feb,Dong Nai,56
+1968,Feb,Gia Lai,25
+1968,Feb,Ho Chi Minh City|Ho Chi Minh,210
+1968,Feb,Hua Nghia,79
+1968,Feb,Khanh Hoa,7
+1968,Feb,Kien Hoa,37
+1968,Feb,Kien Phong,2
+1968,Feb,Kien Tuong,1
+1968,Feb,Kon Tum,74
+1968,Feb,Long An,39
+1968,Feb,Long Khanh,8
+1968,Feb,Ninh Thuan,10
+1968,Feb,Offshore,14
+1968,Feb,Phong Dinh,39
+1968,Feb,Phu Bon,5
+1968,Feb,Phu Yen,16
+1968,Feb,Phuoc Long,14
+1968,Feb,Quang Duc,8
+1968,Feb,Quang Nam,264
+1968,Feb,Quang Ngai,32
+1968,Feb,Quang Tin,52
+1968,Feb,Quang Tri,402
+1968,Feb,Tay Ninh,28
+1968,Feb,Thua Thien - Hue,432
+1968,Feb,Tuyen Duc,8
+1968,Feb,Unknown,27
+1968,Feb,Vinh Binh,3
+1968,Feb,Vinh Long,17
+1968,Jan,An Giang,2
+1968,Jan,Ba Ria - VTau|Ba Ria-Vung Tau,7
+1968,Jan,Ba Xugen,1
+1968,Jan,Bac Lieu,2
+1968,Jan,Binh Dinh,56
+1968,Jan,Binh Duong,100
+1968,Jan,Binh Long,14
+1968,Jan,Binh Thuan,2
+1968,Jan,Dak Lak|Dac Lac,1
+1968,Jan,Dinh Tuong,23
+1968,Jan,Dong Nai,43
+1968,Jan,Gia Lai,20
+1968,Jan,Go Cong,8
+1968,Jan,Ho Chi Minh City|Ho Chi Minh,53
+1968,Jan,Hua Nghia,39
+1968,Jan,Khanh Hoa,4
+1968,Jan,Kien Giang,1
+1968,Jan,Kien Hoa,4
+1968,Jan,Kien Phong,1
+1968,Jan,Kien Tuong,7
+1968,Jan,Kon Tum,46
+1968,Jan,Lam Dong,10
+1968,Jan,Long An,30
+1968,Jan,Long Khanh,7
+1968,Jan,Ninh Thuan,2
+1968,Jan,Offshore,3
+1968,Jan,Phong Dinh,5
+1968,Jan,Phu Yen,21
+1968,Jan,Phuoc Long,16
+1968,Jan,Quang Duc,3
+1968,Jan,Quang Nam,151
+1968,Jan,Quang Ngai,40
+1968,Jan,Quang Tin,102
+1968,Jan,Quang Tri,207
+1968,Jan,Tay Ninh,102
+1968,Jan,Thua Thien - Hue,93
+1968,Jan,Unknown,15
+1968,Jan,Vinh Binh,1
+1968,Jan,Vinh Long,8
+1968,Jul,Ba Ria - VTau|Ba Ria-Vung Tau,3
+1968,Jul,Ba Xugen,4
+1968,Jul,Binh Dinh,43
+1968,Jul,Binh Duong,60
+1968,Jul,Binh Long,4
+1968,Jul,Binh Thuan,5
+1968,Jul,Binh Thuy,4
+1968,Jul,Dak Lak|Dac Lac,1
+1968,Jul,Dinh Tuong,21
+1968,Jul,Dong Nai,12
+1968,Jul,Gia Lai,17
+1968,Jul,Ho Chi Minh City|Ho Chi Minh,24
+1968,Jul,Hua Nghia,62
+1968,Jul,Khanh Hoa,4
+1968,Jul,Kien Hoa,7
+1968,Jul,Kien Tuong,3
+1968,Jul,Kon Tum,16
+1968,Jul,Long An,34
+1968,Jul,Long Khanh,2
+1968,Jul,Ninh Thuan,2
+1968,Jul,Offshore,4
+1968,Jul,Phu Yen,3
+1968,Jul,Phuoc Long,7
+1968,Jul,Quang Nam,196
+1968,Jul,Quang Ngai,40
+1968,Jul,Quang Tin,38
+1968,Jul,Quang Tri,198
+1968,Jul,Sa Dec,1
+1968,Jul,Tay Ninh,22
+1968,Jul,Thua Thien - Hue,136
+1968,Jul,Unknown,10
+1968,Jul,Vinh Long,6
+1968,Jun,Ba Ria - VTau|Ba Ria-Vung Tau,5
+1968,Jun,Bac Lieu,1
+1968,Jun,Binh Dinh,26
+1968,Jun,Binh Duong,67
+1968,Jun,Binh Long,4
+1968,Jun,Binh Thuan,3
+1968,Jun,Binh Thuy,5
+1968,Jun,Dak Lak|Dac Lac,2
+1968,Jun,Dinh Tuong,44
+1968,Jun,Dong Nai,40
+1968,Jun,Gia Lai,20
+1968,Jun,Go Cong,7
+1968,Jun,Ho Chi Minh City|Ho Chi Minh,79
+1968,Jun,Hua Nghia,22
+1968,Jun,Khanh Hoa,6
+1968,Jun,Kien Hoa,13
+1968,Jun,Kien Phong,1
+1968,Jun,Kien Tuong,7
+1968,Jun,Kon Tum,45
+1968,Jun,Lam Dong,11
+1968,Jun,Long An,56
+1968,Jun,Long Khanh,2
+1968,Jun,Offshore,7
+1968,Jun,Phong Dinh,5
+1968,Jun,Phu Yen,12
+1968,Jun,Phuoc Long,1
+1968,Jun,Quang Nam,210
+1968,Jun,Quang Ngai,36
+1968,Jun,Quang Tin,52
+1968,Jun,Quang Tri,331
+1968,Jun,Sa Dec,1
+1968,Jun,Tay Ninh,23
+1968,Jun,Thua Thien - Hue,110
+1968,Jun,Tuyen Duc,1
+1968,Jun,Unknown,13
+1968,Jun,Vinh Long,5
+1968,Mar,Ba Ria - VTau|Ba Ria-Vung Tau,4
+1968,Mar,Ba Xugen,1
+1968,Mar,Binh Dinh,34
+1968,Mar,Binh Duong,91
+1968,Mar,Binh Long,6
+1968,Mar,Binh Thuan,2
+1968,Mar,Binh Thuy,4
+1968,Mar,Chuong Thien,1
+1968,Mar,Dak Lak|Dac Lac,19
+1968,Mar,Dinh Tuong,51
+1968,Mar,Dong Nai,34
+1968,Mar,Gia Lai,25
+1968,Mar,Go Cong,1
+1968,Mar,Ho Chi Minh City|Ho Chi Minh,146
+1968,Mar,Hua Nghia,56
+1968,Mar,Khanh Hoa,10
+1968,Mar,Kien Hoa,7
+1968,Mar,Kien Phong,1
+1968,Mar,Kien Tuong,14
+1968,Mar,Kon Tum,89
+1968,Mar,Lam Dong,1
+1968,Mar,Long An,21
+1968,Mar,Long Khanh,9
+1968,Mar,Ninh Thuan,2
+1968,Mar,Offshore,11
+1968,Mar,Phong Dinh,17
+1968,Mar,Phu Bon,1
+1968,Mar,Phu Yen,13
+1968,Mar,Phuoc Long,15
+1968,Mar,Quang Nam,155
+1968,Mar,Quang Ngai,48
+1968,Mar,Quang Tin,41
+1968,Mar,Quang Tri,400
+1968,Mar,Sa Dec,3
+1968,Mar,Tay Ninh,21
+1968,Mar,Thua Thien - Hue,299
+1968,Mar,Unknown,20
+1968,Mar,Vinh Long,6
+1968,May,An Xugen,1
+1968,May,Ba Ria - VTau|Ba Ria-Vung Tau,5
+1968,May,Binh Dinh,87
+1968,May,Binh Duong,113
+1968,May,Binh Long,32
+1968,May,Binh Thuan,6
+1968,May,Binh Thuy,7
+1968,May,Chau Doc,2
+1968,May,Dinh Tuong,18
+1968,May,Dong Nai,41
+1968,May,Gia Lai,31
+1968,May,Go Cong,1
+1968,May,Ho Chi Minh City|Ho Chi Minh,119
+1968,May,Hua Nghia,132
+1968,May,Khanh Hoa,4
+1968,May,Kien Hoa,39
+1968,May,Kien Phong,1
+1968,May,Kien Tuong,7
+1968,May,Kon Tum,89
+1968,May,Long An,44
+1968,May,Long Khanh,15
+1968,May,Ninh Thuan,2
+1968,May,Offshore,4
+1968,May,Phong Dinh,3
+1968,May,Phu Yen,4
+1968,May,Phuoc Long,4
+1968,May,Quang Nam,305
+1968,May,Quang Ngai,43
+1968,May,Quang Tin,107
+1968,May,Quang Tri,603
+1968,May,Sa Dec,2
+1968,May,Tay Ninh,45
+1968,May,Thua Thien - Hue,320
+1968,May,Tuyen Duc,2
+1968,May,Unknown,19
+1968,May,Vinh Binh,3
+1968,May,Vinh Long,4
+1968,Nov,An Giang,2
+1968,Nov,An Xugen,1
+1968,Nov,Ba Ria - VTau|Ba Ria-Vung Tau,7
+1968,Nov,Binh Dinh,35
+1968,Nov,Binh Duong,81
+1968,Nov,Binh Long,14
+1968,Nov,Binh Thuan,4
+1968,Nov,Chau Doc,2
+1968,Nov,Dak Lak|Dac Lac,1
+1968,Nov,Dinh Tuong,22
+1968,Nov,Dong Nai,16
+1968,Nov,Gia Lai,27
+1968,Nov,Go Cong,17
+1968,Nov,Ho Chi Minh City|Ho Chi Minh,17
+1968,Nov,Hua Nghia,29
+1968,Nov,Khanh Hoa,12
+1968,Nov,Kien Giang,3
+1968,Nov,Kien Hoa,10
+1968,Nov,Kien Tuong,2
+1968,Nov,Kon Tum,16
+1968,Nov,Lam Dong,2
+1968,Nov,Long An,21
+1968,Nov,Long Khanh,1
+1968,Nov,Ninh Thuan,4
+1968,Nov,Offshore,3
+1968,Nov,Phong Dinh,1
+1968,Nov,Phu Yen,10
+1968,Nov,Phuoc Long,12
+1968,Nov,Quang Nam,174
+1968,Nov,Quang Ngai,30
+1968,Nov,Quang Tin,20
+1968,Nov,Quang Tri,63
+1968,Nov,Tay Ninh,121
+1968,Nov,Thua Thien - Hue,33
+1968,Nov,Unknown,13
+1968,Nov,Vinh Long,1
+1968,Oct,Binh Dinh,15
+1968,Oct,Binh Duong,63
+1968,Oct,Binh Long,12
+1968,Oct,Binh Thuan,2
+1968,Oct,Dak Lak|Dac Lac,25
+1968,Oct,Dinh Tuong,28
+1968,Oct,Dong Nai,20
+1968,Oct,Gia Lai,11
+1968,Oct,Ho Chi Minh City|Ho Chi Minh,13
+1968,Oct,Hua Nghia,45
+1968,Oct,Khanh Hoa,4
+1968,Oct,Kien Hoa,14
+1968,Oct,Kien Phong,2
+1968,Oct,Kien Tuong,1
+1968,Oct,Kon Tum,7
+1968,Oct,Lam Dong,5
+1968,Oct,Long An,42
+1968,Oct,Long Khanh,2
+1968,Oct,Ninh Thuan,7
+1968,Oct,Offshore,4
+1968,Oct,Phong Dinh,10
+1968,Oct,Phu Yen,4
+1968,Oct,Quang Duc,13
+1968,Oct,Quang Nam,126
+1968,Oct,Quang Ngai,38
+1968,Oct,Quang Tin,54
+1968,Oct,Quang Tri,94
+1968,Oct,Tay Ninh,45
+1968,Oct,Thua Thien - Hue,62
+1968,Oct,Tuyen Duc,4
+1968,Oct,Unknown,13
+1968,Oct,Vinh Long,2
+1968,Sep,An Xugen,2
+1968,Sep,Ba Ria - VTau|Ba Ria-Vung Tau,2
+1968,Sep,Ba Xugen,2
+1968,Sep,Binh Dinh,39
+1968,Sep,Binh Duong,38
+1968,Sep,Binh Long,47
+1968,Sep,Binh Thuan,3
+1968,Sep,Chau Doc,5
+1968,Sep,Dak Lak|Dac Lac,23
+1968,Sep,Dinh Tuong,14
+1968,Sep,Dong Nai,12
+1968,Sep,Gia Lai,24
+1968,Sep,Go Cong,5
+1968,Sep,Ho Chi Minh City|Ho Chi Minh,15
+1968,Sep,Hua Nghia,74
+1968,Sep,Khanh Hoa,4
+1968,Sep,Kien Hoa,25
+1968,Sep,Kien Phong,2
+1968,Sep,Kien Tuong,9
+1968,Sep,Kon Tum,24
+1968,Sep,Lam Dong,5
+1968,Sep,Long An,47
+1968,Sep,Long Khanh,6
+1968,Sep,Ninh Thuan,3
+1968,Sep,Offshore,3
+1968,Sep,Phong Dinh,5
+1968,Sep,Phu Yen,3
+1968,Sep,Phuoc Long,4
+1968,Sep,Quang Duc,52
+1968,Sep,Quang Nam,218
+1968,Sep,Quang Ngai,88
+1968,Sep,Quang Tin,40
+1968,Sep,Quang Tri,220
+1968,Sep,Tay Ninh,63
+1968,Sep,Thua Thien - Hue,50
+1968,Sep,Tuyen Duc,1
+1968,Sep,Unknown,20
+1968,Sep,Vinh Binh,2
+1968,Sep,Vinh Long,4
+1969,Apr,An Xugen,3
+1969,Apr,Ba Ria - VTau|Ba Ria-Vung Tau,1
+1969,Apr,Ba Xugen,1
+1969,Apr,Binh Dinh,20
+1969,Apr,Binh Duong,79
+1969,Apr,Binh Long,28
+1969,Apr,Binh Thuan,6
+1969,Apr,Chau Doc,2
+1969,Apr,Chuong Thien,3
+1969,Apr,Dak Lak|Dac Lac,2
+1969,Apr,Dinh Tuong,23
+1969,Apr,Dong Nai,34
+1969,Apr,Gia Lai,14
+1969,Apr,Ho Chi Minh City|Ho Chi Minh,29
+1969,Apr,Hua Nghia,46
+1969,Apr,Khanh Hoa,8
+1969,Apr,Kien Giang,4
+1969,Apr,Kien Hoa,15
+1969,Apr,Kien Phong,4
+1969,Apr,Kien Tuong,4
+1969,Apr,Kon Tum,27
+1969,Apr,Lam Dong,13
+1969,Apr,Long An,19
+1969,Apr,Long Khanh,7
+1969,Apr,Ninh Thuan,1
+1969,Apr,Offshore,3
+1969,Apr,Phong Dinh,3
+1969,Apr,Phu Yen,3
+1969,Apr,Phuoc Long,4
+1969,Apr,Quang Duc,4
+1969,Apr,Quang Nam,187
+1969,Apr,Quang Ngai,47
+1969,Apr,Quang Tin,28
+1969,Apr,Quang Tri,116
+1969,Apr,Sa Dec,1
+1969,Apr,Tay Ninh,112
+1969,Apr,Thua Thien - Hue,67
+1969,Apr,Tuyen Duc,2
+1969,Apr,Unknown,14
+1969,Apr,Vinh Binh,1
+1969,Apr,Vinh Long,2
+1969,Aug,An Giang,1
+1969,Aug,An Xugen,1
+1969,Aug,Binh Dinh,39
+1969,Aug,Binh Duong,69
+1969,Aug,Binh Long,56
+1969,Aug,Binh Thuan,12
+1969,Aug,Binh Thuy,1
+1969,Aug,Chuong Thien,2
+1969,Aug,Dinh Tuong,9
+1969,Aug,Dong Nai,19
+1969,Aug,Gia Lai,9
+1969,Aug,Ho Chi Minh City|Ho Chi Minh,14
+1969,Aug,Hua Nghia,30
+1969,Aug,Khanh Hoa,10
+1969,Aug,Kien Hoa,4
+1969,Aug,Kien Phong,2
+1969,Aug,Kien Tuong,3
+1969,Aug,Kon Tum,14
+1969,Aug,Lam Dong,1
+1969,Aug,Long An,10
+1969,Aug,Long Khanh,14
+1969,Aug,Ninh Thuan,2
+1969,Aug,Offshore,3
+1969,Aug,Phong Dinh,2
+1969,Aug,Phu Yen,2
+1969,Aug,Phuoc Long,15
+1969,Aug,Quang Nam,218
+1969,Aug,Quang Ngai,77
+1969,Aug,Quang Tin,62
+1969,Aug,Quang Tri,88
+1969,Aug,Tay Ninh,75
+1969,Aug,Thua Thien - Hue,51
+1969,Aug,Tuyen Duc,1
+1969,Aug,Unknown,19
+1969,Aug,Vinh Binh,1
+1969,Aug,Vinh Long,3
+1969,Dec,An Xugen,2
+1969,Dec,Ba Ria - VTau|Ba Ria-Vung Tau,6
+1969,Dec,Bac Lieu,2
+1969,Dec,Binh Dinh,19
+1969,Dec,Binh Duong,40
+1969,Dec,Binh Long,16
+1969,Dec,Binh Thuan,15
+1969,Dec,Binh Thuy,4
+1969,Dec,Chau Doc,4
+1969,Dec,Chuong Thien,4
+1969,Dec,Dak Lak|Dac Lac,3
+1969,Dec,Dinh Tuong,1
+1969,Dec,Dong Nai,4
+1969,Dec,Gia Lai,12
+1969,Dec,Ho Chi Minh City|Ho Chi Minh,3
+1969,Dec,Hua Nghia,26
+1969,Dec,Khanh Hoa,6
+1969,Dec,Kien Hoa,1
+1969,Dec,Kien Phong,1
+1969,Dec,Kon Tum,7
+1969,Dec,Lam Dong,4
+1969,Dec,Long An,9
+1969,Dec,Long Khanh,18
+1969,Dec,Ninh Thuan,2
+1969,Dec,Offshore,1
+1969,Dec,Phu Bon,1
+1969,Dec,Phu Yen,1
+1969,Dec,Phuoc Long,41
+1969,Dec,Quang Duc,12
+1969,Dec,Quang Nam,86
+1969,Dec,Quang Ngai,20
+1969,Dec,Quang Tin,34
+1969,Dec,Quang Tri,15
+1969,Dec,Tay Ninh,27
+1969,Dec,Thua Thien - Hue,16
+1969,Dec,Unknown,15
+1969,Dec,Vinh Long,3
+1969,Feb,An Xugen,2
+1969,Feb,Ba Ria - VTau|Ba Ria-Vung Tau,4
+1969,Feb,Binh Dinh,21
+1969,Feb,Binh Duong,118
+1969,Feb,Binh Long,19
+1969,Feb,Binh Thuan,9
+1969,Feb,Chau Doc,3
+1969,Feb,Dak Lak|Dac Lac,6
+1969,Feb,Dinh Tuong,37
+1969,Feb,Dong Nai,27
+1969,Feb,Gia Lai,28
+1969,Feb,Ho Chi Minh City|Ho Chi Minh,13
+1969,Feb,Hua Nghia,61
+1969,Feb,Khanh Hoa,9
+1969,Feb,Kien Hoa,39
+1969,Feb,Kien Phong,1
+1969,Feb,Kien Tuong,3
+1969,Feb,Kon Tum,20
+1969,Feb,Lam Dong,3
+1969,Feb,Long An,23
+1969,Feb,Long Khanh,21
+1969,Feb,Ninh Thuan,4
+1969,Feb,Offshore,1
+1969,Feb,Phu Yen,11
+1969,Feb,Phuoc Long,9
+1969,Feb,Quang Nam,278
+1969,Feb,Quang Ngai,57
+1969,Feb,Quang Tin,31
+1969,Feb,Quang Tri,216
+1969,Feb,Sa Dec,1
+1969,Feb,Tay Ninh,87
+1969,Feb,Thua Thien - Hue,36
+1969,Feb,Tuyen Duc,2
+1969,Feb,Unknown,21
+1969,Feb,Vinh Binh,3
+1969,Feb,Vinh Long,8
+1969,Jan,An Xugen,1
+1969,Jan,Ba Ria - VTau|Ba Ria-Vung Tau,2
+1969,Jan,Binh Dinh,23
+1969,Jan,Binh Duong,71
+1969,Jan,Binh Long,10
+1969,Jan,Binh Thuan,2
+1969,Jan,Binh Thuy,4
+1969,Jan,Chau Doc,2
+1969,Jan,Chuong Thien,4
+1969,Jan,Dak Lak|Dac Lac,2
+1969,Jan,Dinh Tuong,64
+1969,Jan,Dong Nai,27
+1969,Jan,Gia Lai,31
+1969,Jan,Ho Chi Minh City|Ho Chi Minh,21
+1969,Jan,Hua Nghia,34
+1969,Jan,Khanh Hoa,9
+1969,Jan,Kien Giang,5
+1969,Jan,Kien Hoa,18
+1969,Jan,Kien Phong,7
+1969,Jan,Kien Tuong,10
+1969,Jan,Kon Tum,16
+1969,Jan,Lam Dong,1
+1969,Jan,Long An,15
+1969,Jan,Long Khanh,2
+1969,Jan,Ninh Thuan,3
+1969,Jan,Phong Dinh,12
+1969,Jan,Phu Yen,3
+1969,Jan,Phuoc Long,37
+1969,Jan,Quang Duc,1
+1969,Jan,Quang Nam,155
+1969,Jan,Quang Ngai,99
+1969,Jan,Quang Tin,14
+1969,Jan,Quang Tri,31
+1969,Jan,Tay Ninh,81
+1969,Jan,Thua Thien - Hue,44
+1969,Jan,Tuyen Duc,1
+1969,Jan,Unknown,27
+1969,Jan,Vinh Binh,2
+1969,Jan,Vinh Long,3
+1969,Jul,Ba Ria - VTau|Ba Ria-Vung Tau,5
+1969,Jul,Binh Dinh,48
+1969,Jul,Binh Duong,46
+1969,Jul,Binh Long,25
+1969,Jul,Binh Thuan,9
+1969,Jul,Binh Thuy,2
+1969,Jul,Chau Doc,4
+1969,Jul,Chuong Thien,1
+1969,Jul,Dinh Tuong,13
+1969,Jul,Dong Nai,8
+1969,Jul,Gia Lai,21
+1969,Jul,Ho Chi Minh City|Ho Chi Minh,11
+1969,Jul,Hua Nghia,38
+1969,Jul,Khanh Hoa,4
+1969,Jul,Kien Giang,2
+1969,Jul,Kien Tuong,6
+1969,Jul,Kon Tum,13
+1969,Jul,Lam Dong,3
+1969,Jul,Long An,23
+1969,Jul,Long Khanh,17
+1969,Jul,Ninh Thuan,1
+1969,Jul,Offshore,3
+1969,Jul,Phong Dinh,1
+1969,Jul,Phu Yen,5
+1969,Jul,Phuoc Long,21
+1969,Jul,Quang Nam,119
+1969,Jul,Quang Ngai,71
+1969,Jul,Quang Tin,45
+1969,Jul,Quang Tri,61
+1969,Jul,Tay Ninh,47
+1969,Jul,Thua Thien - Hue,75
+1969,Jul,Unknown,20
+1969,Jul,Vinh Binh,1
+1969,Jul,Vinh Long,5
+1969,Jun,An Xugen,1
+1969,Jun,Ba Ria - VTau|Ba Ria-Vung Tau,4
+1969,Jun,Ba Xugen,1
+1969,Jun,Binh Dinh,32
+1969,Jun,Binh Duong,76
+1969,Jun,Binh Long,44
+1969,Jun,Binh Thuan,11
+1969,Jun,Binh Thuy,4
+1969,Jun,Chau Doc,1
+1969,Jun,Chuong Thien,1
+1969,Jun,Dinh Tuong,23
+1969,Jun,Dong Nai,22
+1969,Jun,Gia Lai,21
+1969,Jun,Go Cong,1
+1969,Jun,Ho Chi Minh City|Ho Chi Minh,9
+1969,Jun,Hua Nghia,39
+1969,Jun,Khanh Hoa,6
+1969,Jun,Kien Hoa,21
+1969,Jun,Kien Phong,5
+1969,Jun,Kien Tuong,7
+1969,Jun,Kon Tum,58
+1969,Jun,Lam Dong,1
+1969,Jun,Long An,21
+1969,Jun,Long Khanh,38
+1969,Jun,Ninh Thuan,4
+1969,Jun,Offshore,3
+1969,Jun,Phong Dinh,2
+1969,Jun,Phu Quoc Island,1
+1969,Jun,Phu Yen,3
+1969,Jun,Phuoc Long,8
+1969,Jun,Quang Nam,167
+1969,Jun,Quang Ngai,104
+1969,Jun,Quang Tin,98
+1969,Jun,Quang Tri,169
+1969,Jun,Tay Ninh,132
+1969,Jun,Thua Thien - Hue,62
+1969,Jun,Tuyen Duc,1
+1969,Jun,Unknown,13
+1969,Jun,Vinh Binh,6
+1969,Jun,Vinh Long,1
+1969,Mar,An Giang,1
+1969,Mar,Ba Ria - VTau|Ba Ria-Vung Tau,2
+1969,Mar,Ba Xugen,2
+1969,Mar,Binh Dinh,24
+1969,Mar,Binh Duong,92
+1969,Mar,Binh Long,37
+1969,Mar,Binh Thuan,6
+1969,Mar,Chau Doc,3
+1969,Mar,Chuong Thien,4
+1969,Mar,Dak Lak|Dac Lac,3
+1969,Mar,Dinh Tuong,25
+1969,Mar,Dong Nai,48
+1969,Mar,Gia Lai,18
+1969,Mar,Go Cong,2
+1969,Mar,Ho Chi Minh City|Ho Chi Minh,21
+1969,Mar,Hua Nghia,81
+1969,Mar,Khanh Hoa,18
+1969,Mar,Kien Giang,3
+1969,Mar,Kien Hoa,25
+1969,Mar,Kien Phong,8
+1969,Mar,Kien Tuong,4
+1969,Mar,Kon Tum,148
+1969,Mar,Lam Dong,1
+1969,Mar,Long An,19
+1969,Mar,Long Khanh,8
+1969,Mar,Ninh Thuan,1
+1969,Mar,Offshore,1
+1969,Mar,Phong Dinh,3
+1969,Mar,Phu Bon,1
+1969,Mar,Phu Yen,8
+1969,Mar,Phuoc Long,8
+1969,Mar,Quang Nam,204
+1969,Mar,Quang Ngai,92
+1969,Mar,Quang Tin,82
+1969,Mar,Quang Tri,219
+1969,Mar,Sa Dec,8
+1969,Mar,Tay Ninh,123
+1969,Mar,Thua Thien - Hue,64
+1969,Mar,Tuyen Duc,1
+1969,Mar,Unknown,16
+1969,Mar,Vinh Binh,4
+1969,Mar,Vinh Long,8
+1969,May,An Giang,2
+1969,May,An Xugen,2
+1969,May,Ba Ria - VTau|Ba Ria-Vung Tau,3
+1969,May,Ba Xugen,1
+1969,May,Binh Dinh,34
+1969,May,Binh Duong,70
+1969,May,Binh Long,49
+1969,May,Binh Thuan,6
+1969,May,Chau Doc,1
+1969,May,Chuong Thien,1
+1969,May,Dinh Tuong,43
+1969,May,Dong Nai,36
+1969,May,Gia Lai,48
+1969,May,Go Cong,2
+1969,May,Ho Chi Minh City|Ho Chi Minh,6
+1969,May,Hua Nghia,38
+1969,May,Khanh Hoa,3
+1969,May,Kien Giang,7
+1969,May,Kien Hoa,27
+1969,May,Kien Phong,2
+1969,May,Kien Tuong,1
+1969,May,Kon Tum,55
+1969,May,Lam Dong,6
+1969,May,Long An,30
+1969,May,Long Khanh,24
+1969,May,Ninh Thuan,7
+1969,May,Offshore,1
+1969,May,Phong Dinh,1
+1969,May,Phu Yen,5
+1969,May,Phuoc Long,15
+1969,May,Quang Duc,1
+1969,May,Quang Nam,217
+1969,May,Quang Ngai,124
+1969,May,Quang Tin,123
+1969,May,Quang Tri,113
+1969,May,Tay Ninh,97
+1969,May,Thua Thien - Hue,151
+1969,May,Tuyen Duc,1
+1969,May,Unknown,18
+1969,May,Vinh Binh,1
+1969,May,Vinh Long,4
+1969,Nov,An Xugen,3
+1969,Nov,Ba Ria - VTau|Ba Ria-Vung Tau,1
+1969,Nov,Binh Dinh,46
+1969,Nov,Binh Duong,48
+1969,Nov,Binh Long,18
+1969,Nov,Binh Thuan,10
+1969,Nov,Binh Thuy,1
+1969,Nov,Chau Doc,6
+1969,Nov,Dak Lak|Dac Lac,2
+1969,Nov,Dinh Tuong,2
+1969,Nov,Dong Nai,15
+1969,Nov,Gia Lai,46
+1969,Nov,Go Cong,2
+1969,Nov,Ho Chi Minh City|Ho Chi Minh,5
+1969,Nov,Hua Nghia,24
+1969,Nov,Khanh Hoa,8
+1969,Nov,Kien Giang,6
+1969,Nov,Kien Phong,2
+1969,Nov,Kien Tuong,1
+1969,Nov,Kon Tum,5
+1969,Nov,Long An,16
+1969,Nov,Long Khanh,12
+1969,Nov,Ninh Thuan,2
+1969,Nov,Phong Dinh,2
+1969,Nov,Phu Yen,1
+1969,Nov,Phuoc Long,31
+1969,Nov,Quang Duc,18
+1969,Nov,Quang Nam,91
+1969,Nov,Quang Ngai,22
+1969,Nov,Quang Tin,23
+1969,Nov,Quang Tri,32
+1969,Nov,Sa Dec,4
+1969,Nov,Tay Ninh,60
+1969,Nov,Thua Thien - Hue,13
+1969,Nov,Tuyen Duc,1
+1969,Nov,Unknown,13
+1969,Nov,Vinh Binh,2
+1969,Nov,Vinh Long,2
+1969,Oct,An Giang,1
+1969,Oct,An Xugen,2
+1969,Oct,Ba Ria - VTau|Ba Ria-Vung Tau,5
+1969,Oct,Ba Xugen,1
+1969,Oct,Bac Lieu,1
+1969,Oct,Binh Dinh,51
+1969,Oct,Binh Duong,37
+1969,Oct,Binh Long,15
+1969,Oct,Binh Thuan,4
+1969,Oct,Binh Thuy,3
+1969,Oct,Chau Doc,2
+1969,Oct,Dak Lak|Dac Lac,1
+1969,Oct,Dinh Tuong,2
+1969,Oct,Dong Nai,12
+1969,Oct,Gia Lai,25
+1969,Oct,Ho Chi Minh City|Ho Chi Minh,10
+1969,Oct,Hua Nghia,17
+1969,Oct,Khanh Hoa,8
+1969,Oct,Kien Giang,9
+1969,Oct,Kien Hoa,3
+1969,Oct,Kien Tuong,2
+1969,Oct,Kon Tum,7
+1969,Oct,Long An,6
+1969,Oct,Long Khanh,2
+1969,Oct,Ninh Thuan,2
+1969,Oct,Offshore,1
+1969,Oct,Phong Dinh,2
+1969,Oct,Phu Yen,1
+1969,Oct,Phuoc Long,23
+1969,Oct,Quang Duc,6
+1969,Oct,Quang Nam,77
+1969,Oct,Quang Ngai,44
+1969,Oct,Quang Tin,20
+1969,Oct,Quang Tri,57
+1969,Oct,Tay Ninh,37
+1969,Oct,Thua Thien - Hue,21
+1969,Oct,Unknown,43
+1969,Sep,An Giang,1
+1969,Sep,An Xugen,1
+1969,Sep,Ba Ria - VTau|Ba Ria-Vung Tau,2
+1969,Sep,Ba Xugen,1
+1969,Sep,Bac Lieu,1
+1969,Sep,Binh Dinh,28
+1969,Sep,Binh Duong,43
+1969,Sep,Binh Long,39
+1969,Sep,Binh Thuan,4
+1969,Sep,Binh Thuy,1
+1969,Sep,Chau Doc,2
+1969,Sep,Chuong Thien,1
+1969,Sep,Dinh Tuong,3
+1969,Sep,Dong Nai,24
+1969,Sep,Gia Lai,29
+1969,Sep,Ho Chi Minh City|Ho Chi Minh,9
+1969,Sep,Hua Nghia,13
+1969,Sep,Khanh Hoa,2
+1969,Sep,Kien Giang,5
+1969,Sep,Kien Tuong,1
+1969,Sep,Lam Dong,1
+1969,Sep,Long An,24
+1969,Sep,Long Khanh,26
+1969,Sep,Ninh Thuan,1
+1969,Sep,Phong Dinh,2
+1969,Sep,Phu Yen,1
+1969,Sep,Phuoc Long,17
+1969,Sep,Quang Nam,97
+1969,Sep,Quang Ngai,54
+1969,Sep,Quang Tin,38
+1969,Sep,Quang Tri,68
+1969,Sep,Tay Ninh,56
+1969,Sep,Thua Thien - Hue,20
+1969,Sep,Tuyen Duc,2
+1969,Sep,Unknown,16
+1969,Sep,Vinh Long,3
+1970,Apr,Ba Ria - VTau|Ba Ria-Vung Tau,10
+1970,Apr,Ba Xugen,3
+1970,Apr,Binh Dinh,46
+1970,Apr,Binh Duong,26
+1970,Apr,Binh Long,14
+1970,Apr,Binh Thuan,9
+1970,Apr,Binh Thuy,15
+1970,Apr,Chau Doc,6
+1970,Apr,Con Son Island,1
+1970,Apr,Dak Lak|Dac Lac,2
+1970,Apr,Dinh Tuong,3
+1970,Apr,Dong Nai,28
+1970,Apr,Gia Lai,18
+1970,Apr,Ho Chi Minh City|Ho Chi Minh,10
+1970,Apr,Hua Nghia,3
+1970,Apr,Khanh Hoa,7
+1970,Apr,Kien Giang,1
+1970,Apr,Kien Hoa,4
+1970,Apr,Kien Phong,1
+1970,Apr,Kien Tuong,3
+1970,Apr,Kon Tum,15
+1970,Apr,Long An,6
+1970,Apr,Long Khanh,2
+1970,Apr,Ninh Thuan,3
+1970,Apr,Phong Dinh,3
+1970,Apr,Phu Yen,6
+1970,Apr,Phuoc Long,23
+1970,Apr,Quang Nam,61
+1970,Apr,Quang Ngai,60
+1970,Apr,Quang Tin,21
+1970,Apr,Quang Tri,33
+1970,Apr,Tay Ninh,93
+1970,Apr,Thua Thien - Hue,91
+1970,Apr,Tuyen Duc,1
+1970,Apr,Unknown,19
+1970,Apr,Vinh Binh,1
+1970,Aug,An Xugen,2
+1970,Aug,Ba Ria - VTau|Ba Ria-Vung Tau,1
+1970,Aug,Ba Xugen,6
+1970,Aug,Binh Dinh,35
+1970,Aug,Binh Duong,29
+1970,Aug,Binh Long,2
+1970,Aug,Binh Thuan,3
+1970,Aug,Binh Thuy,7
+1970,Aug,Chau Doc,1
+1970,Aug,Dak Lak|Dac Lac,1
+1970,Aug,Dinh Tuong,2
+1970,Aug,Dong Nai,16
+1970,Aug,Gia Lai,8
+1970,Aug,Go Cong,2
+1970,Aug,Ho Chi Minh City|Ho Chi Minh,6
+1970,Aug,Hua Nghia,2
+1970,Aug,Khanh Hoa,9
+1970,Aug,Kien Hoa,2
+1970,Aug,Kon Tum,4
+1970,Aug,Lam Dong,3
+1970,Aug,Long An,3
+1970,Aug,Long Khanh,11
+1970,Aug,Ninh Thuan,3
+1970,Aug,Phu Yen,1
+1970,Aug,Phuoc Long,20
+1970,Aug,Quang Duc,4
+1970,Aug,Quang Nam,72
+1970,Aug,Quang Ngai,39
+1970,Aug,Quang Tin,55
+1970,Aug,Quang Tri,21
+1970,Aug,Tay Ninh,21
+1970,Aug,Thua Thien - Hue,35
+1970,Aug,Unknown,7
+1970,Aug,Vinh Binh,1
+1970,Aug,Vinh Long,1
+1970,Dec,An Xugen,6
+1970,Dec,Ba Ria - VTau|Ba Ria-Vung Tau,2
+1970,Dec,Ba Xugen,1
+1970,Dec,Binh Dinh,15
+1970,Dec,Binh Duong,8
+1970,Dec,Binh Long,3
+1970,Dec,Binh Thuan,5
+1970,Dec,Binh Thuy,8
+1970,Dec,Dak Lak|Dac Lac,1
+1970,Dec,Dinh Tuong,2
+1970,Dec,Dong Nai,14
+1970,Dec,Gia Lai,3
+1970,Dec,Ho Chi Minh City|Ho Chi Minh,6
+1970,Dec,Khanh Hoa,18
+1970,Dec,Kien Giang,2
+1970,Dec,Kien Hoa,2
+1970,Dec,Kon Tum,2
+1970,Dec,Lam Dong,1
+1970,Dec,Long Khanh,10
+1970,Dec,Ninh Thuan,25
+1970,Dec,Offshore,2
+1970,Dec,Phu Yen,4
+1970,Dec,Phuoc Long,9
+1970,Dec,Quang Nam,22
+1970,Dec,Quang Ngai,25
+1970,Dec,Quang Tin,23
+1970,Dec,Quang Tri,8
+1970,Dec,Tay Ninh,5
+1970,Dec,Thua Thien - Hue,32
+1970,Dec,Tuyen Duc,3
+1970,Dec,Unknown,13
+1970,Dec,Vinh Long,6
+1970,Feb,An Giang,9
+1970,Feb,An Xugen,2
+1970,Feb,Ba Ria - VTau|Ba Ria-Vung Tau,4
+1970,Feb,Binh Dinh,38
+1970,Feb,Binh Duong,25
+1970,Feb,Binh Long,8
+1970,Feb,Binh Thuan,9
+1970,Feb,Binh Thuy,6
+1970,Feb,Chuong Thien,2
+1970,Feb,Dinh Tuong,1
+1970,Feb,Dong Nai,15
+1970,Feb,Gia Lai,7
+1970,Feb,Go Cong,1
+1970,Feb,Ho Chi Minh City|Ho Chi Minh,4
+1970,Feb,Hua Nghia,9
+1970,Feb,Khanh Hoa,10
+1970,Feb,Kien Giang,4
+1970,Feb,Kien Hoa,3
+1970,Feb,Kien Phong,8
+1970,Feb,Kien Tuong,3
+1970,Feb,Kon Tum,2
+1970,Feb,Long An,6
+1970,Feb,Long Khanh,10
+1970,Feb,Offshore,1
+1970,Feb,Phong Dinh,2
+1970,Feb,Phuoc Long,3
+1970,Feb,Quang Duc,8
+1970,Feb,Quang Nam,108
+1970,Feb,Quang Ngai,48
+1970,Feb,Quang Tin,43
+1970,Feb,Quang Tri,13
+1970,Feb,Sa Dec,1
+1970,Feb,Tay Ninh,50
+1970,Feb,Thua Thien - Hue,63
+1970,Feb,Tuyen Duc,1
+1970,Feb,Unknown,9
+1970,Jan,Ba Ria - VTau|Ba Ria-Vung Tau,5
+1970,Jan,Ba Xugen,1
+1970,Jan,Bac Lieu,5
+1970,Jan,Binh Dinh,36
+1970,Jan,Binh Duong,25
+1970,Jan,Binh Long,14
+1970,Jan,Binh Thuan,4
+1970,Jan,Binh Thuy,4
+1970,Jan,Chau Doc,2
+1970,Jan,Dong Nai,8
+1970,Jan,Gia Lai,8
+1970,Jan,Ho Chi Minh City|Ho Chi Minh,3
+1970,Jan,Hua Nghia,10
+1970,Jan,Khanh Hoa,9
+1970,Jan,Kien Hoa,1
+1970,Jan,Kien Phong,4
+1970,Jan,Kien Tuong,1
+1970,Jan,Kon Tum,2
+1970,Jan,Lam Dong,1
+1970,Jan,Long An,13
+1970,Jan,Long Khanh,24
+1970,Jan,Offshore,1
+1970,Jan,Phong Dinh,1
+1970,Jan,Phu Yen,2
+1970,Jan,Phuoc Long,20
+1970,Jan,Quang Duc,2
+1970,Jan,Quang Nam,63
+1970,Jan,Quang Ngai,38
+1970,Jan,Quang Tin,44
+1970,Jan,Quang Tri,14
+1970,Jan,Sa Dec,2
+1970,Jan,Tay Ninh,42
+1970,Jan,Thua Thien - Hue,27
+1970,Jan,Tuyen Duc,1
+1970,Jan,Unknown,13
+1970,Jan,Vinh Long,1
+1970,Jul,An Xugen,1
+1970,Jul,Ba Ria - VTau|Ba Ria-Vung Tau,2
+1970,Jul,Binh Dinh,43
+1970,Jul,Binh Duong,11
+1970,Jul,Binh Long,6
+1970,Jul,Binh Thuan,16
+1970,Jul,Binh Thuy,5
+1970,Jul,Chau Doc,3
+1970,Jul,Dak Lak|Dac Lac,4
+1970,Jul,Dinh Tuong,4
+1970,Jul,Dong Nai,16
+1970,Jul,Gia Lai,12
+1970,Jul,Ho Chi Minh City|Ho Chi Minh,1
+1970,Jul,Hua Nghia,4
+1970,Jul,Khanh Hoa,5
+1970,Jul,Kien Giang,2
+1970,Jul,Kien Hoa,3
+1970,Jul,Kien Phong,1
+1970,Jul,Kien Tuong,3
+1970,Jul,Kon Tum,13
+1970,Jul,Lam Dong,3
+1970,Jul,Long An,1
+1970,Jul,Long Khanh,11
+1970,Jul,Ninh Thuan,3
+1970,Jul,Phong Dinh,1
+1970,Jul,Phu Yen,2
+1970,Jul,Phuoc Long,26
+1970,Jul,Quang Duc,1
+1970,Jul,Quang Nam,60
+1970,Jul,Quang Ngai,30
+1970,Jul,Quang Tin,36
+1970,Jul,Quang Tri,16
+1970,Jul,Tay Ninh,30
+1970,Jul,Thua Thien - Hue,92
+1970,Jul,Tuyen Duc,9
+1970,Jul,Unknown,17
+1970,Jul,Vinh Long,1
+1970,Jun,An Giang,1
+1970,Jun,An Xugen,1
+1970,Jun,Bac Lieu,1
+1970,Jun,Binh Dinh,50
+1970,Jun,Binh Duong,17
+1970,Jun,Binh Long,7
+1970,Jun,Binh Thuan,1
+1970,Jun,Binh Thuy,5
+1970,Jun,Chau Doc,3
+1970,Jun,Dinh Tuong,1
+1970,Jun,Dong Nai,6
+1970,Jun,Gia Lai,12
+1970,Jun,Go Cong,1
+1970,Jun,Ho Chi Minh City|Ho Chi Minh,4
+1970,Jun,Hua Nghia,6
+1970,Jun,Khanh Hoa,4
+1970,Jun,Kien Giang,1
+1970,Jun,Kien Hoa,1
+1970,Jun,Kien Phong,1
+1970,Jun,Kien Tuong,1
+1970,Jun,Kon Tum,6
+1970,Jun,Lam Dong,4
+1970,Jun,Long An,1
+1970,Jun,Long Khanh,3
+1970,Jun,Offshore,1
+1970,Jun,Phong Dinh,14
+1970,Jun,Phu Yen,2
+1970,Jun,Phuoc Long,11
+1970,Jun,Quang Duc,1
+1970,Jun,Quang Nam,68
+1970,Jun,Quang Ngai,19
+1970,Jun,Quang Tin,38
+1970,Jun,Quang Tri,20
+1970,Jun,Tay Ninh,32
+1970,Jun,Thua Thien - Hue,54
+1970,Jun,Tuyen Duc,2
+1970,Jun,Unknown,124
+1970,Jun,Vinh Long,1
+1970,Mar,Ba Ria - VTau|Ba Ria-Vung Tau,16
+1970,Mar,Ba Xugen,7
+1970,Mar,Binh Dinh,40
+1970,Mar,Binh Duong,27
+1970,Mar,Binh Long,14
+1970,Mar,Binh Thuan,2
+1970,Mar,Binh Thuy,7
+1970,Mar,Chau Doc,1
+1970,Mar,Chuong Thien,1
+1970,Mar,Dak Lak|Dac Lac,3
+1970,Mar,Dinh Tuong,1
+1970,Mar,Dong Nai,20
+1970,Mar,Gia Lai,6
+1970,Mar,Ho Chi Minh City|Ho Chi Minh,3
+1970,Mar,Hua Nghia,11
+1970,Mar,Khanh Hoa,9
+1970,Mar,Kien Giang,9
+1970,Mar,Kien Tuong,4
+1970,Mar,Kon Tum,1
+1970,Mar,Lam Dong,3
+1970,Mar,Long An,9
+1970,Mar,Long Khanh,8
+1970,Mar,Ninh Thuan,2
+1970,Mar,Offshore,1
+1970,Mar,Phu Bon,2
+1970,Mar,Phuoc Long,36
+1970,Mar,Quang Duc,6
+1970,Mar,Quang Nam,118
+1970,Mar,Quang Ngai,52
+1970,Mar,Quang Tin,34
+1970,Mar,Quang Tri,15
+1970,Mar,Tay Ninh,66
+1970,Mar,Thua Thien - Hue,78
+1970,Mar,Tuyen Duc,5
+1970,Mar,Unknown,13
+1970,Mar,Vinh Binh,1
+1970,May,An Xugen,2
+1970,May,Ba Xugen,2
+1970,May,Binh Dinh,38
+1970,May,Binh Duong,10
+1970,May,Binh Long,10
+1970,May,Binh Thuan,12
+1970,May,Binh Thuy,6
+1970,May,Chau Doc,2
+1970,May,Chuong Thien,1
+1970,May,Dak Lak|Dac Lac,1
+1970,May,Dinh Tuong,5
+1970,May,Dong Nai,4
+1970,May,Gia Lai,44
+1970,May,Go Cong,2
+1970,May,Ho Chi Minh City|Ho Chi Minh,2
+1970,May,Hua Nghia,7
+1970,May,Khanh Hoa,9
+1970,May,Kien Giang,4
+1970,May,Kien Hoa,2
+1970,May,Kien Tuong,1
+1970,May,Kon Tum,14
+1970,May,Long An,2
+1970,May,Long Khanh,1
+1970,May,Ninh Thuan,1
+1970,May,Offshore,4
+1970,May,Phong Dinh,2
+1970,May,Phu Yen,4
+1970,May,Phuoc Long,12
+1970,May,Quang Duc,5
+1970,May,Quang Nam,64
+1970,May,Quang Ngai,61
+1970,May,Quang Tin,56
+1970,May,Quang Tri,74
+1970,May,Tay Ninh,30
+1970,May,Thua Thien - Hue,123
+1970,May,Tuyen Duc,2
+1970,May,Unknown,269
+1970,May,Vinh Binh,4
+1970,May,Vinh Long,1
+1970,Nov,An Xugen,1
+1970,Nov,Binh Dinh,26
+1970,Nov,Binh Duong,12
+1970,Nov,Binh Long,1
+1970,Nov,Binh Thuan,2
+1970,Nov,Binh Thuy,2
+1970,Nov,Chau Doc,1
+1970,Nov,Dak Lak|Dac Lac,2
+1970,Nov,Dinh Tuong,2
+1970,Nov,Dong Nai,18
+1970,Nov,Gia Lai,6
+1970,Nov,Ho Chi Minh City|Ho Chi Minh,3
+1970,Nov,Hua Nghia,3
+1970,Nov,Khanh Hoa,8
+1970,Nov,Kien Giang,5
+1970,Nov,Kien Hoa,2
+1970,Nov,Kien Phong,1
+1970,Nov,Kon Tum,1
+1970,Nov,Lam Dong,1
+1970,Nov,Long Khanh,7
+1970,Nov,Ninh Thuan,7
+1970,Nov,Phong Dinh,4
+1970,Nov,Phu Yen,5
+1970,Nov,Phuoc Long,2
+1970,Nov,Quang Nam,46
+1970,Nov,Quang Ngai,45
+1970,Nov,Quang Tin,24
+1970,Nov,Quang Tri,7
+1970,Nov,Tay Ninh,1
+1970,Nov,Thua Thien - Hue,28
+1970,Nov,Tuyen Duc,2
+1970,Nov,Unknown,9
+1970,Nov,Vinh Long,3
+1970,Oct,An Xugen,2
+1970,Oct,Ba Ria - VTau|Ba Ria-Vung Tau,5
+1970,Oct,Ba Xugen,2
+1970,Oct,Binh Dinh,42
+1970,Oct,Binh Duong,15
+1970,Oct,Binh Thuan,1
+1970,Oct,Binh Thuy,5
+1970,Oct,Chuong Thien,1
+1970,Oct,Dak Lak|Dac Lac,3
+1970,Oct,Dong Nai,11
+1970,Oct,Gia Lai,4
+1970,Oct,Ho Chi Minh City|Ho Chi Minh,1
+1970,Oct,Khanh Hoa,8
+1970,Oct,Kien Giang,1
+1970,Oct,Kien Hoa,2
+1970,Oct,Kien Tuong,1
+1970,Oct,Kon Tum,1
+1970,Oct,Lam Dong,3
+1970,Oct,Long Khanh,11
+1970,Oct,Offshore,1
+1970,Oct,Phu Bon,1
+1970,Oct,Phu Yen,6
+1970,Oct,Phuoc Long,8
+1970,Oct,Quang Duc,4
+1970,Oct,Quang Nam,36
+1970,Oct,Quang Ngai,52
+1970,Oct,Quang Tin,24
+1970,Oct,Quang Tri,11
+1970,Oct,Tay Ninh,9
+1970,Oct,Thua Thien - Hue,15
+1970,Oct,Unknown,15
+1970,Oct,Vinh Binh,1
+1970,Oct,Vinh Long,3
+1970,Sep,Ba Ria - VTau|Ba Ria-Vung Tau,2
+1970,Sep,Binh Dinh,67
+1970,Sep,Binh Duong,21
+1970,Sep,Binh Long,5
+1970,Sep,Binh Thuan,2
+1970,Sep,Binh Thuy,5
+1970,Sep,Dong Nai,8
+1970,Sep,Gia Lai,3
+1970,Sep,Ho Chi Minh City|Ho Chi Minh,4
+1970,Sep,Hua Nghia,2
+1970,Sep,Khanh Hoa,9
+1970,Sep,Kien Hoa,2
+1970,Sep,Kien Tuong,2
+1970,Sep,Kon Tum,1
+1970,Sep,Long Khanh,23
+1970,Sep,Ninh Thuan,3
+1970,Sep,Offshore,6
+1970,Sep,Phu Yen,7
+1970,Sep,Phuoc Long,6
+1970,Sep,Quang Nam,54
+1970,Sep,Quang Ngai,37
+1970,Sep,Quang Tin,28
+1970,Sep,Quang Tri,24
+1970,Sep,Tay Ninh,3
+1970,Sep,Thua Thien - Hue,21
+1970,Sep,Unknown,6
+1970,Sep,Vinh Binh,1
+1970,Sep,Vinh Long,1
+1971,Apr,An Xugen,1
+1971,Apr,Ba Ria - VTau|Ba Ria-Vung Tau,1
+1971,Apr,Binh Dinh,24
+1971,Apr,Binh Duong,7
+1971,Apr,Binh Long,1
+1971,Apr,Binh Thuan,1
+1971,Apr,Binh Thuy,3
+1971,Apr,Chau Doc,1
+1971,Apr,Dak Lak|Dac Lac,3
+1971,Apr,Dong Nai,8
+1971,Apr,Gia Lai,3
+1971,Apr,Ho Chi Minh City|Ho Chi Minh,7
+1971,Apr,Hua Nghia,8
+1971,Apr,Khanh Hoa,3
+1971,Apr,Kien Giang,4
+1971,Apr,Kon Tum,9
+1971,Apr,Lam Dong,3
+1971,Apr,Long Khanh,13
+1971,Apr,Phong Dinh,1
+1971,Apr,Phu Yen,2
+1971,Apr,Quang Duc,1
+1971,Apr,Quang Nam,20
+1971,Apr,Quang Ngai,39
+1971,Apr,Quang Tin,19
+1971,Apr,Quang Tri,33
+1971,Apr,Tay Ninh,3
+1971,Apr,Thua Thien - Hue,53
+1971,Apr,Unknown,21
+1971,Apr,Vinh Binh,4
+1971,Apr,Vinh Long,3
+1971,Aug,An Giang,1
+1971,Aug,Binh Dinh,6
+1971,Aug,Binh Thuy,6
+1971,Aug,Dak Lak|Dac Lac,1
+1971,Aug,Dinh Tuong,3
+1971,Aug,Dong Nai,4
+1971,Aug,Gia Lai,3
+1971,Aug,Ho Chi Minh City|Ho Chi Minh,6
+1971,Aug,Hua Nghia,1
+1971,Aug,Khanh Hoa,6
+1971,Aug,Long Khanh,1
+1971,Aug,Ninh Thuan,1
+1971,Aug,Phong Dinh,1
+1971,Aug,Phuoc Long,2
+1971,Aug,Quang Nam,17
+1971,Aug,Quang Ngai,7
+1971,Aug,Quang Tin,8
+1971,Aug,Quang Tri,16
+1971,Aug,Tay Ninh,1
+1971,Aug,Thua Thien - Hue,5
+1971,Aug,Tuyen Duc,1
+1971,Aug,Unknown,12
+1971,Aug,Vinh Binh,1
+1971,Aug,Vinh Long,2
+1971,Dec,Ba Ria - VTau|Ba Ria-Vung Tau,1
+1971,Dec,Binh Dinh,2
+1971,Dec,Binh Thuy,1
+1971,Dec,Dak Lak|Dac Lac,1
+1971,Dec,Dong Nai,4
+1971,Dec,Ho Chi Minh City|Ho Chi Minh,1
+1971,Dec,Khanh Hoa,3
+1971,Dec,Kien Giang,6
+1971,Dec,Long Khanh,5
+1971,Dec,Ninh Thuan,1
+1971,Dec,Offshore,5
+1971,Dec,Phong Dinh,1
+1971,Dec,Quang Nam,3
+1971,Dec,Quang Tri,3
+1971,Dec,Tay Ninh,2
+1971,Dec,Thua Thien - Hue,1
+1971,Dec,Unknown,6
+1971,Dec,Vinh Long,1
+1971,Feb,An Xugen,1
+1971,Feb,Ba Ria - VTau|Ba Ria-Vung Tau,1
+1971,Feb,Ba Xugen,1
+1971,Feb,Binh Dinh,26
+1971,Feb,Binh Duong,11
+1971,Feb,Binh Long,2
+1971,Feb,Binh Thuy,6
+1971,Feb,Chau Doc,4
+1971,Feb,Dinh Tuong,1
+1971,Feb,Dong Nai,15
+1971,Feb,Gia Lai,3
+1971,Feb,Ho Chi Minh City|Ho Chi Minh,1
+1971,Feb,Hua Nghia,3
+1971,Feb,Khanh Hoa,4
+1971,Feb,Kien Hoa,1
+1971,Feb,Kien Tuong,1
+1971,Feb,Lam Dong,3
+1971,Feb,Long Khanh,16
+1971,Feb,Ninh Thuan,7
+1971,Feb,Phong Dinh,1
+1971,Feb,Phu Bon,1
+1971,Feb,Phu Yen,2
+1971,Feb,Phuoc Long,8
+1971,Feb,Quang Nam,28
+1971,Feb,Quang Ngai,25
+1971,Feb,Quang Tin,27
+1971,Feb,Quang Tri,75
+1971,Feb,Tay Ninh,10
+1971,Feb,Thua Thien - Hue,27
+1971,Feb,Unknown,26
+1971,Feb,Vinh Binh,1
+1971,Feb,Vinh Long,2
+1971,Jan,An Xugen,1
+1971,Jan,Ba Ria - VTau|Ba Ria-Vung Tau,2
+1971,Jan,Binh Dinh,22
+1971,Jan,Binh Duong,4
+1971,Jan,Binh Long,1
+1971,Jan,Binh Thuan,1
+1971,Jan,Binh Thuy,7
+1971,Jan,Chau Doc,7
+1971,Jan,Dak Lak|Dac Lac,2
+1971,Jan,Dinh Tuong,1
+1971,Jan,Dong Nai,11
+1971,Jan,Gia Lai,5
+1971,Jan,Ho Chi Minh City|Ho Chi Minh,3
+1971,Jan,Khanh Hoa,6
+1971,Jan,Kien Giang,3
+1971,Jan,Kon Tum,2
+1971,Jan,Lam Dong,3
+1971,Jan,Long Khanh,14
+1971,Jan,Ninh Thuan,2
+1971,Jan,Offshore,2
+1971,Jan,Phong Dinh,1
+1971,Jan,Phu Bon,1
+1971,Jan,Phu Yen,4
+1971,Jan,Phuoc Long,7
+1971,Jan,Quang Duc,1
+1971,Jan,Quang Nam,33
+1971,Jan,Quang Ngai,21
+1971,Jan,Quang Tin,15
+1971,Jan,Quang Tri,20
+1971,Jan,Tay Ninh,3
+1971,Jan,Thua Thien - Hue,15
+1971,Jan,Tuyen Duc,1
+1971,Jan,Unknown,3
+1971,Jul,An Xugen,3
+1971,Jul,Ba Xugen,2
+1971,Jul,Binh Dinh,8
+1971,Jul,Binh Duong,2
+1971,Jul,Binh Thuan,4
+1971,Jul,Binh Thuy,2
+1971,Jul,Dong Nai,5
+1971,Jul,Gia Lai,8
+1971,Jul,Ho Chi Minh City|Ho Chi Minh,3
+1971,Jul,Khanh Hoa,2
+1971,Jul,Kien Giang,1
+1971,Jul,Lam Dong,1
+1971,Jul,Long Khanh,3
+1971,Jul,Phu Yen,3
+1971,Jul,Quang Nam,20
+1971,Jul,Quang Ngai,10
+1971,Jul,Quang Tin,7
+1971,Jul,Quang Tri,8
+1971,Jul,Tay Ninh,1
+1971,Jul,Thua Thien - Hue,12
+1971,Jul,Unknown,4
+1971,Jul,Vinh Binh,2
+1971,Jul,Vinh Long,2
+1971,Jun,An Giang,2
+1971,Jun,Ba Ria - VTau|Ba Ria-Vung Tau,1
+1971,Jun,Ba Xugen,1
+1971,Jun,Binh Dinh,15
+1971,Jun,Binh Duong,1
+1971,Jun,Chuong Thien,1
+1971,Jun,Dak Lak|Dac Lac,1
+1971,Jun,Dong Nai,5
+1971,Jun,Gia Lai,1
+1971,Jun,Ho Chi Minh City|Ho Chi Minh,2
+1971,Jun,Hua Nghia,4
+1971,Jun,Khanh Hoa,1
+1971,Jun,Kien Hoa,1
+1971,Jun,Kon Tum,10
+1971,Jun,Long Khanh,16
+1971,Jun,Ninh Thuan,1
+1971,Jun,Phu Yen,1
+1971,Jun,Phuoc Long,1
+1971,Jun,Quang Nam,18
+1971,Jun,Quang Ngai,10
+1971,Jun,Quang Tin,7
+1971,Jun,Quang Tri,30
+1971,Jun,Tay Ninh,7
+1971,Jun,Thua Thien - Hue,18
+1971,Jun,Unknown,12
+1971,Jun,Vinh Long,2
+1971,Mar,An Giang,1
+1971,Mar,Ba Ria - VTau|Ba Ria-Vung Tau,1
+1971,Mar,Ba Xugen,1
+1971,Mar,Binh Dinh,28
+1971,Mar,Binh Duong,2
+1971,Mar,Binh Thuan,2
+1971,Mar,Binh Thuy,5
+1971,Mar,Chau Doc,1
+1971,Mar,Dinh Tuong,3
+1971,Mar,Dong Nai,10
+1971,Mar,Gia Lai,3
+1971,Mar,Ho Chi Minh City|Ho Chi Minh,5
+1971,Mar,Hua Nghia,1
+1971,Mar,Khanh Hoa,3
+1971,Mar,Kien Giang,7
+1971,Mar,Kien Hoa,1
+1971,Mar,Kon Tum,3
+1971,Mar,Lam Dong,1
+1971,Mar,Long Khanh,10
+1971,Mar,Ninh Thuan,2
+1971,Mar,Phong Dinh,1
+1971,Mar,Phu Yen,1
+1971,Mar,Phuoc Long,1
+1971,Mar,Quang Nam,24
+1971,Mar,Quang Ngai,20
+1971,Mar,Quang Tin,40
+1971,Mar,Quang Tri,133
+1971,Mar,Tay Ninh,1
+1971,Mar,Thua Thien - Hue,20
+1971,Mar,Unknown,25
+1971,Mar,Vinh Binh,2
+1971,Mar,Vinh Long,3
+1971,May,Ba Ria - VTau|Ba Ria-Vung Tau,2
+1971,May,Binh Dinh,15
+1971,May,Binh Duong,3
+1971,May,Binh Thuy,2
+1971,May,Dak Lak|Dac Lac,2
+1971,May,Dong Nai,4
+1971,May,Gia Lai,5
+1971,May,Ho Chi Minh City|Ho Chi Minh,1
+1971,May,Hua Nghia,4
+1971,May,Khanh Hoa,3
+1971,May,Kien Giang,2
+1971,May,Kien Phong,1
+1971,May,Kien Tuong,1
+1971,May,Kon Tum,2
+1971,May,Long Khanh,1
+1971,May,Ninh Thuan,1
+1971,May,Phong Dinh,1
+1971,May,Phu Yen,3
+1971,May,Quang Duc,1
+1971,May,Quang Nam,25
+1971,May,Quang Ngai,4
+1971,May,Quang Tin,8
+1971,May,Quang Tri,56
+1971,May,Tay Ninh,2
+1971,May,Thua Thien - Hue,17
+1971,May,Unknown,19
+1971,May,Vinh Binh,1
+1971,May,Vinh Long,1
+1971,Nov,Ba Ria - VTau|Ba Ria-Vung Tau,3
+1971,Nov,Binh Dinh,3
+1971,Nov,Binh Duong,5
+1971,Nov,Binh Thuan,1
+1971,Nov,Chau Doc,1
+1971,Nov,Dong Nai,4
+1971,Nov,Gia Lai,1
+1971,Nov,Ho Chi Minh City|Ho Chi Minh,8
+1971,Nov,Khanh Hoa,6
+1971,Nov,Kien Giang,1
+1971,Nov,Lam Dong,1
+1971,Nov,Long Khanh,2
+1971,Nov,Ninh Thuan,1
+1971,Nov,Quang Nam,5
+1971,Nov,Quang Tin,2
+1971,Nov,Quang Tri,1
+1971,Nov,Tay Ninh,7
+1971,Nov,Thua Thien - Hue,49
+1971,Nov,Unknown,3
+1971,Nov,Vinh Long,4
+1971,Oct,Bac Lieu,2
+1971,Oct,Binh Dinh,2
+1971,Oct,Binh Duong,3
+1971,Oct,Binh Long,1
+1971,Oct,Binh Thuy,1
+1971,Oct,Chau Doc,3
+1971,Oct,Dong Nai,2
+1971,Oct,Gia Lai,3
+1971,Oct,Ho Chi Minh City|Ho Chi Minh,2
+1971,Oct,Khanh Hoa,8
+1971,Oct,Lam Dong,1
+1971,Oct,Long Khanh,7
+1971,Oct,Ninh Thuan,6
+1971,Oct,Phong Dinh,1
+1971,Oct,Phu Bon,1
+1971,Oct,Phu Yen,3
+1971,Oct,Quang Nam,16
+1971,Oct,Quang Ngai,8
+1971,Oct,Quang Tin,9
+1971,Oct,Quang Tri,4
+1971,Oct,Tay Ninh,2
+1971,Oct,Thua Thien - Hue,18
+1971,Oct,Unknown,5
+1971,Oct,Vinh Binh,1
+1971,Oct,Vinh Long,3
+1971,Sep,An Giang,1
+1971,Sep,An Xugen,2
+1971,Sep,Binh Dinh,4
+1971,Sep,Binh Duong,5
+1971,Sep,Dong Nai,10
+1971,Sep,Gia Lai,1
+1971,Sep,Ho Chi Minh City|Ho Chi Minh,2
+1971,Sep,Khanh Hoa,3
+1971,Sep,Kien Giang,4
+1971,Sep,Kien Tuong,2
+1971,Sep,Lam Dong,4
+1971,Sep,Long An,2
+1971,Sep,Long Khanh,7
+1971,Sep,Ninh Thuan,4
+1971,Sep,Phong Dinh,1
+1971,Sep,Phu Yen,1
+1971,Sep,Phuoc Long,2
+1971,Sep,Quang Nam,14
+1971,Sep,Quang Ngai,7
+1971,Sep,Quang Tin,6
+1971,Sep,Quang Tri,12
+1971,Sep,Tay Ninh,2
+1971,Sep,Thua Thien - Hue,22
+1971,Sep,Unknown,5
+1971,Sep,Vinh Binh,1
+1971,Sep,Vinh Long,3
+1972,Apr,Binh Dinh,5
+1972,Apr,Binh Duong,2
+1972,Apr,Binh Long,8
+1972,Apr,Binh Thuy,1
+1972,Apr,Dong Nai,5
+1972,Apr,Gia Lai,3
+1972,Apr,Ho Chi Minh City|Ho Chi Minh,2
+1972,Apr,Khanh Hoa,4
+1972,Apr,Kien Giang,2
+1972,Apr,Kon Tum,6
+1972,Apr,Phong Dinh,2
+1972,Apr,Phu Yen,4
+1972,Apr,Quang Nam,6
+1972,Apr,Quang Tri,4
+1972,Apr,Tay Ninh,5
+1972,Apr,Unknown,7
+1972,Aug,Ba Xugen,4
+1972,Aug,Dong Nai,1
+1972,Aug,Ho Chi Minh City|Ho Chi Minh,1
+1972,Aug,Kien Hoa,1
+1972,Aug,Offshore,3
+1972,Aug,Quang Nam,5
+1972,Aug,Quang Tri,2
+1972,Aug,Thua Thien - Hue,2
+1972,Aug,Unknown,1
+1972,Dec,Ba Ria - VTau|Ba Ria-Vung Tau,1
+1972,Dec,Dinh Tuong,1
+1972,Dec,Dong Nai,1
+1972,Dec,Ho Chi Minh City|Ho Chi Minh,2
+1972,Dec,Kien Giang,1
+1972,Dec,Quang Nam,3
+1972,Dec,Unknown,12
+1972,Feb,An Xugen,1
+1972,Feb,Binh Duong,4
+1972,Feb,Dong Nai,5
+1972,Feb,Gia Lai,1
+1972,Feb,Ho Chi Minh City|Ho Chi Minh,1
+1972,Feb,Khanh Hoa,2
+1972,Feb,Long Khanh,3
+1972,Feb,Ninh Thuan,5
+1972,Feb,Offshore,6
+1972,Feb,Phuoc Long,1
+1972,Feb,Quang Nam,6
+1972,Feb,Thua Thien - Hue,1
+1972,Feb,Unknown,4
+1972,Jan,An Xugen,5
+1972,Jan,Ba Ria - VTau|Ba Ria-Vung Tau,1
+1972,Jan,Ba Xugen,1
+1972,Jan,Binh Dinh,1
+1972,Jan,Dong Nai,4
+1972,Jan,Gia Lai,3
+1972,Jan,Ho Chi Minh City|Ho Chi Minh,1
+1972,Jan,Hua Nghia,2
+1972,Jan,Khanh Hoa,1
+1972,Jan,Long Khanh,2
+1972,Jan,Phong Dinh,1
+1972,Jan,Quang Nam,9
+1972,Jan,Quang Tri,2
+1972,Jan,Thua Thien - Hue,6
+1972,Jan,Unknown,3
+1972,Jul,Binh Dinh,4
+1972,Jul,Binh Long,5
+1972,Jul,Binh Thuan,1
+1972,Jul,Dinh Tuong,1
+1972,Jul,Dong Nai,6
+1972,Jul,Ho Chi Minh City|Ho Chi Minh,1
+1972,Jul,Kon Tum,3
+1972,Jul,Offshore,3
+1972,Jul,Quang Nam,7
+1972,Jul,Quang Tri,11
+1972,Jul,Thua Thien - Hue,4
+1972,Jul,Unknown,3
+1972,Jun,Ba Ria - VTau|Ba Ria-Vung Tau,2
+1972,Jun,Binh Dinh,4
+1972,Jun,Binh Duong,3
+1972,Jun,Binh Long,8
+1972,Jun,Dong Nai,9
+1972,Jun,Gia Lai,17
+1972,Jun,Ho Chi Minh City|Ho Chi Minh,3
+1972,Jun,Khanh Hoa,3
+1972,Jun,Kon Tum,2
+1972,Jun,Offshore,4
+1972,Jun,Phu Bon,1
+1972,Jun,Quang Nam,2
+1972,Jun,Quang Tri,3
+1972,Jun,Unknown,7
+1972,Mar,Binh Dinh,2
+1972,Mar,Binh Duong,1
+1972,Mar,Dong Nai,16
+1972,Mar,Gia Lai,1
+1972,Mar,Ho Chi Minh City|Ho Chi Minh,2
+1972,Mar,Hua Nghia,1
+1972,Mar,Khanh Hoa,1
+1972,Mar,Kon Tum,1
+1972,Mar,Long Khanh,3
+1972,Mar,Offshore,1
+1972,Mar,Phu Yen,1
+1972,Mar,Quang Nam,3
+1972,Mar,Quang Tri,2
+1972,Mar,Unknown,9
+1972,Mar,Vinh Long,1
+1972,May,Binh Dinh,2
+1972,May,Binh Duong,1
+1972,May,Binh Long,9
+1972,May,Dong Nai,28
+1972,May,Gia Lai,2
+1972,May,Hua Nghia,1
+1972,May,Kien Giang,1
+1972,May,Kon Tum,7
+1972,May,Phuoc Long,1
+1972,May,Quang Nam,1
+1972,May,Quang Tri,2
+1972,May,Thua Thien - Hue,11
+1972,May,Unknown,5
+1972,Nov,Gia Lai,1
+1972,Nov,Ho Chi Minh City|Ho Chi Minh,1
+1972,Nov,Offshore,2
+1972,Nov,Quang Nam,3
+1972,Nov,Unknown,1
+1972,Oct,Dinh Tuong,15
+1972,Oct,Dong Nai,2
+1972,Oct,Gia Lai,3
+1972,Oct,Ho Chi Minh City|Ho Chi Minh,1
+1972,Oct,Phong Dinh,1
+1972,Oct,Quang Nam,1
+1972,Oct,Quang Ngai,2
+1972,Oct,Unknown,25
+1972,Sep,Dong Nai,5
+1972,Sep,Gia Lai,1
+1972,Sep,Quang Nam,3
+1972,Sep,Quang Ngai,1
+1972,Sep,Tay Ninh,1
+1972,Sep,Tuyen Duc,1
+1972,Sep,Unknown,5
+1972,Sep,Vinh Long,1
+1973,Apr,Unknown,1
+1973,Aug,Unknown,2
+1973,Dec,Ho Chi Minh City|Ho Chi Minh,1
+1973,Dec,Quang Nam,2
+1973,Feb,Binh Long,1
+1973,Feb,Ho Chi Minh City|Ho Chi Minh,2
+1973,Feb,Quang Nam,1
+1973,Feb,Unknown,1
+1973,Jan,Binh Long,1
+1973,Jan,Binh Thuan,1
+1973,Jan,Dong Nai,1
+1973,Jan,Ho Chi Minh City|Ho Chi Minh,1
+1973,Jan,Offshore,1
+1973,Jan,Phong Dinh,1
+1973,Jan,Quang Nam,1
+1973,Jan,Unknown,8
+1973,Jul,Unknown,1
+1973,Jun,Unknown,5
+1973,Mar,Offshore,1
+1973,May,Unknown,1
+1973,Sep,Unknown,1
+1975,Apr,Dong Nai,10
+1975,Apr,Unknown,1
+1975,May,Unknown,5

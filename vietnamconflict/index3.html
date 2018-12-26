@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://d3js.org/d3.v4.min.js" type="text/javascript"></script>
+    <link href="../css/global.css" rel="stylesheet">
+
+    <style>
+      .container {
+        scroll-snap-type: mandatory;
+        scroll-snap-points-y: repeat(900px);
+        scroll-snap-type: y mandatory;
+      }
+
+      .child {
+        scroll-snap-align: start;
+      }
+
+      #legend-svg {
+        display:inline-block;
+        float:left;
+      }
+
+      #main-svg {
+        display:inline-block;
+        float:left;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="App">
+        <h1>Vietnam War Bloodshed</h1> 
+        
+        <div class='container'>
+          <section class='child'>
+            <div id="my_dataviz"></div>
+          </section>
+          <section class='child'> 
+            <h1 id="clock"></h1>
+            <h1><button id="play" type="button" class="btn btn-outline-danger btn-lg">RESET TO 1965 MARCH</button></h1>
+            <div>
+              <div id="main-svg" ></div>
+              <div id="legend-svg"></div>
+            </div>
+          </section>
+        </div>
+        
+        <script src="js/map.js"></script>
+        <script src="js/bubble.js"></script>
+
+    </script>
+  </body>
+
+</html>

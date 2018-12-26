@@ -26,8 +26,13 @@ gulp.task('vendor', function() {
 gulp.task('browserSync', function() {
   browserSync.init({
     server: {
-      baseDir: "./"
-    }
+      baseDir: "./",
+      port: 3010
+    },
+    ui: {
+      port: 3001
+    },
+    browser: "google chrome"
   });
 });
 
