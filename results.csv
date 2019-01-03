@@ -1,0 +1,127 @@
+id,constructorRef,driverRef,season,roundId,grid,laps,position,points,status,raceName
+1,mercedes,rosberg,2016,1,2,57,1,25,Finished,Australian Grand Prix
+2,mercedes,hamilton,2016,1,1,57,2,18,Finished,Australian Grand Prix
+3,ferrari,vettel,2016,1,3,57,3,15,Finished,Australian Grand Prix
+4,red_bull,ricciardo,2016,1,8,57,4,12,Finished,Australian Grand Prix
+5,williams,massa,2016,1,6,57,5,10,Finished,Australian Grand Prix
+6,haas,grosjean,2016,1,19,57,6,8,Finished,Australian Grand Prix
+7,force_india,hulkenberg,2016,1,10,57,7,6,Finished,Australian Grand Prix
+8,williams,bottas,2016,1,16,57,8,4,Finished,Australian Grand Prix
+9,toro_rosso,sainz,2016,1,7,57,9,2,Finished,Australian Grand Prix
+10,toro_rosso,max_verstappen,2016,1,5,57,10,1,Finished,Australian Grand Prix
+11,renault,jolyon_palmer,2016,1,13,57,11,0,Finished,Australian Grand Prix
+12,renault,kevin_magnussen,2016,1,14,57,12,0,Finished,Australian Grand Prix
+13,force_india,perez,2016,1,9,57,13,0,Finished,Australian Grand Prix
+14,mclaren,button,2016,1,12,56,14,0,+1 Lap,Australian Grand Prix
+15,sauber,nasr,2016,1,17,56,15,0,+1 Lap,Australian Grand Prix
+16,manor,wehrlein,2016,1,21,56,16,0,+1 Lap,Australian Grand Prix
+17,sauber,ericsson,2016,1,15,38,17,0,Engine,Australian Grand Prix
+18,ferrari,raikkonen,2016,1,4,21,18,0,Engine,Australian Grand Prix
+19,manor,haryanto,2016,1,22,17,19,0,Mechanical,Australian Grand Prix
+20,haas,gutierrez,2016,1,20,16,20,0,Collision,Australian Grand Prix
+21,mclaren,alonso,2016,1,11,16,21,0,Collision,Australian Grand Prix
+22,red_bull,kvyat,2016,1,18,0,22,0,Retired,Australian Grand Prix
+23,mercedes,rosberg,2016,2,2,57,1,25,Finished,Bahrain Grand Prix
+24,ferrari,raikkonen,2016,2,4,57,2,18,Finished,Bahrain Grand Prix
+25,mercedes,hamilton,2016,2,1,57,3,15,Finished,Bahrain Grand Prix
+26,red_bull,ricciardo,2016,2,5,57,4,12,Finished,Bahrain Grand Prix
+27,haas,grosjean,2016,2,9,57,5,10,Finished,Bahrain Grand Prix
+28,toro_rosso,max_verstappen,2016,2,10,57,6,8,Finished,Bahrain Grand Prix
+29,red_bull,kvyat,2016,2,15,56,7,6,+1 Lap,Bahrain Grand Prix
+30,williams,massa,2016,2,7,56,8,4,+1 Lap,Bahrain Grand Prix
+31,williams,bottas,2016,2,6,56,9,2,+1 Lap,Bahrain Grand Prix
+32,mclaren,vandoorne,2016,2,12,56,10,1,+1 Lap,Bahrain Grand Prix
+33,renault,kevin_magnussen,2016,2,22,56,11,0,+1 Lap,Bahrain Grand Prix
+34,sauber,ericsson,2016,2,17,56,12,0,+1 Lap,Bahrain Grand Prix
+35,manor,wehrlein,2016,2,16,56,13,0,+1 Lap,Bahrain Grand Prix
+36,sauber,nasr,2016,2,21,56,14,0,+1 Lap,Bahrain Grand Prix
+37,force_india,hulkenberg,2016,2,8,56,15,0,+1 Lap,Bahrain Grand Prix
+38,force_india,perez,2016,2,18,56,16,0,+1 Lap,Bahrain Grand Prix
+39,manor,haryanto,2016,2,20,56,17,0,+1 Lap,Bahrain Grand Prix
+40,toro_rosso,sainz,2016,2,11,29,18,0,Retired,Bahrain Grand Prix
+41,haas,gutierrez,2016,2,13,9,19,0,Retired,Bahrain Grand Prix
+42,mclaren,button,2016,2,14,6,20,0,Power Unit,Bahrain Grand Prix
+43,ferrari,vettel,2016,2,3,0,21,0,Engine,Bahrain Grand Prix
+44,renault,jolyon_palmer,2016,2,19,0,22,0,Hydraulics,Bahrain Grand Prix
+45,mercedes,rosberg,2016,3,1,56,1,25,Finished,Chinese Grand Prix
+46,ferrari,vettel,2016,3,4,56,2,18,Finished,Chinese Grand Prix
+47,red_bull,kvyat,2016,3,6,56,3,15,Finished,Chinese Grand Prix
+48,red_bull,ricciardo,2016,3,2,56,4,12,Finished,Chinese Grand Prix
+49,ferrari,raikkonen,2016,3,3,56,5,10,Finished,Chinese Grand Prix
+50,williams,massa,2016,3,10,56,6,8,Finished,Chinese Grand Prix
+51,mercedes,hamilton,2016,3,22,56,7,6,Finished,Chinese Grand Prix
+52,toro_rosso,max_verstappen,2016,3,9,56,8,4,Finished,Chinese Grand Prix
+53,toro_rosso,sainz,2016,3,8,56,9,2,Finished,Chinese Grand Prix
+54,williams,bottas,2016,3,5,56,10,1,Finished,Chinese Grand Prix
+55,force_india,perez,2016,3,7,56,11,0,Finished,Chinese Grand Prix
+56,mclaren,alonso,2016,3,11,56,12,0,Finished,Chinese Grand Prix
+57,mclaren,button,2016,3,12,56,13,0,Finished,Chinese Grand Prix
+58,haas,gutierrez,2016,3,18,55,14,0,+1 Lap,Chinese Grand Prix
+59,force_india,hulkenberg,2016,3,13,55,15,0,+1 Lap,Chinese Grand Prix
+60,sauber,ericsson,2016,3,15,55,16,0,+1 Lap,Chinese Grand Prix
+61,renault,kevin_magnussen,2016,3,17,55,17,0,+1 Lap,Chinese Grand Prix
+62,manor,wehrlein,2016,3,21,55,18,0,+1 Lap,Chinese Grand Prix
+63,haas,grosjean,2016,3,14,55,19,0,+1 Lap,Chinese Grand Prix
+64,sauber,nasr,2016,3,16,55,20,0,+1 Lap,Chinese Grand Prix
+65,manor,haryanto,2016,3,20,55,21,0,+1 Lap,Chinese Grand Prix
+66,renault,jolyon_palmer,2016,3,19,55,22,0,+1 Lap,Chinese Grand Prix
+67,ferrari,vettel,2017,1,2,57,1,25,Finished,Australian Grand Prix
+68,mercedes,hamilton,2017,1,1,57,2,18,Finished,Australian Grand Prix
+69,mercedes,bottas,2017,1,3,57,3,15,Finished,Australian Grand Prix
+70,ferrari,raikkonen,2017,1,4,57,4,12,Finished,Australian Grand Prix
+71,red_bull,max_verstappen,2017,1,5,57,5,10,Finished,Australian Grand Prix
+72,williams,massa,2017,1,7,57,6,8,Finished,Australian Grand Prix
+73,force_india,perez,2017,1,10,56,7,6,+1 Lap,Australian Grand Prix
+74,toro_rosso,sainz,2017,1,8,56,8,4,+1 Lap,Australian Grand Prix
+75,toro_rosso,kvyat,2017,1,9,56,9,2,+1 Lap,Australian Grand Prix
+76,force_india,ocon,2017,1,13,56,10,1,+1 Lap,Australian Grand Prix
+77,renault,hulkenberg,2017,1,11,56,11,0,+1 Lap,Australian Grand Prix
+78,sauber,giovinazzi,2017,1,16,55,12,0,+2 Laps,Australian Grand Prix
+79,mclaren,vandoorne,2017,1,18,55,13,0,+2 Laps,Australian Grand Prix
+80,mclaren,alonso,2017,1,12,50,14,0,Vibrations,Australian Grand Prix
+81,haas,kevin_magnussen,2017,1,17,46,15,0,Suspension,Australian Grand Prix
+82,williams,stroll,2017,1,20,40,16,0,Brakes,Australian Grand Prix
+83,red_bull,ricciardo,2017,1,0,25,17,0,Power Unit,Australian Grand Prix
+84,sauber,ericsson,2017,1,14,21,18,0,Hydraulics,Australian Grand Prix
+85,renault,jolyon_palmer,2017,1,19,15,19,0,Brakes,Australian Grand Prix
+86,haas,grosjean,2017,1,6,13,20,0,Water leak,Australian Grand Prix
+87,mercedes,hamilton,2017,2,1,56,1,25,Finished,Chinese Grand Prix
+88,ferrari,vettel,2017,2,2,56,2,18,Finished,Chinese Grand Prix
+89,red_bull,max_verstappen,2017,2,16,56,3,15,Finished,Chinese Grand Prix
+90,red_bull,ricciardo,2017,2,5,56,4,12,Finished,Chinese Grand Prix
+91,ferrari,raikkonen,2017,2,4,56,5,10,Finished,Chinese Grand Prix
+92,mercedes,bottas,2017,2,3,56,6,8,Finished,Chinese Grand Prix
+93,toro_rosso,sainz,2017,2,11,56,7,6,Finished,Chinese Grand Prix
+94,haas,kevin_magnussen,2017,2,12,55,8,4,+1 Lap,Chinese Grand Prix
+95,force_india,perez,2017,2,8,55,9,2,+1 Lap,Chinese Grand Prix
+96,force_india,ocon,2017,2,17,55,10,1,+1 Lap,Chinese Grand Prix
+97,haas,grosjean,2017,2,19,55,11,0,+1 Lap,Chinese Grand Prix
+98,renault,hulkenberg,2017,2,7,55,12,0,+1 Lap,Chinese Grand Prix
+99,renault,jolyon_palmer,2017,2,20,55,13,0,+1 Lap,Chinese Grand Prix
+100,williams,massa,2017,2,6,55,14,0,+1 Lap,Chinese Grand Prix
+101,sauber,ericsson,2017,2,14,55,15,0,+1 Lap,Chinese Grand Prix
+102,mclaren,alonso,2017,2,13,33,16,0,Driveshaft,Chinese Grand Prix
+103,toro_rosso,kvyat,2017,2,9,18,17,0,Hydraulics,Chinese Grand Prix
+104,mclaren,vandoorne,2017,2,15,17,18,0,Fuel pressure,Chinese Grand Prix
+105,sauber,giovinazzi,2017,2,18,3,19,0,Accident,Chinese Grand Prix
+106,williams,stroll,2017,2,10,0,20,0,Collision,Chinese Grand Prix
+107,ferrari,vettel,2017,3,3,57,1,25,Finished,Bahrain Grand Prix
+108,mercedes,hamilton,2017,3,2,57,2,18,Finished,Bahrain Grand Prix
+109,mercedes,bottas,2017,3,1,57,3,15,Finished,Bahrain Grand Prix
+110,ferrari,raikkonen,2017,3,5,57,4,12,Finished,Bahrain Grand Prix
+111,red_bull,ricciardo,2017,3,4,57,5,10,Finished,Bahrain Grand Prix
+112,williams,massa,2017,3,8,57,6,8,Finished,Bahrain Grand Prix
+113,force_india,perez,2017,3,18,57,7,6,Finished,Bahrain Grand Prix
+114,haas,grosjean,2017,3,9,57,8,4,Finished,Bahrain Grand Prix
+115,renault,hulkenberg,2017,3,7,57,9,2,Finished,Bahrain Grand Prix
+116,force_india,ocon,2017,3,14,57,10,1,Finished,Bahrain Grand Prix
+117,sauber,wehrlein,2017,3,13,56,11,0,+1 Lap,Bahrain Grand Prix
+118,toro_rosso,kvyat,2017,3,11,56,12,0,+1 Lap,Bahrain Grand Prix
+119,renault,jolyon_palmer,2017,3,10,56,13,0,+1 Lap,Bahrain Grand Prix
+120,mclaren,alonso,2017,3,15,54,14,0,Power Unit,Bahrain Grand Prix
+121,sauber,ericsson,2017,3,19,50,15,0,Gearbox,Bahrain Grand Prix
+122,toro_rosso,sainz,2017,3,16,12,16,0,Collision,Bahrain Grand Prix
+123,williams,stroll,2017,3,12,12,17,0,Collision,Bahrain Grand Prix
+124,red_bull,max_verstappen,2017,3,6,11,18,0,Brakes,Bahrain Grand Prix
+125,haas,kevin_magnussen,2017,3,20,8,19,0,Electrical,Bahrain Grand Prix
+126,mclaren,vandoorne,2017,3,17,0,20,0,Power Unit,Bahrain Grand Prix

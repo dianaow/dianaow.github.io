@@ -1,6 +1,6 @@
 var attributeArray = ['1968 May'], currentAttribute = 0, playing = false;
 
-var mapWidth = 900, 
+var mapWidth = 700, 
     mapHeight = 750, 
     legendFullWidth = 200,
     legendFullHeight = 400;
@@ -29,7 +29,7 @@ var color = d3.scaleLinear()
               .domain([0, maxDeath])
               .range(colorList);
 
-window.onload = init();
+init()
 
 function init() {
 
@@ -43,7 +43,7 @@ function loadData() {
   d3.queue()   // queue function loads all external data files asynchronously 
     .defer(d3.json, './data/vietnam1.json')  // our geometries
     //.defer(d3.csv, './data/deathPercentages_byProvince.csv')  // fatality density by province
-    .defer(d3.csv, './data/deathPercentages_byProvince_byTime.csv')  // fatality density by province over time
+    .defer(d3.csv, './data/deathPercentages_byProvince_byTime_PT.csv')  // fatality density by province over time
     .await(processData);   // once all files are loaded, call the processData function passing
                            // the loaded objects as arguments
 }
