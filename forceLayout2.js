@@ -1,7 +1,7 @@
 // set the dimensions and margins of the graph
 var margin = {top: 40, right: 40, bottom: 40, left:40},
-    width = window.innerWidth - margin.left - margin.right,
-    height = window.innerHeight  - margin.top - margin.bottom;
+    width = 1400 - margin.left - margin.right,
+    height = 1400 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select(".wrapper")
@@ -39,6 +39,12 @@ function renderForceLayout(error, graph, races, laptimes) {
 
   graph.data = graph.data.filter(d => d.season == 2016)
 
+  graph.data.forEach((d,i) => {
+    res = laptimes.filter((x,idx) => (x.driverRef == d.driverRef) & (x.raceName == d.raceName) & (x.season == d.season))
+    graph.data[i].pieChart = res
+  })
+
+  console.log(graph.data)
   // Modify identification of each result
   graph.data.forEach((d,i) => {
     d.driverRef = formatDriverNames(d.driverRef)
@@ -98,10 +104,6 @@ function renderForceLayout(error, graph, races, laptimes) {
             .on("start", dragstarted)
             .on("drag", dragged)
             .on("end", dragended));
-  
-  node.append('circle')
-      .attr("r", function(d) { return radius(d.value); })
-      .attr("fill", function(d) { return color(d.raceName); })
 
   var simulation = d3.forceSimulation()
       .force("link", 
@@ -144,38 +146,17 @@ function renderForceLayout(error, graph, races, laptimes) {
       .style('fill', 'white')
       .text(function(d) { return d.label; });
 
-  var arc = d3.arc()
-      .outerRadius(function(d) { return radius(d.value) - 1; })
-      .innerRadius(0);
 
-  var labelArc = d3.arc()
-      .outerRadius(function(d) { return radius(d.value) - 4; })
-      .innerRadius(function(d) { return radius(d.value) - 1; });
+  colorWithinNode.domain([80, 110])
 
-  // Create pie
-  var pie = d3.pie()
-    .sort(null)
-    .value(function(d) { return 100 });
+  /* Draw the respective pie chart for each node */
+  node.each(function (d) {
+      NodePieBuilder.drawNodePie(d3.select(this), d.pieChart, {
+        radius: radius(d.value),
+        parentNodeColor: color(d.raceName)
+      });
+  });
 
-  graph.data = {pieChart:laptimes.map(x => Object.assign(x, graph.data.find(y => ((y.driverRef == x.driverRef) & (y.raceName == x.raceName) & (y.season == x.season)) )))}
-  
-  colorWithinNode.domain([0, 110])
-
-  graph.data.pieChart.map(d=> console.log(d, colorWithinNode(d.time), d.lap))
-
-  var g = svg.selectAll("g.arc")
-      .data(pie(graph.data.pieChart))
-    .enter().append("g")
-      .attr("class", "arc");
-
-  g.append("path")
-      .attr("d", arc)
-      .style("fill", function(d,i) { return colorWithinNode(d.time); });
-
-  g.append("text")
-      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
-      .attr("dy", ".35em")
-      .text(function(d) { return d.lap; });
 
   function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
       var angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
@@ -214,6 +195,7 @@ function renderForceLayout(error, graph, races, laptimes) {
     });
 
     node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
   }
 
   function dragstarted(d) {
@@ -243,3 +225,85 @@ function formatDriverNames(e) {
     return e
   }
 }
+
+var DEFAULT_OPTIONS = {
+    radius: 20,
+    outerStrokeWidth: 0,
+    parentNodeColor: 'blue',
+    showPieChartBorder: true,
+    pieChartBorderColor: 'white',
+    pieChartBorderWidth: '2',
+};
+
+function getOptionOrDefault(key, options, defaultOptions) {
+    defaultOptions = defaultOptions || DEFAULT_OPTIONS;
+    if (options && key in options) {
+        return options[key];
+    }
+    return defaultOptions[key];
+}
+
+function drawParentCircle(nodeElement, options) {
+    var outerStrokeWidth = getOptionOrDefault('outerStrokeWidth', options);
+    var radius = getOptionOrDefault('radius', options);
+    var parentNodeColor = getOptionOrDefault('parentNodeColor', options);
+
+    nodeElement.insert("circle")
+        .attr("id", "parent-pie")
+        .attr("r", radius)
+        .attr("fill", function (d) {
+            return parentNodeColor;
+        })
+        .attr("stroke", function (d) {
+            return parentNodeColor;
+        })
+        .attr("stroke-width", outerStrokeWidth);
+}
+
+function drawPieChartBorder(nodeElement, options) {
+    var radius = getOptionOrDefault('radius', options);
+    var radius = radius - 8
+    var pieChartBorderColor = getOptionOrDefault('pieChartBorderColor', options);
+    var pieChartBorderWidth = getOptionOrDefault('pieChartBorderWidth', options);
+
+    nodeElement.insert("circle")
+        .attr("r", radius)
+        .attr("fill", 'transparent')
+        .attr("stroke", pieChartBorderColor)
+        .attr("stroke-width", pieChartBorderWidth);
+}
+
+function drawPieChart(nodeElement, percentages, options) {
+    var radius = getOptionOrDefault('radius', options);
+    var radius = radius-8
+    var halfRadius = radius / 2;
+    var halfCircumference = 2 * Math.PI * halfRadius;
+
+    var percentToDraw = 0;
+    for (var p in percentages) {
+        percentToDraw += (1/57)*100;
+        nodeElement.insert('circle', '#parent-pie + *')
+            .attr("r", halfRadius)
+            .attr("fill", 'transparent')
+            .style('stroke', colorWithinNode(percentages[p].time))
+            .style('stroke-width', radius)
+            .style('stroke-dasharray',
+                    halfCircumference * percentToDraw / 100
+                    + ' '
+                    + halfCircumference);
+    }
+}
+
+var NodePieBuilder = {
+    drawNodePie: function (nodeElement, percentages, options) {
+        drawParentCircle(nodeElement, options);
+
+        if (!percentages) return;
+        drawPieChart(nodeElement, percentages, options);
+
+        var showPieChartBorder = getOptionOrDefault('showPieChartBorder', options);
+        if (showPieChartBorder) {
+            drawPieChartBorder(nodeElement, options);
+        }
+    }
+};
