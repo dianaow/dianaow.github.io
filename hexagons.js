@@ -1,7 +1,7 @@
 var circlesCreated = 0;
 
-var width = 960,
-    height = 500,
+var width = 1400,
+    height = 230,
     data = [];
 
 var x = d3.scaleLinear()
@@ -26,7 +26,7 @@ var circleWrapper = d3.select(".container-animation")
    .append("svg")
    //responsive SVG needs these 2 attributes and no width and height attr
    .attr("preserveAspectRatio", "xMinYMin meet")
-   .attr("viewBox", "0 0 960 500")
+   .attr("viewBox", "0 0 1400 250")
    //class to make it responsive
    .classed("svg-content-responsive", true); 
 
