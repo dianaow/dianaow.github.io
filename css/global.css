@@ -40,7 +40,7 @@ text {
 .App {
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
-  height: 99.99vh;
+  height: 99.95vh;
 }
 .App p {
   padding: 20px;
@@ -58,7 +58,7 @@ text {
   height:100vh;
   min-width:100vw;
   width:100vw;
-  height: 99.99vh;
+  height: 99.95vh;
 }
 .App canvas {
   margin:100px 0px 100px 0px;

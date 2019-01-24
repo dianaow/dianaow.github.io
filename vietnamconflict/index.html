@@ -18,7 +18,6 @@
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://d3js.org/d3.v4.min.js" type="text/javascript"></script>
     <link href="../css/global.css" rel="stylesheet">
-
     <style>
       #legend-svg, #main-svg, #map-misc, #map {
         display:inline-block;
@@ -28,7 +27,7 @@
       #map-misc {
         text-align: center;
         width:500px;
-        margin:50px 0px 50px 250px;
+        margin:0px 0px 50px 100px;
       }
       #map {
         width:700px;
@@ -51,8 +50,8 @@
 
   <body>
     <div class="App">
-        
       <section class="step">
+        <h1 style="color:red">Vietnam War Bloodshed</h1>
         <div id ='stackedBarChart'>
           <div id="stackedBarChart"></div>
         </div>
@@ -63,14 +62,9 @@
           <div id='map-misc'>
             <h1 id="clock"></h1>
             <h1><button id="play" type="button" class="btn btn-outline-danger btn-lg">RESET TO 1965 MARCH</button></h1>
-            <h4>
-              The Tet Offensive by North Vietnam and the Viet Cong, was one of the largest military campaigns of the Vietnam War, launched on January 30, 1968, by forces of the Viet Cong and North Vietnamese People's Army of Vietnam against the forces of the South Vietnamese Army of the Republic of Vietnam, the United States Armed Forces, and their allies. It was a campaign of surprise attacks against military and civilian command and control centers throughout South Vietnam.[14] The name of the offensive comes from the Tết holiday, the Vietnamese New Year, when the first major attacks took place.[15]       
-            </h4>
           </div>
-          <div id='map'>
-            <div id="main-svg" ></div>
-            <div id="legend-svg"></div>
-          </div>
+          <div id="main-svg" ></div>
+          <div id="legend-svg"></div>
         </div>
       </section>
 
@@ -83,6 +77,10 @@
       <script src="js/stacked.js"></script>
       <script src="js/map.js"></script>
       <script src="js/bubble.js"></script>
+      <script>
+        var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+        var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+      </script>
       <script type="text/javascript">
         window.onbeforeunload = function(){ window.scrollTo(0,0); }
       </script>

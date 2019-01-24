@@ -35,8 +35,8 @@ function init() {
 
 // set the dimensions and margins of the graph
 var margin = {top: 60, right: 30, bottom: 20, left:110},
-    width = 960 - margin.left - margin.right,
-    height = 800 - margin.top - margin.bottom;
+    width = w*0.9 - margin.left - margin.right,
+    height = h*0.9 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#my_dataviz")

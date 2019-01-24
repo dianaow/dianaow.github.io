@@ -1,5 +1,8 @@
 init()
 
+var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
 function init() {
 
   d3.queue()   
@@ -25,7 +28,7 @@ function createChart(error, deathJSON, timelineJSON) {
           "encoding": {
             "color": {
               "type": "nominal",
-              "field": "DEPLOYMENT_PROVINCE_1",
+              "field": "DEPLOYMENT PROVINCE",
               "scale": {
                 "domain": [
                   "Quang Tri",
@@ -55,18 +58,27 @@ function createChart(error, deathJSON, timelineJSON) {
               "type": "temporal",
               "field": "FATALITY_DATE",
               "timeUnit": "yearmonth",
-              "title": ""
+              "title": "",
+              "axis": {
+                "labelColor":"black",
+                "labelFontSize":12
+              }
             },
             "y": {
               "type": "quantitative",
               "field": "count",
               "scale": {"domain": [0, 2400]},
               "sort": "ascending",
-              "title": "Count of deaths"
+              "axis": {
+                "labelColor":"black",
+                "labelFontSize":12,
+                "title": "Count of deaths",
+                "titleFontSize":16,
+              }
             }
           },
-          "height": 650,
-          "width": 1300
+          "height": h*0.65,
+          "width": w*0.8
         },
         {
           "layer": [
@@ -99,8 +111,8 @@ function createChart(error, deathJSON, timelineJSON) {
                   "title": null
                 }
               },
-              "height": 650,
-              "width": 1300
+                "height": h*0.65,
+                "width": w*0.8
             },
             {
               "data": {
@@ -130,8 +142,8 @@ function createChart(error, deathJSON, timelineJSON) {
                   "title": null
                 }
               },
-              "height": 650,
-              "width": 1300
+                "height": h*0.65,
+                "width": w*0.8
             }
           ]
         }

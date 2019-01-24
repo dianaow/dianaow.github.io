@@ -1,13 +1,20 @@
 var attributeArray = ['1968 May'], currentAttribute = 0, playing = false;
+var INTERVAL = 1500
 
-var mapWidth = 700, 
-    mapHeight = 750, 
+var mapWidth = w*0.4, 
+    mapHeight = h*0.9, 
     legendFullWidth = 200,
     legendFullHeight = 400;
+    descFullWidth = w*0.4,
+    descFullHeight = h*0.4;
 
 var legendMargin = { top: 10, bottom: 20, left: 130, right: 50 }; // leave room for legend axis
 var legendWidth = legendFullWidth - legendMargin.left - legendMargin.right;
 var legendHeight = legendFullHeight - legendMargin.top - legendMargin.bottom;
+
+var descMargin = { top: 20, bottom: 20, left: 20, right: 20 }; // leave room for legend axis
+var descWidth = descFullWidth - descMargin.left - descMargin.right;
+var descHeight = descFullHeight - descMargin.top - descMargin.bottom;
 
 var svg = d3.select("#main-svg")
             .append('svg')
@@ -19,8 +26,16 @@ var legendSvg = d3.select('#legend-svg')
                   .attr('width', legendFullWidth)
                   .attr('height', legendFullHeight)
 
+var descSvg = d3.select("#map-misc")
+                    .append('svg')
+                    .attr('width', descFullWidth)
+                    .attr('height', descFullHeight)
+
 var mapWrapper = svg.append("g")
   .attr("class", "mapWrapper")
+
+var descWrapper = descSvg.append("g")
+  .attr("class", "descWrapper")
 
 // Define color scale
 var colorList = ['#ffffff', '#ff0000']
@@ -32,10 +47,8 @@ var color = d3.scaleLinear()
 init()
 
 function init() {
-
   loadData()
-  animateMap();
-
+  animateMap()
 }
 
 function loadData() {
@@ -44,16 +57,16 @@ function loadData() {
     .defer(d3.json, './data/vietnam1.json')  // our geometries
     //.defer(d3.csv, './data/deathPercentages_byProvince.csv')  // fatality density by province
     .defer(d3.csv, './data/deathPercentages_byProvince_byTime_PT.csv')  // fatality density by province over time
+    .defer(d3.csv, './data/map_description.csv')  // fatality density by province over time
     .await(processData);   // once all files are loaded, call the processData function passing
                            // the loaded objects as arguments
 }
 
-function processData(error, vietnam1, data) {
-
+function processData(error, vietnam1, data, desc) {
+ 
   var vietnam = vietnam1.features;  // store the path in variable for ease
   for (var i in vietnam) {    // for each geometry object
     for (var j in data) {  // for each row in the CSV
-
       if (vietnam[i].properties.VARNAME_1 == data[j]['DEPLOYMENT_PROVINCE']) {   // if they match
         for (var k in data[i]) {   // for each column in the a row within the CSV
           if (k != 'DEPLOYMENT_PROVINCE') {  // let's not add the name or id as props since we already have them
@@ -64,15 +77,23 @@ function processData(error, vietnam1, data) {
           } 
         }
         break;  // stop looking through the CSV since we made our match
-      }
+      } 
     }
   }
+  //console.log(vietnam)
+
+  var desc_reformatted = []
+  desc.map(d => {
+    desc_reformatted.push({[d['Time']]:d['Description']})
+  })
+  //console.log(desc_reformatted)
 
   d3.select('#clock').html("1968 May"); // populate the clock initially with the start of the bloodiest year of the war
-  drawMap(vietnam, vietnam1)
+  drawMap(vietnam, vietnam1, desc_reformatted)
+
 }
 
-function drawMap(vietnam, vietnam1) {
+function drawMap(vietnam, vietnam1, desc) {
 
   var projection = d3.geoMercator().fitSize([mapWidth, mapHeight], vietnam1);
   
@@ -89,7 +110,9 @@ function drawMap(vietnam, vietnam1) {
 
   fillColor(vietnam)
   labelProvincesAndDeathCount(vietnam, path)
+  showDescription(desc)
   showLegend()
+
 }
 
 function fillColor(data) {
@@ -111,6 +134,7 @@ function labelProvincesAndDeathCount(data, path) {
       .append("text")
         .attr("class", "label")
         .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
+        .style("font-size", "10px")
         .text(function(d) {
           if ((d.properties[attributeArray[currentAttribute]]) === 0) {
             return ""
@@ -122,9 +146,28 @@ function labelProvincesAndDeathCount(data, path) {
         });
 }
 
+function showDescription(data) {
+
+  descWrapper.selectAll(".description")
+      .data(data)
+      .enter()
+      .append("text")
+        .attr("class", "description")
+        .style("text-align", "center")
+        .attr("x", 20)
+        .attr("y", 20)
+        .attr("transform", function(d) { return "translate(" + descMargin.left + "," + descMargin.top + ")" })
+        .text(function(d) {
+          if ((d[attributeArray[currentAttribute]]) !== undefined) {
+            return d[attributeArray[currentAttribute]]
+          } 
+        })
+}
+
 function animateMap() {
 
   var timer;  // create timer object
+
   d3.select('#play')  
     .on('click', function() {  // when user clicks the play button
       if(playing == false) {  // if the map is currently playing
@@ -135,8 +178,9 @@ function animateMap() {
               currentAttribute = 0;  // or reset it to zero
           }
           sequenceMap();  // update the representation of the map 
+          //sequenceDesc(); // update the description accompanying the map 
           d3.select('#clock').html(attributeArray[currentAttribute]);  // update the clock
-        }, 1000);
+        }, INTERVAL);
       
         d3.select(this).html('stop');  // change the button label to stop
         playing = true;   // change the status of the animation
@@ -148,30 +192,40 @@ function animateMap() {
   });
 }
 
+
 function sequenceMap() {
 
-    mapWrapper .selectAll('.country')
-      .transition()  //select all the provinces and prepare for a transition to new values
-      .duration(1000)  // give it a smooth time period for the transition
-      .attr('fill', function(d) {
-        if ((d.properties[attributeArray[currentAttribute]]) === undefined) {
-          return "#ffffff"
-        } else {
-          return color(d.properties[attributeArray[currentAttribute]]) 
-        }})
+  mapWrapper .selectAll('.country')
+    .transition()  //select all the provinces and prepare for a transition to new values
+    .duration(INTERVAL/2)  // give it a smooth time period for the transition
+    .attr('fill', function(d) {
+      if ((d.properties[attributeArray[currentAttribute]]) === undefined) {
+        return "#ffffff"
+      } else {
+        return color(d.properties[attributeArray[currentAttribute]]) 
+      }})
 
-    mapWrapper .selectAll(".label")
-      .transition()  
-      .duration(1000) 
-      .text(function(d) {
-        if ((d.properties[attributeArray[currentAttribute]]) === 0) {
-          return ""
-        } else {
-          province = d.properties.VARNAME_1
-          deathCount = d.properties[attributeArray[currentAttribute]] 
-          return province.concat(" (", deathCount, ")")
-        }
-      });
+  mapWrapper .selectAll(".label")
+    .transition()  
+    .duration(INTERVAL/2) 
+    .text(function(d) {
+      if ((d.properties[attributeArray[currentAttribute]]) === 0) {
+        return ""
+      } else {
+        province = d.properties.VARNAME_1
+        deathCount = d.properties[attributeArray[currentAttribute]] 
+        return province.concat(" (", deathCount, ")")
+      }
+    });
+
+  descWrapper.selectAll('.description')
+    .transition()  //select all the provinces and prepare for a transition to new values
+    .duration(INTERVAL)  // give it a smooth time period for the transition
+    .text(function(d) {
+      if ((d[attributeArray[currentAttribute]]) !== undefined) {
+        return d[attributeArray[currentAttribute]] 
+      }
+    })
 }
 
 function showLegend() {
