@@ -24,6 +24,7 @@ function createChart(error, deathJSON, timelineJSON) {
           "data": {
             "values": deathJSON
           },
+          "title": "U.S. Army Infantry Casualties from March 1965 to March 1973",
           "mark": {"type": "bar", "size": 10},
           "encoding": {
             "color": {

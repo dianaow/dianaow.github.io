@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../vendor/papaparse/papaparse.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+    <script src="http://d3js.org/d3.v4.min.js" type="text/javascript"></script>
+    <link href="../css/global.css" rel="stylesheet">
+    <style>
+      .map-geojson, .map-leaflet {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      #Dropdown {
+        height:30px;
+        margin-top: 20px;
+      }
+      .btn-group-vertical{
+        margin-top: 20px;
+      }
+      .row {
+        margin-top:50px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class='container'>
+      <div class='row'>
+        <div class= 'col-sm-3'>
+          <h1>Singapore's Bus Routes</h1>
+          <label>Select a bus service number to visualize its route</label>
+          <div class="btn-group-vertical">
+            <button id='btnAnimate' type="button" class="btn btn-info", onClick='initAnimation()'>Animate all routes</button>
+            <button id='btnShow' type="button" class="btn btn-primary", onClick='createForceLayout()'>Show all bus numbers</button>
+            <button id='btnReset' type="button" class="btn btn-dark", onClick='updateChart()'>Reset</button>
+          </div>
+          <div id="Dropdown">
+          </div>
+        </div>
+        <div class= 'col-sm-9'>
+          <div class="map-geojson">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/main.js"></script>
+  </body>
+
+</html>
