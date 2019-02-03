@@ -42,27 +42,12 @@
 
   <body>
     <div class='container'>
-      <div class='row'>
-        <div class= 'col-sm-3'>
-          <h1>Singapore's Bus Routes</h1>
-          <label>Select a bus service number to visualize its route</label>
-          <div class="btn-group-vertical">
-            <button id='btnAnimate' type="button" class="btn btn-info", onClick='initAnimation()'>Animate all routes</button>
-            <button id='btnShow' type="button" class="btn btn-light", onClick='createForceLayout()'>Show all bus numbers</button>
-            <button id='btnReset' type="button" class="btn btn-dark", onClick='updateChart()'>Reset</button>
-            <button id='btnVol' type="button" class="btn btn-primary", onClick='initVolumeData(1)'>1: Show travel volume</button>
-            <button id='btnVol' type="button" class="btn btn-primary", onClick='initVolumeData(2)'>2: Show travel volume</button>
-          </div>
-          <div id="Dropdown">
-          </div>
-        </div>
-        <div class= 'col-sm-9'>
-          <div class="map-geojson">
-          </div>
-        </div>
+      <div class="row">
+        <div class="arc-chart">
+        </div>     
       </div>
     </div>
-    <script src="js/main.js"></script>
+    <script src="js/travel_volume.js"></script>
   </body>
 
 </html>

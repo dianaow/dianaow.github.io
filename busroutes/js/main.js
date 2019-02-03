@@ -6,6 +6,14 @@ var height = Math.max(document.documentElement.clientHeight, window.innerHeight 
 var canvasDim = { width: width*0.9, height: height*0.9 };
 var frameNum = 0
 
+var logScale = d3.scaleLog()
+  .domain([5000, 50000])
+
+var colorScaleLog = d3.scaleSequential(d => d3.interpolateViridis(logScale(d)))   
+
+var colorScaleLinear = d3.scaleSequential(d3.interpolateViridis)
+  .domain([5000, 50000])
+
 var container = d3.select('.map-geojson')
 
 // create svg and group
@@ -47,6 +55,15 @@ var lineGenerator = d3.line()
     return d.y;
   })
   .context(ctx);
+
+var lineFunction = d3.line()
+    .x(function(d) {
+      return d.x;
+    })
+    .y(function(d) {
+      return d.y;
+    })
+    .curve(d3.curveCatmullRom)
 
 init()
 
@@ -130,7 +147,7 @@ function initProjection(geoJSON) {
       .attr("d", path)
       .style("stroke-width", "1")
       .style("stroke", "black")
-      .style("fill", "white")
+      .style("fill", "transparent")
 }
  
 function projectPoints() {
@@ -186,6 +203,8 @@ var nodes = []
 function updateChart() {
 
   d3.selectAll('.label').remove();
+  d3.selectAll('.vol-circle').remove()
+  d3.selectAll('.vol-path').remove()
   ctx.clearRect(0, 0, canvasDim.width, canvasDim.height);
 
   ctx.strokeStyle = 'rgba(0, 0, 255, 0.2)'
@@ -392,3 +411,91 @@ function createForceLayout() {
       .text(d=>d.i)
 
 }
+
+// -----------------------
+// VISUALIZE TRAVEL VOLUME
+function initVolumeData(id) {
+
+  d3.csv('./data/origin_destination_bus_top1perc.csv', function(csv) {
+    var trips = csv.map((d,i) => {
+      return {
+        BusStopCode: +d.BusStopCode,
+        total: +d.TOTAL_TRIPS,
+        path: d.PATH,
+        origin: +d.origin
+      }
+    })
+
+    var data_vol = trips.map((d,i) => {
+      return Object.assign({}, d, data.find(b=>b.BusStopCode===d.BusStopCode)||{});
+    })
+    //console.log(data_vol)
+
+    var data_vol1 = data_vol.filter(d =>(isNaN(d.x)==false && isNaN(d.y)==false))
+
+    data_vol1.sort(function(x, y){
+       return d3.descending(x.total, y.total);
+    })
+    //console.log(data_vol1)
+
+    if(id==1){
+
+      // Nest data with unique origin-destination path as key
+      var data_vol2 =  d3.nest()
+                      .key(d => d.path)
+                      .entries(data_vol1)
+      //console.log(data_vol2)
+
+      ctx.clearRect(0, 0, canvasDim.width, canvasDim.height);
+      d3.selectAll('.vol-circle').remove()
+
+      var vol = mapWrapper.selectAll(".vol-path")
+        .data(data_vol2)
+        .enter()
+        .append("g")
+        .attr("class", "vol-path")
+
+      vol.append("path")
+        .attr("class", "line")
+        .style("stroke", d=>colorScaleLog(d.values.find(x=>x.total).total))
+        .style("stroke-width", 1)
+        .style("fill", d=>colorScaleLog(d.values.find(x=>x.total).total))
+        .style("opacity", 0.5)
+        .attr("d", d=>lineFunction(d.values))
+
+      d3.selectAll(".line")
+          .transition()
+          .duration(750)
+          .style("stroke", d=>colorScaleLog(d.values.find(x=>x.total).total))
+          .style("stroke-width", 1)
+          .style("fill", d=>colorScaleLog(d.values.find(x=>x.total).total))
+          .style("opacity", 0.5)
+
+      vol.exit().remove()
+
+    } else if(id==2) {
+
+      ctx.clearRect(0, 0, canvasDim.width, canvasDim.height)
+      d3.selectAll('.vol-path').remove()
+
+      var vol_circle = mapWrapper.selectAll(".vol-circle")
+        .data(data_vol1)
+        .enter()
+        .append("g")
+        .attr("class", "vol-circle")
+
+      vol_circle.append("circle")
+          .attr("class", "stops")
+          .attr("cx", d=>d.x)
+          .attr("cy", d=>d.y)
+          .attr("r", d=>logScale(d.total)*10)
+          .style("fill", d=>colorScaleLog(d.total))
+          .style("opacity", 0.5)
+
+      vol_circle.exit().remove()
+
+    } 
+
+  })
+}
+
