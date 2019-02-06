@@ -99,7 +99,6 @@ function initializeData(csv1, csv2){
     }
   })
   //console.log(routes)
-
   busstops = csv2.map((d,i) => {
     return {
     BusStopCode: +d.BusStopCode,

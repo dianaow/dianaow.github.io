@@ -55,8 +55,8 @@ gulp.task('download', function() {
     Bucket: 'transport-api-data',
     Key: 'origin_destination_bus_201812.csv'
   }
-  var file = fs.createWriteStream('./busroutes/data/origin_destination_bus_201812.csv')
-  s3.getObject(params).createReadStream().pipe(file)
+  //var file = fs.createWriteStream('./busroutes/data/origin_destination_bus_201812.csv')
+  //s3.getObject(params).createReadStream().pipe(file)
 
   var params = {
     Bucket: 'transport-api-data',
