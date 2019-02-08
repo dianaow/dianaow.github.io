@@ -1,6 +1,7 @@
 var data
 var routes
 var projection
+var defaultOptionName = 851 
 
 var geoJSON = []
 // Create empty array if haven't already done so
@@ -52,18 +53,15 @@ function init() {
 
   d3.queue()   
     .defer(d3.csv, './data/busroutes.csv')  
-    .defer(d3.csv, './data/busstops.csv')
-    //.defer(d3.json, './data/singapore.json')  // our geometries
-    //.defer(d3.csv, './origin_destination_bus_201812.csv')   
+    .defer(d3.csv, './data/busstops.csv') 
     .await(createChart);  
 }
 
 function createChart(error, csv1, csv2){
 
   initializeData(csv1, csv2)
-  initRoutes()
-  leafletChart()
-  //updateGraph()
+  createDropdown()
+  updateGraph(defaultOptionName)
 }
 
 
@@ -181,7 +179,7 @@ function leafletChart() {
 function updateGraph(num) {
 
   // Filter the data to include only bus service of interest
-  var one_route = geoJSON.features.filter(d=>d.properties.ServiceNo==851 && d.properties.Direction==1)
+  var one_route = geoJSON.features.filter(d=>d.properties.ServiceNo==num && d.properties.Direction==1)
   //console.log(one_route)
 
   // we will be appending the SVG to the Leaflet map pane
@@ -246,12 +244,12 @@ function updateGraph(num) {
 
   // This will be our traveling circle it will
   // travel along our path
-  var marker = g.append("circle")
-      .attr("id", "marker")
-      .attr("class", "travelMarker")
-      .attr("r", 5)
-      .style("fill", "yellow")
-      .style("opacity", 0.7)
+  //var marker = g.append("circle")
+      //.attr("id", "marker")
+      //.attr("class", "travelMarker")
+      //.attr("r", 5)
+      //.style("fill", "yellow")
+      //.style("opacity", 0.7)
 
   // For simplicity I hard-coded this! I'm taking
   // the first and the last object (the origin)
@@ -279,6 +277,19 @@ function updateGraph(num) {
       .style("font-size", 9)
       .text(function(d) {
           return d.properties.label
+      })
+
+  var text1 = g.selectAll(".locnames1")
+      .data(originANDdestination)
+      .enter()
+      .append("text")
+      .attr("class", "locnames1")
+      .attr("y", -22)
+      .style("fill", "black")
+      .style("font-size", 11)
+      .style("font-weight", "bold")
+      .text(function(d) {
+          return d.properties.ServiceNo
       })
 
   // when the user zooms in or out you need to reset
@@ -310,6 +321,13 @@ function updateGraph(num) {
                 applyLatLngToLayer(d).y + ")";
         });
 
+    text1.attr("transform",
+        function(d) {
+            return "translate(" +
+                applyLatLngToLayer(d).x + "," +
+                applyLatLngToLayer(d).y + ")";
+        });
+
 
     // for the points we need to convert from latlong
     // to map units
@@ -330,14 +348,14 @@ function updateGraph(num) {
     // again, not best practice, but I'm harding coding
     // the starting point
 
-    marker.attr("transform",
-        function() {
-            var y = one_route[0].geometry.coordinates[1]
-            var x = one_route[0].geometry.coordinates[0]
-            return "translate(" +
-                map.latLngToLayerPoint(new L.LatLng(y, x)).x + "," +
-                map.latLngToLayerPoint(new L.LatLng(y, x)).y + ")";
-        });
+    //marker.attr("transform",
+        //function(d,i) {
+            //var y = one_route[i].geometry.coordinates[1]
+            //var x = one_route[i].geometry.coordinates[0]
+            //return "translate(" +
+              //map.latLngToLayerPoint(new L.LatLng(y, x)).x + "," +
+              //map.latLngToLayerPoint(new L.LatLng(y, x)).y + ")";
+        //});
 
     // Setting the size and location of the overall SVG container
     svg.attr("width", bottomRight[0] - topLeft[0] + 120)
@@ -406,4 +424,54 @@ function updateGraph(num) {
       }
   } //end tweenDash
 
+}
+
+
+// --------------------------------------------------
+// DROPDOWN MENU SELECTION OF BUS ROUTES TO VISUALIZE
+function createDropdown() {
+  var busServiceNoList = [...new Set(data.map(d=>d.ServiceNo))]
+
+  var menu = d3.select("#Dropdown")
+               .attr('class', 'form-group')
+
+  menu.append("select")
+    .attr('class', 'form-control-lg')
+    .attr('onfocus', 'this.size=10')
+    .attr('onblur','this.size=1')
+    .attr('onchange', 'this.size=1; this.blur();')
+    .selectAll("option")
+        .data(busServiceNoList)
+        .enter()
+        .append("option")
+        .attr("value", function(d){
+            return d;
+        })
+        .text(function(d){
+            return d;
+        })
+        .property("selected", function(d){ return d === defaultOptionName; })
+
+  // Run update function when dropdown selection changes
+  menu.on('change', function(){
+
+    // Find which bus service was selected from the dropdown
+    var selected = d3.select(this)
+            .select("select")
+            .property("value")
+
+    // Run update function with the selected fruit
+    updateGraph(selected)
+
+  });
+
+}
+
+function clearChart() {
+  d3.selectAll('*').transition() //stop the transition
+  d3.selectAll('.lineConnect').remove()
+  d3.selectAll('.waypoints').remove()
+  d3.selectAll('.begend').remove()
+  d3.selectAll('.locnames').remove()
+  d3.selectAll('.locnames1').remove()
 }

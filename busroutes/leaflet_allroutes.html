@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
+    <link href="../css/global.css" rel="stylesheet">
+    <style>
+      #chart {
+        height:600px;
+        width:1000px;
+        margin-top:20px;
+      }
+      .row {
+        margin-top:20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class='container'>
+      <div class='row'>
+        <h1>Singapore's Bus Routes</h1>
+        <label>All bus stops and the routes that pass through them are visualized here. Red lines represent routes in 'Direction 1', while blue lines represent routes in 'Direction 2'</label>
+        <div id="chart"></div>
+      </div>
+    </div>
+
+    <script src="js/leaflet_allroutes.js"></script>
+  </body>
+
+</html>

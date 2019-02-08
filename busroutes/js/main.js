@@ -226,7 +226,7 @@ function updateChart() {
   service2.forEach(function(route,i) {
     route.forEach(function(point){
       if(point.x && point.y){
-        ctx.fillRect(point.x, point.y, 1.5, 1.5)
+        ctx.fillRect(point.x, point.y, 2, 2)
       }
     })
   });
@@ -238,7 +238,7 @@ function updateChart() {
     var tmp = []
     route.forEach(function(point){
       if(point.x && point.y){
-        ctx.fillRect(point.x, point.y, 1.5, 1.5)
+        ctx.fillRect(point.x, point.y, 2, 2)
         tmp.push([point.x, point.y, i])
       }
     })
@@ -319,6 +319,7 @@ function createDropdown() {
   var busServiceNoList = [...new Set(data.map(d=>d.ServiceNo))]
 
   var menu = d3.select("#Dropdown")
+               .attr('class', 'form-group')
 
   menu.append("select")
     .attr('class', 'form-control-lg')
@@ -344,7 +345,7 @@ function createDropdown() {
             .select("select")
             .property("value")
 
-    // Run update function with the selected fruit
+    // Run update function with the selected bus service number
     updateGraph(selected)
 
   });

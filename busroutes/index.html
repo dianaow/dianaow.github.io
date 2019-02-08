@@ -19,9 +19,8 @@
     <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <link href="../css/global.css" rel="stylesheet">
-    <link href="../css/annotations.css" rel="stylesheet">
     <style>
-      .map-geojson, .map-leaflet {
+      .map-geojson, .map-leaflet, .sidebar {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -38,21 +37,29 @@
       .row {
         margin-top:50px;
       }
+      span {
+        font-size: 10px;
+      }
     </style>
   </head>
 
   <body>
-    <div class='container'>
+    <div class='container-fluid'>
       <div class='row'>
-        <div class= 'col-sm-3'>
+        <div class= 'sidebar col-sm-3'>
           <h1>Singapore's Bus Routes</h1>
-          <label>Select a bus service number to visualize its route</label>
+          <p>All bus stops and the routes that pass through them are visualized on the map. Red lines represent routes in 'Direction 1', while blue lines represent routes in 'Direction 2'</p>
+          <p>Select a bus service number to visualize its route. This will clear out the map and only show one route.</p>
+          <span>Note: I do not have the exact coordinates of path taken by each route. The smoothness of a route is dependent on the distance between bus stops. This explains the presence of straight lines that unrealistically cut across land in some routes.<span>
+          <a href="https://www.mytransport.sg/content/mytransport/home/dataMall/dynamic-data.html" target="_blank">Data Source: LTA</a>
           <div class="btn-group-vertical">
-            <button id='btnAnimate' type="button" class="btn btn-info", onClick='initAnimation()'>Animate all routes</button>
-            <button id='btnShow' type="button" class="btn btn-light", onClick='createForceLayout()'>Show all bus numbers</button>
-            <button id='btnReset' type="button" class="btn btn-dark", onClick='updateChart()'>Reset</button>
-            <button id='btnVol' type="button" class="btn btn-primary", onClick='initVolumeData(1)'>1: Show travel volume</button>
-            <button id='btnVol' type="button" class="btn btn-primary", onClick='initVolumeData(2)'>2: Show travel volume</button>
+            <a href="https://dianameow.com/busroutes/leaflet.html" class="btn btn-lg btn-primary">Change to Leaflet map</a>
+            <a href="https://dianameow.com/busroutes/mapboxgl.html" class="btn btn-lg btn-primary">Change to Mapbox GL map</a>
+            <button id='btnShow' type="button" class="btn btn-lg btn-light", onClick='createForceLayout()'>Show all bus numbers</button>
+            <button id='btnReset' type="button" class="btn btn-lg btn-dark", onClick='updateChart()'>Reset</button>
+            <button id='btnVol' type="button" class="btn btn-lg btn-info", onClick='initVolumeData(1)'>1: Show travel volume</button>
+            <button id='btnVol' type="button" class="btn btn-lg btn-info", onClick='initVolumeData(2)'>2: Show travel volume</button>
+            <a href="https://dianameow.com/busroutes/travel_volume.html" class="btn btn-lg btn-info">3: Show travel volume</a>
           </div>
           <div id="Dropdown">
           </div>

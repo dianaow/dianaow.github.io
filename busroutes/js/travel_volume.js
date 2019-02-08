@@ -317,20 +317,22 @@ var tooltip = d3.select("section")
       // return path for arc
       return arc(points);
     })
-    .on("mouseover", mouseover)
-    .on("mousemove", mousemove)
-    .on("mouseout", mouseout);
+    //.on("mouseover", mouseover)
+    //.on("mousemove", mousemove)
+    //.on("mouseout", mouseout);
 
   function mouseover(){
     tooltip.transition()
-      .duration(200)
-      .style("opacity", .9);
+    .duration(200)
+    .style("opacity", .9);
   }
 
   function mousemove(d){
-    tooltip .html("Origin: " + nodes.find(t=>t.name==d.origin.toString()).label  + "<br />" + "Destination: " + nodes.find(t=>t.name==d.destination.toString()).label + "")
-      .style("left", (d3.event.pageX) + "px")
-      .style("top", (d3.event.pageY - 50) + "px");
+    if (d3.select(this).style("fill") != 'transparent') {
+      tooltip .html("Origin: " + nodes.find(t=>t.name==d.origin.toString()).label  + "<br />" + "Destination: " + nodes.find(t=>t.name==d.destination.toString()).label + "")
+        .style("left", (d3.event.pageX) + "px")
+        .style("top", (d3.event.pageY - 50) + "px");
+    }
   }
 
   function mouseout(){
@@ -435,17 +437,6 @@ function appendAnnotations(nodes) {
     }  
   ]
 
-  var title = [{
-    note: {label: "Total number of trips from origin to destination bus stops. Only origin-destination paths with more than 10000 trips are included in the chart", 
-           title: "Passenger Volume by Origin Destination Bus Stops in December 2018",
-           wrap: 400},
-    y: 0,
-    x: 100,
-    dy: 0,
-    dx: 100,
-    type: d3.annotationLabel
-  }]
-
   var makeAnnotations = d3.annotation().annotations(labels)
 
   arcWrapper.append("g")
@@ -453,23 +444,17 @@ function appendAnnotations(nodes) {
     .style('font-size', 12)
     .call(makeAnnotations);
 
-  var makeTitle= d3.annotation().annotations(title).disable(["connector"])
-
-  arcWrapper.append("g")
-    .attr("class", "title-group")
-    .call(makeTitle);
-
 }
 
 function appendLegend() {
 
   var legend = arcWrapper.append("g")
     .attr("class", "legend")
-    .attr("transform", "translate(10,200)")
+    .attr("transform", "translate(0,350)")
 
-  dummy_nodes = [{name:1, group:"1"}, {name:2, group:"2"}, {name:3, group:"3"},
-                 {name:4, group:"4"}, {name:5, group:"5"}, {name:6, group:"6"},
-                 {name:7, group:"7"}, {name:8, group:"8"}, {name:9, group:"9"}]
+  dummy_nodes = [{name:1, group:"1", label:"South-West"}, {name:2, group:"2", label:"West"}, {name:3, group:"3", label:"North-West"},
+                 {name:4, group:"4", label:"North"}, {name:5, group:"5", label:"Central"}, {name:6, group:"6", label:"North-East"},
+                 {name:7, group:"7", label:"East (Pasir Ris)"}, {name:8, group:"8", label:"East (Bedok)"}, {name:9, group:"9", label:"East (Simei, Changi)"}]
 
   var yscale = d3.scaleLinear()
     .domain([0, dummy_nodes.length - 1])
@@ -518,6 +503,18 @@ function appendLegend() {
     .style("font-size", 9)
     .text(d=>d.group)
 
+  legend.selectAll(".legend-label")
+    .data(dummy_nodes)
+    .enter()
+    .append("text")
+    .attr("class", "legend-label")
+    .attr("id", d=>d.name)
+    .attr("x", d=>d.x + (4*radius))
+    .attr("y", d=>d.y + radius)
+    .style("fill", "black")
+    .style("font-size", 9)
+    .text(d=>d.label)
+
   legend
     .append("text")   
     .attr("x", dummy_nodes[0].x/2)
@@ -541,7 +538,7 @@ function appendLegend() {
     .enter()
     .append("rect")
     .attr("class", "legend-path")
-    .attr("x",50)
+    .attr("x",150)
     .attr("y", d=>d.target)
     .attr("width", 100)
     .attr("height", d=>logScale(d.total))
@@ -552,7 +549,7 @@ function appendLegend() {
     .enter()
     .append("text")
     .attr("class", "legend-path-text")
-    .attr("x", 60)
+    .attr("x", 160)
     .attr("y", d=>d.target)
     .style("fill", "black")
     .style("font-size", 9)
@@ -560,7 +557,7 @@ function appendLegend() {
 
   legend
     .append("text")
-    .attr("x", 50)
+    .attr("x", 150)
     .attr("y", dummy_links[0].target-20)
     .style("font-size", 11)
     .style('font-weight', 'bold')
@@ -569,7 +566,7 @@ function appendLegend() {
   legend
     .append("rect")
     .attr("class", "legend-origin")
-    .attr("x", 50)
+    .attr("x", 150)
     .attr("y", dummy_links[0].target-55)
     .attr("width", 20)
     .attr("height", 10)
@@ -578,7 +575,7 @@ function appendLegend() {
   legend
     .append("rect")
     .attr("class", "legend-dest")
-    .attr("x", 120)
+    .attr("x", 220)
     .attr("y", dummy_links[0].target-55)
     .attr("width", 20)
     .attr("height", 10)
@@ -587,7 +584,7 @@ function appendLegend() {
   legend
     .append("text")
     .attr("class", "legend-origin")
-    .attr("x", 80)
+    .attr("x", 180)
     .attr("y", dummy_links[0].target-45)
     .style("font-size", 11)
     .text("origin")
@@ -595,7 +592,7 @@ function appendLegend() {
   legend
     .append("text")
     .attr("class", "legend-dest")
-    .attr("x", 150)
+    .attr("x", 250)
     .attr("y", dummy_links[0].target-45)
     .style("font-size", 11)
     .text("destination")

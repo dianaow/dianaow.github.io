@@ -17,8 +17,6 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <script src="http://d3js.org/d3.v4.min.js" type="text/javascript"></script>
-
     <!-- Custom styles for this template -->
     <link href="css/3-col-portfolio.css" rel="stylesheet">
 
@@ -125,7 +123,7 @@
             <a href="http://dianameow.com/vietnamconflict/index.html" target="_blank"><img class="card-img-top" height="180" width="700" src="./images/proj-2-vietnam.png" alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="http://dianameow.com/vietnamconflict/index.html" target="_blank">U.S. Army Infantry Casualties in Vietnam War</a>
+                <a href="https://dianameow.com/vietnamconflict/index.html" target="_blank">U.S. Army Infantry Casualties in Vietnam War</a>
               </h4>
               <p class="card-text">Vega was used to create a stacked bar chart showing the number of deaths of US Infantry over the course of the Vietnam War.</p>
               <a href="https://github.com/dianaow/dianaow.github.io/blob/master/vietnamconflict/js/stacked.js" target="_blank">Code</a>
@@ -134,10 +132,10 @@
         </div>
         <div class="col-lg-4 col-sm-6 portfolio-item">
           <div class="card h-100">
-            <a href="http://dianameow.com/vietnamconflict/index.html" target="_blank"><img class="card-img-top" height="180" width="700" src="./images/vietnam-map.gif" alt=""></a>
+            <a href="https://dianameow.com/vietnamconflict/index.html" target="_blank"><img class="card-img-top" height="180" width="700" src="./images/vietnam-map.gif" alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="http://dianameow.com/vietnamconflict/index.html" target="_blank">Vietnam War Timeline</a>
+                <a href="https://dianameow.com/vietnamconflict/index.html" target="_blank">Vietnam War Timeline</a>
               </h4>
               <p class="card-text">Animation of monthly fatalities of US Infantry within provinces. Map was created by converting shapefiles of Vietnam to GeoJson and displaying with D3. Each province is colour-coded by fatality count, with a more intense red indicating higher deaths. Data cleaning was rather challenging as names and demarcation of provinces where fatalities occured have changed after the war and it was hard to trace and assign a correct province.</p>
               <a href="https://github.com/dianaow/dianaow.github.io/blob/master/vietnamconflict/js/map.js" target="_blank">Code</a>
@@ -146,13 +144,61 @@
         </div>
         <div class="col-lg-4 col-sm-6 portfolio-item">
           <div class="card h-100">
-            <a href="http://dianameow.com/vietnamconflict/index.html" target="_blank"><img class="card-img-top" height="180" width="700" src="./images/vietnam-3.gif" alt=""></a>
+            <a href="https://dianameow.com/vietnamconflict/index.html" target="_blank"><img class="card-img-top" height="180" width="700" src="./images/vietnam-3.gif" alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="http://dianameow.com/vietnamconflict/index.html" target="_blank">Vietnam War Bloodshed</a>
+                <a href="https://dianameow.com/vietnamconflict/index.html" target="_blank">Vietnam War Bloodshed</a>
               </h4>
               <p class="card-text">I designed the chart markers to follow a 'bloodshed' theme. Animation flows from a large blob representing total death count, before spattering into individual blood droplets representing monthly death count, then transitioning into death count per province</p>
               <a href="https://github.com/dianaow/dianaow.github.io/blob/master/vietnamconflict/js/bubble.js" target="_blank">Code</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-6 portfolio-item">
+          <div class="card h-100">
+            <a href="https://dianameow.com/busroutes/index.html" target="_blank"><img class="card-img-top" height="180" width="700" src="./images/busroutes_index.png" alt=""></a>
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="https://dianameow.com/busroutes/index.html" target="_blank"> Visualizing Singapore's Bus Routes with vector approach</a>
+              </h4>
+              <p class="card-text">Data taken from Singapore's Land Transport Authority dataset portal site. D3 used to render vector geographic information to Canvas. I explored using Canvas rather than SVG becuase there are over 20000 routes and 5000 bus stops to plot. Canvas prevents memory and performance issues in plotting large amount of elements.</p>
+              <a href="https://github.com/dianaow/dianaow.github.io/blob/master/busroutes/js/main.js" target="_blank">Code</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-6 portfolio-item">
+          <div class="card h-100">
+            <a href="https://dianameow.com/busroutes/leaflet.html" target="_blank"><img class="card-img-top" height="180" width="700" src="./images/busroutes-leaflet.gif" alt=""></a>
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="https://dianameow.com/busroutes/leaflet.html" target="_blank">Visualizing Singapore's Bus Routes with raster method: Leaflet</a>
+              </h4>
+              <p class="card-text">I created an interactive Leaflet map with path along a bus route animated. I used D3 to overlay SVG objects on the Leaflet map and animate them. Dropdown menu available to allow users to select a specific route to plot</p>
+              <a href="https://github.com/dianaow/dianaow.github.io/blob/master/vietnamconflict/js/leaflet.js" target="_blank">Code</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-6 portfolio-item">
+          <div class="card h-100">
+            <a href="https://dianameow.com/busroutes/mapboxgl.html" target="_blank"><img class="card-img-top" height="180" width="700" src="./images/busroutes_mapboxgl.png" alt=""></a>
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="https://dianameow.com/busroutes/mapboxgl.html" target="_blank">Visualizing Singapore's Bus Routes with raster method: Mapbox GL JS</a>
+              </h4>
+              <p class="card-text">Mapbox GL JS support overlays like GeoJSON layers and markers. Hence, i explored this method, instead of using D3 to animate a point along a route. Dropdown menu available to allow users to select a specific route to plot</p>
+              <a href="https://github.com/dianaow/dianaow.github.io/blob/master/busroutes/mapboxgl.js" target="_blank">Code</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-6 portfolio-item">
+          <div class="card h-100">
+            <a href="https://dianameow.com/busroutes/travel_volume.html" target="_blank"><img class="card-img-top" height="250" width="700" src="./images/busroutes_travelvol.png" alt=""></a>
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="https://dianameow.com/busroutes/travel_volume.html" target="_blank">Passenger travel volume from origin to destination Bus Stops</a>
+              </h4>
+              <p class="card-text">An arc diagram uses a one-dimensional layout of nodes, with circular arcs to represent links. I sorted the nodes by the various regions in Singapore, which I felt was the best manner to reveal underlying travel trends. I tried out the d3-annotation library to nicely place labels to highlight information. Travel volume source data is really large (over 4 million data points). I am still exploring ways to process and stream large data for visualization purposes. Presently, i filtered the dataset to only include routes with more than 10000 trips made in December 2018.</p>
+              <a href="https://github.com/dianaow/dianaow.github.io/blob/master/busroutes/js/travel_volume.js" target="_blank">Code</a>
             </div>
           </div>
         </div>
