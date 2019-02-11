@@ -5,6 +5,7 @@ var AWS = require('aws-sdk');
 var fs = require('fs');
 var csv = require('csv-parser')
 require('dotenv').config({path: '.env'});
+var http = require('http');
 
 // Copy third party libraries from /node_modules into /vendor
 gulp.task('vendor', function() {
@@ -76,7 +77,7 @@ gulp.task('download', function() {
 gulp.task('parse', function() {
 
   var od = []
-  fs.createReadStream('./busroutes/data/origin_destination_bus_201812.csv')
+  fs.createReadStream('./busroutes/data/origin_destination_bus.csv')
     .pipe(csv())
     .on('data', function (row) {
       od.push(row)
@@ -85,10 +86,11 @@ gulp.task('parse', function() {
       console.log('Data loaded')
     })
 
+
 })
 
 // Dev task
-gulp.task('dev', ['browserSync'], function() {
+gulp.task('dev', ['browserSync', 'parse'], function() {
   gulp.watch('./css/*.css', browserSync.reload);
   gulp.watch('**/*.html', browserSync.reload);
 });
