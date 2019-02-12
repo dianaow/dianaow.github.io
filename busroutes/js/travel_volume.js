@@ -1,4 +1,4 @@
-var width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+var width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) * 2
 var height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * 11
 var canvasDim = { width: width*0.9, height: height};
 
@@ -17,7 +17,7 @@ var radius = 4; // fixed node radius
 var pad = 200
 var margin = canvasDim.width-pad; // amount of margin around plot area
 var yfixed = margin + radius; // y position for all nodes
-var xfixed = margin + radius - pad; // x fixed position for all nodes
+var xfixed = canvasDim.width/2 + radius - pad; // x fixed position for all nodes
 
 var graph = []
 // Create empty array if haven't already done so
@@ -29,29 +29,38 @@ if(!graph.links) {
 }
 
 // used to assign nodes color by group
-var color = d3.scaleOrdinal(d3.schemeCategory10)
+var color = d3.scaleOrdinal(d3.schemeDark2)
+//var color = d3.scaleOrdinal()
+  //.domain(["1", "2", "3", "4", "5", "6", "7", "8", "9"])
+  //.range(["#EFB605", "#E47D06", "#FF5733", "#DB0131", "#AF0158", "#7F378D", "#3465A8", "#0AA174", "#7EB852", '#DAF7A6']);
 
 // scale to generate radians (just for lower-half of circle)
-var radians = d3.scaleLinear()
-  //.range([Math.PI / 2, 3 * Math.PI / 2]);
+var radians_Left = d3.scaleLinear()
   .range([2 * Math.PI, Math.PI]);
+
+var radians_Right = d3.scaleLinear()
+  .range([-2 * Math.PI, -Math.PI]);
 
 var logScale = d3.scaleLinear()
   .domain([0, 50001])
 
 // path generator for arcs (uses polar coordinates)
-var arc = d3.lineRadial()
+var arc_Left = d3.lineRadial()
   .angle(function(d) {
-    return radians(d);
+    return radians_Left(d);
   })
-  .radius(3)
+
+var arc_Right = d3.lineRadial()
+  .angle(function(d) {
+    return radians_Right(d);
+  })
 
 init()
 
 function init() {
 
   d3.queue()   
-    .defer(d3.csv, './data/od_bus.csv') 
+    .defer(d3.csv, './data/od_bus1.csv') 
     .defer(d3.csv, './data/busstops.csv') 
     .await(createChart);  
 
@@ -134,10 +143,15 @@ function renderArc(){
 
 // Layout nodes linearly, sorted by group
 function linearLayout(nodes) {
-  // sort nodes by group
-  nodes.sort(function(a, b) {
-    return a.group - b.group;
-  })
+  // sort nodes by group  
+  nodes.sort( ( a, b ) => {
+      var arr = ["3", "4", "1", "2", "9", "5", "6", "7", "8"]
+
+      const aColorIndex = arr.indexOf( a.group );
+      const bColorIndex = arr.indexOf( b.group );
+
+      return aColorIndex - bColorIndex;
+  } );
 
   // used to scale node index to x position
   var xscale = d3.scaleLinear()
@@ -305,17 +319,19 @@ var tooltip = d3.select("section")
 
       // set arc radius based on x distance
       // arc.radius(xdist / 2);
-      arc.radius(ydist / 2);
+      var bool = d.path.split("/")[0] == d.origin.toString()
 
+      bool ? arc_Left.radius(ydist / 2) : arc_Right.radius(ydist / 2)
+      
       // want to generate 1/3 as many points per pixel in x direction
       // var points = d3.range(0, Math.ceil(xdist / 3));
       var points = d3.range(0, Math.ceil(ydist / 3));
 
       // set radian scale domain
-      radians.domain([0, points.length - 1]);
-
+      bool ? radians_Left.domain([0, points.length - 1]) : radians_Right.domain([0, points.length - 1])
+      
       // return path for arc
-      return arc(points);
+      return bool ? arc_Left(points) : arc_Right(points) 
     })
     //.on("mouseover", mouseover)
     //.on("mousemove", mousemove)

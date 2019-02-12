@@ -76,3 +76,12 @@ text {
 .vega-actions {
   visibility: hidden
 }
+
+div.tooltip {
+  color: #fff;
+  position: absolute;
+  text-align: center;
+  padding: 4px;
+  border: 0px;
+  pointer-events: none;
+}
