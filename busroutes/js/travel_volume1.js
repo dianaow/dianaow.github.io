@@ -620,49 +620,6 @@ function appendLegend() {
     .text("(Hover over nodes to show bus stop names)")
 
   legend
-    .append("text")   
-    .attr("x", dummy_nodes[0].x/2)
-    .attr("y", 180)
-    .style("fill", "white")
-    .style("font-size", 11)
-    .style('font-weight', 'bold')
-    .text("Hover over a link for path details:")
-
-  legend
-    .append("circle")
-    .attr("class", "legend-origin")
-    .attr("cx", dummy_nodes[0].x/2 + 6)
-    .attr("cy", 200)
-    .attr("r", 6)
-    .style("fill", "green")
-
-  legend
-    .append("circle")
-    .attr("class", "legend-dest")
-    .attr("cx", dummy_nodes[0].x/2 + 6 + 80)
-    .attr("cy", 200)
-    .attr("r", 6)
-    .style("fill", "red")
-
-  legend
-    .append("text")
-    .attr("class", "legend-origin")
-    .attr("x", dummy_nodes[0].x/2 + 6 + 12)
-    .attr("y", 200 + 6/2)
-    .style("fill", "white")
-    .style("font-size", 11)
-    .text("origin")
-
-  legend
-    .append("text")
-    .attr("class", "legend-dest")
-    .attr("x", dummy_nodes[0].x/2 + 6 + 80 + 12)
-    .attr("y", 200+ 6/2)
-    .style("fill", "white")
-    .style("font-size", 11)
-    .text("destination")
-
-  legend
     .append("circle")
     .attr("cx", dummy_nodes[0].x/2 + 6)
     .attr("cy", 130)
@@ -678,6 +635,49 @@ function appendLegend() {
     .style("fill", "white")
     .style("font-size", 11)
     .text("Bus Interchange")
+
+  legend
+    .append("text")   
+    .attr("x", dummy_nodes[0].x/2)
+    .attr("y", 160)
+    .style("fill", "white")
+    .style("font-size", 11)
+    .style('font-weight', 'bold')
+    .text("Hover over a link for path details:")
+
+  legend
+    .append("circle")
+    .attr("class", "legend-origin")
+    .attr("cx", dummy_nodes[0].x/2 + 6)
+    .attr("cy", 180)
+    .attr("r", 6)
+    .style("fill", "green")
+
+  legend
+    .append("circle")
+    .attr("class", "legend-dest")
+    .attr("cx", dummy_nodes[0].x/2 + 6 + 80)
+    .attr("cy", 180)
+    .attr("r", 6)
+    .style("fill", "red")
+
+  legend
+    .append("text")
+    .attr("class", "legend-origin")
+    .attr("x", dummy_nodes[0].x/2 + 6 + 12)
+    .attr("y", 180 + 6/2)
+    .style("fill", "white")
+    .style("font-size", 11)
+    .text("origin")
+
+  legend
+    .append("text")
+    .attr("class", "legend-dest")
+    .attr("x", dummy_nodes[0].x/2 + 6 + 80 + 12)
+    .attr("y", 180 + 6/2)
+    .style("fill", "white")
+    .style("font-size", 11)
+    .text("destination")
   
   const barHeight = 20;
   const barWidth = 20;
@@ -685,24 +685,33 @@ function appendLegend() {
 
   var legend_scale = legend.append('g')
       .attr('class', 'scale')
-      .attr('transform', 'translate(0,220)')
+      .attr('transform', 'translate(5,220)')
 
   legend_scale.selectAll('.legend-bars')
     .data(points)
     .enter()
     .append('rect')
       .attr("class", "legend-bars")
-      .attr('y', 0)
+      .attr('y', 20)
       .attr('x', (d, i) => i * barWidth)
       .attr('width', barWidth)
       .attr('height', barHeight)
       .attr('fill', d=>colorScaleLog(d))
+  
+  legend_scale
+    .append('text')
+      .attr('y', 10)
+      .attr('x', 0)
+      .attr('fill', 'white') 
+      .style("font-size", 11)
+      .style('font-weight', 'bold')
+      .text('Passenger Volume')
 
   legend_scale.selectAll('.legend-text')
     .data(points)
     .enter()
     .append('text')
-      .attr('y', 30)
+      .attr('y', 50)
       .attr('x', (d, i) => i * barWidth)
       .attr('fill', 'white') 
       .text((d, i) => i%3 === 0 ? d : "") 

@@ -29,10 +29,10 @@ if(!graph.links) {
 }
 
 // used to assign nodes color by group
-var color = d3.scaleOrdinal(d3.schemeDark2)
-//var color = d3.scaleOrdinal()
-  //.domain(["1", "2", "3", "4", "5", "6", "7", "8", "9"])
-  //.range(["#EFB605", "#E47D06", "#FF5733", "#DB0131", "#AF0158", "#7F378D", "#3465A8", "#0AA174", "#7EB852", '#DAF7A6']);
+//var color = d3.scaleOrdinal(d3.schemeDark2)
+var color = d3.scaleOrdinal()
+  .domain(["3", "4", "1", "2", "9", "5", "6", "7", "8"])
+  .range(["#EFB605", "#E47D06", "#FF5733", "#C70039", "#AF0158", "#7F378D", "#3465A8", "#0AA174", "#7EB852", '#DAF7A6']);
 
 // scale to generate radians (just for lower-half of circle)
 var radians_Left = d3.scaleLinear()
@@ -132,7 +132,7 @@ function renderArc(){
   drawNodes(graph.nodes);
 
   // append node labels
-  appendLabels(graph.nodes);
+  //appendLabels(graph.nodes);
 
   appendAnnotations(graph.nodes);
 
@@ -207,7 +207,7 @@ function drawNodes(nodes) {
       return color(d.group);
     })
     .on("mouseover", function(d, i) {
-      addTooltipNode(d3.select(this));
+      addTooltipNode(d3.select(this), d);
     })
     .on("mouseout", function(d, i) {
       d3.select("#tooltip").remove();
@@ -243,34 +243,23 @@ function appendLabels(nodes) {
 }
 
 // Generates a tooltip for a SVG circle element based on its ID
-function addTooltipNode(circle) {
+function addTooltipNode(circle, el) {
 
   var x = parseFloat(circle.attr("cx"));
   var y = parseFloat(circle.attr("cy"));
   var r = parseFloat(circle.attr("r"));
-  var text = circle.attr("id");
+  var text = el.label;
 
   var tooltip = arcWrapper
     .append("text")
     .text(text)
     .attr("x", x)
     .attr("y", y)
-    .attr("dy", -r * 2)
-    .attr("id", "tooltip");
-
-  var offset = tooltip.node().getBBox().width / 2;
-
-  if ((x - offset) < 0) {
-    tooltip.attr("text-anchor", "start");
-    tooltip.attr("dx", -r);
-  } else if ((x + offset) > (width - margin)) {
-    tooltip.attr("text-anchor", "end");
-    tooltip.attr("dx", r);
-  } else {
-    tooltip.attr("text-anchor", "middle");
-    tooltip.attr("dx", 0);
-  }
-
+    .attr("dx", -r * 2)
+    .attr("dy", r)
+    .attr("font-size", 10)
+    .attr("id", "tooltip")
+    .attr("text-anchor", "end")
 }
 
 // ------------------ LINKS --------------------
@@ -391,7 +380,7 @@ function gradientAlongPath(nodes, links) {
   grads.append("stop")
       .attr("offset", "0%")
       .attr("stop-color", function(d){ 
-        return (d.path.split("/")[0] == d.origin.toString()) ? "yellow" : "black"
+        return (d.path.split("/")[0] == d.origin.toString()) ? "#66FF00" : "red"
       });
 
   grads.append("stop")
@@ -406,7 +395,7 @@ function gradientAlongPath(nodes, links) {
   grads.append("stop")
       .attr("offset", "100%")
       .attr("stop-color", function(d){ 
-        return (d.path.split("/")[0] == d.destination.toString()) ? "yellow" : "black"
+        return (d.path.split("/")[0] == d.destination.toString()) ? "#66FF00" : "red"
       });
 
 }
@@ -422,10 +411,10 @@ function appendAnnotations(nodes) {
       note: {label: "In Dec 2018, 483302 bus trips were made from Woodlands to Johor Bahru Checkpoint and 300406 trips back", 
              title: "Heaviest travel volume",
              wrap: 150},
-      y: nodes.find(d=>d.label==name1).y,
-      x: nodes.find(d=>d.label==name1).x +160,
-      dy: 100,
-      dx: 20,
+      y: nodes.find(d=>d.label==name1).y + 100,
+      x: nodes.find(d=>d.label==name1).x +60,
+      dy: 0,
+      dx: 200,
       type: d3.annotationCalloutElbow,
       connector: {end: "dot", type: "line"}
     },
@@ -434,9 +423,9 @@ function appendAnnotations(nodes) {
              title: "Trickle-down effect",
              wrap: 150},
       y: nodes.find(d=>d.label==name2).y,
-      x: nodes.find(d=>d.label==name2).x +120,
+      x: nodes.find(d=>d.label==name2).x +60,
       dy: 0,
-      dx: 160,
+      dx: 200,
       type: d3.annotationLabel,
       connector: {end: "dot", type: "line"}
     },
@@ -445,9 +434,9 @@ function appendAnnotations(nodes) {
              title: "Trickle-down effect",
              wrap: 160},
       y: nodes.find(d=>d.label==name3).y,
-      x: nodes.find(d=>d.label==name3).x +180,
+      x: nodes.find(d=>d.label==name3).x +20,
       dy: 0,
-      dx: 20,
+      dx: 200,
       type: d3.annotationCalloutElbow,
       connector: {end: "dot", type: "line"}
     }  
@@ -466,7 +455,7 @@ function appendLegend() {
 
   var legend = arcWrapper.append("g")
     .attr("class", "legend")
-    .attr("transform", "translate(0,350)")
+    .attr("transform", "translate(0,360)")
 
   dummy_nodes = [{name:1, group:"1", label:"South-West"}, {name:2, group:"2", label:"West"}, {name:3, group:"3", label:"North-West"},
                  {name:4, group:"4", label:"North"}, {name:5, group:"5", label:"Central"}, {name:6, group:"6", label:"North-East"},
@@ -515,7 +504,7 @@ function appendLegend() {
     .attr("id", d=>d.name)
     .attr("x", d=>d.x + (2*radius))
     .attr("y", d=>d.y + radius)
-    .style("fill", "black")
+    .style("fill", "white")
     .style("font-size", 9)
     .text(d=>d.group)
 
@@ -527,7 +516,7 @@ function appendLegend() {
     .attr("id", d=>d.name)
     .attr("x", d=>d.x + (4*radius))
     .attr("y", d=>d.y + radius)
-    .style("fill", "black")
+    .style("fill", "white")
     .style("font-size", 9)
     .text(d=>d.label)
 
@@ -544,7 +533,7 @@ function appendLegend() {
     .attr("x", dummy_nodes[0].x/2)
     .attr("y", dummy_nodes[0].y - 20)
     .style("font-size", 10)
-    .text("(Hover over nodes to show code)")
+    .text("(Hover over nodes to show bus stop name)")
 
   //drawLinks(dummy_links, 200)
   //gradientAlongPath(dummy_nodes, dummy_links)
@@ -558,7 +547,7 @@ function appendLegend() {
     .attr("y", d=>d.target)
     .attr("width", 100)
     .attr("height", d=>logScale(d.total))
-    .style("fill", 'black')
+    .style("fill", 'white')
 
   legend.selectAll(".legend-path-text")
     .data(dummy_links)
@@ -567,7 +556,7 @@ function appendLegend() {
     .attr("class", "legend-path-text")
     .attr("x", 160)
     .attr("y", d=>d.target)
-    .style("fill", "black")
+    .style("fill", "white")
     .style("font-size", 9)
     .text(d=>d.total)
 
@@ -586,7 +575,7 @@ function appendLegend() {
     .attr("y", dummy_links[0].target-55)
     .attr("width", 20)
     .attr("height", 10)
-    .style("fill", "yellow")
+    .style("fill", "#66FF00")
 
   legend
     .append("rect")
@@ -595,7 +584,7 @@ function appendLegend() {
     .attr("y", dummy_links[0].target-55)
     .attr("width", 20)
     .attr("height", 10)
-    .style("fill", "black")
+    .style("fill", "red")
 
   legend
     .append("text")
