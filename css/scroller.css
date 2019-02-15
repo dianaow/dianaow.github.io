@@ -1,0 +1,108 @@
+* {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+}
+*:focus {
+  outline: none;
+}
+
+html {
+  font-family: 'Nunito', sans-serif;
+  font-size: 62.5%;
+}
+
+body{
+  font-size: 1.6rem;
+  margin: 0px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1{
+  text-align: center;
+}
+
+h4{
+  font-size: 0.8em
+}
+
+p {
+  font-size: 0.8em;
+}
+
+#container{
+  position: relative;
+}
+#sections {
+  width: 40vw;
+}
+#sections > div{
+  background: white;
+  opacity: .2;
+  margin-left: 40px;
+  height: 100vh;
+  margin-bottom: 30px;
+}
+#sections > div:last-child{
+  margin-bottom: 30px;
+}
+#sections > div.graph-scroll-active{
+  opacity: 1;
+}
+
+#graph{
+  width: 60vw;
+  margin-left: 40px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+  float: right;
+}
+
+@media (max-width: 925px)  {
+  #graph{
+    width: 100%;
+    margin-left: 0px;
+    float: none;
+  }
+
+  #sections{
+    width: auto;
+    position: relative;
+    margin: 0px auto;
+  }
+
+  #sections > div{
+    background: rgba(255,255,255,.5);
+    padding: 10px;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    margin-bottom: 80vh;
+  }
+
+  h1{
+    margin: 10px;
+  }
+}
+
+
+.mono{
+  font-family: monospace;
+}
+
+svg{
+  background-color: #eee;
+}
+
+.form-group {
+  padding: 20px;
+}
+
+pre {
+  white-space: pre
+  margin:0;
+  padding:0;
+  font-size: 0.9em;
+}

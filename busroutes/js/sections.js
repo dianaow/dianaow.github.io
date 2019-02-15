@@ -1,0 +1,5 @@
+d3.graphScroll()
+  .graph(d3.selectAll('#graph'))
+  .container(d3.select('#container'))
+  .sections(d3.selectAll('#sections > div'))
+  .on('active', function(i){ console.log(i + 'th section active') })

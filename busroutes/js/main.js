@@ -132,7 +132,7 @@ function initProjection(geoJSON) {
       }
     });
   });
- 
+  console.log(geoJSON)
   projection = d3.geoMercator().fitSize([canvasDim.width, canvasDim.height], geoJSON);
   var path = d3.geoPath().projection(projection);
 
