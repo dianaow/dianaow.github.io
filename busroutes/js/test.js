@@ -1,3 +1,4 @@
+
 var data
 var busstops
 var oldWidth = 0
@@ -330,92 +331,5 @@ function updateGraph(serviceNum, direction, width, height) {
     ctx.fillText("Bus Service does not travel in this route", width/3, height/2) // Display error message if route not found
   }
 
-}
-
-// -----------------------
-// VISUALIZE TRAVEL VOLUME
-function initVolumeData(id) {
-
-  d3.csv('./data/origin_destination_bus_top1perc.csv', function(csv) {
-    var trips = csv.map((d,i) => {
-      return {
-        BusStopCode: +d.BusStopCode,
-        total: +d.TOTAL_TRIPS,
-        path: d.PATH,
-        origin: +d.origin
-      }
-    })
-
-    var data_vol = trips.map((d,i) => {
-      return Object.assign({}, d, data.find(b=>b.BusStopCode===d.BusStopCode)||{});
-    })
-    //console.log(data_vol)
-
-    var data_vol1 = data_vol.filter(d =>(isNaN(d.x)==false && isNaN(d.y)==false))
-
-    data_vol1.sort(function(x, y){
-       return d3.descending(x.total, y.total);
-    })
-    //console.log(data_vol1)
-
-    if(id==1){
-
-      // Nest data with unique origin-destination path as key
-      var data_vol2 =  d3.nest()
-                      .key(d => d.path)
-                      .entries(data_vol1)
-      //console.log(data_vol2)
-
-      ctx.clearRect(0, 0, width, height);
-      d3.selectAll('.vol-circle').remove()
-
-      var vol = mapWrapper.selectAll(".vol-path")
-        .data(data_vol2)
-        .enter()
-        .append("g")
-        .attr("class", "vol-path")
-
-      vol.append("path")
-        .attr("class", "line")
-        .style("stroke", d=>colorScaleLog(d.values.find(x=>x.total).total))
-        .style("stroke-width", 1)
-        .style("fill", d=>colorScaleLog(d.values.find(x=>x.total).total))
-        .style("opacity", 0.5)
-        .attr("d", d=>lineFunction(d.values))
-
-      d3.selectAll(".line")
-          .transition()
-          .duration(750)
-          .style("stroke", d=>colorScaleLog(d.values.find(x=>x.total).total))
-          .style("stroke-width", 1)
-          .style("fill", d=>colorScaleLog(d.values.find(x=>x.total).total))
-          .style("opacity", 0.5)
-
-      vol.exit().remove()
-
-    } else if(id==2) {
-
-      ctx.clearRect(0, 0, width, height)
-      d3.selectAll('.vol-path').remove()
-
-      var vol_circle = mapWrapper.selectAll(".vol-circle")
-        .data(data_vol1)
-        .enter()
-        .append("g")
-        .attr("class", "vol-circle")
-
-      vol_circle.append("circle")
-          .attr("class", "stops")
-          .attr("cx", d=>d.x)
-          .attr("cy", d=>d.y)
-          .attr("r", d=>logScale(d.total)*10)
-          .style("fill", d=>colorScaleLog(d.total))
-          .style("opacity", 0.5)
-
-      vol_circle.exit().remove()
-
-    } 
-
-  })
 }
 
