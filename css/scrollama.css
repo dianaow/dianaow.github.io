@@ -1,0 +1,96 @@
+html {
+  font-family: 'Nunito', sans-serif;
+  font-size: 62.5%;
+}
+body {
+  color: white;
+  font-size: 1.6rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+#scroll {
+    position: relative;
+}
+
+.scroll__graphic {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: auto;
+    width: 100%;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    z-index: -1;
+
+}
+
+.scroll__graphic.is-fixed {
+    position: fixed;
+}
+
+.scroll__graphic.is-bottom {
+    bottom: 0;
+    top: auto;
+}
+
+.scroll__graphic .chart {
+    position: absolute;
+    right: 0rem;
+    top: 50%;
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+#map {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.scroll__text {
+    padding: 0;
+    max-width: 30rem;
+    z-index: -1;
+}
+
+.step {
+    margin: 0rem auto;
+    border: 0px solid rgb(167, 164, 164);
+    background-color: #62ACB5;
+}
+
+.step.is-active {
+    background-color: #6282B5;
+}
+
+#Dropdown {
+  z-index: 10;
+}
+
+pre {
+  padding: 0.9em;
+}
+
+h1{
+  text-align: center;
+  padding: 2em;
+}
+
+h4{
+  font-size: 0.8em;
+  padding: 0.8em;
+}
+
+p {
+  font-size: 1em;
+  padding: 1em;
+}
+
+a {
+  color:white;
+   text-decoration: underline;
+}

@@ -26,16 +26,23 @@ var logScale = d3.scaleLog()
   .domain([5000, 50000])
 
 var colorScaleLog = d3.scaleSequential(d => d3.interpolateViridis(logScale(d)))   
+ 
+var vol = 
+  [{group:"0-10", color:"#000000"},
+   {group:"10-25", color:"#DB0131"}, 
+   {group:"25-50", color:"#7F378D"},
+   {group:"50-75", color:"#3465A8"}, 
+   {group:"75-90", color:"#0AA174"},
+   {group:"90-100", color:"#E47D06"}]
 
 var colorScaleVol = d3.scaleOrdinal()
-  .domain(["0-10", "10-25", "25-50", "50-75", "75-90", "90-100"])
-  .range(["#EFB605", "#DB0131", "#7F378D", "#3465A8", "#0AA174", "#E47D06"]);
+  .domain(vol.map(d=>d.group))
+  .range(vol.map(d=>d.color))
 
 // Here we're ycreating a FUNCTION to generate a line from input points. 
 // Since input points will be in Lat/Long they need to be converted to map units
 var toLine = d3.line()
     .x(function(d) {
-      console.log(d)
       return map.latLngToLayerPoint(new L.LatLng(d.lat, d.lon)).x
     })
     .y(function(d) {
@@ -112,26 +119,26 @@ function handleStepEnter(response) {
       console.log(2)
       map.removeLayer(linesGroup)
       map.removeLayer(circlesGroup)
-      d3.selectAll('svg').remove()
-      createDropdown()
-      //renderPassengerVol("animateOneRoute")
-
+      d3.selectAll('.form-control-lg').remove()
+      d3.selectAll('.vol-path').remove()
+      d3.selectAll('.vol-circle').remove()
+      renderPassengerVol(2)
     }
     else if (response.index === 3) {
       console.log(3)
       d3.selectAll('.form-control-lg').remove()
-      d3.selectAll('svg').remove()
-      renderPassengerVol(2)
+      d3.selectAll('.vol-path').remove()
+      d3.selectAll('.vol-circle').remove()
+      renderPassengerVol(1)
 
     }
     else if (response.index === 4) {
       console.log(4)
-      d3.selectAll('svg').remove()
-      d3.selectAll('.form-control-lg').remove()
-      renderPassengerVol(1)
-
+      d3.selectAll('.vol-path').remove()
+      d3.selectAll('.vol-circle').remove()
+      createDropdown()
+      //renderPassengerVol("animateOneRoute")
     }
-
 
 }
 
@@ -174,6 +181,9 @@ function init() {
 
     // setup resize event
     window.addEventListener('resize', handleResize);
+
+    legendVol1()
+    legendVol2()
 
     d3.queue()   
       .defer(d3.csv, './data/busroutes.csv')  
@@ -297,7 +307,7 @@ function drawBusStops() {
 
   map.addLayer(circlesGroup)
 
-  map.on("zoomend", map.fitBounds(map.getBounds()))
+  //map.on("zoomend", map.fitBounds(map.getBounds()))
 }
 
 function drawBusRoutes() {
@@ -310,7 +320,7 @@ function drawBusRoutes() {
 
   map.addLayer(linesGroup)
 
-  map.on("zoomend", map.fitBounds(map.getBounds()))
+  //map.on("zoomend", map.fitBounds(map.getBounds()))
 
 }
 
@@ -412,10 +422,10 @@ function renderPassengerVol(id) {
       reset()
 
     }
-    if(id=="animateOneRoute"){
+    if(id.label=="animateOneRoute"){
 
       // Filter the data to include only bus service of interest
-      var one_route = data.filter(d=>d.ServiceNo==851 && d.Direction==1)
+      var one_route = data.filter(d=>d.ServiceNo==id.param1 && d.Direction==id.param2)
       //console.log(one_route)
 
       // these are the points that make up the path
@@ -535,7 +545,7 @@ function renderPassengerVol(id) {
     } 
 
     function reset(id) {
-      console.log('fired')
+      //console.log('fired')
       map.off("zoomend");
 
       var d3path = d3.geoPath().projection(transform())
@@ -589,6 +599,96 @@ function renderPassengerVol(id) {
 
 }
 
+
+function legendVol2() {
+
+  var svg = d3.select('.legend-vol2').append("svg")
+  var legend = svg.append('g').attr("class", "g-legend-vol2")
+
+  var radius = 6
+  var yscale = d3.scaleLinear()
+    .domain([0, vol.length - 1])
+    .range([30, 100]);
+
+  vol.forEach(function(d, i) {
+    d.x = 10;
+    d.y = yscale(i);
+  });
+
+  legend.selectAll(".legend-node")
+    .data(vol)
+    .enter()
+    .append("circle")
+    .attr("class", "legend-node")
+    .attr("id", d=>d.name)
+    .attr("cx", d=>d.x)
+    .attr("cy", d=>d.y+20)
+    .attr("r", radius)
+    .style("fill", d=>d.color)
+
+  legend.selectAll(".legend-text")
+    .data(vol)
+    .enter()
+    .append("text")
+    .attr("class", "legend-text")
+    .attr("id", d=>d.name)
+    .attr("x", d=>d.x + (2*radius))
+    .attr("y", d=>d.y + 20 + radius/2)
+    .style("fill", "white")
+    .style("font-size", 9)
+    .text(d=>d.group)
+
+  legend
+    .append("text")   
+    .attr("x", vol[0].x/2)
+    .attr("y", vol[0].y + 10)
+    .style("fill", "white")
+    .style("font-size", 11)
+    .style('font-weight', 'bold')
+    .text("Total number of trips (in percentile)")
+
+}
+
+function legendVol1() {
+
+  var barHeight = 20;
+  var barWidth = 20;
+  var points = d3.range(5000, 50001, 5000)
+
+  var svg = d3.select('.legend-vol1').append("svg")
+  var legend = svg.append('g').attr("class", "g-legend-vol1")
+
+  legend.selectAll('.legend-bars')
+    .data(points)
+    .enter()
+    .append('rect')
+      .attr("class", "legend-bars")
+      .attr('y', 20)
+      .attr('x', (d, i) => i * barWidth)
+      .attr('width', barWidth)
+      .attr('height', barHeight)
+      .attr('fill', d=>colorScaleLog(d))
+  
+  legend.selectAll('.legend-text')
+    .data(points)
+    .enter()
+    .append('text')
+      .attr('y', 50)
+      .attr('x', (d, i) => i * barWidth)
+      .attr('fill', 'white') 
+      .style("font-size", 9)
+      .text((d, i) => i%3 === 0 ? d : "") 
+
+  legend
+    .append('text')
+      .attr('y', 10)
+      .attr('x', 0)
+      .attr('fill', 'white') 
+      .style("font-size", 11)
+      .style('font-weight', 'bold')
+      .text('Passenger Volume')
+
+}
 
 // --------------------------------------------------
 // DROPDOWN MENU SELECTION OF BUS ROUTES TO VISUALIZE
@@ -644,18 +744,25 @@ function createDropdown() {
   // Run update function when dropdown selection changes
   d3.select(".dropdown1").on('change', function(){
     serviceNum = d3.select(this).property("value") // Find which value was selected from the dropdown
-    renderPassengerVol("animateOneRoute")
+    renderPassengerVol({label:"animateOneRoute", param1:serviceNum, param2:direction})
 
   });
 
   d3.select(".dropdown2").on('change', function(){
     direction = d3.select(this).property("value")
-    renderPassengerVol("animateOneRoute")
+    renderPassengerVol({label:"animateOneRoute", param1:serviceNum, param2:direction})
 
   });
 }
 
-
+function clearChart() {
+  d3.selectAll('*').transition() //stop the transition
+  d3.selectAll('.lineConnect').remove()
+  d3.selectAll('.waypoints').remove()
+  d3.selectAll('.begend').remove()
+  d3.selectAll('.locnames').remove()
+  d3.selectAll('.locnames1').remove()
+}
 
 // start it up
 init();

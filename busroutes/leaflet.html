@@ -18,77 +18,14 @@
     <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
     <script src='https://unpkg.com/intersection-observer@0.5.0/intersection-observer.js'></script>
     <script src='https://unpkg.com/scrollama'></script>
+    <link href="../css/scrollama.css" rel="stylesheet">
     <style>
-
-        html {
-          font-family: 'Nunito', sans-serif;
-          font-size: 62.5%;
-        }
-        body {
-          font-size: 1.6rem;
-          margin: 0;
-          padding: 0;
-          border: 0;
-        }
-
-        #scroll {
-            position: relative;
-        }
-
-        .scroll__graphic {
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: auto;
-            width: 100%;
-            -webkit-transform: translate3d(0, 0, 0);
-            -moz-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-            z-index: -1;
-
-        }
-
-        .scroll__graphic.is-fixed {
-            position: fixed;
-        }
-
-        .scroll__graphic.is-bottom {
-            bottom: 0;
-            top: auto;
-        }
-
-        .scroll__graphic .chart {
-            position: absolute;
-            right: 0rem;
-            top: 50%;
-            -moz-transform: translateY(-50%);
-            -webkit-transform: translateY(-50%);
-            transform: translateY(-50%);
-        }
-
-        #map {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-
-        .scroll__text {
-            padding: 0;
-            max-width: 30rem;
-            z-index: -1;
-        }
-
-        .step {
-            margin: 0rem auto;
-            border: 0px solid rgb(167, 164, 164);
-        }
-
-        .step.is-active {
-            background-color: lightgoldenrodyellow;
-        }
-        #Dropdown {
-          z-index: 10;
-        }
+      .legend-vol1,  .legend-vol2 {
+        margin-left: 1em;
+      }
+      .buttons {
+        margin-left: 1em;
+      }
     </style>
   </head>
 
@@ -103,74 +40,52 @@
         <!--  step/text container  -->
         <div class='scroll__text'>
             <div class='step' data-step='1'>
-                <h1>Spain, France and Portugal</h1>
+                <h1>Singapore's Bus Ridership in December 2018</h1>
                 <p>
-                    The points on the right side of the screen are the most populated cities of these 3 countries
+                    With keen interest in public transport utilization and availability of this data through <span><a href="https://www.mytransport.sg/content/mytransport/home/dataMall/dynamic-data.html" target="_blank">Land Transport Authority's DataMall</a></span>, I set out to discover Singapore's bus ridership patterns and trends with geovisualization. The 'scrollytelling' functionality is made possible with <span><a href="https://github.com/russellgoldenberg/scrollama" target="_blank">Scrollama.js.</a></span>
                 </p>
             </div>
             <div class='step' data-step='2'>
-                <h1>Spain</h1>
+                <h1>Singapore's Bus Stops</h1>
                 <p>
-                    <a href="https://en.wikipedia.org/wiki/Spain">Source Wikipedia</a>
+                    All bus routes are visualized on the map to the right. Bus services can be a bi-directional service, a uni-directional service or a loop service. Bi-directional services will have routes in Direction 1 (RED) and 2 (BLUE), while uni-drectional and loop services will only have Direction 1 routes.
                 </p>
-
-                <p>
-                    Spain (Spanish: España [esˈpaɲa] (About this sound listen)), officially the Kingdom of Spain (Spanish: Reino de España),[a][b]
-                    is a sovereign state located on the Iberian Peninsula in southwestern Europe, with two large archipelagoes,
-                    the Balearic Islands in the Mediterranean Sea and the Canary Islands off the North African Atlantic coast,
-                    two cities, Ceuta and Melilla, in the North African mainland and several small islands in the Alboran
-                    Sea near the Moroccan coast. The country's mainland is bordered to the south and east by the Mediterranean
-                    Sea except for a small land boundary with Gibraltar; to the north and northeast by France, Andorra, and
-                    the Bay of Biscay; and to the west and northwest by Portugal and the Atlantic Ocean. It is the only European
-                    country to have a border with an African country (Morocco)[h] and its African territory accounts for
-                    nearly 5% of its population, mostly in the Canary Islands but also in Ceuta and Melilla.
-                </p>
+                <h4>Polylines, representing path from a bus stop to the next, were added to the map with Leaflet method. Example:</h4>
+                <pre>L.polyline(latLngs1, {color: 'red', weight: 0.5, opacity: 0.5}).addTo(map)
+                </pre>
             </div>
             <div class='step' data-step='3'>
-              <div id='Dropdown'></div>
-                <h1>France</h1>
-
+                <h1>Passenger Volume in Dec 2018</h1>
                 <p>
-                    France (French IPA: [fʁɑ̃s]), officially the French Republic (French: République française [ʁepyblik fʁɑ̃sɛz]), is a country
-                    whose territory consists of metropolitan France in western Europe, as well as several overseas regions
-                    and territories.[XIII] The metropolitan area of France extends from the Mediterranean Sea to the English
-                    Channel and the North Sea, and from the Rhine to the Atlantic Ocean. The overseas territories include
-                    French Guiana in South America and several islands in the Atlantic, Pacific and Indian oceans. The country's
-                    18 integral regions (5 of which are situated overseas) span a combined area of 643,801 square kilometres
-                    (248,573 sq mi) which, as of October 2017, has a population of 67.15 million people.[10] France is a
-                    unitary semi-presidential republic with its capital in Paris, the country's largest city and main cultural
-                    and commercial centre. Other major urban centres include Marseille, Lyon, Lille, Nice, Toulouse and Bordeaux.
+                    The data is filtered to only include routes with passenger volume in the 1st percentile in Dec 2018. 'Utilization' is measured by summing a bus stops' total trips starts and ends in Dec 2018. 
                 </p>
+                <p>
+                    Plotting total passenger volume for each stop confirms an intuitive result: stops at or near bus interchanges typically have the highest number of trips. Grouping (clustering) stops together by  utilization percentile and assigning distinct colors to each group made it easier to interpret utilization.
+                </p>
+                <h4>
+                    D3 objects (the colored circles) are overlayed on Leaflet map with Leaflet conversion method: <span style="font-weight:bold;font-style:italic">latLngToLayerPoint</span>, which returns the map layer point that corresponds to the given geographical coordinates.
+                </h4>
+                <div class='legend-vol2'></div>
             </div>
             <div class='step' data-step='4'>
-                <h1>Portugal</h1>
+                <h1>Passenger Volume in Dec 2018</h1>
                 <p>
-                    <a href="https://en.wikipedia.org/wiki/Portugal">Source Wikipedia</a>
+                    Another version of visualizing travel volume. Again, the data is filtered to only include routes with passenger volume in the 1st percentile in Dec 2018. The colour of each origin-destination path represents passenger volume. Trips with high volume seem to originate more so from bus interchanges, rather than stop-to-stop. There is a web-like pattern around bus interchanges with paths of varying lengths. 
                 </p>
-                <p>
-                    Portugal (Portuguese: [puɾtuˈɣaɫ]), officially the Portuguese Republic (Portuguese: República Portuguesa [ʁɛ'puβlikɐ puɾtu'ɣezɐ]),[note
-                    1] is a sovereign state located on the Iberian Peninsula in southwestern Europe. It is the westernmost
-                    country of mainland Europe, being bordered to the west and south by the Atlantic Ocean and to the north
-                    and east by Spain. Its territory also includes the Atlantic archipelagos of the Azores and Madeira, both
-                    autonomous regions with their own regional governments. At 1.7 million km2, its Exclusive Economic Zone
-                    is the 3rd largest in the European Union and the 11th largest in the world.
-                </p>
+                <div class='legend-vol1'></div>
 
             </div>
             <div class='step' data-step='5'>
-                <h1>Portugal5</h1>
+                <h1>Explore the data</h1>
                 <p>
-                    <a href="https://en.wikipedia.org/wiki/Portugal">Source Wikipedia</a>
+                  Select a bus service number and direction to visualize its route. Click reset to clear the chart.
                 </p>
-                <p>
-                    Portugal (Portuguese: [puɾtuˈɣaɫ]), officially the Portuguese Republic (Portuguese: República Portuguesa [ʁɛ'puβlikɐ puɾtu'ɣezɐ]),[note
-                    1] is a sovereign state located on the Iberian Peninsula in southwestern Europe. It is the westernmost
-                    country of mainland Europe, being bordered to the west and south by the Atlantic Ocean and to the north
-                    and east by Spain. Its territory also includes the Atlantic archipelagos of the Azores and Madeira, both
-                    autonomous regions with their own regional governments. At 1.7 million km2, its Exclusive Economic Zone
-                    is the 3rd largest in the European Union and the 11th largest in the world.
-                </p>
-
+                <div class='buttons'>
+                  <div id='Dropdown'></div>
+                  <div class="btn-group-vertical">
+                    <button id='btnReset' type="button" class="btn btn-lg btn-light", onClick='clearChart()'>Reset</button>
+                  </div>
+                </div>
             </div>
         </div>
     </section>

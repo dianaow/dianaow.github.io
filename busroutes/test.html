@@ -32,23 +32,24 @@
 
           <h3>All bus stops and the routes that pass through them are visualized on the map.</h3>
 
-          <h4>Bus services can be a bi-directional service, a uni-directional service or a loop service. Bi-directional services will have routes in Direction 1 and 2, while uni-drectional and loop services will only have Direction 1 routes.</h4>
+          <p>Bus services can be a bi-directional service, a uni-directional service or a loop service. Bi-directional services will have routes in Direction 1 (RED) and 2 (BLUE), while uni-drectional and loop services will only have Direction 1 routes.</p>
 
-          <p>Note: The exact coordinates of path taken by each route is unknown. The smoothness of a route is dependent on the distance between bus stops. This explains the presence of straight lines that unrealistically cut across land in some routes.</p>
+          <h4>Note: The exact coordinates of path taken by each route is unknown. The smoothness of a route is dependent on the distance between bus stops. This explains the presence of straight lines that unrealistically cut across land in some routes.</h4>
 
           <h4>I downloaded the shapefile of Singapore and converted it to geoJSON. D3 was then used to render the map of Singapore based on the provided vector geographical information.</h4>
 
           <pre>
-            var projection = d3.geoMercator().fitSize([width, height], geoJSON)
-            var path = d3.geoPath().projection(projection) 
+          var projection = d3.geoMercator().fitSize([width, height], geoJSON)
+          var path = d3.geoPath().projection(projection) 
 
-            // DRAW MAP OF SINGAPORE    
-            mapWrapper.selectAll(".country")
-                .data(geoJSON)
-                .enter()
-                .append("path")
-                .attr("class", "country")
-                .attr("d", path)     
+          // DRAW MAP OF SINGAPORE    
+          mapWrapper.selectAll(".country")
+            .data(geoJSON)
+            .enter()
+            .append("path")
+            .attr("class", "country")
+            .attr("d", path)    
+
           </pre>
 
           <h4>As there are over 20000 routes and 5000 bus stops to plot, i chose to render them with Canvas rather than SVG. Canvas prevents memory and performance issues in plotting large amount of elements. However, because I want to overlay the elements on top of the map (which is an SVG object), i had to create an embedded Canvas in the SVG map.</h4>
