@@ -84,18 +84,6 @@
         </div>
         <div class="col-lg-4 col-sm-6 portfolio-item">
           <div class="card h-100">
-            <a href="http://www.notforcasualfans.com/results-barchart" target="_blank"><img class="card-img-top" height="180" width="300" src="./images/f1-3.png" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="http://www.notforcasualfans.com/results-barchart" target="_blank">F1: Qualifying vs Race Finish Positions</a>
-              </h4>
-              <p class="card-text">How well does qualifying position relate to race winning position?</p>
-              <a href="https://github.com/dianaow/d3-react/tree/master/static/js/Components/Results-BarChart" target="_blank">Code</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-          <div class="card h-100">
             <a href="http://www.notforcasualfans.com/results-animation" target="_blank"><img class="card-img-top" height="180" width="300" src="./images/f1-stackedbar.gif" alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
@@ -156,43 +144,28 @@
         </div>
         <div class="col-lg-4 col-sm-6 portfolio-item">
           <div class="card h-100">
-            <a href="https://dianameow.com/busroutes/index.html" target="_blank"><img class="card-img-top" height="180" width="700" src="./images/busroutes_index.png" alt=""></a>
+            <a href="https://dianameow.com/busroutes/leaflet.html" target="_blank"><img class="card-img-top" height="230" width="700" src="./images/busroutes-leaflet.png" alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="https://dianameow.com/busroutes/index.html" target="_blank"> Visualizing Singapore's Bus Routes with vector approach</a>
+                <a href="https://dianameow.com/busroutes/leaflet.html" target="_blank">Visualizing Singapore's Bus Ridership: Leaflet</a>
               </h4>
-              <p class="card-text">Data taken from Singapore's Land Transport Authority dataset portal site. D3 used to render vector geographic information to Canvas. I explored using Canvas rather than SVG becuase there are over 20000 routes and 5000 bus stops to plot. Canvas prevents memory and performance issues in plotting large amount of elements.</p>
-              <a href="https://github.com/dianaow/dianaow.github.io/blob/master/busroutes/js/main.js" target="_blank">Code</a>
+              <p class="card-text">Scrollytelling Singapore's bus routes and travel volume analysis with the help of Scrollama.js. I also practiced overlaying D3 objects with Leaflet and incorporated interactivity. My other attempts at geo-visualizing this issue:
+              <ul>
+                <li><span><a href="https://dianameow.com/busroutes/test.html" target="_blank">Vector Approach: </a></span>D3 used to render vector geographic information to Canvas. Simple scrolling events for D3 graph set up with graph-scroll.js.
+                </li>
+                <p></p>
+                <li>Mapbox GL JS support overlays like GeoJSON layers and markers. <span><a href="https://dianameow.com/busroutes/mapboxgl.html" target="_blank">I explored this</a></span> method instead of using D3 to overlay and animate. 
+                </li>
+              </ul>
+              </p>
+            
+              <a href="https://github.com/dianaow/dianaow.github.io/blob/master/busroutes/js" target="_blank">Code</a>
             </div>
           </div>
         </div>
         <div class="col-lg-4 col-sm-6 portfolio-item">
           <div class="card h-100">
-            <a href="https://dianameow.com/busroutes/leaflet.html" target="_blank"><img class="card-img-top" height="180" width="700" src="./images/busroutes-leaflet.gif" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="https://dianameow.com/busroutes/leaflet.html" target="_blank">Visualizing Singapore's Bus Routes with raster method: Leaflet</a>
-              </h4>
-              <p class="card-text">I created an interactive Leaflet map with path along a bus route animated. I used D3 to overlay SVG objects on the Leaflet map and animate them. Dropdown menu available to allow users to select a specific route to plot</p>
-              <a href="https://github.com/dianaow/dianaow.github.io/blob/master/vietnamconflict/js/leaflet.js" target="_blank">Code</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-          <div class="card h-100">
-            <a href="https://dianameow.com/busroutes/mapboxgl.html" target="_blank"><img class="card-img-top" height="180" width="700" src="./images/busroutes_mapboxgl.png" alt=""></a>
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="https://dianameow.com/busroutes/mapboxgl.html" target="_blank">Visualizing Singapore's Bus Routes with raster method: Mapbox GL JS</a>
-              </h4>
-              <p class="card-text">Mapbox GL JS support overlays like GeoJSON layers and markers. Hence, i explored this method, instead of using D3 to animate a point along a route. Dropdown menu available to allow users to select a specific route to plot</p>
-              <a href="https://github.com/dianaow/dianaow.github.io/blob/master/busroutes/mapboxgl.js" target="_blank">Code</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 portfolio-item">
-          <div class="card h-100">
-            <a href="https://dianameow.com/busroutes/travel_volume.html" target="_blank"><img class="card-img-top" height="180" width="700" src="./images/travel_volume.png" alt=""></a>
+            <a href="https://dianameow.com/busroutes/travel_volume.html" target="_blank"><img class="card-img-top" height="190" width="700" src="./images/travel_volume.png" alt=""></a>
             <div class="card-body">
               <h4 class="card-title">
                 <a href="https://dianameow.com/busroutes/travel_volume.html" target="_blank">Passenger travel volume from origin to destination Bus Stops: Arc Diagram</a>
@@ -209,7 +182,7 @@
               <h4 class="card-title">
                 <a href="https://dianameow.com/busroutes/travel_volume.html" target="_blank">Passenger travel volume from origin to destination Bus Stops: Network Diagram</a>
               </h4>
-              <p class="card-text">Another version of visualizing travel volume, only including routes with more than 10000 trips made in December 2018 I clustered the nodes into indiviudal network diagrams and arranged them in an aesthetically plasing manner. Links within cluster represent travel within the same region in Singapore, while links across nodes represent travel across regions. The viridis colour scheme representing passenger volume against the black background really helps in making the fine lines stand out.</p>
+              <p class="card-text">Another version of visualizing travel volume, only including routes with more than 10000 trips made in December 2018 I clustered the nodes into indiviudal network diagrams and arranged them in an aesthetically plasing manner. Links within cluster represent travel within the same region in Singapore, while links across nodes represent travel across regions. The viridis colour scheme representing passenger volume against the black background really helps in making fine lines stand out.</p>
               <a href="https://github.com/dianaow/dianaow.github.io/blob/master/busroutes/js/travel_volume.js" target="_blank">Code</a>
             </div>
           </div>
