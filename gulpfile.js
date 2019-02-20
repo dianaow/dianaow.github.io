@@ -96,4 +96,4 @@ gulp.task('dev', ['browserSync', 'parse'], function() {
 });
 
 // Default task
-gulp.task('default', ['vendor', 'download', 'dev']);
+gulp.task('default', ['vendor', 'dev']);

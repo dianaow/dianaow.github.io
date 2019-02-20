@@ -11,7 +11,7 @@
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
-    <script src='../vendor/turf.js' type="text/javascript"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js' charset='utf-8'></script>
     <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
     <style>
         body { margin:0; padding:0; }
@@ -25,21 +25,6 @@
       position: absolute;
       top: 10px;
       left: 10px;
-  }
-  .slider-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: space-between;
-    margin: auto;
-    width: 320px;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, .4);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.20);
-    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    text-align: center;
-    color: #fff;
   }
   #Dropdown {
       position: absolute;
@@ -57,7 +42,6 @@
       cursor: pointer;
       border-radius: 3px;
   }
-
   .overlay button:hover {
       background-color:#4ea0da;
   }
@@ -71,18 +55,14 @@
 
   <div id='map'></div>
   <div class='overlay'>
-    <h1>Singapore Heartbeat</h1>
+    <h1>Singapore's Bus Routes</h1>
     <p>Select a bus service number to visualize its route.</p>
     <p>Click reset to clear the chart.</p>
-    <div class="slider-container">
-      <input type="range" min="5" max="23" value="5" step="1" id="timeSelector">
-      <span id="timeValue">05:00</span>
-    </div>
     <button id='btnReset' onClick='reset()'>Reset</button>
     <button id='replay'>Replay</button>
   </div>
   <div id='Dropdown'>
   </div>
-  <script src="js/mapboxgl.js"></script>
+  <script src="js/mapboxgl1.js"></script>
 </body>
 </html>
