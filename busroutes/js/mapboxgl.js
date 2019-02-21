@@ -42,11 +42,12 @@ function createChart(error, csv, csv2){
   initLatLngData(csv)
   initRoutesData(csv2)
   
-  const timeSelector = document.getElementById("timeSelector");
-  const timeValue = document.getElementById("timeValue");
+  const timeSelector = document.getElementById("timeSelector")
+  const timeValue = document.getElementById("timeValue")
   timeSelector.addEventListener("input", (e) => {
-    timeValue.innerHTML = `${e.target.value}:00`;
-    setData();
+    timeValue.innerHTML = `${e.target.value}:00`
+    setData()
+    setTimeout(extrude, 100)
   });
 
   map.on('load', function(csv) {
@@ -62,28 +63,33 @@ function createChart(error, csv, csv2){
                 "fill-extrusion-height-transition": {duration: 500, delay: 0}
       }
     })
-    var arr = d3.range(6,8,1)
-    var counter = 0;
-    setInterval(function(){
-      if(counter < arr.length){
-        timeSelector.value = arr[counter]
-        setData()
-        //flatten()
-        //setTimeout(extrude, 300)
-        setTimeout(extrude, 100)
-        counter++;
-      }else
-        return;
-    }, 1000);
+    setData()
+    setTimeout(extrude, 100)
 
   })
 
 }
 
+function initAnimation() {
+
+  var arr = d3.range(6,8,1)
+  var counter = 0;
+  setInterval(function(){
+    if(counter < arr.length){
+      timeSelector.value = arr[counter]
+      setData()
+      //flatten()
+      setTimeout(extrude, 100)
+      counter++;
+    }else
+      return;
+  }, 1000);
+
+}
+
 function initMap() {
 
-  const lowerLat = 1.1, upperLat = 1.58, lowerLong = 103.49, upperLong = 104.15; //boundaries of Singapore
-
+  const lowerLat = 1.14, upperLat = 1.58, lowerLong = 103.45, upperLong = 104.15; //boundaries of Singapore
   mapboxgl.accessToken = 'pk.eyJ1IjoiZGlhbmFtZW93IiwiYSI6ImNqcmh4aWJnOTIxemI0NXA0MHYydGwzdm0ifQ.9HakB25m0HLT-uDY2yat7A';
   map = new mapboxgl.Map({
     container: 'map',

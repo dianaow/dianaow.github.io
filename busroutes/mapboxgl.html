@@ -16,6 +16,7 @@
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
+        a { color:white; text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -27,23 +28,23 @@
       left: 10px;
   }
   .slider-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: space-between;
-    margin: auto;
-    width: 320px;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, .4);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.20);
-    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    text-align: center;
-    color: #fff;
+      position: absolute;
+      top: 16px;
+      left: 500px;
+      display: flex;
+      justify-content: space-between;
+      margin: auto;
+      width: 320px;
+      padding: 10px;
+      background-color: rgba(0, 0, 0, .4);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.20);
+      font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+      text-align: center;
+      color: #fff;
   }
   #Dropdown {
       position: absolute;
-      top: 190px;
+      top: 390px;
       left: 10px;
   }
   .overlay button {
@@ -66,20 +67,25 @@
     padding: 0px;
     background-color: black;
     color: white;
+    width: 310px;
   }
   </style>
 
   <div id='map'></div>
   <div class='overlay'>
     <h1>Singapore Heartbeat</h1>
-    <p>Select a bus service number to visualize its route.</p>
-    <p>Click reset to clear the chart.</p>
-    <div class="slider-container">
-      <input type="range" min="5" max="23" value="5" step="1" id="timeSelector">
-      <span id="timeValue">05:00</span>
-    </div>
+    <p>Passenger travel volume hour-by-hour from origin to destination bus stops in December 2018 is visualized here.
+    Volume is measured by summing the total arrivals and departures at the bus stop, aggregated for the month and grouped on an hourly basis.
+    </p>
+    <p style="font-size:0.65em">Source: <span><a href="https://www.mytransport.sg/content/mytransport/home/dataMall/dynamic-data.html" target="_blank">LTA</a></span>, Note: There is missing data regarding travel volume for bus stops starting with code "0", which explains the cluster of black dots on the map</p>
+    <p style="font-size:0.8em">You may also select a bus service number to visualize its route. Click 'reset' to clear the chart or 'replay' to re-intiialize path animation.</p>
     <button id='btnReset' onClick='reset()'>Reset</button>
     <button id='replay'>Replay</button>
+  </div>
+  <div class="slider-container">
+    <input type="range" min="5" max="23" value="5" step="1" id="timeSelector">
+    <span id="timeValue">05:00</span>
+    <button id='btnReset' onClick='initAnimation()'>Animate</button>
   </div>
   <div id='Dropdown'>
   </div>
