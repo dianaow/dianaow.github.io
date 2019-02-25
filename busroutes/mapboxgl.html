@@ -13,6 +13,8 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
     <script src='../vendor/turf.js' type="text/javascript"></script>
     <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
+    <link href="../css/mapbox.css" rel="stylesheet">
+    <link href="../css/toggle_switch.css" rel="stylesheet">
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
@@ -21,74 +23,81 @@
 </head>
 <body>
 
-  <style>
-  .overlay {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-  }
-  .slider-container {
-      position: absolute;
-      top: 16px;
-      left: 500px;
-      display: flex;
-      justify-content: space-between;
-      margin: auto;
-      width: 320px;
-      padding: 10px;
-      background-color: rgba(0, 0, 0, .4);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.20);
-      font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-      text-align: center;
-      color: #fff;
-  }
-  #Dropdown {
-      position: absolute;
-      top: 390px;
-      left: 10px;
-  }
-  .overlay button {
-      font:600 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-      background-color: #3386c0;
-      color: #fff;
-      display: inline-block;
-      margin: 0;
-      padding: 10px 20px;
-      border: none;
-      cursor: pointer;
-      border-radius: 3px;
-  }
+    <!-- HEADER -->
+    <div id='header'>
+      <div id='title'>
+        <span class='desktop'>Singapore's Bus Ridership</span>
+      </div>
+    </div>
 
-  .overlay button:hover {
-      background-color:#4ea0da;
-  }
-  p {
-    margin: 3px;
-    padding: 0px;
-    background-color: black;
-    color: white;
-    width: 310px;
-  }
-  </style>
+    <!-- STORY MODE -->
+    <div id = 'storymode'>
 
+      <div id = 'storymode-header'>The Singapore Heartbeat</div>
+      <div id = 'storymode-content'>
+        <p>
+          Passenger travel volume hour-by-hour from origin to destination bus stops in December 2018 is visualized here. Volume is measured by summing the total arrivals and departures at the bus stop, aggregated for a month and grouped on an hourly basis. To continue, click the arrows below.
+          <span style="font-size:0.65em; color:white">Source: <span><a href="https://www.mytransport.sg/content/mytransport/home/dataMall/dynamic-data.html" target="_blank">LTA</a></span>, Note: There is missing data regarding travel volume for bus stops starting with code "0", which explains the cluster of black dots on the map</span>
+        </p>
+      </div>
+
+      <!-- STORY MODE/CONTROLS -->
+      <div class = 'noselect' id = 'storymode-controls'>
+        <i class='arrow left' id = 'story-back'></i>
+        <span id = 'storymode-controls-numbers'>1 of 15</span>
+        <i class='arrow right' id = 'story-forward'></i>
+      </div>
+
+    </div>
+
+  <!-- SLIDER -->
+  <div id="controls">
+    <input type="range" min="5" max="23" value="18" step="1" id="timeSelector">
+    <span id="timeValue">18:00</span>
+    <button id='btnReset' class="btn btn-light" onClick='initAnimation()'>Animate</button>
+  </div>
+
+  <!-- SIDEBAR CONTROLS -->
+  <div id='sidebar'>
+
+    <div id='menu'>
+      <button type="button" class="btn btn-link" onClick='showStory()'>Story</button>
+      <button type="button" class="btn btn-link" onClick='showHourlyStats()'>Hourly stats</button>
+      <button type="button" class="btn btn-link" onClick='showDeparturesArrivals()'>Departures/Arrivals</button>
+    </div>
+
+    <div id='select-route'>
+      <p>Select a bus service number to visualize its route. Click 'reset' to clear chart or 'replay' to re-intiialize path animation.</p>
+      <button id='btnReset' class="btn btn-dark" onClick='reset()'>Clear All</button>
+      <button id='replay' class="btn btn-dark">Replay</button>
+      <div id='dropdown'></div>
+    </div>
+
+    <div id='highlight-interchanges'>
+      <p>Highlight Bus Interchanges</p>
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider round" onClick='highlight()'></span>
+      </label>
+    </div>
+
+    <div id='select-interchange'>
+      <p>Select a Bus Interchange</p>
+      <div id='interchange-dropdown'></div>
+    </div>
+
+    <!-- LEGEND -->
+    <div id='legend'></div>
+  
+  </div>
+
+  <!-- MAP -->
   <div id='map'></div>
-  <div class='overlay'>
-    <h1>Singapore Heartbeat</h1>
-    <p>Passenger travel volume hour-by-hour from origin to destination bus stops in December 2018 is visualized here.
-    Volume is measured by summing the total arrivals and departures at the bus stop, aggregated for the month and grouped on an hourly basis.
-    </p>
-    <p style="font-size:0.65em">Source: <span><a href="https://www.mytransport.sg/content/mytransport/home/dataMall/dynamic-data.html" target="_blank">LTA</a></span>, Note: There is missing data regarding travel volume for bus stops starting with code "0", which explains the cluster of black dots on the map</p>
-    <p style="font-size:0.8em">You may also select a bus service number to visualize its route. Click 'reset' to clear the chart or 'replay' to re-intiialize path animation.</p>
-    <button id='btnReset' onClick='reset()'>Reset</button>
-    <button id='replay'>Replay</button>
-  </div>
-  <div class="slider-container">
-    <input type="range" min="5" max="23" value="5" step="1" id="timeSelector">
-    <span id="timeValue">05:00</span>
-    <button id='btnReset' onClick='initAnimation()'>Animate</button>
-  </div>
-  <div id='Dropdown'>
-  </div>
+
   <script src="js/mapboxgl.js"></script>
+  <script src="js/mapboxgl_dep_arr.js"></script>
+  <script src="js/mapboxgl_routes.js"></script>
+  <script src="js/mapboxgl_story.js"></script>
+  
 </body>
 </html>

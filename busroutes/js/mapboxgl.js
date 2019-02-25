@@ -1,10 +1,8 @@
 var data
 var busstops
 var map
-var stopsGeoJSON = {}
-if(!stopsGeoJSON.features) {
-  stopsGeoJSON.features = []
-}
+var arr = []
+var stopsGeoJSON = {"type": "FeatureCollection", "features": []}
 
 var heightScale = d3.scaleLinear()
   .domain([1, 250000])
@@ -25,23 +23,67 @@ var colorScale = d3.scaleOrdinal()
   .domain(vol.map(d=>d.group))
   .range(vol.map(d=>d.color))
 
+var lowerLat = 1.14, upperLat = 1.58, lowerLong = 103.48, upperLong = 104.15; //boundaries of Singapore
+var zoom = 11
+
 init()
+
+function showHourlyStats() {
+  d3.select("#storymode").style("opacity", 0)
+  d3.select("#highlight-interchanges").style("opacity", 1)
+  d3.select("#controls").style("opacity", 1)
+  d3.select("#select-interchange").style("opacity", 0)
+  d3.select(".interchange-dropdown").remove()
+
+  map.setLayoutProperty('stacked', 'visibility', 'none')
+  map.setLayoutProperty('viz', 'visibility', 'visible')
+  map.flyTo({pitch:50})
+
+  d3.select(".legend-deparr").remove()
+  if(d3.select('.legend-HourlyStats').empty()) {
+    legend_HourlyStats() 
+  }
+}
+
+function showDeparturesArrivals() {
+  d3.select("#storymode").style("opacity", 0)
+  d3.select("#highlight-interchanges").style("opacity", 0)
+  d3.select("#controls").style("opacity", 0)
+  d3.select("#select-interchange").style("opacity", 1)
+  
+  map.setLayoutProperty('stacked', 'visibility', 'visible')
+  map.setLayoutProperty('viz', 'visibility', 'none')
+  map.flyTo({pitch:0})
+  //initDepArr()
+  
+  if(d3.select(".interchange-dropdown").empty()) {
+    InterchangeSelect()
+  }
+
+  d3.select(".legend-HourlyStats").remove()
+  if(d3.select('.legend-deparr').empty()) {
+    legend_DepArr() 
+  }
+}
 
 function init() {
 
   initMap()
+  d3.select("#select-interchange").style("opacity", 0)
 
   d3.queue()   
     .defer(d3.csv, './data/busstops.csv')
     .defer(d3.csv, './data/busroutes.csv') 
     .await(createChart);  
+
 }
 
 function createChart(error, csv, csv2){
 
   initLatLngData(csv)
   initRoutesData(csv2)
-  
+  legend_HourlyStats() 
+
   const timeSelector = document.getElementById("timeSelector")
   const timeValue = document.getElementById("timeValue")
   timeSelector.addEventListener("input", (e) => {
@@ -52,7 +94,7 @@ function createChart(error, csv, csv2){
 
   map.on('load', function(csv) {
 
-    map.addSource('viz-data', { type: 'geojson', data: stopsGeoJSON });
+    map.addSource('viz-data', { type: 'geojson', data: stopsGeoJSON }); // data source cannot be empty array
     map.addLayer({
       'id': 'viz',
       'type': 'fill-extrusion',
@@ -63,8 +105,47 @@ function createChart(error, csv, csv2){
                 "fill-extrusion-height-transition": {duration: 500, delay: 0}
       }
     })
+
+    map.addSource('stacked-data', { type: 'geojson', data: oneGeoJSON });
+    map.addLayer({
+      'id': 'stacked',
+      'type': 'circle',
+      'source': 'stacked-data',
+      "paint": {"circle-opacity": 0.8,
+                'circle-color': ['feature-state', 'color'],
+                "circle-radius": ["feature-state", "radius"]
+      }
+    })
+
     setData()
     setTimeout(extrude, 100)
+
+    // Create a popup, but don't add it to the map yet.
+    var popup = new mapboxgl.Popup({
+      closeButton: true,
+      closeOnClick: true
+    }).setLngLat([(lowerLong+upperLong)/2, upperLat])
+
+    map.on('click', 'viz', function(e) {
+
+      var coordinates = e.features[0].geometry.coordinates.slice();
+      var description = e.features[0].properties.description;
+      
+      // Populate the popup based on the feature found.
+      popup.setLngLat(e.lngLat)
+      .setHTML(description)
+      .addTo(map);
+    });
+    
+    // Change the cursor to a pointer when the mouse is over the states layer.
+    map.on('mouseenter', 'viz', function (e) {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+   
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', 'viz', function() {
+      map.getCanvas().style.cursor = '';
+    })
 
   })
 
@@ -72,7 +153,7 @@ function createChart(error, csv, csv2){
 
 function initAnimation() {
 
-  var arr = d3.range(6,8,1)
+  var arr = d3.range(5,8,1)
   var counter = 0;
   setInterval(function(){
     if(counter < arr.length){
@@ -80,6 +161,7 @@ function initAnimation() {
       setData()
       //flatten()
       setTimeout(extrude, 100)
+      timeValue.innerHTML = `${timeSelector.value}:00`
       counter++;
     }else
       return;
@@ -89,16 +171,17 @@ function initAnimation() {
 
 function initMap() {
 
-  const lowerLat = 1.14, upperLat = 1.58, lowerLong = 103.45, upperLong = 104.15; //boundaries of Singapore
   mapboxgl.accessToken = 'pk.eyJ1IjoiZGlhbmFtZW93IiwiYSI6ImNqcmh4aWJnOTIxemI0NXA0MHYydGwzdm0ifQ.9HakB25m0HLT-uDY2yat7A';
   map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/light-v9',
+    sprite: "mapbox://sprites/mapbox/bright-v8",
     bounds: [lowerLong, lowerLat, upperLong, upperLat],
-    minZoom: 11,
+    minZoom: zoom,
     bearing:  -2.35,
     pitch: 50
   })
+
 }
 
 function initLatLngData(csv){
@@ -109,7 +192,10 @@ function initLatLngData(csv){
     lat: +d.Latitude,
     lon: +d.Longitude,
     RoadName: d.RoadName,
-    Description: d.Description
+    Description: d.Description,
+    //find bus interchanges to place specific styles to them (regex ensures only stops with exact match to "Int" are found)
+    interchange: d.Description.match(new RegExp("\\b" + "Int" + "\\b", "g")) ? true : false,
+    station: d.Description.match(new RegExp("\\b" + "Stn" + "\\b", "g")) ? true : false 
     }
   })
 
@@ -119,37 +205,17 @@ function initLatLngData(csv){
     var options = { properties: {
       busStopCode: d.BusStopCode,
       value: 1,
-      color: "#000000"
+      color: "#000000",
+      description: d.Description
     } }
     var circle = turf.circle(center, radius, options);
     stopsGeoJSON.features.push(circle)
   })
-  stopsGeoJSON.type = "FeatureCollection"
 
   stopsGeoJSON.features.forEach((stop) => {
     stop.id = stop.properties.busStopCode;
   });
   //console.log(stopsGeoJSON)
-  
-}
-
-function initRoutesData(csv){
-
-  routes = csv.map((d,i) => {
-    return {
-    BusStopCode: +d.BusStopCode,
-    StopSequence: +d.StopSequence,
-    ServiceNo: +d.ServiceNo,
-    Direction: +d.Direction
-    }
-  })
-
-  routesNew = routes.map((d,i) => {
-    return Object.assign({}, d, busstops.find(b=>b.BusStopCode===d.BusStopCode)||{});
-  })
-  //console.log(routesNew)
-
-  createDropdown()
 
 }
 
@@ -225,162 +291,84 @@ function extrude() {
 
 }
 
-// --------------------------------------------------
-// RENDERS AND ANIMATE PATH ALONG A BUS ROUTE
-function renderOneRoute(params) {
+var shown = false
+function highlight() {
 
-  var selected = params.serviceNum.toString() + "-" + params.direction.toString()
-  var one_route = routesNew.filter(d=>d.ServiceNo==params.serviceNum && d.Direction==params.direction)
-  //console.log(one_route[0])
-
-  var coordinates = []
-  one_route.map(d=>{
-    coordinates.push([d.lon, d.lat])
-  })
-
-  iPath = {
-    type: "Feature",
-    geometry: {
-      type: "LineString",
-      coordinates: coordinates
+  if(data) {
+    if(shown==false) {
+      stopsGeoJSON.features.forEach(({ id }) => {
+        const datum = data.find(d=>d.BusStopCode==id);
+        if (!datum) {
+          map.setFeatureState({ id, source: 'viz-data' }, { value: 1, color: "#000000" });
+        } else {
+          //console.log(datum.interchange===true ? datum.Description : "")
+          //console.log(datum.station===true ? datum.Description : "")
+          var condition = datum.interchange===true ? '#3465A8' : (datum.station===true ? '#35978f' : colorScale(datum.category))
+          map.setFeatureState({ id, source: 'viz-data' }, { value: heightScale(datum.value), color: condition });
+          shown = true
+        }
+      }) 
+    } else if (shown==true) {
+      stopsGeoJSON.features.forEach(({ id }) => {
+        const datum = data.find(d=>d.BusStopCode==id);
+        if (!datum) {
+          map.setFeatureState({ id, source: 'viz-data' }, { value: 1, color: "#000000" });
+        } else {
+          map.setFeatureState({ id, source: 'viz-data' }, { value: heightScale(datum.value), color: colorScale(datum.category) });
+          shown = false 
+        }
+      })  
     }
-  }
-  //var iPath = turf.lineString(coordinates)
-  var iPathLength = turf.length(iPath, {units: 'kilometers'}) // Calculate the distance in kilometers between route start/end point
-  var iPoint = turf.along(iPath, 0, {units: 'kilometers'})
+  } 
  
-  map.addSource("path" + selected, {
-    "type": "geojson",
-    "data": iPath,
-    "maxzoom": 20
+}
+
+function legend_HourlyStats() {
+
+  var svg = d3.select('#legend').append("svg").attr("class", 'legend-HourlyStats')
+  var legend = svg.append('g').attr("class", "g-legend-HourlyStats")
+
+  var barHeight = 15;
+  var barWidth = 20;
+  var yscale = d3.scaleLinear()
+    .domain([0, vol.length - 1])
+    .range([10, 120]);
+
+  vol.forEach(function(d, i) {
+    d.x = 10;
+    d.y = yscale(i);
   });
 
-  map.addLayer({
-    "id": "path" + selected,
-    "type": "line",
-    "source": "path" + selected,
-    "layout": {
-      "line-join": "round",
-      "line-cap": "round"
-    },
-    "paint": {
-      "line-color": "#888",
-      "line-width": 2
-    }
-  });
+  legend.selectAll(".legend-node")
+    .data(vol)
+    .enter()
+    .append("rect")
+    .attr("class", "legend-node")
+    .attr("x", d=>d.x)
+    .attr("y", d=>d.y+barHeight)
+    .attr("width", barWidth)
+    .attr("height", barHeight)
+    .style("fill", d=>d.color)
 
-  map.addSource("peep" + selected, {
-    "type": "geojson",
-    "data": iPoint,
-    "maxzoom": 20
-  });
+  legend.selectAll(".legend-text")
+    .data(vol)
+    .enter()
+    .append("text")
+    .attr("class", "legend-text")
+    .attr("x", d=>d.x + barWidth*1.5)
+    .attr("y", d=>d.y + barHeight*1.5)
+    .style("fill", "white")
+    .style("font-size", 10)
+    .text(d=>d.group)
 
-  map.addLayer({
-    "id": "peep" + selected,
-    "type": "circle",
-    "source": "peep" + selected,
-    "layout": {},
-    "paint": {
-      "circle-radius": 4
-    }
-  }); 
-
-  var counter = 0
-  function animate() {
-    var numSteps = 500; //Change this to set animation resolution
-    var timePerStep = 20; //Change this to alter animation speed
-    var pSource = map.getSource('peep' + selected);
-    var curDistance = counter / numSteps * iPathLength;
-    var iPoint = turf.along(iPath, curDistance, {units: 'kilometers'});
-  
-    pSource.setData(iPoint);
-
-    if (counter < numSteps) {
-      requestAnimationFrame(animate)
-    }
-    counter = counter + 1;
-
-  }
-
-  document.getElementById('replay').addEventListener('click', function() {
-    counter = 0; // Reset the counter
-    animate()
-  })
-
-  animate()
+  legend
+    .append("text")   
+    .attr("x", vol[0].x/2)
+    .attr("y", vol[0].y + 10)
+    .style("fill", "white")
+    .style("font-size", 12)
+    .style('font-weight', 'bold')
+    .text("Total travel volume")
 
 }
 
-// --------------------------------------------------
-// DROPDOWN MENU SELECTION OF BUS ROUTES TO VISUALIZE
-function createDropdown() {
-
-  var defaultServiceNum = 851
-  var defaultDirection = 1
-  var busServiceNoList = [...new Set(routes.map(d=>d.ServiceNo))]
-  busServiceNoList.unshift("Bus Service No.")
-
-  var menu = d3.select("#Dropdown")
-              .attr('class', 'form-group')
-              //.attr('transform', 'translate(100, 200)')
-
-  // allows user to select bus service number
-  menu.append("select")
-    .attr('class', 'dropdown1 form-control')
-    .attr('onfocus', 'this.size=10')
-    .attr('onblur','this.size=1')
-    .attr('onchange', 'this.size=1; this.blur();')
-    .selectAll("option")
-        .data(busServiceNoList)
-        .enter()
-        .append("option")
-        .attr("value", d=>d)
-        .text(d=>d)
-        .each(function(d) {
-          if (d === "Service No.") {
-            d3.select(this).property("disabled", true)
-          }
-        });
-        //.property("selected", d=>d===defaultServiceNum)
-
-  // allows user to select bus route direction (1 or 2)
-  menu.append("select")
-    .attr('class', 'dropdown2 form-control')
-    .selectAll("option")
-        .data(['Direction', 1,2])
-        .enter()
-        .append("option")
-        .attr("value", d=>d)
-        .text(d=>d)
-        .each(function(d) {
-          if (d === "Direction") {
-            d3.select(this).property("disabled", true)
-          }
-        });
-        //.property("selected", d=>d===defaultDirection)
-
-  var serviceNum = defaultServiceNum
-  var direction = defaultDirection
-
-  // Run update function when dropdown selection changes
-  d3.select(".dropdown1").on('change', function(){
-    serviceNum = d3.select(this).property("value") // Find which value was selected from the dropdown
-    renderOneRoute({serviceNum:serviceNum, direction:direction})
-
-  });
-
-  d3.select(".dropdown2").on('change', function(){
-    direction = d3.select(this).property("value")
-    renderOneRoute({serviceNum:serviceNum, direction:direction})
-
-  });
-}
-
-// Function for button to clear chart of all paths and markers
-function reset() {
-  arr.map(function(d){
-    map.removeLayer("peep"+d).removeSource("peep"+d)
-    map.removeLayer("path"+d).removeSource("path"+d)
-  })
-  arr = []
-}
