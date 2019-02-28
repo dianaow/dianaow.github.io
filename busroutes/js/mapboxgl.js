@@ -3,6 +3,7 @@ var busstops
 var map
 var arr = []
 var stopsGeoJSON = {"type": "FeatureCollection", "features": []}
+var routesGeoJSON = {"type": "FeatureCollection", "features": []}
 
 var heightScale = d3.scaleLinear()
   .domain([1, 250000])
@@ -37,8 +38,9 @@ function showHourlyStats() {
 
   map.setLayoutProperty('stacked', 'visibility', 'none')
   map.setLayoutProperty('viz', 'visibility', 'visible')
-  map.flyTo({pitch:50})
+  map.flyTo({pitch:50, zoom: 11})
 
+  d3.select("#misc-description").style("opacity", 0)
   d3.select(".legend-deparr").remove()
   if(d3.select('.legend-HourlyStats').empty()) {
     legend_HourlyStats() 
@@ -60,6 +62,7 @@ function showDeparturesArrivals() {
     InterchangeSelect()
   }
 
+  d3.select("#misc-description").style("opacity", 1)
   d3.select(".legend-HourlyStats").remove()
   if(d3.select('.legend-deparr').empty()) {
     legend_DepArr() 
@@ -70,6 +73,7 @@ function init() {
 
   initMap()
   d3.select("#select-interchange").style("opacity", 0)
+  d3.select("#misc-description").style("opacity", 0)
 
   d3.queue()   
     .defer(d3.csv, './data/busstops.csv')
@@ -94,7 +98,8 @@ function createChart(error, csv, csv2){
 
   map.on('load', function(csv) {
 
-    map.addSource('viz-data', { type: 'geojson', data: stopsGeoJSON }); // data source cannot be empty array
+    // data source cannot be empty array (if required to be empty, put in proper GeoJSON format)
+    map.addSource('viz-data', { type: 'geojson', data: stopsGeoJSON }); 
     map.addLayer({
       'id': 'viz',
       'type': 'fill-extrusion',
@@ -147,25 +152,43 @@ function createChart(error, csv, csv2){
       map.getCanvas().style.cursor = '';
     })
 
+    // Change the cursor to a pointer when the mouse is over the states layer.
+    map.on('mouseenter', 'stacked', function (e) {
+      console.log(e.features[0].properties)
+      map.getCanvas().style.cursor = 'pointer';
+      var coordinates = e.features[0].geometry.coordinates.slice();
+      var description = "<span>Ratio: " +  Math.round(e.features[0].properties.ratio,2) + " %</span><br><span>" + e.features[0].properties.description + "</span>"
+      
+      // Populate the popup based on the feature found.
+      popup.setLngLat(e.lngLat)
+      .setHTML(description)
+      .addTo(map);
+    });
+
+    map.on('mouseleave', 'stacked', function() {
+      map.getCanvas().style.cursor = '';
+    })
+
   })
+
 
 }
 
 function initAnimation() {
 
-  var arr = d3.range(5,8,1)
+  var arr = d3.range(5,24,1)
   var counter = 0;
   setInterval(function(){
     if(counter < arr.length){
       timeSelector.value = arr[counter]
       setData()
       //flatten()
-      setTimeout(extrude, 100)
+      setTimeout(extrude, 50)
       timeValue.innerHTML = `${timeSelector.value}:00`
       counter++;
     }else
       return;
-  }, 1000);
+  }, 500);
 
 }
 
@@ -222,7 +245,7 @@ function initLatLngData(csv){
 function setData(){
 
   const hour = timeSelector.value;
-  console.log(hour)
+  //console.log(hour)
   d3.csv("./data/origin_destination_" + hour.toString() + ".csv", function(csv) {
     var trips = csv.map((d,i) => {
       return {
@@ -267,7 +290,7 @@ function flatten() {
     stopsGeoJSON.features.forEach(({ id }) => {
       const datum = data.find(d=>d.BusStopCode==id);
       if (!datum) {
-        map.setFeatureState({ id, source: 'viz-data' }, { value: 1, color: "#000000" });
+        map.setFeatureState({ id, source: 'viz-data' }, { value: 1, color: "white" });
       } else {
         map.setFeatureState({ id, source: 'viz-data' }, { value: 1, color: colorScale(datum.category) });
       }
@@ -282,7 +305,7 @@ function extrude() {
     stopsGeoJSON.features.forEach(({ id }) => {
       const datum = data.find(d=>d.BusStopCode==id);
       if (!datum) {
-        map.setFeatureState({ id, source: 'viz-data' }, { value: 1, color: "#000000" });
+        map.setFeatureState({ id, source: 'viz-data' }, { value: 1, color: "white" });
       } else {
         map.setFeatureState({ id, source: 'viz-data' }, { value: heightScale(datum.value), color: colorScale(datum.category) });
       }
@@ -299,7 +322,7 @@ function highlight() {
       stopsGeoJSON.features.forEach(({ id }) => {
         const datum = data.find(d=>d.BusStopCode==id);
         if (!datum) {
-          map.setFeatureState({ id, source: 'viz-data' }, { value: 1, color: "#000000" });
+          map.setFeatureState({ id, source: 'viz-data' }, { value: 1, color: "white" });
         } else {
           //console.log(datum.interchange===true ? datum.Description : "")
           //console.log(datum.station===true ? datum.Description : "")
@@ -312,7 +335,7 @@ function highlight() {
       stopsGeoJSON.features.forEach(({ id }) => {
         const datum = data.find(d=>d.BusStopCode==id);
         if (!datum) {
-          map.setFeatureState({ id, source: 'viz-data' }, { value: 1, color: "#000000" });
+          map.setFeatureState({ id, source: 'viz-data' }, { value: 1, color: "white" });
         } else {
           map.setFeatureState({ id, source: 'viz-data' }, { value: heightScale(datum.value), color: colorScale(datum.category) });
           shown = false 
@@ -369,6 +392,5 @@ function legend_HourlyStats() {
     .style("font-size", 12)
     .style('font-weight', 'bold')
     .text("Total travel volume")
-
 }
 

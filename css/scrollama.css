@@ -23,7 +23,7 @@ body {
     -webkit-transform: translate3d(0, 0, 0);
     -moz-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
-    z-index: -1;
+    z-index: 1;
 
 }
 
@@ -77,17 +77,17 @@ pre {
 
 h1{
   text-align: center;
-  padding: 2em;
+  padding: 1em;
 }
 
 h4{
-  font-size: 0.8em;
-  padding: 0.8em;
+  font-size: 0.7em;
+  padding: 0.5em 0.9em 0.5em 0.9em;
 }
 
 p {
-  font-size: 1em;
-  padding: 1em;
+  font-size: 0.9em;
+  padding: 0.6em 0.9em 0.6em 0.9em;
 }
 
 a {

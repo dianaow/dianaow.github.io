@@ -29,6 +29,11 @@
         <span class='desktop'>Singapore's Bus Ridership</span>
       </div>
     </div>
+    <div id='misc-description'>
+      <button type="button" class="btn btn-light" data-toggle="button" onclick='toggle()'>
+        toggle
+      </button>
+    </div>
 
     <!-- STORY MODE -->
     <div id = 'storymode'>
@@ -47,7 +52,6 @@
         <span id = 'storymode-controls-numbers'>1 of 15</span>
         <i class='arrow right' id = 'story-forward'></i>
       </div>
-
     </div>
 
   <!-- SLIDER -->
@@ -79,6 +83,7 @@
         <input type="checkbox">
         <span class="slider round" onClick='highlight()'></span>
       </label>
+      <p>White circle indicate that there were no departures or arrivals at the stop within the hour.</p>
     </div>
 
     <div id='select-interchange'>
@@ -87,16 +92,17 @@
     </div>
 
     <!-- LEGEND -->
-    <div id='legend'></div>
-  
+    <div id='legend'>
+    </div>
+
   </div>
 
   <!-- MAP -->
   <div id='map'></div>
 
   <script src="js/mapboxgl.js"></script>
-  <script src="js/mapboxgl_dep_arr.js"></script>
   <script src="js/mapboxgl_routes.js"></script>
+  <script src="js/mapboxgl_dep_arr.js"></script>
   <script src="js/mapboxgl_story.js"></script>
   
 </body>

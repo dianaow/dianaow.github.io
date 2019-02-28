@@ -7,7 +7,8 @@ function initRoutesData(csv){
     BusStopCode: +d.BusStopCode,
     StopSequence: +d.StopSequence,
     ServiceNo: +d.ServiceNo,
-    Direction: +d.Direction
+    Direction: d.Direction,
+    Description: d.Description
     }
   })
 
