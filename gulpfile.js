@@ -74,23 +74,8 @@ gulp.task('download', function() {
   s3.getObject(params).createReadStream().pipe(file)
 })
 
-gulp.task('parse', function() {
-
-  var od = []
-  fs.createReadStream('./busroutes/data/origin_destination_bus.csv')
-    .pipe(csv())
-    .on('data', function (row) {
-      od.push(row)
-    })
-    .on('end', function () {
-      console.log('Data loaded')
-    })
-
-
-})
-
 // Dev task
-gulp.task('dev', ['browserSync', 'parse'], function() {
+gulp.task('dev', ['browserSync'], function() {
   gulp.watch('./css/*.css', browserSync.reload);
   gulp.watch('**/*.html', browserSync.reload);
 });

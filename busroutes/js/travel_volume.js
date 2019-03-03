@@ -3,7 +3,7 @@ var height = Math.max(document.documentElement.clientHeight, window.innerHeight 
 var canvasDim = { width: width, height: height};
 var xfixed
 var yfixed
-
+var geoJSON_sg 
 var arc_container = d3.select('.arc-chart')
 
 var arc_svg = arc_container.append("svg")
@@ -25,7 +25,8 @@ if(!graph.links) {
 }
 
 // used to assign nodes color by group
-var list = ["1", "2", "3", "5", "6", "7", "8"]
+var list = ["8", "7", "6", "5", "3", "2", "1"]
+var list1 = ["1", "2", "3", "5", "6", "7", "8"]
 var color = d3.scaleOrdinal()
   .domain(list)
   .range(["#EFB605", "#FF5733", "#C70039", "#AF0158", "#7F378D", "#3465A8", "#0AA174", "#7EB852"]);
@@ -42,7 +43,7 @@ var radians_Right = d3.scaleLinear()
   .range([-2 * Math.PI, -Math.PI]);
 
 var logScale = d3.scaleLinear()
-  .range([0.05, 1.5])
+  .range([0.08, 1.8])
   .domain([0, 50001])
 
 // path generator for arcs (uses polar coordinates)
@@ -55,6 +56,14 @@ var arc_Right = d3.lineRadial()
   .angle(function(d) {
     return radians_Right(d);
   })
+
+var lineGenerator = d3.line()
+    .x(function(d) {
+      return d.x;
+    })
+    .y(function(d) {
+      return d.y;
+    })
 
 init()
 
@@ -71,9 +80,14 @@ function init() {
 function createChart(error, csv, csv2, geoJSON){
 
   initializeData(csv, csv2)
-  makeSmallMultiples()
+
+  var container = d3.select('#graph').html('')
+  renderMap(geoJSON, container, 400, 300, graph.links, "showStops", [0,0], 1, 1.25)
+  
+  makeSmallMultiples(geoJSON)
+
   appendLegend()
-  renderMapWithRoutes(geoJSON)
+
 }
 
 function initializeData(csv, csv2){
@@ -101,17 +115,18 @@ function initializeData(csv, csv2){
 
 }
 
-function makeSmallMultiples(){
+function makeSmallMultiples(geoJSON){
 
   Array.prototype.pairs = function (func) {
     for (var i = 0; i < this.length; i++) {
-      for (var j = 0; j < this.length; j++) {
+      for (var j = this.length-1; j >=0; j--) {
           func([this[i], this[j]]);
       }
     }
   }
 
-  list.pairs(function(pair){
+  list.pairs(function(pair,i){
+    //console.log(pair)
     var nodes = []
     if(pair[0] < pair[1]) {
 
@@ -135,34 +150,39 @@ function makeSmallMultiples(){
     } 
 
     if(nodes.length!=0){
-      var nodesNew = nodes.reduce((acc, obj)=>{
-        var exist = nodes.find(({name}) => obj.name === name);
-        if(!exist){
-          nodes.push(obj);
-        }
-        return nodes;
-      },[]);
+      var nodesNew = nodes.filter((thing, index, self) =>
+        index === self.findIndex((t) => (
+          t.name === thing.name
+        ))
+      )
 
       nodesNew.sort(function(a, b) {
         return d3.ascending(a.name, b.name);
       })
 
-      renderArc(nodesNew, links, pair)
+      var id = [list1.indexOf(pair[0])+1, list.indexOf(pair[1])+1] // substitued codes
+      renderArc(nodesNew, links, pair, id)
+
+      var arcMap = arcWrapper.append("g")
+        .attr("transform", "translate(" + ((small_width*id[1]) + small_width*id[1]-small_width/2).toString() + "," + (small_height*id[0]-100).toString() + ")")
+
+      var geoJSON_sg = Object.assign({}, geoJSON)
+      //var map_thumbnail = d3.select("map" + pair[0] + "-" + pair[1]).html('')
+      renderMap(geoJSON_sg, arcMap, 120, 80, links, "showStops", pair, 0.2, 2.5)
+
     }
 
   })
 }
 
-function renderArc(nodes, links, pair){
+function renderArc(nodes, links, pair, id){
 
-  var id = [list.indexOf(pair[0])+1, list.indexOf(pair[1])+1] // substitued codes
   // must be done AFTER links are fixed
   linearLayout(nodes, links, pair, id);
 
-  gradientAlongPath(nodes, links)
-
   // draw links first, so nodes appear on top
   drawLinks(links, pair, id);
+  gradientAlongPath(nodes, links)
 
   // draw nodes last
   drawNodes(nodes, pair, id);
@@ -184,11 +204,11 @@ function linearLayout(nodes, links, pair, id) {
   } );
 
   xfixed = small_width*id[1] + radius - pad; // x fixed position for all nodes
-
+  //console.log(nodes.length)
   // used to scale node index to y position
   var yscale = d3.scaleLinear()
-    .domain([0, id[0]===id[1] ? nodes.length : 3000])
-    .range([radius, small_height-radius]);
+    .domain([0, pair[0]===pair[1] ? nodes.length : 900])
+    .range([radius, pair[0]===pair[1] ? nodes.length*1.5 : small_height-radius]);
 
   // calculate pixel location for each node
   nodes.forEach(function(d, i) {
@@ -216,21 +236,21 @@ function drawNodes(nodes, pair, id) {
     
   arcText.append("text")
     .text(dummy_nodes.find(d=>d.group==pair[0]).label)
-    .attr("x", small_width*id[1]-small_width/2)
+    .attr("x", small_width*id[1]+32)
     .attr("y", 0)
     .style("fill", "white")
     .style("font-size", 10)
 
   arcText.append("text")   
     .text("-----")
-    .attr("x", small_width*id[1]-small_width/2)
+    .attr("x", small_width*id[1]+32)
     .attr("y", 8)  
     .style("fill", "white")
     .style("font-size", 10)
 
   arcText.append("text")    
     .text(dummy_nodes.find(d=>d.group==pair[1]).label)
-    .attr("x", small_width*id[1]-small_width/2)
+    .attr("x", small_width*id[1]+32)
     .attr("y", 16)    
     .style("fill", "white")
     .style("font-size", 10)
@@ -272,9 +292,9 @@ function drawLinks(links, pair, id) {
     .append("path")
     .attr("class", "link")
     .style('stroke-width', d=>logScale(d.total))
-    .style("stroke", function(d){
-      return "url(#arcGradient-" + d.path + ")"; 
-      //return "url(#arcGradient-" + d.origin.toString() +  "-" + d.destination.toString() + ")"; 
+    .style("stroke", function(d,i){
+      return "url(#arcGradient-" + d.path + i.toString() + ")"; 
+      //return "url(#arcGradient-" + d.origin.toString() +  "/" + d.destination.toString() + ")"; 
     })
     .style("fill", "transparent")
     .attr("transform", function(d, i) {
@@ -322,9 +342,9 @@ function gradientAlongPath(nodes, links) {
   var grads = arcLinksG.append("defs").selectAll("linearGradient")
     .data(links)
     .enter().append("linearGradient")
-    .attr("id", function(d) {
-      return "arcGradient-" + d.path; // must be unique
-      //return "arcGradient-" + d.origin.toString() +  "-" + d.destination.toString() + ")"; // must be unique
+    .attr("id", function(d,i) {
+      return "arcGradient-" + d.path + i.toString(); // must be unique
+      //return "arcGradient-" + d.origin.toString() +  "/" + d.destination.toString() + ")"; // must be unique
     })
     //.attr("gradientUnits", "userSpaceOnUse")
     .attr("x1", "0%")
@@ -455,11 +475,7 @@ function appendLegend() {
 
 }
 
-function renderMapWithRoutes(geoJSON) {
-
-  var mapWidth = 400
-  var mapHeight = 300
-  var container = d3.select('#graph').html('')
+function renderMap(geoJSON, container, mapWidth, mapHeight, DATA, type, pair, strokeWidth, markerSize) {
 
   var svg = container.append("svg")
     .attr("width", mapWidth)
@@ -484,19 +500,19 @@ function renderMapWithRoutes(geoJSON) {
 
   // add embedded canvas to embedded body
   var canvas = foBody.append("canvas")
-      .attr('class', 'map')
+      .attr('class', 'map'+ pair[0] + "-" + pair[1])
       .attr("width", mapWidth)
       .attr("height", mapHeight)
 
   // getContext() method returns an object that provides methods and properties for drawing on the canvas
-  ctx = d3.select('.map').node().getContext('2d')
+  ctx = d3.select('.map'+ pair[0] + "-" + pair[1]).node().getContext('2d')
 
   // DATA PROCESSING BEFORE PLOTTING
   // append bus route points to geoJSON already containing multi-polygon describing singapore map
   // this is important so that projection will include these points and ensure alignment in render 
 
-  var nodesSource = graph.links.map(d=>d.origin)
-  var nodesTarget = graph.links.map(d=>d.destination)
+  var nodesSource = DATA.map(d=>d.origin)
+  var nodesTarget = DATA.map(d=>d.destination)
   var nodesAll = [...new Set(nodesSource.concat(nodesTarget))]
 
   var data = nodesAll.map((d,i) => {
@@ -534,19 +550,20 @@ function renderMapWithRoutes(geoJSON) {
       .append("path")
       .attr("class", "country")
       .attr("d", path)
-      .style("stroke-width", "1")
+      .style("stroke-width", strokeWidth)
       .style("stroke", "white")
       .style("fill", "transparent")
 
-  // DRAW BUS STOP MARKERS
-  // each rectange represents a bus stop  
-  data.forEach(function(point){
-    if(point.x && point.y){
-      var grp = point.BusStopCode.toString()[0]== "4" ? "3" : ( point.BusStopCode.toString()[0]== "9" ? "8" : point.BusStopCode.toString()[0] )
-      ctx.fillStyle = color(grp)
-      ctx.fillRect(point.x, point.y, 2, 2)
-    }
-  });
-
+  if (type=='showStops'){
+    // DRAW BUS STOP MARKERS
+    // each rectange represents a bus stop  
+    data.forEach(function(d){
+      if(d.x && d.y){
+        var grp = d.BusStopCode.toString()[0]== "4" ? "3" : ( d.BusStopCode.toString()[0]== "9" ? "8" : d.BusStopCode.toString()[0] )
+        ctx.fillStyle = color(grp)
+        ctx.fillRect(d.x, d.y, markerSize, markerSize)
+      }
+    });
+  }
 
 }

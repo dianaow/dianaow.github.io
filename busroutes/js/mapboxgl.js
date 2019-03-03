@@ -10,7 +10,8 @@ var heightScale = d3.scaleLinear()
   .range([0, 10000])
 
 var vol = 
-  [{group:"0-2000", color:"#fee0d2"}, 
+  [{group:"0", color:"#fff"},
+   {group:"1-2000", color:"#fee0d2"}, 
    {group:"2000-4000", color:"#fcbba1"},
    {group:"4000-8000", color:"#fc9272"}, 
    {group:"8000-16000", color:"#fb6a4a"},
@@ -47,6 +48,25 @@ function showHourlyStats() {
   }
 }
 
+function showHourlyDA() {
+  d3.select("#storymode").style("opacity", 0)
+  d3.select("#highlight-interchanges").style("opacity", 0)
+  d3.select("#controls").style("opacity", 1)
+  d3.select("#select-interchange").style("opacity", 0)
+
+  map.setLayoutProperty('stacked', 'visibility', 'visible')
+  map.setLayoutProperty('viz', 'visibility', 'none')
+  map.flyTo({pitch:0, zoom: 11.6})
+
+  renderDepArr()
+
+  d3.select("#misc-description").style("opacity", 0)
+  d3.select(".legend-HourlyStats").remove()
+  if(d3.select('.legend-deparr').empty()) {
+    legend_DepArr() 
+  }
+}
+
 function showDeparturesArrivals() {
   d3.select("#storymode").style("opacity", 0)
   d3.select("#highlight-interchanges").style("opacity", 0)
@@ -56,8 +76,7 @@ function showDeparturesArrivals() {
   map.setLayoutProperty('stacked', 'visibility', 'visible')
   map.setLayoutProperty('viz', 'visibility', 'none')
   map.flyTo({pitch:0})
-  //initDepArr()
-  
+    
   if(d3.select(".interchange-dropdown").empty()) {
     InterchangeSelect()
   }
@@ -84,9 +103,7 @@ function init() {
 
 function createChart(error, csv, csv2){
 
-  initLatLngData(csv)
-  initRoutesData(csv2)
-  legend_HourlyStats() 
+  doPrep(csv, csv2, mapLoad)
 
   const timeSelector = document.getElementById("timeSelector")
   const timeValue = document.getElementById("timeValue")
@@ -95,6 +112,18 @@ function createChart(error, csv, csv2){
     setData()
     setTimeout(extrude, 100)
   });
+
+}
+
+function doPrep(csv, csv2, callback) {
+  initLatLngData(csv)
+  initRoutesData(csv2)
+  legend_HourlyStats() 
+  setData()
+  callback()
+}
+
+function mapLoad() {
 
   map.on('load', function(csv) {
 
@@ -122,9 +151,8 @@ function createChart(error, csv, csv2){
       }
     })
 
-    setData()
     setTimeout(extrude, 100)
-
+    
     // Create a popup, but don't add it to the map yet.
     var popup = new mapboxgl.Popup({
       closeButton: true,
@@ -154,7 +182,7 @@ function createChart(error, csv, csv2){
 
     // Change the cursor to a pointer when the mouse is over the states layer.
     map.on('mouseenter', 'stacked', function (e) {
-      console.log(e.features[0].properties)
+      //console.log(e.features[0].properties)
       map.getCanvas().style.cursor = 'pointer';
       var coordinates = e.features[0].geometry.coordinates.slice();
       var description = "<span>Ratio: " +  Math.round(e.features[0].properties.ratio,2) + " %</span><br><span>" + e.features[0].properties.description + "</span>"
@@ -171,7 +199,6 @@ function createChart(error, csv, csv2){
 
   })
 
-
 }
 
 function initAnimation() {
@@ -181,9 +208,13 @@ function initAnimation() {
   setInterval(function(){
     if(counter < arr.length){
       timeSelector.value = arr[counter]
-      setData()
-      //flatten()
-      setTimeout(extrude, 50)
+      if(d3.select(".legend-HourlyStats").empty()){
+        setDepArrData()
+      } else {
+        setData()
+        //flatten()
+        setTimeout(extrude, 50)
+      }
       timeValue.innerHTML = `${timeSelector.value}:00`
       counter++;
     }else
@@ -250,8 +281,7 @@ function setData(){
     var trips = csv.map((d,i) => {
       return {
         BusStopCode: +d.BusStopCode,
-        value: +d.TOTAL_TRIPS,
-        hour: +d.TIME_PER_HOUR
+        value: +d.TOTAL
       }
     })
 
@@ -260,8 +290,10 @@ function setData(){
     })
 
     data.map((d,i) => {
-      if(d.value<=2000){
-        d.category = "0-2000"
+      if(d.value==0) { 
+        d.category = "0"
+      } else if(d.value>0 & d.value<=2000){
+        d.category = "1-2000"
       } else if(d.value>2000 & d.value<=4000){
         d.category = "2000-4000"
       } else if(d.value>4000 & d.value<=8000){
@@ -276,7 +308,7 @@ function setData(){
         d.category = "64000-128000"
       } else if(d.value>128000){
         d.category = "more than 128000"
-      }
+      } 
     })
     //console.log(data)
 

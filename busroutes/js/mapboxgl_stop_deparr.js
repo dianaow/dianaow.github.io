@@ -4,6 +4,8 @@ var service = []
 var latLngs = []
 var svc = []
 var to_static = true
+var Dir1_color = "red"
+var Dir2_color = "green"
 
 var percHeightScale = d3.scaleLinear()
   .domain([1, 20000])
@@ -14,20 +16,29 @@ var radiusScale = d3.scaleLinear()
   .range([2, 20])
 
 var perc = 
-  [{group:"~=0-25", color:"#9ecae1"},
-   {group:"25-50", color:"#4292c6"},  
-   {group:"50-75", color:"#08519c"},
-   {group:"75-100", color:"#08306b"}, 
-   {group:"More than 100", color:"#d6604d"},
-   {group:"More than 1000", color:"#b2182b"},
-   {group:"Only departures", color:"#E47D06"}, 
-   {group:"Only arrivals", color:"#35978f"},
-   {group:"Bus Interchange", color:"yellow"}]
+  [{group:"~=0-25", color:'#b8deaf'},
+   {group:"25-50", color:"#80b99d"},  
+   {group:"50-75", color:"#42938a"},
+   {group:"75-100", color:"#206a81"}, 
+   {group:"More than 100", color:"#263c81"},
+   {group:"More than 1000", color:"#000080"},
+   {group:"Only departures", color:"orange"}, 
+   {group:"Only arrivals", color:"#ee0f7c"},
+   {group:"Bus Interchange", color:"yellow"},
+   {group:"No travel", color:"white"},
+   ]
 
 var percScale = d3.scaleOrdinal()
   .domain(perc.map(d=>d.group))
   .range(perc.map(d=>d.color))
 
+var busIntList = [{"Boon Lay Int":22009}, {"Woodlands Int":46009}, 
+  {"Tampines Int": 75009}, {"Bedok Int": 84009}, {"Toa Payoh Int": 52009}, {"Jurong East Int": 28009},
+  {"Yishun Int": 59009}, {"Ang Mo Kio Int": 54009}, {"Choa Chu Kang Int": 44009}]
+
+var busIntCoord = [{"Boon Lay Int":[103.705, 1.33932]}, {"Woodlands Int":[103.786, 1.43763]}, 
+  {"Tampines Int": [103.943,  1.35408]}, {"Bedok Int": [103.929, 1.32454]}, {"Toa Payoh Int": [103.847, 1.33202]}, 
+  {"Jurong East Int": [103.742, 1.33341]}, {"Yishun Int": [103.837, 1.42997]}, {"Ang Mo Kio Int": [103.849, 1.36969]}, {"Choa Chu Kang Int": [103.746, 1.38587]}]
 
 function setOneStopData(id, coordinates){
 
@@ -114,6 +125,8 @@ function setOneStopData(id, coordinates){
     //console.log(oneGeoJSON)
     
     map.getSource('stacked-data').setData(oneGeoJSON);
+    
+    map.setPaintProperty('stacked', 'circle-radius', ['feature-state', "radius"]) 
 
     oneGeoJSON.features.forEach(datum => {
       var id = datum.id
@@ -121,11 +134,11 @@ function setOneStopData(id, coordinates){
       //map.setFeatureState({id, source: 'stacked-data' }, { height: vol_heightScale(datum.properties.height), base_height: vol_heightScale(datum.properties.base_height), color: datum.properties.color });
     })
 
-    map.flyTo({pitch:0, zoom: 11})
+    map.flyTo({pitch:0,zoom: 11})
 
     setTimeout(function() {
       map.flyTo({
-        zoom: 12.5,
+        zoom: 13,
         center: coordinates,
         bearing: -2.35,
         pitch: 0}) 
@@ -147,6 +160,9 @@ function overlayRoutes(stop) {
   var svcs_from_int = []
   routesNew.forEach(function(d) {
     if(d.BusStopCode == stop) {
+      svcs_from_int.push(d.ServiceNo)
+    }
+    if(stop=="all"){
       svcs_from_int.push(d.ServiceNo)
     }
   })
@@ -234,15 +250,15 @@ function animateRoute(route) {
       "line-color": [
         "match",
         ['get', 'direction'],
-        "1", "blue",
-        "2", "red",
+        "1", Dir1_color,
+        "2", Dir2_color,
         /* other */ '#ccc'
       ],
-      "line-width": 0.8
+      "line-width": {'base': 0.6, 'stops': [[12, 1], [20, 2]]}
     }
   });
 
-  var dashLength = 8;
+  var dashLength = 5;
   var gapLength = 40;
 
   // We divide the animation up into 40 steps to make careful use of the finite space in
@@ -304,11 +320,11 @@ function staticRoute() {
       "line-color": [
         "match",
         ['get', 'direction'],
-        "1", "blue",
-        "2", "red",
+        "1", Dir1_color,
+        "2", Dir2_color,
         /* other */ '#ccc'
       ],
-      "line-width": 0.5,
+      "line-width": {'base': 0.6, 'stops': [[13, 1], [20, 2]]}
       //"line-dasharray": [10,4]
     }
   })
@@ -336,14 +352,6 @@ function toggle() {
 // --------------------------------------------------
 // SELECT AND RENDER PATHS TO-AND-FROM BUS INTERCHANGES
 function InterchangeSelect() {
-
-  var busIntList = [{"Boon Lay Int":22009}, {"Woodlands Int":46009}, 
-  {"Tampines Int": 75009}, {"Bedok Int": 84009}, {"Toa Payoh Int": 52009}, {"Jurong East Int": 28009},
-  {"Yishun Int": 59009}, {"Ang Mo Kio Int": 54009}, {"Choa Chu Kang Int": 44009}]
-
-  var busIntCoord = [{"Boon Lay Int":[103.705, 1.33932]}, {"Woodlands Int":[103.786, 1.43763]}, 
-  {"Tampines Int": [103.943,  1.35408]}, {"Bedok Int": [103.929, 1.32454]}, {"Toa Payoh Int": [103.847, 1.33202]}, 
-  {"Jurong East Int": [103.742, 1.33341]}, {"Yishun Int": [103.837, 1.42997]}, {"Ang Mo Kio Int": [103.849, 1.36969]}, {"Choa Chu Kang Int": [103.746, 1.38587]}]
 
   var menu = d3.select("#interchange-dropdown")
               .attr('class', 'form-group')
@@ -438,89 +446,6 @@ function legend_DepArr() {
   d3.select("#misc-description").append('p').text('A Departures/Arrivals percentage of 0 indicates that there are only arrivals. \
     This means that passengers only alighted at this stop, no passengers boarded the bus from there.\
     A higher percentage indicates that more passengers departed than arrived at the stop. \
-    The stop was more often a travel origin rather than a destination point.\
-    Circle radius indicates travel volume.')
-
-
-}
-
-
-function initDepArr() {
-
-  d3.csv("./data/departures_vs_arrivals.csv", function(csv) {
-    var trips = csv.map((d,i) => {
-      return {
-        total: +d.TOTAL,
-        ratio: +d.RATIO,
-        BusStopCode: +d.BusStopCode,
-        description: d.Description,
-        lat: +d.Latitude,
-        lon: +d.Longitude
-      }
-    })
-
-    trips.sort(function(x, y){
-       return d3.descending(x.total, y.total);
-    })
-
-    trips.map((d,i) => {
-      if(d.ratio<=25 & d.ratio>0){
-        d.category = "0-25"
-      } else if(d.ratio<=50 & d.ratio>25){
-        d.category = "25-50"
-      } else if(d.ratio<=75 & d.ratio>50){
-        d.category = "50-75"
-      } else if(d.ratio<=100 & d.ratio>75){
-        d.category = "75-100"
-      } else if(d.ratio<=1000 & d.ratio>100 ){
-        d.category = "More than 100"
-      } else if(d.ratio>1000){
-        d.category = "More than 1000"
-      } else if(d.ratio=="infinity"){
-        d.category = "Only departures"
-      } else if(d.ratio==0){
-        d.category = "Only arrivals"
-      } 
-    })
-
-    trips.map((d,i) => {
-      if(d.ratio>20000) {
-        d.ratio = 20000
-      } //else if(d.ratio=="infinity"){
-        //d.ratio = 1500
-      //} else if(d.ratio==0){
-        //d.ratio = 1500
-      //} 
-    })
-    //console.log(trips)
-    //percHeightScale.domain(d3.extent(trips.map(d=>d.ratio)))
-
-    stopsGeoJSON_ratio.features = []
-    trips.forEach(function(d) {
-      var center = [d.lon, d.lat]
-      var radius = 0.06
-      var options = { properties: {
-        height: percHeightScale(d.ratio),
-        color: percScale(d.category),
-        id: d.BusStopCode,
-        steps: 10,
-        units: 'kilometers'
-      } } 
-      var circle = turf.circle(center, radius, options);
-      stopsGeoJSON_ratio.features.push(circle)
-    })
-    
-    stopsGeoJSON_ratio.features.forEach((stop) => {
-      stop.id = stop.properties.id;
-    });
-
-    map.getSource('viz-data').setData(stopsGeoJSON_ratio)
-   
-    stopsGeoJSON_ratio.features.forEach(datum => {
-      var id = datum.id
-      map.setFeatureState({id, source: 'viz-data' }, { value: datum.properties.height, color: datum.properties.color });
-    }) 
-
-  })
+    The stop was more often a travel origin rather than a destination point.')
 
 }
