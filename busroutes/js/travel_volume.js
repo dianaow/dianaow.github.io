@@ -164,7 +164,7 @@ function makeSmallMultiples(geoJSON){
       renderArc(nodesNew, links, pair, id)
 
       var arcMap = arcWrapper.append("g")
-        .attr("transform", "translate(" + ((small_width*id[1]) + small_width*id[1]-small_width/2).toString() + "," + (small_height*id[0]-100).toString() + ")")
+        .attr("transform", "translate(" + ((small_width*id[1]) + small_width*id[1]-small_width/2-32).toString() + "," + (small_height*id[0]-100).toString() + ")")
 
       var geoJSON_sg = Object.assign({}, geoJSON)
       //var map_thumbnail = d3.select("map" + pair[0] + "-" + pair[1]).html('')
@@ -207,7 +207,7 @@ function linearLayout(nodes, links, pair, id) {
   //console.log(nodes.length)
   // used to scale node index to y position
   var yscale = d3.scaleLinear()
-    .domain([0, pair[0]===pair[1] ? nodes.length : 900])
+    .domain([0, pair[0]===pair[1] ? nodes.length : 1200])
     .range([radius, pair[0]===pair[1] ? nodes.length*1.5 : small_height-radius]);
 
   // calculate pixel location for each node
@@ -232,7 +232,7 @@ function drawNodes(nodes, pair, id) {
     .attr("transform", "translate(" + (small_width*id[1]).toString() + "," + (small_height*id[0]).toString() + ")")
 
   var arcText = arcWrapper.append("g")
-     .attr("transform", "translate(" + (small_width*id[1]).toString() + "," + (small_height*id[0]-32).toString() + ")")
+     .attr("transform", "translate(" + (small_width*id[1]-32).toString() + "," + (small_height*id[0]-32).toString() + ")")
     
   arcText.append("text")
     .text(dummy_nodes.find(d=>d.group==pair[0]).label)
