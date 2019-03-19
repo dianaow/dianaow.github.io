@@ -308,7 +308,7 @@ function renderForceLayout(graph) {
       //.attr("stroke-width", function(d) { return 10 })
       //.style('stroke', function(d) { return d.colors })
 
-  // Create nodes
+  // Create nodes 
   var node = svg.append("g")
       .attr("class", "nodes")
     .selectAll("g")

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
+    <style>
+      body {
+        min-width: 100%;
+        min-height: 100%;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      @media (min-width: 300px) { 
+        #chart {
+          width: 100%;
+          height: 420px;
+          overflow-y: scroll;
+        }
+        h2 {
+          padding-top: 0.8em;
+          font-size: 0.8em;
+        }
+      }
+      @media (min-width: 576px) { 
+        #chart {
+          width: 100%;
+          height: 520px;
+          overflow-y: scroll;
+        }
+        h2 {
+          padding-top: 1.4em;
+          font-size: 1.4em;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class ='container-fluid'>
+      <div class='row justify-content-center'>
+        <h2>How Singapore is involved in Offshore Leaks Investigations</h2>
+      </div>
+      <div class='row justify-content-center'>
+        <form class="form-inline">
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="inputEntity" class="sr-only">Search an entity</label>
+            <input type="email" class="form-control" id="inputEntity" placeholder="Search an entity">
+          </div>
+          <button type="submit" class="form-submit btn btn-primary mb-2">Submit</button>
+          <button type="reset" class="clearAll btn btn-dark mx-sm-3 mb-2">Reset</button>
+        </form> 
+      </div>
+      <div id="xaxis"></div>
+      <div id="chart"></div>  
+ 
+    </div> 
+    <script src="js/panama_papers.js"></script>
+  </body>
+
+</html>

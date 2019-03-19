@@ -477,7 +477,7 @@ function appendLegend() {
 
 function renderMap(geoJSON, container, mapWidth, mapHeight, DATA, type, pair, strokeWidth, markerSize) {
 
-  var svg = container.append("svg")
+  var  svg = container.append("svg")
     .attr("width", mapWidth)
     .attr("height", mapHeight)
 
@@ -518,7 +518,7 @@ function renderMap(geoJSON, container, mapWidth, mapHeight, DATA, type, pair, st
   var data = nodesAll.map((d,i) => {
     return Object.assign({}, d, busstops.find(b=>b.BusStopCode===d)||{});
   })
-
+  console.log(data)
   data.forEach(function(d) {
     geoJSON.features.push({
       type: "Point",
