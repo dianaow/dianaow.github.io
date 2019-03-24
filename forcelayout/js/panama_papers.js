@@ -368,17 +368,19 @@ function updateTooltipContent(d) {
   var dup = edges_new.filter(b=>(b.start_id == d.start_id) && (b.end_id == d.end_id))
   var conn_type = dup.map(d=>d.link)
 
-  tooltip.html(d.end_name)
-    .attr('class', 'text-' + d.start_id.toString() + '-' + d.end_id.toString())
-    .style("left", (d3.event.pageX - 50) + "px")
-    .style("top", (d3.event.pageY - 80) + "px")
-    .style('color', 'black')
-    .style('font-size', 9)
-    .selectAll()
-    .data(conn_type).enter()
+  tooltip.html(d.player)
+    .attr('class', 'text-' + d.player.replace(/[^A-Z0-9]+/ig, "_") + "-" + d.club.replace(/[^A-Z0-9]+/ig, "_"))
+    .style("left", (d3.event.pageX + 10) + "px")
+    .style("top", (d3.event.pageY) + "px")
+    .attr('text-anchor', 'middle')
+    .attr('dy', '.35em')
+    .attr('fill', '#555')
+    .style('font-size', '10.5px')
+    .style('font-weight', 'bold')
+    .style('pointer-events', 'none')
     .append('div')
-    .html(l=>l)
-
+    .style('font-size', '9px')
+    .html(d.club)
 }
 
 function clearFilters() {
