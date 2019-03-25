@@ -3,10 +3,10 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   var player, circle, path, text
   var nodes = [] // array to store ALL nodes
   var links = [] // array to store ALL links
-  var radius = 330
   var margin = {top: 20, right: 20, bottom: 20, left: 20}
-  var width = 700 - margin.left - margin.right
-  var height = 700 - margin.top - margin.bottom
+  var width = (screen.width < 420 ? 820 : 720) - margin.left - margin.right // responsive design
+  var height = (screen.width < 420 ? 800 : 700) - margin.top - margin.bottom // responsive design
+  var radius = (screen.width < 420 ? 360 : 330) // responsive design
 
   var svg = d3.select("#chart").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -18,13 +18,12 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
     return {
       country: d.Country,
       player: d.Player,
-      star: d.Star_Player,
       club: d.Club_Name_1 + " " + d.Club_Name_2
     }
   })
 
   // CREATE COUNTRY NODES
-  var countries = ['England', 'Brazil', 'Denmark', 'Portugal', 'Germany', 'Poland', 'France', 'Argentina', 'Spain', 'Peru', 'South Korea', 'Switzerland', 'Uruguay', 'Colombia', 'Croatia', 'Costa Rica', 'Nigeria', 'Iceland', 'Sweden', 'Australia', 'Senegal', 'Iran', 'Serbia', 'Morocco', 'Egypt', 'Tunisia', 'Belgium', 'Japan']
+  var countries = ['Brazil','Portugal', 'Germany', 'Poland', 'France', 'Argentina', 'Spain', 'South Korea', 'Uruguay', 'Colombia', 'Croatia', 'Costa Rica', 'Nigeria', 'Iceland', 'Sweden', 'Australia', 'Senegal', 'Serbia', 'Morocco', 'Tunisia', 'Belgium', 'Japan']
 
   var country_stats  = d3.nest()
     .key(function(d) { return d.country }).sortKeys(function(a,b) { return countries.indexOf(a) - countries.indexOf(b); }) // custom sort arrangement of country nodes to make force layout aesthetically pleasing
@@ -99,8 +98,8 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
         source: countryNodes_nested.find(n=>n.key == x.country).values[0],
         target: node,
         size: 0.5,
-        strength: 0.7,
-        stroke: 'grey',
+        strength: 0.5,
+        stroke: 'lightgrey',
         type: 'country_player',
         // remove spaces because they cannot be contained in class/id names
         id: x.country.replace(/[^A-Z0-9]+/ig, "_") + "/" + x.player.replace(/[^A-Z0-9]+/ig, "_") + x.club.replace(/[^A-Z0-9]+/ig, "_")
@@ -248,17 +247,11 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
           var player = d3.select(this).attr('id')
           d3.selectAll("line[id*='" + player + "']")
             .style('opacity', 1)
-          var textPlayers = d3.selectAll("text[id*='" + player + "']")
-            .style('opacity', 1)
+          //var textPlayers = d3.selectAll("text[id*='" + player + "']")
+            //.style('opacity', 1)
           d3.selectAll("circle[id*='" + player + "']")
             .style('opacity', 1) 
 
-          //d3.forceSimulation(nodes)
-            //.force("collide", d3.forceCollide().radius(5))
-            //.on('tick', d=>{
-              //textPlayers.attr('x', function(d) {return d.x})
-                //.attr('y', function(d) {return d.y}) 
-            //})
         })
 
       // only select node labels for the specific team node hovered upon visible
