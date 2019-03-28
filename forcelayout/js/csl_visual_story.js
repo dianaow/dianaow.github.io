@@ -3,10 +3,16 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   var player, circle, path, text
   var nodes = [] // array to store ALL nodes
   var links = [] // array to store ALL links
+
+  var multiplier = (screen.width < 1024 ? 0.75 : 0.9) 
+  var screenWidth = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * multiplier
+  var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+  var canvasDim = { width: screenWidth, height: screenHeight}
+
   var margin = {top: 20, right: 20, bottom: 20, left: 20}
-  var width = (screen.width < 420 ? 820 : 720) - margin.left - margin.right // responsive design
-  var height = (screen.width < 420 ? 800 : 700) - margin.top - margin.bottom // responsive design
-  var radius = (screen.width < 420 ? 360 : 330) // responsive design
+  var width = canvasDim.width - margin.left - margin.right 
+  var height = canvasDim.width - margin.top - margin.bottom 
+  var radius = canvasDim.width * 0.45
 
   var svg = d3.select("#chart").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -120,7 +126,7 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   enter() // create DOM elements
 
   // Initialize force simulation
-  var simulation = d3.forceSimulation()
+  var simulation1 = d3.forceSimulation()
     .force("link", d3.forceLink()
       .id(function(d) { return d.id; })
       .strength(function(d) {return d.strength})
@@ -129,11 +135,11 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
     .force("collide", d3.forceCollide().radius(function(d) { return d.size * 1.3 }))
     //.force("collide", d3.forceCollide().radius(function(d) { return d.type == 'team' ?  d.size * 2 : d.size * 1.3 }))
 
-  simulation
+  simulation1
       .nodes(nodes)
       .on("tick", update) // start simulation to update node positions
 
-  simulation.force("link")
+  simulation1.force("link")
       .links(links)
 
   function enter() {
