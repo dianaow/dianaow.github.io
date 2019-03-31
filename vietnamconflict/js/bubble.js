@@ -1,3 +1,5 @@
+var counter = 0
+
 $(function() {
     $('.App').scroll(function() {
         var pageTop = $(window).scrollTop();
@@ -6,15 +8,15 @@ $(function() {
         var domRect = element.getBoundingClientRect();
         var elementTop = domRect.top;
         // let's fire up animation if full #bubbleChartAnimation block is in view
-        if ((elementTop == 0)) {
-          //console.log('to plot')
-          init()
+        console.log(counter, elementTop)
+        if(counter==0 & elementTop < 50){
+          renderBubble()
+          counter=1
         }
     });
 });
 
 function loop(error, data, data1) {
-  console.log(data, data1)
   d3.select(".provincesWrapper").remove()
   d3.select(".labelWrapper").remove()
   setTimeout(disperseBlob(data), 1000);
@@ -24,7 +26,7 @@ function loop(error, data, data1) {
   //setTimeout(disappearBlob, 15000);
 }
 
-function init() {
+function renderBubble() {
 
   d3.queue()   // queue function loads all external data files asynchronously 
     .defer(d3.csv, './data/VietnamConflict1.csv') 

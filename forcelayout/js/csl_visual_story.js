@@ -1,10 +1,10 @@
 d3.csv("./data/csl_foreign_players.csv", function(csv) {
 
-  var player, circle, path, text
+  var player, circle, path, text_country, text_team, text_player, entered_nodes, simulation1, simulation2
   var nodes = [] // array to store ALL nodes
   var links = [] // array to store ALL links
 
-  var multiplier = (screen.width < 1024 ? 0.75 : 0.9) 
+  var multiplier = (screen.width < 1024 ? 0.75 : 0.95) 
   var screenWidth = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * multiplier
   var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
   var canvasDim = { width: screenWidth, height: screenHeight}
@@ -19,6 +19,15 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var pathG = svg.append("g")
+    .attr("class", "pathG")
+
+  var circleG = svg.append("g")
+    .attr("class", "circleG")
+
+  var textG = svg.append("g")
+    .attr("class", "textG")
 
   var data = csv.map(function(d) {
     return {
@@ -123,17 +132,14 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
     })
   })
 
-  enter() // create DOM elements
-
   // Initialize force simulation
-  var simulation1 = d3.forceSimulation()
+  simulation1 = d3.forceSimulation()
     .force("link", d3.forceLink()
       .id(function(d) { return d.id; })
       .strength(function(d) {return d.strength})
       .distance(40)
     )
     .force("collide", d3.forceCollide().radius(function(d) { return d.size * 1.3 }))
-    //.force("collide", d3.forceCollide().radius(function(d) { return d.type == 'team' ?  d.size * 2 : d.size * 1.3 }))
 
   simulation1
       .nodes(nodes)
@@ -142,18 +148,24 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   simulation1.force("link")
       .links(links)
 
+  simulation1.stop()
+  for (var i = 0; i < 100; ++i) simulation1.tick()
+  simulation1.alpha(1).alphaDecay(0.1).restart()
+
+  enter() // create DOM elements
+
   function enter() {
 
-    path = svg.selectAll('line')
+    path = pathG.selectAll('line')
       .data(links).enter().append('line')
       .attr('stroke-linecap', 'round')
 
-    circle = svg.selectAll('circle')
+    circle = circleG.selectAll('circle')
       .data(nodes)
       .enter().append('circle')
       .attr('stroke-width', 2)
 
-    text_country = svg.selectAll('.text_country')
+    text_country = textG.selectAll('.text_country')
       .data(nodes.filter(d=>d.type=='country'))
       .enter().append('text')
       .attr('class', 'text_country')
@@ -165,28 +177,16 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
       .style('font-weight', 'bold')
       .style('pointer-events', 'none')
 
-    text_team = svg.selectAll('text_team')
+    text_team = textG.selectAll('text_team')
       .data(nodes.filter(d=>(d.type=='team') & (d.size>10)))
       .enter().append('text')
-      .attr('class', 'text_text')
+      .attr('class', 'text_team')
       .attr('text-anchor', 'middle')
       .attr('dy', '.35em')
       .attr('fill', '#555')
       .style('font-size', '12px')
       .style('font-weight', 'normal')
       .style('pointer-events', 'none')
-
-    text_player = svg.selectAll('text_player')
-      .data(nodes.filter(d=>d.type=='player'))
-      .enter().append('text')
-      .attr('class', 'text_player')
-      .attr('text-anchor', 'middle')
-      .attr('dy', '.35em')
-      .attr('fill', '#555')
-      .style('font-size', '10px')
-      .style('font-weight', 'normal')
-      .style('pointer-events', 'none')
-      .style('opacity', 0)
 
     text1 = text_team.append('tspan')
     text2 = text_team.append('tspan')
@@ -227,18 +227,31 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
       .attr('y', function(d) {return d.y+8})
       .attr('id', function(d) {return d.id.replace(/[^A-Z0-9]+/ig, "_")}) 
       .text(function(d) {return d.id.split(' ')[1]})  
-
-    text_player.attr('x', function(d) {return d.x})
-      .attr('y', function(d) {return d.y})
-      .attr('id', function(d) {return d.id}) 
-      .text(function(d) {return d.text})
   
     interactive()
   }
 
+  function updatePlayerText() {
+    text_player.attr('x', function(d) {return d.x})
+      .attr('y', function(d) {return d.y})
+      .attr('id', function(d) {return d.id}) 
+      .text(function(d) {return d.text})
+      .style('opacity', 1)
+
+    selCircles.attr('cx', function(d) {return d.x})
+      .attr('cy', function(d) {return d.y})
+
+    selLines.attr('x1', function(d) {return d.source.x})
+      .attr('y1', function(d) {return d.source.y})
+      .attr('x2', function(d) {return d.target.x})
+      .attr('y2', function(d) {return d.target.y})
+  }
+
   function interactive() {
+
     d3.selectAll('.team').on('mouseover', function (l) {
 
+      d3.select(this).style("cursor", "pointer") 
       d3.selectAll(".country_player").style('opacity', 0) // make all country-player links invisible
       d3.selectAll(".player_team").style('opacity', 0) // make all player-team links invisible
       d3.selectAll('.team').style('opacity', 0) // make all team nodes invisible
@@ -247,16 +260,40 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
       text1.style('opacity', 0) // make all team node labels invisible
       text2.style('opacity', 0) // make all team node labels invisible
 
+      var players = nodes.filter(d=>d.id.includes(l.id.replace(/[^A-Z0-9]+/ig, "_"))===true)
+
+      text_player = textG.selectAll('.text_player').data(players)
+      selCircles = d3.selectAll("circle[id*='" + l.id.replace(/[^A-Z0-9]+/ig, "_") + "']")
+      selLines = d3.selectAll("line[id*='" + l.id.replace(/[^A-Z0-9]+/ig, "_") + "']")
+
+      simulation2 = d3.forceSimulation()
+        .force("collide", bboxCollision([[-4,-8],[4,8]]))
+        .on("tick", updatePlayerText)
+
+      entered_nodes = text_player.enter().append('text')
+        .attr('class', 'text_player')
+        .attr('text-anchor', 'middle')
+        .attr('dy', '.35em')
+        .attr('fill', '#555')
+        .style('font-size', '10px')
+        .style('font-weight', 'normal')
+
+      simulation1.stop()
+
+      simulation2.nodes(players)
+      text_player = text_player.merge(entered_nodes)
+      simulation2.alpha(1).restart()
+
       // only select links and nodes connected to specific team node hovered upon visible
       d3.selectAll("line[id*='" + l.id.replace(/[^A-Z0-9]+/ig, "_") + "']")
         .each(function(d,i) {
           var player = d3.select(this).attr('id')
           d3.selectAll("line[id*='" + player + "']")
             .style('opacity', 1)
-          //var textPlayers = d3.selectAll("text[id*='" + player + "']")
-            //.style('opacity', 1)
           d3.selectAll("circle[id*='" + player + "']")
             .style('opacity', 1) 
+            .attr('fill', 'white')
+            .attr('r', 8)
 
         })
 
@@ -267,6 +304,7 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
     })
     .on('mouseout', function (l) {
 
+      d3.select(this).style("cursor", "default")
       d3.selectAll(".country_player").style('opacity', 1) 
       d3.selectAll(".player_team").style('opacity', 1) 
       d3.selectAll('.team').style('opacity', 1) 
@@ -274,7 +312,27 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
       
       text1.style('opacity', 1) 
       text2.style('opacity', 1) 
-      text_player.style('opacity', 0) 
+
+      simulation2.stop()
+
+      d3.selectAll("line[id*='" + l.id.replace(/[^A-Z0-9]+/ig, "_") + "']")
+        .each(function(d,i) {
+          var player = d3.select(this).attr('id')
+          d3.selectAll("text[id*='" + player + "']")
+            .style('opacity', 0)
+          d3.selectAll("circle[id*='" + player + "']")
+            .attr('fill', 'grey')
+            .attr('r', 2)
+        })
+
+      simulation1
+          .nodes(nodes)
+          .on("tick", update) // start simulation to update node positions
+
+      simulation1.force("link")
+          .links(links)
+
+      simulation1.alpha(1).restart()
 
     })
   }

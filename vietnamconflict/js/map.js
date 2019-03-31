@@ -1,12 +1,26 @@
 var attributeArray = ['1968 May'], currentAttribute = 0, playing = false;
 var INTERVAL = 1500
 
-var mapWidth = w*0.4, 
-    mapHeight = h*0.9, 
+var provinceFontSize = screen.width < 420 ? 14 : (screen.width <= 1024 ? 14 : 12)  
+
+var mapWidth =  screen.width < 420 ? w*0.8 : (screen.width <= 1024 ? w*0.8 : w*0.8),
+    mapHeight = screen.width < 420 ? h*0.8 : (screen.width <= 1024 ? h*0.8 : h*0.82)  
     legendFullWidth = 200,
     legendFullHeight = 400;
     descFullWidth = w*0.4,
     descFullHeight = h*0.4;
+
+var margin = {top: 20, right: 20, bottom: 20, left:20},
+    width = w*0.9 - margin.left - margin.right,
+    height = h*0.9 - margin.top - margin.bottom;
+
+var svg = d3.select("#main-svg")
+  .append("svg")
+    .attr("width", mapWidth + margin.left + margin.right)
+    .attr("height", mapHeight + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
 
 var legendMargin = { top: 10, bottom: 20, left: 130, right: 50 }; // leave room for legend axis
 var legendWidth = legendFullWidth - legendMargin.left - legendMargin.right;
@@ -15,11 +29,6 @@ var legendHeight = legendFullHeight - legendMargin.top - legendMargin.bottom;
 var descMargin = { top: 20, bottom: 20, left: 20, right: 20 }; // leave room for legend axis
 var descWidth = descFullWidth - descMargin.left - descMargin.right;
 var descHeight = descFullHeight - descMargin.top - descMargin.bottom;
-
-var svg = d3.select("#main-svg")
-            .append('svg')
-            .attr("width", mapWidth)
-            .attr("height", mapHeight);
 
 var legendSvg = d3.select('#legend-svg')
                   .append('svg')
@@ -44,9 +53,9 @@ var color = d3.scaleLinear()
               .domain([0, maxDeath])
               .range(colorList);
 
-init()
+renderMap()
 
-function init() {
+function renderMap() {
   loadData()
   animateMap()
 }
@@ -134,7 +143,7 @@ function labelProvincesAndDeathCount(data, path) {
       .append("text")
         .attr("class", "label")
         .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
-        .style("font-size", "10px")
+        .style("font-size", provinceFontSize)
         .text(function(d) {
           if ((d.properties[attributeArray[currentAttribute]]) === 0) {
             return ""

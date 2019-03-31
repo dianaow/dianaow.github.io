@@ -60,15 +60,6 @@ text {
   width:100vw;
   height: 99.95vh;
 }
-.App canvas {
-  margin:100px 0px 100px 0px;
-}
-.App section:nth-child(1) {
-  background: blanchedalmond;
-}
-.App section:nth-child(2) {
-  background: white;
-}
 
 .vega-bindings {
   visibility: hidden
