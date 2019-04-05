@@ -1,5 +1,5 @@
 var width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
-var height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * 4.5
+var height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * (screen.width<=420 ? 1.5 : screen.width<=1024 ? 2: 4.6)
 var canvasDim = { width: width, height: height};
 var xfixed
 var yfixed
@@ -168,7 +168,7 @@ function makeSmallMultiples(geoJSON){
 
       var geoJSON_sg = Object.assign({}, geoJSON)
       //var map_thumbnail = d3.select("map" + pair[0] + "-" + pair[1]).html('')
-      renderMap(geoJSON_sg, arcMap, 120, 80, links, "showStops", pair, 0.2, 2.5)
+      renderMap(geoJSON_sg, arcMap, 120, 80, links, "showStops", pair, 0.5, 2.5)
 
     }
 
@@ -518,7 +518,7 @@ function renderMap(geoJSON, container, mapWidth, mapHeight, DATA, type, pair, st
   var data = nodesAll.map((d,i) => {
     return Object.assign({}, d, busstops.find(b=>b.BusStopCode===d)||{});
   })
-  console.log(data)
+
   data.forEach(function(d) {
     geoJSON.features.push({
       type: "Point",

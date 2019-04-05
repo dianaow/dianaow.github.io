@@ -100,34 +100,3 @@
     }
 }@charset "utf-8";
 /* CSS Document */
-
-
-body {
-  padding-top: 54px;
-}
-
-@media (max-device-width: 1024px) {
-  body {
-    padding-top: 27px;
-  }
-  h1 {
-    font-size: 24px;
-  }
-}
-
-.portfolio-item {
-  margin-bottom: 30px;
-}
-
-.navbar-nav {
-  display: inline-block;
-}
-
-.navbar-nav>li {
-   display: inline-block;
-   margin-right: 10px;
-}
-
-.portfolio-item {
-  margin-bottom: 30px;
-}

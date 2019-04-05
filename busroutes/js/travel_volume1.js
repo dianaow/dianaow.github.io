@@ -1,6 +1,6 @@
 var width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
 var height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-var canvasDim = { width: width, height: height*2};
+var canvasDim = { width: width, height: screen.width<=1024 ? height: height*2};
 
 var graph = []
 var graphBtnNodes = []
@@ -34,8 +34,8 @@ var line = d3.line()
   .curve(d3.curveBundle.beta(0.7));
 
 var svg = d3.select('svg')
-  .attr('width', canvasDim.width)
-  .attr('height', canvasDim.height)
+  .attr('width', canvasDim.width+800)
+  .attr('height', canvasDim.height+800)
 
 var canvas = svg.append("g")
   .attr("class", "canvas")
@@ -531,7 +531,7 @@ function appendLegend() {
 
   var legend = svg.append("g")
     .attr("class", "legend")
-    .attr("transform", "translate(100,400)")
+    .attr("transform", "translate(100,500)")
 
   var radius = 6
   var dummy_nodes = 
