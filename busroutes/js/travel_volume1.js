@@ -531,7 +531,7 @@ function appendLegend() {
 
   var legend = svg.append("g")
     .attr("class", "legend")
-    .attr("transform", "translate(100,500)")
+    .attr("transform", "translate(90,450)")
 
   var radius = 6
   var dummy_nodes = 
@@ -685,7 +685,7 @@ function appendLegend() {
 
   var legend_scale = legend.append('g')
       .attr('class', 'scale')
-      .attr('transform', 'translate(5,220)')
+      .attr('transform', 'translate(5,200)')
 
   legend_scale.selectAll('.legend-bars')
     .data(points)
@@ -714,6 +714,7 @@ function appendLegend() {
       .attr('y', 50)
       .attr('x', (d, i) => i * barWidth)
       .attr('fill', 'white') 
+      .style("font-size", 11)
       .text((d, i) => i%3 === 0 ? d : "") 
 
 }

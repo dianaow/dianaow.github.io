@@ -9,10 +9,10 @@ var arc_container = d3.select('.arc-chart')
 var arc_svg = arc_container.append("svg")
       .attr("width", canvasDim.width)
       .attr("height", canvasDim.height)
-      .attr("transform", "translate(0,0)")
-
+      
 var arcWrapper = arc_svg.append("g")
   .attr("class", "arcWrapper")
+  .attr("transform", "translate(45,0)")
 
 var radius = 1; // fixed node radius
 var pad = 20 // amount of margin around plot area
@@ -370,10 +370,13 @@ function gradientAlongPath(nodes, links) {
 
 function appendLegend() {
 
-  var legend = arcWrapper.append("g")
-    .attr("class", "legend")
-    //.attr("transform", "translate(900,50)")
-    .attr("transform", "translate(" + (canvasDim.width*(2/3)).toString() + ",50)")
+  var legend_svg = d3.select('#legend').append("svg")
+        .attr("width", '260px')
+        .attr("height", '240px')
+
+  var legend = legend_svg.append("g")
+    .attr("class", "legendWrapper")
+    .attr("transform", "translate(0,40)")
 
   var R = radius*6
 

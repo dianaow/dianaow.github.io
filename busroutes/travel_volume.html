@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Roboto" rel="stylesheet">
     <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
     <script src="https://d3js.org/d3-color.v1.min.js"></script>
     <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
@@ -14,35 +14,62 @@
     <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
     <style>
       body {
-        background:black
+        font-family: 'Roboto', sans-serif;
+        background:#222;
+        color: white;
       }
       text {
         fill: #fff;
       }
-      .overlay {
-        color: white;
-        position: absolute;
-        top: 30px;
-        left: 100px;
-        width:500px;
+      h1, h3 {
+        font-family: 'Merriweather', serif;
+        padding-top: 20px;
+        padding-bottom: 10px;
       }
-      #graph {
-        stroke: white;
-        color: white;
-        position: absolute;
-        top: 30px;
-        left: 620px;
-        width:400px;
+      p {
+        font-size: 0.9em;
+        text-align: justify;
+        text-justify: inter-word;
+        line-height: 1.5em;
       }
-      #information {
-        color: white;
-        position: absolute;
-        top: 240px;
-        left: 890px;
-        width:490px;     
+      .header {
+        width: 100vw;
+        height: 10vw;
+        display: flex;
+        justify-content: center
       }
-      .arc-chart {
-        margin-top:30px;
+      .grid {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        height: 100%;
+        padding: 10px;
+      }
+
+      .box-group {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+      }
+      .box-desc {
+        flex: 1;
+      }
+      .box-misc {
+        flex: 2;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-left: 20px;
+      }
+      #legend{
+        width: 260px;
+        height:280px;
+        margin-left:20px;
+      }
+
+      .content {
+        width: 100vw;
       }
       text.label {
         font-size: 8px; !important
@@ -63,25 +90,37 @@
   </head>
 
   <body>
-    <div class='container'>
-      <div class="row">
-        <div class='overlay'>
-          <h3>Travel Volume by Origin Destination Bus Stops in December 2018</h3>
-          <p>Only routes belonging to <b><u>first percentile</b></u> of total travel volume in Dec 18 are included in the chart. Only bus stops (including bus interchanges) which are either an origin or destination point for these filtered routes are represented. <b>The spine of each small multiple arc chart are stacked nodes of these stops.</b> Nodes are sorted according to the numerical bus stop codes in ascending order.<b> Arcs represent links from origin to destination.</b><b> Arc thickness represent travel volume.</b></p>
-          <p style="font-size:0.7em">There is no specific information of bus service which traveller took on trip from origin to destination bus stops. There is missing data regarding travel volume for bus stops starting with code "0".</p>
-          <a style="color:#fff" href="https://www.mytransport.sg/content/mytransport/home/dataMall/dynamic-data.html" target="_blank">Data Source: LTA</a>
+    
+    <div class='header'>
+      <div class="grid">
+
+        <h1>Singapore Bus Ridership in December 2018</h1>
+
+        <div class='box-group'>
+
+          <div class='box-desc'>
+            <p>Only routes belonging to <b><u>first percentile</b></u> of total travel volume in Dec 18 are included in the chart. Only bus stops (including bus interchanges) which are either an origin or destination point for these filtered routes are represented. <b>The spine of each small multiple arc chart are stacked nodes of these stops.</b> Nodes are sorted according to the numerical bus stop codes in ascending order.<b> Arcs represent links from origin to destination.</b><b> Arc thickness represent travel volume.</b></p>
+            <p style="font-size:0.7em">There is no specific information of bus service which traveller took on trip from origin to destination bus stops. There is missing data regarding travel volume for bus stops starting with code "0".</p>
+            <a style="color:#fff" href="https://www.mytransport.sg/content/mytransport/home/dataMall/dynamic-data.html" target="_blank">Data Source: LTA</a>
+          </div>
+
+          <div class='box-misc'>
+            <div id='graph'></div>
+            <div id='legend'>
+              <div id='information'>
+              <p style="font-size:0.7em" >There were a total of <b><u>280741</b></u> unique routes made by passengers in Dec 18. <b><u>2809</b></u> of these routes (1st percentile) are represented below.</p>
+              </div>
+            </div>
+          </div>
+
         </div>
-        <div id='graph'></div>
-        <div id='information'>
-          <p style="font-size:0.8em">There are a total of <span style="font-size:1.6em">280741</span> unique routes made by passengers in Dec 18.</p>
-          <p style="font-size:0.8em"><span style="font-size:2em">2809</span> of these routes (1st percentile) are represented below.</p>
-        </div>
-        <section class="main-content">
-          <div class="arc-chart">
-          </div> 
-        </section>   
       </div>
     </div>
+
+    <div class='content'>
+      <div class="arc-chart"></div> 
+    </div>
+
     <script src="js/travel_volume.js"></script>
   </body>
 

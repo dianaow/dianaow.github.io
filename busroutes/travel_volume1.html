@@ -6,11 +6,7 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="">
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.min.js"
-      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-      crossorigin="anonymous"></script>
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Roboto" rel="stylesheet">
     <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
     <script src="https://d3js.org/d3-color.v1.min.js"></script>
     <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
@@ -18,17 +14,31 @@
     <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
     <style>
       body {
+        font-family: 'Roboto', sans-serif;
         background:black;
+        color: white;
       }
+      text {
+        fill: #fff;
+      }
+      h1, h3 {
+        font-family: 'Merriweather', serif;
+        padding-top: 20px;
+        padding-bottom: 10px;
+      }
+      p {
+        font-size: 0.9em;
+        text-align: justify;
+        text-justify: inter-word;
+        line-height: 1.5em;
+      }
+
       .overlay {
         color: white;
         position: absolute;
         top: 30px;
         left: 100px;
         width:500px;
-      }
-      svg {
-        font: 10px sans-serif;
       }
       path {
         fill: none;
@@ -47,7 +57,7 @@
 
   <body>
     <div class='overlay'>
-      <h2>Passenger Volume by Origin Destination Bus Stops in December 2018</h2>
+      <h1>Singapore Bus Ridership in December 2018</h1>
       <p>Only routes with more than <span style='font-weight:bold'>10000 trips</span> are included in the chart. There is no specific information of bus service which traveller took on trip from origin to destination bus stops.</p>
       <p>Each node represent a bus stop while the curves represent links from origin to destination bus stops. Nodes are clustered according to first digit of bus stop code, which also closely follows region bus stop is located in. Links within cluster represent travel within the same region in Singapore, while links across nodes represent travel across regions.</p>
       <a href="https://www.mytransport.sg/content/mytransport/home/dataMall/dynamic-data.html" target="_blank">Data Source: LTA</a>
