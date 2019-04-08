@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  padding-top: 54px;
+  padding-top: 40px;
   font-family: 'Roboto', sans-serif;
   font-style: normal;
   font-weight: normal;
@@ -20,7 +20,7 @@ h1, a {
 
 @media (max-device-width: 1024px) {
   body {
-    padding-top: 27px;
+    padding-top: 30px;
   }
   h1 {
     font-size: 24px;

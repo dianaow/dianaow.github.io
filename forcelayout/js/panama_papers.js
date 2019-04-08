@@ -1,4 +1,4 @@
-var screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) * 0.85
+var screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) * (screen.width <= 420 ? 0.9 : 0.85)
 var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * 10
 var canvasDim = { width: screenWidth, height: screenHeight}
 
@@ -34,13 +34,6 @@ var x_axis = d3.select("#xaxis")
 
 var y_axis = svg.append("g")
   .attr("class", "y_axis")
-  .append('text')
-    .attr('x', 0)
-    .attr("y", 0)
-    .attr("fill", "#635f5d")
-    .style('font-size', 13)
-    .style('font-weight', 'bold')
-    .text("Officer")
 
 var lines = svg.append('g')
   .attr('class', 'lines')
@@ -188,7 +181,6 @@ function renderChart(data, bool) {
 
   // CREATE NODES (each representing an entity)
   // JOIN new data with old elements.
-  console.log(data)
   var gnodes = nodes.selectAll('.node-group').data(data, d=>d.index) 
 
   var entered_nodes = gnodes.enter().append('g')
@@ -266,7 +258,7 @@ function renderChart(data, bool) {
 
   // CREATE AXES // 
   xAxis = d3.axisTop(xScale).ticks(d3.timeYear.every(5)).tickSizeOuter(0).tickSizeInner(0)
-  yAxis = d3.axisLeft(yScale).tickSize(-width)
+  yAxis = screen.width <= 420 ? d3.axisRight(yScale).tickSize(width) : d3.axisLeft(yScale).tickSize(-width)
 
   d3.select(".x_axis")
     .call(xAxis)
@@ -274,7 +266,7 @@ function renderChart(data, bool) {
       g.selectAll("text").attr("transform", `translate(0, 0)`) //shift tick labels to middle of interval
         .attr("y", axisPad)
         .attr('fill', '#635f5d')
-        .style('font-size', screen.width <= 420 ? 12 : 18)
+        .style('font-size', screen.width <= 420 ? 11 : 18)
 
       g.selectAll("line")
         .attr('stroke', '#635f5d')
@@ -289,6 +281,8 @@ function renderChart(data, bool) {
       g.selectAll("text")
       .attr("x", -axisPad*2)
       .style("font-weight", "normal")
+      .style('font-size', screen.width <= 420 ? '7px' : '10px')
+      .attr("y" , screen.width <= 420 ? "-0.6em" : 0)
       .attr('fill', '#635f5d')
       .style("cursor", "pointer")
 

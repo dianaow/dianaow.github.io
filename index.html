@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Diana Ow</title>
-    <link href="https://fonts.googleapis.com/css?family=Nunito|Roboto|Poppins" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Nunito|Roboto|Poppins|Karla" rel="stylesheet" crossorigin="anonymous">
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -15,11 +15,13 @@
     <style>
     .wrapper {
       width: 100vw;
-      margin-top: 30px;
+      height: 100vw;
+      min-width: 1000px;
+      min-height: 1000px;
     }
     .header {
       width:100vw;
-      height:210px;
+      height:200px;
     }
     .navbar, .navbar-nav {
       background: none;
@@ -52,9 +54,60 @@
       align-items: center;
       text-align: center;
       width: 100vw;
+      min-width: 1000px;
       height: 35vh;
       margin-left:100px;
-    }  
+    } 
+    .box-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center
+    }
+    .box-group {
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+      height: 80%;
+      padding: 10px;
+    }
+    .group {
+      width: 100%;
+      height: 40%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+    .box {
+      box-sizing: border-box;
+      border: 2px solid white;
+      flex-basis:40%;
+      height:100%;
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      cursor:default; 
+      background-color: white;   
+    }
+    .box > h2 {
+      font-family: 'Karla', sans-serif;
+      text-align:center;
+    }
+    .box > p.left{
+      font-family: 'Karla', sans-serif;
+      text-align:left;
+      align-self: flex-start;
+      padding: 10px;
+    }
+    .box > p.right{
+      font-family: 'Karla', sans-serif;
+      text-align:right;
+      align-self: flex-end;
+    }
+    img {
+      width: 100%;
+      min-width: 200px;
+    }
     /* if mobile device max width 420px */
     @media only screen and (max-device-width: 420px) {
       .header {
@@ -68,14 +121,17 @@
       } 
       .wrapper {
         margin-top: 160px;
-        margin-left: 60px;
+        margin-left: 70px;
+      }
+      .box-group {
+        width: 98%;
+        height: 98%;
       }
       a {
         font-size: 1.6em;
       }
     } 
 
-    /* if device (iPad/iPad pro) width greater than 768px and less than 1024px */
     @media only screen 
     and (min-device-width : 768px) 
     and (max-device-width : 1024px)  {
@@ -89,11 +145,12 @@
         height: 15vh;
       } 
       .wrapper {
-        margin-top: 100px;
-        margin-left: 37.5px;
+        margin-top: 60px;
+        margin-left: 40px;
       }
-      a {
-        font-size: 1.6em;
+      .box-group {
+        width: 98%;
+        height: 98%;
       }
     }
     @media only screen 
@@ -115,7 +172,7 @@
   <body>
     <div class='wrapper'>
     <div class='header'>
-      <svg class="textSVG" width="100vw" height="10vh" viewBox="0 0 1014 280">
+      <svg class="textSVG" width="100vw" height="10vh" viewBox="0 0 1014 310">
         <g id="svgGroup" stroke-linecap="round" fill-rule="evenodd" stroke="#000" stroke-width="0.25mm" fill="none" style="stroke:#000000;fill:none">
             <path d="M 565.75 120.251 L 565.75 201.251 L 523 201.251 L 523 125.251 A 42.762 42.762 0 0 0 522.138 116.396 Q 520.972 110.886 518.226 106.688 A 24.272 24.272 0 0 0 515.625 103.376 A 24.474 24.474 0 0 0 500.422 95.778 A 34.228 34.228 0 0 0 496 95.501 Q 483 95.501 475.375 103.751 A 26.845 26.845 0 0 0 469.453 114.399 Q 468.202 118.544 467.87 123.532 A 55.969 55.969 0 0 0 467.75 127.251 L 467.75 201.251 L 425 201.251 L 425 61.751 L 467.75 61.751 L 467.75 87.251 Q 473.75 74.751 485.625 67.501 A 49.257 49.257 0 0 1 504.768 60.833 A 63.644 63.644 0 0 1 513.5 60.251 A 58.066 58.066 0 0 1 530.586 62.644 A 45.282 45.282 0 0 1 551.625 76.251 A 53.472 53.472 0 0 1 562.949 97.693 Q 565.203 105.812 565.643 115.471 A 105 105 0 0 1 565.75 120.251 Z M 66.75 201.251 L 0 201.251 L 0 24.501 L 66.75 24.501 A 124.538 124.538 0 0 1 90.204 26.607 A 91.495 91.495 0 0 1 116 35.501 Q 136.75 46.501 147.875 66.501 A 88.186 88.186 0 0 1 158.215 99.112 A 111.343 111.343 0 0 1 159 112.501 A 103.508 103.508 0 0 1 155.86 138.468 A 85.875 85.875 0 0 1 147.875 158.626 Q 136.75 178.751 115.875 190.001 Q 95 201.251 66.75 201.251 Z M 353 87.001 L 353 61.751 L 395.5 61.751 L 395.5 201.251 L 353 201.251 L 353 176.001 Q 347.5 188.501 336 195.751 A 46.345 46.345 0 0 1 318.968 202.144 A 61.562 61.562 0 0 1 308.5 203.001 A 58.925 58.925 0 0 1 287.901 199.467 A 54.525 54.525 0 0 1 277.625 194.376 Q 264 185.751 256.125 169.501 Q 248.25 153.251 248.25 131.501 A 103.801 103.801 0 0 1 249.757 113.376 A 75.289 75.289 0 0 1 256.125 93.376 A 64.602 64.602 0 0 1 266.286 78.171 A 55.009 55.009 0 0 1 277.625 68.626 A 55.987 55.987 0 0 1 306.225 60.039 A 67.598 67.598 0 0 1 308.5 60.001 A 59.164 59.164 0 0 1 322.076 61.49 A 45.394 45.394 0 0 1 336 67.251 Q 347.5 74.501 353 87.001 Z M 691.5 87.001 L 691.5 61.751 L 734 61.751 L 734 201.251 L 691.5 201.251 L 691.5 176.001 Q 686 188.501 674.5 195.751 A 46.345 46.345 0 0 1 657.468 202.144 A 61.562 61.562 0 0 1 647 203.001 A 58.925 58.925 0 0 1 626.401 199.467 A 54.525 54.525 0 0 1 616.125 194.376 Q 602.5 185.751 594.625 169.501 Q 586.75 153.251 586.75 131.501 A 103.801 103.801 0 0 1 588.257 113.376 A 75.289 75.289 0 0 1 594.625 93.376 A 64.602 64.602 0 0 1 604.786 78.171 A 55.009 55.009 0 0 1 616.125 68.626 A 55.987 55.987 0 0 1 644.725 60.039 A 67.598 67.598 0 0 1 647 60.001 A 59.164 59.164 0 0 1 660.576 61.49 A 45.394 45.394 0 0 1 674.5 67.251 Q 686 74.501 691.5 87.001 Z M 183.25 61.751 L 226 61.751 L 226 201.251 L 183.25 201.251 L 183.25 61.751 Z M 63 62.001 L 42.75 62.001 L 42.75 163.001 L 63 163.001 A 75.873 75.873 0 0 0 78.541 161.506 Q 88.194 159.485 95.553 154.734 A 42.532 42.532 0 0 0 101.875 149.751 A 43.204 43.204 0 0 0 113.958 128.363 Q 115.75 121.126 115.75 112.501 Q 115.75 90.47 104.058 77.497 A 41.808 41.808 0 0 0 101.875 75.251 A 45.554 45.554 0 0 0 82.114 64.359 Q 75.153 62.443 66.885 62.084 A 89.51 89.51 0 0 0 63 62.001 Z M 322.25 97.501 A 34.035 34.035 0 0 0 312.056 98.958 A 27.081 27.081 0 0 0 300.125 106.501 Q 292.419 114.783 291.803 128.991 A 58.029 58.029 0 0 0 291.75 131.501 A 49.172 49.172 0 0 0 292.728 141.621 Q 294.613 150.577 300.125 156.501 A 27.792 27.792 0 0 0 318.084 165.281 A 38.461 38.461 0 0 0 322.25 165.501 A 32.137 32.137 0 0 0 333.307 163.667 A 28.136 28.136 0 0 0 344.375 156.251 A 31.198 31.198 0 0 0 351.981 141.419 A 45.716 45.716 0 0 0 353 131.501 A 46.411 46.411 0 0 0 351.91 121.141 Q 350.185 113.603 345.729 108.164 A 28.893 28.893 0 0 0 344.375 106.626 Q 335.75 97.501 322.25 97.501 Z M 660.75 97.501 A 34.035 34.035 0 0 0 650.556 98.958 A 27.081 27.081 0 0 0 638.625 106.501 Q 630.919 114.783 630.303 128.991 A 58.029 58.029 0 0 0 630.25 131.501 A 49.172 49.172 0 0 0 631.228 141.621 Q 633.113 150.577 638.625 156.501 A 27.792 27.792 0 0 0 656.584 165.281 A 38.461 38.461 0 0 0 660.75 165.501 A 32.137 32.137 0 0 0 671.807 163.667 A 28.136 28.136 0 0 0 682.875 156.251 A 31.198 31.198 0 0 0 690.481 141.419 A 45.716 45.716 0 0 0 691.5 131.501 A 46.411 46.411 0 0 0 690.41 121.141 Q 688.685 113.603 684.229 108.164 A 28.893 28.893 0 0 0 682.875 106.626 Q 674.25 97.501 660.75 97.501 Z M 179.25 22.501 Q 179.25 12.751 186.25 6.376 A 23.856 23.856 0 0 1 197.668 0.691 A 34.528 34.528 0 0 1 204.75 0.001 A 33.721 33.721 0 0 1 212.742 0.898 A 23.615 23.615 0 0 1 223.25 6.376 A 20.726 20.726 0 0 1 230.229 21.445 A 26.415 26.415 0 0 1 230.25 22.501 A 21.052 21.052 0 0 1 227.973 32.321 A 21.624 21.624 0 0 1 223.25 38.376 A 23.856 23.856 0 0 1 211.832 44.061 A 34.528 34.528 0 0 1 204.75 44.751 A 33.721 33.721 0 0 1 196.758 43.855 A 23.615 23.615 0 0 1 186.25 38.376 A 20.5 20.5 0 0 1 179.271 23.531 A 25.114 25.114 0 0 1 179.25 22.501 Z" vector-effect="non-scaling-stroke"/>
         </g>
@@ -125,7 +182,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg">
       <div id="navbarResponsive">
-        <h3 style='text-align:center; font-family:Poppins;'>Data Visualizer | Analyst</h3>
+        <h3 style='text-align:center; font-family:Poppins;'>Data Visualizer | Analyst | Programmer</h3>
         <ul class="navbar-nav">
           <li class="nav-item active">
             <a style='font-family:Poppins;' class="nav-link" href="https://dianameow.com">Home
@@ -142,78 +199,53 @@
       </div>
     </nav>
 
-    <!-- Page Content -->
-    <div class="container-fluid">
+    <div class='box-wrapper'>
+      <div class='box-group'>
 
-      <!-- Project One -->
-      <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-6">
-          <a href="www.notforcasualfans.com" target="_blank">
-            <img class="img-fluid rounded mb-3 mb-md-0" src='./images/proj-1-f1app.png' alt="">
-          </a>
+        <div class='group'>
+          <div class='box'>
+            <img src='images/f1_square.png'>
+          </div>
+          <div class='box'>
+            <p class='left'><span>< </span><br>Formula 1</p>
+            <h2>Sports</h2>
+            <p class='right'>Chinese Super League<br><span> ></span></p>
+          </div>           
+          <div class='box'>
+            <img src='images/csl.png'>
+          </div>
         </div>
-        <div class="col-md-4">
-          <h3>Formula 1</h3>
-          <p>Created a dockerized full-stack web application, with a Python Flask server and a React front-end to showcase my D3 visualizations of Formula 1 race results.</p>
-          <ul>
-            <li>Frontend stack: ES6 Javascript, D3, React 16, Webpack, Babel</li>
-            <li>Backend stack: Python 3.5+, Flask, SQLAlchemy, Celery</li>
-            <li>Production: PostgreSQL, Redis, Docker, Amazon Web Services</li>
-          </ul>
-          <a class="btn btn-primary" href="http://www.notforcasualfans.com" target="_blank">View Project</a>
+
+        <div class='group'>
+          <div class='box'>
+            <img src='images/vietnam_square.png'>
+          </div>
+          <div class='box'>
+            <p class='left'><span>< </span><br>Vietnam War</p>
+            <h2>History<br><span>&</span><br>Politics</h2>
+            <p class='right'>Panama Papers<br><span> ></span></p>
+          </div>
+          <div class='box'>
+            <img src='images/panama_square.png'>
+          </div>
         </div>
-        <div class="col-md-1"></div>
+
+        <div class='group'>
+          <div class='box'>
+            <img src='images/map_square.png'>
+          </div>
+          <div class='box'>
+            <p class='left'><span>< </span><br>MapboxGL</p>
+            <h2>Transport</h2>
+            <p class='right'>Singapore's Bus Ridership<br><span> ></span></p>
+          </div>
+          <div class='box'>
+            <img src='images/travel_volume1.png'>
+          </div>
+        </div>
+
       </div>
-      <!-- /.row -->
-
-      <hr>
-
-      <!-- Project Two -->
-      <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-6">
-          <a href="http://dianameow.com/busroutes/mapboxgl.html" target="_blank">
-            <img class="img-fluid rounded mb-3 mb-md-0" src="./images/bus_animation1.gif" alt="">
-          </a>
-        </div>
-        <div class="col-md-4">
-          <h3>Singapore's Bus Ridership</h3>
-          <p>
-            With keen interest in public transport utilization and availability of this data through <span><a href="https://www.mytransport.sg/content/mytransport/home/dataMall/dynamic-data.html" target="_blank">Land Transport Authority's DataMall</a></span>, I set out to discover Singapore's bus ridership patterns and trends with geovisualization and <span><a href="http://dianameow.com/busroutes/leaflet.html" target="_blank">'scrollytelling'</a></span>. I explored various ways to render interactive maps and overlay 2D and 3D elements with D3, Leaflet, Mapbox GL JS</p>
-          <a class="btn btn-primary" href="http://dianameow.com/busroutes/mapboxgl.html" target="_blank">View Project</a>
-        </div>
-        <div class="col-md-1"></div>
-      </div>
-      <!-- /.row -->
-      <hr>
-
-      <!-- Project Three -->
-      <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-6">
-          <a href="http://dianameow.com/vietnamconflict/index.html" target="_blank">
-            <img class="img-fluid rounded mb-3 mb-md-0" src="./images/proj-2-vietnam.png" alt="">
-          </a>
-        </div>
-        <div class="col-md-4">
-          <h3>Vietnam Conflict</h3>
-          <p>A timeline of the Vietnam War</p>
-          <ul>
-            <li>Mapping and creating animated transitions with D3</li>
-            <li>Vega</li>
-          </ul>
-          <a class="btn btn-primary" href="http://dianameow.com/vietnamconflict/index.html" target="_blank">View Project</a>
-        </div>
-        <div class="col-md-1"></div>
-      </div>
-      <!-- /.row -->
-
-      <hr> 
-
     </div>
-    </div>
-    <!-- /.container -->
 
   </body>
 
