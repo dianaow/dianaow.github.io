@@ -1,6 +1,11 @@
 d3.csv("./data/csl_foreign_players.csv", function(csv) {
 
+  ///////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////// Globals /////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////// 
+
   var player, circle, path, text_country, text_team, text_player, entered_nodes, simulation1, simulation2
+  var countries = ['Brazil','Portugal', 'Germany', 'Poland', 'France', 'Argentina', 'Spain', 'South Korea', 'Uruguay', 'Colombia', 'Croatia', 'Costa Rica', 'Nigeria', 'Iceland', 'Sweden', 'Australia', 'Senegal', 'Serbia', 'Morocco', 'Tunisia', 'Belgium', 'Japan']
   var nodes = [] // array to store ALL nodes
   var links = [] // array to store ALL links
 
@@ -13,6 +18,10 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   var width = canvasDim.width - margin.left - margin.right 
   var height = canvasDim.width - margin.top - margin.bottom 
   var radius = canvasDim.width * 0.45
+
+  ///////////////////////////////////////////////////////////////////////////
+  //////////////////// Set up and initiate containers ///////////////////////
+  /////////////////////////////////////////////////////////////////////////// 
 
   var svg = d3.select("#chart").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -29,6 +38,10 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   var textG = svg.append("g")
     .attr("class", "textG")
 
+  ///////////////////////////////////////////////////////////////////////////
+  /////////////////////////// Data Processing ///////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////
+
   var data = csv.map(function(d) {
     return {
       country: d.Country,
@@ -38,8 +51,6 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   })
 
   // CREATE COUNTRY NODES
-  var countries = ['Brazil','Portugal', 'Germany', 'Poland', 'France', 'Argentina', 'Spain', 'South Korea', 'Uruguay', 'Colombia', 'Croatia', 'Costa Rica', 'Nigeria', 'Iceland', 'Sweden', 'Australia', 'Senegal', 'Serbia', 'Morocco', 'Tunisia', 'Belgium', 'Japan']
-
   var country_stats  = d3.nest()
     .key(function(d) { return d.country }).sortKeys(function(a,b) { return countries.indexOf(a) - countries.indexOf(b); }) // custom sort arrangement of country nodes to make force layout aesthetically pleasing
     .entries(data);
@@ -84,6 +95,10 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
     .key(function(d) { return d.country })
     .entries(data)
 
+  ///////////////////////////////////////////////////////////////////////////
+  ///////////////////////////// Create scales ///////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////
+
   var linkStrengths = [] // create custom link strength scale based on number of players from each country
   team_stats1.map(function(d,i) {
     linkStrengths.push(d.values.length)
@@ -92,6 +107,10 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   var strengthScale = d3.scaleLinear()
     .domain([d3.min(linkStrengths), d3.max(linkStrengths)])
     .range([0, 1])
+
+  ///////////////////////////////////////////////////////////////////////////
+  ////////////////// Data Processing - Continued... /////////////////////////
+  ///////////////////////////////////////////////////////////////////////////
 
   team_stats1.map(function(d,i) {
     var radian = (2 * Math.PI) / countries.length * i - (Math.PI / 2);
@@ -132,7 +151,10 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
     })
   })
 
-  // Initialize force simulation
+  ///////////////////////////////////////////////////////////////////////////
+  //////////////////// Initialize force simulation //////////////////////////
+  ///////////////////////////////////////////////////////////////////////////
+
   simulation1 = d3.forceSimulation()
     .force("link", d3.forceLink()
       .id(function(d) { return d.id; })
@@ -140,6 +162,7 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
       .distance(40)
     )
     .force("collide", d3.forceCollide().radius(function(d) { return d.size * 1.3 }))
+    .stop()
 
   simulation1
       .nodes(nodes)
@@ -148,11 +171,14 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   simulation1.force("link")
       .links(links)
 
-  simulation1.stop()
   for (var i = 0; i < 100; ++i) simulation1.tick()
   simulation1.alpha(1).alphaDecay(0.1).restart()
 
-  enter() // create DOM elements
+  ///////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////// CORE /////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////
+
+  enter() 
 
   function enter() {
 
@@ -263,8 +289,8 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
       var players = nodes.filter(d=>d.id.includes(l.id.replace(/[^A-Z0-9]+/ig, "_"))===true)
 
       text_player = textG.selectAll('.text_player').data(players)
-      selCircles = d3.selectAll("circle[id*='" + l.id.replace(/[^A-Z0-9]+/ig, "_") + "']")
-      selLines = d3.selectAll("line[id*='" + l.id.replace(/[^A-Z0-9]+/ig, "_") + "']")
+      selCircles = circleG.selectAll("circle[id*='" + l.id.replace(/[^A-Z0-9]+/ig, "_") + "']")
+      selLines = pathG.selectAll("line[id*='" + l.id.replace(/[^A-Z0-9]+/ig, "_") + "']")
 
       simulation2 = d3.forceSimulation()
         .force("collide", bboxCollision([[-4,-8],[4,8]]))
@@ -285,12 +311,12 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
       simulation2.alpha(1).restart()
 
       // only select links and nodes connected to specific team node hovered upon visible
-      d3.selectAll("line[id*='" + l.id.replace(/[^A-Z0-9]+/ig, "_") + "']")
+      pathG.selectAll("line[id*='" + l.id.replace(/[^A-Z0-9]+/ig, "_") + "']")
         .each(function(d,i) {
           var player = d3.select(this).attr('id')
-          d3.selectAll("line[id*='" + player + "']")
+          pathG.selectAll("line[id*='" + player + "']")
             .style('opacity', 1)
-          d3.selectAll("circle[id*='" + player + "']")
+          circleG.selectAll("circle[id*='" + player + "']")
             .style('opacity', 1) 
             .attr('fill', 'white')
             .attr('r', 8)
@@ -298,8 +324,8 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
         })
 
       // only select node labels for the specific team node hovered upon visible
-      d3.selectAll("#" + l.id.replace(/[^A-Z0-9]+/ig, "_")).style('opacity', 1)
-      d3.selectAll("circle[id*='" + l.id + "']").style('opacity', 1)
+      textG.selectAll("#" + l.id.replace(/[^A-Z0-9]+/ig, "_")).style('opacity', 1)
+      circleG.selectAll("circle[id*='" + l.id + "']").style('opacity', 1)
 
     })
     .on('mouseout', function (l) {
@@ -315,19 +341,19 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
 
       simulation2.stop()
 
-      d3.selectAll("line[id*='" + l.id.replace(/[^A-Z0-9]+/ig, "_") + "']")
+      pathG.selectAll("line[id*='" + l.id.replace(/[^A-Z0-9]+/ig, "_") + "']")
         .each(function(d,i) {
           var player = d3.select(this).attr('id')
-          d3.selectAll("text[id*='" + player + "']")
+          textG.selectAll("text[id*='" + player + "']")
             .style('opacity', 0)
-          d3.selectAll("circle[id*='" + player + "']")
+          circleG.selectAll("circle[id*='" + player + "']")
             .attr('fill', 'grey')
             .attr('r', 2)
         })
 
       simulation1
           .nodes(nodes)
-          .on("tick", update) // start simulation to update node positions
+          .on("tick", update) // start simulation to 'return' node positions back to original
 
       simulation1.force("link")
           .links(links)

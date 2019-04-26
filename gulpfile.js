@@ -37,7 +37,8 @@ gulp.task('browserSync', function() {
     ui: {
       port: 3001
     },
-    browser: "google chrome"
+    browser: "google chrome",
+    open: false
   });
 });
 
