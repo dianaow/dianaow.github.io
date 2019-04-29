@@ -36,7 +36,7 @@
       .div2 {
         padding: 10px 20px;
         background-color: white;
-        height: 120vh;
+        height: 110vh;
       }
       .psuedo {
         background-color: white;
@@ -84,16 +84,62 @@
       }
       .desc {
         width: 500px;
+        padding-top: 50px;
         padding-left: 20px;
         color: #212121;
       }
-
+      .desc > p {
+        line-height: 1.6em;
+        font-size: 1.2em;
+      }
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .header-wrapper {
+        position: relative;
+      }
+      .header-wrapper img {
+        width: 100vw; !important
+        height: auto; !important
+        position: relative;
+      }
+      .text-block {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        color: #fff;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: none;
+        padding: 20px;
+      }
+      .text-block > h1 {
+        text-shadow: black 1px 0 10px;
+        color: white;
+        font-size: 3em;
+      }
+      .image-container {
+        position: relative;
+        /* Remove the parts of the circle that is outside of the image */
+        overflow:hidden;
+      }
+      .image-container:after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+        box-shadow: inset 0px 0px 150px black;
+      }
       /* if mobile device max width 420px */
       @media only screen and (max-device-width: 420px) {
         .desc {
-          width: 100vw;
+          width: 90vw;
+          padding-top: 30px;
         }
-        .div1, .div2 { margin-left: 20px; }
         #chart { 
           position: relative;
           margin-left: 0px;
@@ -105,11 +151,12 @@
       and (min-device-width : 768px) 
       and (max-device-width : 1024px)  {
         .desc {
-          width: 100vw;
+          width: 90vw;
+          padding-top: 30px;
         }
-        .div1, .div2 {
-          width: 90vw; 
-          margin-left: 20px;
+        .desc > p {
+          line-height: 1.6em;
+          font-size: 1em;
         }
         #chart { 
           position: relative;
@@ -122,11 +169,19 @@
   <body>
     <div class ='wrapper'>
 
+      <div class='header'>
+        <div class='header-wrapper'>
+          <img src="../images/csl_cover_photo_adj.jpg"></img>
+          <div class='text-block'>
+            <h1>Foreign Players in Chinese Super League</h1>
+          </div>
+        </div>
+      </div>
+
       <div class='div1'>
         <div class ='desc' style="float:left">
-          <h1>Foreign Chinese Super League Players</h1>
           <p>How are professional soccer players from the top 32 countries qualified for the 2018 FIFA World Cup involved in the Chinese Super League? Hover over any team node to see how players (from 2004 to 2019) from each country are connected to teams</p>
-          <p style="font-size:0.75em">Amongst these 32 countries, Russia and Saudi Arabia do not have any representatives in CSL. Since only countries with 4 or more players are visualized, Iran, Switzerland, England, Denmark, Peru and Egypt are excluded.</p>
+          <p style="font-size:0.8em">Amongst these 32 countries, Russia and Saudi Arabia do not have any representatives in CSL. Since only countries with 4 or more players are visualized, Iran, Switzerland, England, Denmark, Peru and Egypt are excluded.</p>
         </div>
         <div id="chart"></div>
       </div>

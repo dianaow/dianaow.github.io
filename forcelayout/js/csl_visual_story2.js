@@ -7,17 +7,17 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   var simulaton, entered_nodes 
   var countries = ['Poland', 'Colombia', 'Spain', 'Brazil', 'Morocco', 'Nigeria', 'Croatia', 'Senegal', 'South Korea', 'Argentina', 'Belgium', 'Australia', 'Serbia', 'Portugal', 'Germany', 'Sweden', 'France', 'Japan', 'Iceland', 'Costa Rica', 'Tunisia', 'Uruguay']
   var axisPad = 6
-  var normalRadius = (screen.width < 1024 ? 10 : 8) // responsive design: modify node radius based on device's screen width
+  var normalRadius = (screen.width < 1024 ? 7.5 : 7) // responsive design: modify node radius based on device's screen width
   var starRadius = 16
   
   // Desktop screen view
-  var screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) * 0.9 
+  var screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) * 0.92 
   var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) 
 
   // If viewed on mobile or iPad, overwrite dimensions
   if(screen.width <= 1024){
-    var screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) * 0.9
-    var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * 0.9
+    var screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) * 0.92
+    var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
   } 
 
   // Dimensions of first chart
@@ -27,8 +27,8 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   var height = canvasDim.height - margin.top - margin.bottom
 
   // Dimensions of second chart
-  var canvasDim2 = { width: screenWidth, height: (screen.width <= 1024 ? height * 0.8 : height * 0.9) }
-  var margin2 = {top: 0, right: 30, bottom: 0, left: 30}
+  var canvasDim2 = { width: screenWidth, height: (screen.width <= 1024 ? height : height) }
+  var margin2 = {top: 0, right: 30, bottom: 0, left: 100}
   var height2 = canvasDim2.height - margin2.top - margin2.bottom
 
 
@@ -37,10 +37,10 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   /////////////////////////////////////////////////////////////////////////// 
 
   var svg = d3.select("#chart2").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("width", width + margin2.left + margin2.right)
+    .attr("height", height + margin2.top + margin2.bottom)
   .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
 
   var x_axis = svg.append("g")
     .attr("class", "x_axis")
@@ -232,9 +232,10 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
     .call(g => {
       g.selectAll("text")
         .attr("x", -axisPad*2)
-        .style("font-weight", "normal")
+        .style('font-family', 'Helvetica')
+        .style('font-weight', 'bold')
         .attr('fill', 'navy')
-        .style('font-size', 12.5)
+        .style('font-size', 13.5)
 
       g.selectAll("line")
         .attr('stroke', 'navy')
@@ -381,12 +382,12 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
 
       gnodes.selectAll('#other #circle-' + d.player.replace(/[^A-Z0-9]+/ig, "_") + "-" + d.club.replace(/[^A-Z0-9]+/ig, "_"))
         .attr('r', function(d,i) { return d.radius })
-        .attr('stroke', 'black')
+        .attr('stroke', 'darkorange')
         .attr('stroke-width', '2px')
         .attr('z-index', 999)
 
       gnodes.selectAll('#star #circle-' + d.player.replace(/[^A-Z0-9]+/ig, "_") + "-" + d.club.replace(/[^A-Z0-9]+/ig, "_"))
-        .attr('stroke', 'black')
+        .attr('stroke', 'darkorange')
         .attr('stroke-width', '2px')
 
       d3.selectAll("#tooltip")
@@ -419,23 +420,24 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
 
     tooltip.html(d.player) // player name
       .attr('class', 'text-' + d.player.replace(/[^A-Z0-9]+/ig, "_") + "-" + d.club.replace(/[^A-Z0-9]+/ig, "_"))
-      .style("left", (d.star == "Star" & d.type=='year') ? (width - 200) + "px" : (d.x + 0) + "px")
-      .style("top", (d.star == "Star" & d.type=='year')  ? 0 + "px" : (d.y - 40) + "px")
+      .style("left", (d.star == "Star" & d.type=='year') ? (width - 300) + "px" : (d.x + 0) + "px")
+      .style("top", (d.star == "Star" & d.type=='year')  ? -100 + "px" : (d.y - 60) + "px")
       .attr('text-anchor', 'middle')
-      .attr('dy', '.35em')
-      .attr('fill', '#555')
-      .style('font-size', '12px')
+      .attr('fill', '#DCDCDC')
+      .style('font-size', '13.5px')
       .style('font-weight', 'bold')
       .style('pointer-events', 'none')
 
     tooltip.append('div')
-        .style('font-size', '10px')
+        .style('font-size', '12.5px')
         .style('font-style', 'italic')
+        .style('line-height', '1.5em')
         .html(d.club) // club name
 
     if(d.star=='Star'){
       tooltip.append('div')
-        .style('font-size', '9px')
+        .style('font-size', '11px')
+        .style('line-height', '1.5em')
         .html(d.description) // if star player, show description about him
     }
 

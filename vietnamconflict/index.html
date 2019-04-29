@@ -7,72 +7,18 @@
     <meta name="viewport">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <script src="https://cdn.jsdelivr.net/npm/vega@4.3.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@3.0.0-rc10"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.24.1"></script>
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.min.js"
-      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-      crossorigin="anonymous"></script>
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
-    <link href="./css/global.css" rel="stylesheet">
     <style>
-      #map {
-        text-align: center;
-        margin-top: 50px;
-      }
-      #stackedBarChart {
-        align-items: center;
-        text-align: center;
-      }
-      #button {
-        padding-bottom: 10px;
-      }
-      .App {
-        scroll-snap-type: y mandatory;
-        overflow-y: scroll;
-        height: 99.95vh;
-      }
-      .App p {
-        padding: 20px;
-      }
-      .App h1 {
-        padding: 20px;
-        text-align:center;
-        font-weight:bold;
-      }
-      .App section {
-        scroll-snap-align: start;
-        min-height:100vh;
-        height:100vh;
-        min-width:100vw;
-        width:100vw;
-        height: 99.95vh;
-      }
-      .vega-bindings {
-        visibility: hidden
-      }
-      .vega-actions {
-        visibility: hidden
+      body {
+        margin: 0px;
+        padding: 0px;
+        border: 0px;
       }
     </style>
   </head>
 
   <body>
-    <div class="App">
-      <section class="step">
-        <div id ='stackedBarChart'>
-          <div id="chart"></div>
-        </div>
-      </section>
-    </div>
-    <script type="text/javascript">
-      var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-      var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-      window.onbeforeunload = function(){ window.scrollTo(0,0); }
-    </script>
+    <div id="chart"></div>
     <script src="js/stacked_d3.js"></script>
 
   </body>

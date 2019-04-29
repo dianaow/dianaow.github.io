@@ -9,8 +9,8 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   var nodes = [] // array to store ALL nodes
   var links = [] // array to store ALL links
 
-  var multiplier = (screen.width < 1024 ? 0.75 : 0.95) 
-  var screenWidth = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) 
+  var multiplier = screen.width <= 420 ? 0.53 : (screen.width <= 1024 ? 0.75 : 1) 
+  var screenWidth = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * multiplier
   var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * 1.2
   var canvasDim = { width: screenWidth, height: screenHeight}
 

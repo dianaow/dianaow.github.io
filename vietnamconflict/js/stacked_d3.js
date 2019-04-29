@@ -2,11 +2,11 @@
 ///////////////////////////////// Globals /////////////////////////////////
 /////////////////////////////////////////////////////////////////////////// 
 
-var screenWidth = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) 
+var screenWidth = Math.max(document.documentElement.clientWidth, window.innerHeight || 0)
 var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
 var canvasDim = { width: screenWidth, height: screenHeight}
 
-var margin = {top: 20, right: 20, bottom: 20, left: 20}
+var margin = {top: 0, right: 0, bottom: 0, left: 0}
 var width = canvasDim.width - margin.left - margin.right 
 var height = canvasDim.width - margin.top - margin.bottom 
 
@@ -98,12 +98,13 @@ function dataProcess(error, deathJSON, timelineJSON) {
       stackedData[i][I].key = stackedData.ids[i][I]
       stackedData[i][I].color = color(stackedData.keys[i]) 
       stackedData[i][I].x = xScale(D)
-      stackedData[i][I].y = ( d[I][1] ? yScale(d[I][1]) : yScale(0) ) 
+      stackedData[i][I].y = ( d[I][1] ? height - yScale(d[I][0]) : yScale(0) ) 
+      stackedData[i][I].y1 = yScale(d[I][1])
       stackedData[i][I].width = xScale.bandwidth()
       stackedData[i][I].height = ( d[I][0] ? yScale(d[I][0]) : yScale(0) ) - ( d[I][1] ? yScale(d[I][1]) : yScale(0) )
     })
   })
-  //console.log(stackedData)
+  console.log(stackedData)
 
   renderStacked(stackedData)
 }	
@@ -119,13 +120,16 @@ function renderStacked(data) {
     	console.log(d)
     	d3.select(this).selectAll("rect")
     		.data(d)
-    		.enter()
-    		.append("rect")
-    		.attr("fill", d=>d.color)
-		    .attr("x", d => d.x)
+    		.enter().append("rect")
+        .attr("fill", d=>d.color)
+        .attr("x", d => d.x)
+        .attr("width", d => d.width)
+        .attr("y", 0)
+        .attr("height", 0)   
+        .transition().duration(3000)
 		    .attr("y", d => d.y)
-		    .attr("width", d => d.width)
-		    .attr("height", d => d.height)
+        .attr("height", d => d.height)   
+	
     })
 
 }
