@@ -63,23 +63,8 @@
   <body>
     <div class="App">
       <section class="step">
-        <h1 style="color:red">Vietnam War Bloodshed</h1>
         <div id ='stackedBarChart'>
-          <div id="stackedBarChart"></div>
-        </div>
-      </section>
-
-      <section class="step">
-        <div id='map'>
-          <h2 id="clock"></h2>
-          <button id="play" type="button" class="btn btn-outline-danger btn-lg">RESET TO 1965 MARCH</button>
-          <div id="main-svg" ></div>
-        </div>
-      </section>
-
-      <section class="step">
-        <div id ='bubbleChartAnimation'>
-          <div id="my_dataviz"></div>
+          <div id="chart"></div>
         </div>
       </section>
     </div>
@@ -88,9 +73,8 @@
       var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
       window.onbeforeunload = function(){ window.scrollTo(0,0); }
     </script>
-    <script src="js/stacked.js"></script>
-    <script src="js/map.js"></script>
-    <script src="js/bubble.js"></script>
+    <script src="js/stacked_d3.js"></script>
+
   </body>
 
 </html>

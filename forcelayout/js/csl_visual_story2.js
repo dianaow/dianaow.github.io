@@ -11,8 +11,8 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   var starRadius = 16
   
   // Desktop screen view
-  var screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) * 0.85 
-  var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * 2
+  var screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) * 0.9 
+  var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) 
 
   // If viewed on mobile or iPad, overwrite dimensions
   if(screen.width <= 1024){
@@ -27,8 +27,8 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   var height = canvasDim.height - margin.top - margin.bottom
 
   // Dimensions of second chart
-  var canvasDim2 = { width: screenWidth, height: (screen.width <= 1024 ? height * 0.3 : height * 0.5) }
-  var margin2 = {top: 30, right: 30, bottom: 60, left: 30}
+  var canvasDim2 = { width: screenWidth, height: (screen.width <= 1024 ? height * 0.8 : height * 0.9) }
+  var margin2 = {top: 0, right: 30, bottom: 0, left: 30}
   var height2 = canvasDim2.height - margin2.top - margin2.bottom
 
 
@@ -44,7 +44,8 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
 
   var x_axis = svg.append("g")
     .attr("class", "x_axis")
-    .attr("transform", "translate(0," + (canvasDim2.height+70).toString() +  ")")
+    .attr("transform", "translate(0," + (50).toString() +  ")")
+    //.attr("transform", "translate(0," + (canvasDim2.height+70).toString() +  ")")
 
   var y_axis = svg.append("g")
     .attr("class", "y_axis")
@@ -71,16 +72,17 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
 
   var xScale = d3.scaleLinear()
     .domain([2004, 2019])
-    .rangeRound([0, width])
+    .rangeRound([margin2.left, width])
 
   var yScale = d3.scaleBand()
     .domain(countries.sort(function(x, y){ return countries.indexOf(y) - countries.indexOf(x)}))
-    .range([height, canvasDim2.height+70])
+    .range([canvasDim2.height, 50])
+    //.range([height, canvasDim2.height+70])
     .padding(10)
 
   var colorScale = d3.scaleLinear()
     .domain(d3.range(1,9))
-    .range(['navy', 'gold', 'DarkOrange', 'red','red','red','red','red'])
+    .range(['#9E9E9E', '#757575', '#424242', 'red','red','red','red','red'])
 
   var xScale2 = d3.scaleLinear()
     .domain([24, 34])
@@ -100,24 +102,24 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
       description: d.Description,
       start_year: +d.Start_Year,
       end_year: +d.End_Year,
-      duration: +d.End_Year - +d.Start_Year + 1,
-      age: getRndBias(24, 34, 30, 0.7) // randomly set age of player according to normal distribution with bias
+      duration: +d.End_Year - +d.Start_Year + 1
+      //age: getRndBias(24, 34, 26, 0.7) // randomly set age of player according to normal distribution with bias
     }
   })
 
-  var dataAge = data.map((d,i) => {
-    return {
-      x : xScale2(d.age),
-      y: height2/2,
-      player : d.player,
-      star : d.star,
-      club : d.club,
-      age: d.age,
-      duration: d.duration,
-      radius: d.star == "Star" ? starRadius : normalRadius,
-      type: "age"
-    }
-  })
+  //var dataAge = data.map((d,i) => {
+    //return {
+      //x : xScale2(d.age),
+      //y: height2/2,
+      //player : d.player,
+      //star : d.star,
+      //club : d.club,
+      //age: d.age,
+      //duration: d.duration,
+      //radius: d.star == "Star" ? starRadius : normalRadius,
+      //type: "age"
+    //}
+  //})
 
   var dataNew = data.map((d,i) => {
       return {
@@ -144,13 +146,13 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
           club : d.club,
           description: d.description,
           duration: d.duration,
-          radius: d.radius,
+          radius: normalRadius-4,
           type: "year"
         })
       }
     }
   })
-
+  console.log(dataNew)
   ///////////////////////////////////////////////////////////////////////////
   /////////////////////////// Create legend /////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////
@@ -158,7 +160,7 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   var legendX = 40
   var legendY = 0
   var R = 6
-  var category = [{color:'navy', label:"1"}, {color:'gold', label:"2"}, {color:'DarkOrange', label:"3"}, {color:'red', label:">3 seasons"}]
+  var category = [{color:'#9E9E9E', label:"1"}, {color:'#757575', label:"2"}, {color:'#424242', label:"3"}, {color:'red', label:">3 seasons"}]
 
   var svgLegend = d3.select("#chart_legend").append("svg")
     .attr("width", 260)
@@ -192,20 +194,20 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   /////////////////////////// Create axis ///////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////
 
-  xAxis2 = d3.axisTop(xScale2).tickSize(-height2).tickPadding(20)
+  //xAxis2 = d3.axisTop(xScale2).tickSize(-height2).tickPadding(20)
 
-  d3.select(".x_axis2")
-    .call(xAxis2)
-    .call(g => {
-      g.selectAll("text").attr("transform", `translate(0, -20)`)
-        .attr("y", axisPad)
-        .attr('fill', '#A9A9A9')
-        .style('font-size', 14)
-      g.selectAll("line")
-        .attr('stroke', '#A9A9A9')
-        .attr('stroke-dasharray', "4")
-      g.select(".domain").remove()
-    })
+  //d3.select(".x_axis2")
+    //.call(xAxis2)
+    //.call(g => {
+      //g.selectAll("text").attr("transform", `translate(0, -20)`)
+        //.attr("y", axisPad)
+        //.attr('fill', '#A9A9A9')
+        //.style('font-size', 14)
+      //g.selectAll("line")
+        //.attr('stroke', '#A9A9A9')
+        //attr('stroke-dasharray', "4")
+      //g.select(".domain").remove()
+    //})
 
   xAxis = d3.axisTop(xScale).tickFormat(d3.format("d")).tickSizeOuter(0).tickSizeInner(0)
   yAxis = d3.axisLeft(yScale).tickSize(-width)
@@ -215,11 +217,11 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
     .call(g => {
       g.selectAll("text").attr("transform", `translate(0, 0)`) //shift tick labels to middle of interval
         .attr("y", axisPad)
-        .attr('fill', '#A9A9A9')
-        .style('font-size', 16)
+        .attr('fill', '#212121')
+        .style('font-size', 20)
 
       g.selectAll("line")
-        .attr('stroke', '#A9A9A9')
+        .attr('stroke', '#212121')
 
       g.select(".domain").remove()
 
@@ -231,11 +233,11 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
       g.selectAll("text")
         .attr("x", -axisPad*2)
         .style("font-weight", "normal")
-        .attr('fill', '#A9A9A9')
+        .attr('fill', 'navy')
         .style('font-size', 12.5)
 
       g.selectAll("line")
-        .attr('stroke', '#A9A9A9')
+        .attr('stroke', 'navy')
         .attr('stroke-width', 0.7) // make horizontal tick thinner and lighter so that line paths can stand out
         .attr('opacity', 0.3)
 
@@ -247,28 +249,28 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   /////////////////////////// Miscelleneous /////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////
 
-  svg.append('text')
-    .attr('class', 'new_header')
-    .attr('x', 0)
-    .attr('y', canvasDim2.height+30)
-    .attr('font-size', '1.75rem')
-    .attr('font-family', 'Merriweather')
-    .text('Timeline of the entry and exit of foreign CSL players') // second chart title
+  //svg.append('text')
+    //.attr('class', 'new_header')
+    //.attr('x', 0)
+    //.attr('y', canvasDim2.height+30)
+    //.attr('font-size', '1.75rem')
+    //.attr('font-family', 'Merriweather')
+    //.text('Timeline of the entry and exit of foreign CSL players') // second chart title
 
-  svg.append("line")
-    .attr('class', 'x_axis2_line')
-    .attr('x1', xScale2(24)-30)
-    .attr('x2', xScale2(39)+30)
-    .attr('y1', height2/2)
-    .attr('y2', height2/2)
-    .attr('stroke', 'black')
-    .attr('stroke-width', 2) // visualize baseline of beeswarm plot
+  //svg.append("line")
+    //.attr('class', 'x_axis2_line')
+    //.attr('x1', xScale2(24)-30)
+    //.attr('x2', xScale2(39)+30)
+    //.attr('y1', height2/2)
+    //.attr('y2', height2/2)
+    //.attr('stroke', 'black')
+    //.attr('stroke-width', 2) // visualize baseline of beeswarm plot
 
   ///////////////////////////////////////////////////////////////////////////
   //////////////////////////////////// CORE /////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////
 
-  Graph1()
+  //Graph1()
   Graph2()
 
   function Graph1() {
@@ -303,13 +305,13 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
       .force("collide", d3.forceCollide(function(d,i) { return d.star == "Star" ? starRadius+0.5 : normalRadius-4+0.5 }))
       .force('x', d3.forceX().strength(1).x(d => d.star == "Star" ? d.x-8 : d.x)) // shift node of star player slightly to the left for aesthetic purpose
       .force('y', d3.forceY().strength(1).y(d => d.y))
-      .alphaDecay(0.1)
-      .velocityDecay(0.4)
+      //.alphaDecay(0.1)
+      //.velocityDecay(0.4)
       .stop()
 
     simulation2.nodes(dataNew)
 
-    for (var i = 0; i < 150; ++i) simulation2.tick()
+    for (var i = 0; i < 200; ++i) simulation2.tick()
     
     var gnodes2 = nodes2.selectAll('.node-group').data(dataNew) 
 
@@ -418,7 +420,7 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
     tooltip.html(d.player) // player name
       .attr('class', 'text-' + d.player.replace(/[^A-Z0-9]+/ig, "_") + "-" + d.club.replace(/[^A-Z0-9]+/ig, "_"))
       .style("left", (d.star == "Star" & d.type=='year') ? (width - 200) + "px" : (d.x + 0) + "px")
-      .style("top", (d.star == "Star" & d.type=='year')  ? (canvasDim2.height) + "px" : (d.y - 40) + "px")
+      .style("top", (d.star == "Star" & d.type=='year')  ? 0 + "px" : (d.y - 40) + "px")
       .attr('text-anchor', 'middle')
       .attr('dy', '.35em')
       .attr('fill', '#555')

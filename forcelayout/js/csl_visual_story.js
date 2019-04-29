@@ -10,14 +10,33 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   var links = [] // array to store ALL links
 
   var multiplier = (screen.width < 1024 ? 0.75 : 0.95) 
-  var screenWidth = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * multiplier
-  var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+  var screenWidth = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) 
+  var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * 1.2
   var canvasDim = { width: screenWidth, height: screenHeight}
 
   var margin = {top: 20, right: 20, bottom: 20, left: 20}
   var width = canvasDim.width - margin.left - margin.right 
   var height = canvasDim.width - margin.top - margin.bottom 
   var radius = canvasDim.width * 0.45
+
+  // set node, link and text colors
+  var teamFillColor = 'darkorange'
+  var teamStrokeColor = 'darkorange'
+  var teamText = '#212121'
+  var playerFillColor = '#212121'
+  var playerStrokeColor = 'darkorange'
+  var playerText = '#212121'
+  var countryFillColor = '#DCDCDC'
+  var countryStrokeColor = 'navy'
+  var countryText = 'navy'
+  var country_player_StrokeColor = '#212121'
+  var player_team_StrokeColor = 'darkorange'
+
+  // set node, link and text dimenstions
+  var playerRadius = 2
+  var countryRadius = 32
+  var country_player_StrokeWidth = 0.3
+  var player_team_StrokeWidth = 0.5
 
   ///////////////////////////////////////////////////////////////////////////
   //////////////////// Set up and initiate containers ///////////////////////
@@ -59,9 +78,10 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
     var radian = (2 * Math.PI) / countries.length * i - (Math.PI / 2);
     nodes.push({
       id: d.key,
-      size: 6,
-      fill: 'black', // standardize empty black circle for each team
-      stroke: 'black',
+      size: countryRadius,
+      fill: countryFillColor,
+      stroke: countryStrokeColor,
+      strokeWidth: 2,
       type: 'country',
       fx: radius * Math.cos(radian) + (width / 2),
       fy: radius * Math.sin(radian) + (height / 2)
@@ -78,9 +98,10 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   team_stats.map(function(d,i) {
     nodes.push({
       id: d.key,
-      size: d.values.length*2,
-      fill: '#F4B95F', 
-      stroke: '#F4B95F',
+      size: d.values.length*2, // size of team node is dependent on the number of players within each team
+      fill: teamFillColor, 
+      stroke: teamStrokeColor,
+      strokeWidth: 2,
       type: 'team',
       x: width/2,
       y: height/2
@@ -117,36 +138,36 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
     d.values.map(x => {
       // CREATE A NODE FOR EACH PLAYER
       var node = {
-        text: x.player,
         id: x.player.replace(/[^A-Z0-9]+/ig, "_") + "/" + x.club.replace(/[^A-Z0-9]+/ig, "_"),
-        size: 2,
-        fill: 'grey',
-        stroke: 'none',
+        size: playerRadius,
+        fill: playerFillColor,
+        stroke: playerStrokeColor,
+        strokeWidth: 0.5,
         type: 'player',
         x: radius-40 * Math.cos(radian) + (width / 2),
-        y: radius-40 * Math.sin(radian) + (height / 2)       
+        y: radius-40 * Math.sin(radian) + (height / 2),
+        text: x.player     
       }
       nodes.push(node)
       // CREATE COUNTRY-PLAYER LINKS
       links.push({
+        id: x.country.replace(/[^A-Z0-9]+/ig, "_") + "/" + x.player.replace(/[^A-Z0-9]+/ig, "_") + x.club.replace(/[^A-Z0-9]+/ig, "_"), // remove spaces because they cannot be contained in class/id names
         source: countryNodes_nested.find(n=>n.key == x.country).values[0],
         target: node,
-        size: 0.5,
+        size: country_player_StrokeWidth,
+        stroke: country_player_StrokeColor,
         strength: 0.5,
-        stroke: 'lightgrey',
-        type: 'country_player',
-        // remove spaces because they cannot be contained in class/id names
-        id: x.country.replace(/[^A-Z0-9]+/ig, "_") + "/" + x.player.replace(/[^A-Z0-9]+/ig, "_") + x.club.replace(/[^A-Z0-9]+/ig, "_")
+        type: 'country_player'
       })
       // CREATE PLAYER-TEAM LINKS
       links.push({
+        id: x.player.replace(/[^A-Z0-9]+/ig, "_") + "/" + x.club.replace(/[^A-Z0-9]+/ig, "_"),
         source: node,
         target: nodes.filter(d=>d.type=='team').find(n=>n.id == x.club),
-        size: 0.5,
+        size: player_team_StrokeWidth,
+        stroke: player_team_StrokeColor,
         strength: strengthScale(d.values.length),
-        stroke: '#F4B95F',
-        type: 'player_team',
-        id: x.player.replace(/[^A-Z0-9]+/ig, "_") + "/" + x.club.replace(/[^A-Z0-9]+/ig, "_")
+        type: 'player_team'
       })
     })
   })
@@ -189,16 +210,16 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
     circle = circleG.selectAll('circle')
       .data(nodes)
       .enter().append('circle')
-      .attr('stroke-width', 2)
+      .attr('stroke-width', d=>d.strokeWidth) 
 
     text_country = textG.selectAll('.text_country')
       .data(nodes.filter(d=>d.type=='country'))
       .enter().append('text')
       .attr('class', 'text_country')
       .attr('text-anchor', 'middle')
-      .attr('dy', '.35em')
-      .attr('fill', '#555')
-      .style('font-size', '12px')
+      .attr('alignment-baseline', 'middle')
+      .attr('fill', countryText)
+      .style('font-size', '13.5px')
       .style('font-family', 'Helvetica')
       .style('font-weight', 'bold')
       .style('pointer-events', 'none')
@@ -209,7 +230,7 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
       .attr('class', 'text_team')
       .attr('text-anchor', 'middle')
       .attr('dy', '.35em')
-      .attr('fill', '#555')
+      .attr('fill', teamText)
       .style('font-size', '12px')
       .style('font-weight', 'normal')
       .style('pointer-events', 'none')
@@ -240,7 +261,7 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
       .attr('id', function(d) {return d.id}) 
 
     text_country.attr('x', function(d) {return d.x})
-      .attr('y', function(d) {return d.y + 15})
+      .attr('y', function(d) {return d.y})
       .attr('id', function(d) {return d.id}) 
       .text(function(d) {return d.id})
       
@@ -300,7 +321,7 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
         .attr('class', 'text_player')
         .attr('text-anchor', 'middle')
         .attr('dy', '.35em')
-        .attr('fill', '#555')
+        .attr('fill', playerText)
         .style('font-size', '10px')
         .style('font-weight', 'normal')
 
@@ -318,7 +339,7 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
             .style('opacity', 1)
           circleG.selectAll("circle[id*='" + player + "']")
             .style('opacity', 1) 
-            .attr('fill', 'white')
+            .attr('fill', 'none')
             .attr('r', 8)
 
         })
@@ -347,7 +368,7 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
           textG.selectAll("text[id*='" + player + "']")
             .style('opacity', 0)
           circleG.selectAll("circle[id*='" + player + "']")
-            .attr('fill', 'grey')
+            .attr('fill', playerFillColor)
             .attr('r', 2)
         })
 

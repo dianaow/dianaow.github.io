@@ -7,10 +7,6 @@
     <meta name="viewport">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
@@ -21,10 +17,45 @@
       window.onbeforeunload = function(){ window.scrollTo(0,0); }
     </script>
     <style>
-      .row {
-        height: 100vh;
-        margin-top: 30px;
-        margin-left: 30px; 
+      body {
+        margin: 0px;
+        padding: 0px;
+        border: 0px;
+      }
+      .wrapper {
+        overflow: hidden;
+        position: relative;
+        width: 100vw;
+      }
+      .div1 {
+        padding: 10px 20px;
+        background-color: #DCDCDC;
+        /*background-color: #201F1D;*/
+        height: 120vh;
+      }
+      .div2 {
+        padding: 10px 20px;
+        background-color: white;
+        height: 120vh;
+      }
+      .psuedo {
+        background-color: white;
+        position: relative;
+      }
+      .psuedo > div {
+        position: relative;
+        z-index: 1;   
+      }
+      .psuedo::before {
+        content: "";
+        background-color: white;
+        position: absolute;
+        height: 100%;
+        width: 200%;
+        top: -50px;
+        left: -20%;
+        transform: rotate(5deg);
+        z-index: 0;
       }
       body {
         font-family: 'Roboto', sans-serif;
@@ -34,15 +65,15 @@
         padding-top: 20px;
         padding-bottom: 20px;
       }
-      .legend {
-        float: left;
+      .div2 > h1 {
+        padding: 0px;
+        margin-top: -30px;
+        margin-left: 20px;
       }
       .legend > p {
         font-size: 0.8em;
-        padding-bottom: 0px;
-        padding-top: 20px;
-        padding-left: 40px;
-        margin-bottom: 0px;
+        padding: 0px;
+        margin: 20px;
       }
       #chart {
         margin-left: 550px;
@@ -50,10 +81,11 @@
       }
       #chart2 {
         position: absolute;
-        margin-top: 70px;
       }
       .desc {
         width: 500px;
+        padding-left: 20px;
+        color: #212121;
       }
 
       /* if mobile device max width 420px */
@@ -61,7 +93,7 @@
         .desc {
           width: 100vw;
         }
-        .row { margin-left: 20px; }
+        .div1, .div2 { margin-left: 20px; }
         #chart { 
           position: relative;
           margin-left: 0px;
@@ -75,7 +107,7 @@
         .desc {
           width: 100vw;
         }
-        .row {
+        .div1, .div2 {
           width: 90vw; 
           margin-left: 20px;
         }
@@ -88,24 +120,26 @@
   </head>
 
   <body>
-    <div class ='container-fluid'>
+    <div class ='wrapper'>
 
-      <div class='row'>
-        <div class ='desc'>
+      <div class='div1'>
+        <div class ='desc' style="float:left">
           <h1>Foreign Chinese Super League Players</h1>
           <p>How are professional soccer players from the top 32 countries qualified for the 2018 FIFA World Cup involved in the Chinese Super League? Hover over any team node to see how players (from 2004 to 2019) from each country are connected to teams</p>
           <p style="font-size:0.75em">Amongst these 32 countries, Russia and Saudi Arabia do not have any representatives in CSL. Since only countries with 4 or more players are visualized, Iran, Switzerland, England, Denmark, Peru and Egypt are excluded.</p>
         </div>
-        <div id="chart"></div> 
+        <div id="chart"></div>
       </div>
 
-      <div class='row'>
-          <h3 style="float:left">Age player joined CSL</h3>
-          <div class='legend'>
-            <p>Number of seasons player spent with club</p>
-            <div id="chart_legend"></div>
-          </div> 
-          <div id="chart2"></div> 
+      <div class='psuedo'>
+        <div class='div2'>
+            <h1>Timeline of the entry and exit of foreign CSL players</h1>
+            <div class='legend'>
+              <p>Number of seasons player spent with club</p>
+              <div id="chart_legend"></div>
+            </div> 
+            <div id="chart2"></div> 
+        </div>
       </div>
 
     </div>
