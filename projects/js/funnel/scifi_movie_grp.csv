@@ -1,0 +1,50 @@
+binned,country,imdb_score
+0-2,Germany,1
+0-2,USA,1
+2-4,Canada,3
+2-4,UK,3
+2-4,USA,22
+4-6,Australia,4
+4-6,Belgium,2
+4-6,Cambodia,1
+4-6,Canada,7
+4-6,Denmark,1
+4-6,France,5
+4-6,Germany,4
+4-6,Japan,2
+4-6,Russia,1
+4-6,UK,11
+4-6,USA,169
+6-7,Australia,6
+6-7,Bulgaria,1
+6-7,Canada,8
+6-7,Denmark,1
+6-7,France,7
+6-7,Germany,4
+6-7,Greece,1
+6-7,Hong Kong,3
+6-7,India,1
+6-7,Japan,3
+6-7,Russia,1
+6-7,South Africa,1
+6-7,South Korea,2
+6-7,Spain,1
+6-7,Switzerland,1
+6-7,UK,17
+6-7,USA,157
+7-8,Australia,2
+7-8,Canada,4
+7-8,Denmark,1
+7-8,France,1
+7-8,Germany,1
+7-8,Hong Kong,1
+7-8,South Africa,1
+7-8,Spain,1
+7-8,UK,12
+7-8,USA,103
+8-9,Australia,1
+8-9,Germany,1
+8-9,Japan,3
+8-9,Soviet Union,1
+8-9,UK,3
+8-9,USA,28

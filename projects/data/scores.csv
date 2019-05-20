@@ -1,0 +1,127 @@
+subgraph,country,score,crime,binned
+subgraph2,Singapore,1.0,Cybercrime,0.9-1
+subgraph2,Singapore,0.94560615,Cybercrime,0.9-1
+subgraph2,Singapore,0.772314348,Cybercrime,0.7-0.8
+subgraph2,Singapore,0.721500039,Cybercrime,0.7-0.8
+subgraph2,Singapore,0.7139665609999999,Cybercrime,0.7-0.8
+subgraph2,United Kingdom,0.7139665609999999,Cybercrime,0.7-0.8
+subgraph2,Singapore,0.7139665609999999,Cybercrime,0.7-0.8
+subgraph2,Singapore,0.7139665609999999,Cybercrime,0.7-0.8
+subgraph47,Singapore,0.999935463,Cybercrime,0.9-1
+subgraph47,Singapore,0.999999986,Cybercrime,0.9-1
+subgraph47,Bermuda,0.9999999829999999,Cybercrime,0.9-1
+subgraph47,Singapore,0.9999739740000001,Cybercrime,0.9-1
+subgraph47,Singapore,0.9999680240000001,Cybercrime,0.9-1
+subgraph47,Singapore,0.9999739740000001,Cybercrime,0.9-1
+subgraph47,Singapore,0.9999999390000001,Cybercrime,0.9-1
+subgraph47,Singapore,0.999999781,Cybercrime,0.9-1
+subgraph47,Hong Kong,0.999999926,Cybercrime,0.9-1
+subgraph47,Indonesia,0.999999967,Cybercrime,0.9-1
+subgraph47,United States,0.999999685,Cybercrime,0.9-1
+subgraph47,Singapore,0.9999997509999999,Cybercrime,0.9-1
+subgraph47,Singapore,1.0,Cybercrime,0.9-1
+subgraph47,Canada,0.999999594,Cybercrime,0.9-1
+subgraph47,Singapore,0.9999999940000001,Cybercrime,0.9-1
+subgraph47,Australia,0.9999999390000001,Cybercrime,0.9-1
+subgraph47,Vietnam,0.9999998520000001,Cybercrime,0.9-1
+subgraph47,Hong Kong,0.9999997509999999,Cybercrime,0.9-1
+subgraph47,Singapore,0.999999953,Cybercrime,0.9-1
+subgraph47,Singapore,0.9999997509999999,Cybercrime,0.9-1
+subgraph801,Netherlands,0.996060829,Cybercrime,0.9-1
+subgraph801,Vietnam,0.999949492,Cybercrime,0.9-1
+subgraph801,Namibia,0.9913545859999999,Cybercrime,0.9-1
+subgraph801,Malaysia,0.999999709,Cybercrime,0.9-1
+subgraph801,Poland,0.9399093470000001,Cybercrime,0.9-1
+subgraph801,Thailand,0.9999999820000001,Cybercrime,0.9-1
+subgraph801,Thailand,0.999999999,Cybercrime,0.9-1
+subgraph801,Cayman Islands,0.9999997709999999,Cybercrime,0.9-1
+subgraph801,Thailand,0.9999999959999999,Cybercrime,0.9-1
+subgraph801,Bermuda,0.999987773,Cybercrime,0.9-1
+subgraph801,Thailand,1.0,Cybercrime,0.9-1
+subgraph823,India,0.569003395,Organised Crime,0.4-0.6
+subgraph823,India,1.0,Organised Crime,0.9-1
+subgraph823,India,0.569003395,Terrorism,0.4-0.6
+subgraph823,India,1.0,Terrorism,0.9-1
+subgraph33,Switzerland,0.275415454,Trafficking in Stolen Goods,0.2-0.4
+subgraph33,Sweden,0.252746514,Trafficking in Stolen Goods,0.2-0.4
+subgraph33,Sweden,0.27553199300000003,Trafficking in Stolen Goods,0.2-0.4
+subgraph33,Turkey,0.39601532100000003,Trafficking in Stolen Goods,0.2-0.4
+subgraph33,Russia,0.788123087,Trafficking in Stolen Goods,0.7-0.8
+subgraph33,Sweden,0.260195507,Trafficking in Stolen Goods,0.2-0.4
+subgraph33,Russia,0.337873359,Trafficking in Stolen Goods,0.2-0.4
+subgraph33,Sweden,0.260195507,Trafficking in Stolen Goods,0.2-0.4
+subgraph33,Russia,0.879630847,Trafficking in Stolen Goods,0.8-0.9
+subgraph33,Russia,0.868601662,Trafficking in Stolen Goods,0.8-0.9
+subgraph33,Russia,0.45820963200000003,Trafficking in Stolen Goods,0.4-0.6
+subgraph33,Sweden,0.375149798,Trafficking in Stolen Goods,0.2-0.4
+subgraph33,Russia,0.6625596229999999,Trafficking in Stolen Goods,0.6-0.7
+subgraph33,Russia,0.381495831,Trafficking in Stolen Goods,0.2-0.4
+subgraph33,Russia,0.6625596229999999,Trafficking in Stolen Goods,0.6-0.7
+subgraph33,Sweden,0.26765894,Trafficking in Stolen Goods,0.2-0.4
+subgraph33,Sweden,0.27553199300000003,Trafficking in Stolen Goods,0.2-0.4
+subgraph33,Luxembourg,0.27553199300000003,Trafficking in Stolen Goods,0.2-0.4
+subgraph33,Russia,1.0,Trafficking in Stolen Goods,0.9-1
+subgraph33,Switzerland,0.9490286509999999,Sanctions,0.9-1
+subgraph33,Sweden,0.9330277570000001,Sanctions,0.9-1
+subgraph33,Sweden,0.949081064,Sanctions,0.9-1
+subgraph33,Turkey,0.988549773,Sanctions,0.9-1
+subgraph33,Russia,0.996491805,Sanctions,0.9-1
+subgraph33,Sweden,0.9387593320000001,Sanctions,0.9-1
+subgraph33,Russia,0.9760764890000001,Sanctions,0.9-1
+subgraph33,Sweden,0.9387593320000001,Sanctions,0.9-1
+subgraph33,Russia,0.999843681,Sanctions,0.9-1
+subgraph33,Russia,0.9822629890000001,Sanctions,0.9-1
+subgraph33,Russia,0.988190951,Sanctions,0.9-1
+subgraph33,Sweden,0.985032853,Sanctions,0.9-1
+subgraph33,Russia,0.982641883,Sanctions,0.9-1
+subgraph33,Russia,0.986061561,Sanctions,0.9-1
+subgraph33,Russia,0.982641883,Sanctions,0.9-1
+subgraph33,Sweden,0.9440404240000001,Sanctions,0.9-1
+subgraph33,Sweden,0.949081064,Sanctions,0.9-1
+subgraph33,Luxembourg,0.949081064,Sanctions,0.9-1
+subgraph33,Russia,1.0,Sanctions,0.9-1
+subgraph39,Iran,1.0,Sanctions,0.9-1
+subgraph140,Russia,0.999999999,Sanctions,0.9-1
+subgraph140,Russia,0.999999999,Sanctions,0.9-1
+subgraph140,Russia,1.0,Sanctions,0.9-1
+subgraph140,Russia,0.999999999,Sanctions,0.9-1
+subgraph140,Russia,0.999999999,Sanctions,0.9-1
+subgraph140,United States,1.0,Sanctions,0.9-1
+subgraph140,Russia,0.999999998,Sanctions,0.9-1
+subgraph140,Russia,1.0,Sanctions,0.9-1
+subgraph140,Russia,1.0,Sanctions,0.9-1
+subgraph140,Russia,0.999999998,Sanctions,0.9-1
+subgraph140,Russia,0.999999998,Sanctions,0.9-1
+subgraph140,Russia,1.0,Sanctions,0.9-1
+subgraph140,Russia,0.999999999,Sanctions,0.9-1
+subgraph140,Latvia,1.0,Sanctions,0.9-1
+subgraph140,Russia,1.0,Sanctions,0.9-1
+subgraph140,Russia,0.999999998,Sanctions,0.9-1
+subgraph140,Russia,1.0,Sanctions,0.9-1
+subgraph140,Russia,0.999999999,Sanctions,0.9-1
+subgraph140,Russia,1.0,Sanctions,0.9-1
+subgraph249,Russia,1.0,Sanctions,0.9-1
+subgraph249,United Kingdom,0.999999998,Sanctions,0.9-1
+subgraph249,Russia,0.7736473559999999,Sectoral Sanctions,0.7-0.8
+subgraph249,United Kingdom,1.0,Sectoral Sanctions,0.9-1
+subgraph140,Russia,0.999911115,Narrative Sanctions,0.9-1
+subgraph140,Russia,0.999911082,Narrative Sanctions,0.9-1
+subgraph140,Russia,0.9999940209999999,Narrative Sanctions,0.9-1
+subgraph140,Russia,0.999911115,Narrative Sanctions,0.9-1
+subgraph140,Russia,0.999911049,Narrative Sanctions,0.9-1
+subgraph140,United States,0.9999951970000001,Narrative Sanctions,0.9-1
+subgraph140,Russia,0.999904008,Narrative Sanctions,0.9-1
+subgraph140,Russia,0.999998015,Narrative Sanctions,0.9-1
+subgraph140,Russia,0.99999621,Narrative Sanctions,0.9-1
+subgraph140,Russia,0.999888165,Narrative Sanctions,0.9-1
+subgraph140,Russia,0.999896405,Narrative Sanctions,0.9-1
+subgraph140,Russia,0.999995405,Narrative Sanctions,0.9-1
+subgraph140,Russia,0.9999074170000001,Narrative Sanctions,0.9-1
+subgraph140,Latvia,0.999998098,Narrative Sanctions,0.9-1
+subgraph140,Russia,0.999987792,Narrative Sanctions,0.9-1
+subgraph140,Russia,0.999888205,Narrative Sanctions,0.9-1
+subgraph140,Russia,0.99995812,Narrative Sanctions,0.9-1
+subgraph140,Russia,0.999911115,Narrative Sanctions,0.9-1
+subgraph140,Russia,1.0,Narrative Sanctions,0.9-1
+subgraph39,Iran,1.0,Formerly Sanctioned,0.9-1
+subgraph39,Iran,1.0,Formerly Sanctioned - Iran,0.9-1
