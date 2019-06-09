@@ -70,7 +70,7 @@ function dataProcess(error, deathJSON, timelineJSON) {
     })
     dataNew.push(oneMonthProvince)
   })
-
+  console.log(dataNew)
   // Fix the order arrangement of year-month
   var YearMonthList = [... new Set(deathJSON.map(d=>d['FATALITY_DATE']))].sort(d3.ascending)
 

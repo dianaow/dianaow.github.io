@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <script src="http://d3js.org/d3.v4.min.js"></script>
+  <script src="https://d3js.org/d3-array.v2.min.js"></script>
+  <script src="./js/chroma.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+  <style>
+    .wrapper {
+      background-color: #F0EFEF;
+      width: 100vw;
+      height: 156vw;
+      display: flex;
+      justify-content: center
+    }
+    .box-group {
+      display: flex;
+      flex-direction: column;
+      width: 90%;
+      padding: 5px;
+    }
+    #chart {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class='wrapper'>
+    <div class='box-group'>
+      <div id='vis-container'></div>
+      <div id="chart"></div>
+    </div>
+  </div>
+  <script src="./js/dotplot.js"></script>
+  <script>
+    var graph = function () {
+
+      ///////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////// Globals /////////////////////////////////
+      /////////////////////////////////////////////////////////////////////////// 
+      var canvasDim = { width: screen.width * 0.95, height: screen.height*8}
+      var margin = {top: 200, right: 20, bottom: 20, left: 100}
+      var width = canvasDim.width - margin.left - margin.right 
+      var height = canvasDim.height - margin.top - margin.bottom 
+      var modal = d3.select("#chart")
+      var DEFAULT = 'Europe'
+
+      ///////////////////////////////////////////////////////////////////////////
+      ///////////////////////////////// Initialize //////////////////////////////
+      /////////////////////////////////////////////////////////////////////////// 
+
+      return { 
+        clear : function () {
+          modal.select("svg").remove()
+        },
+        run : function () {
+
+          //////////////////// Set up and initiate containers ///////////////////////
+          var svg = modal.append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+          d3.csv("./data/VietnamConflict_clean.csv", function(error, csv) {
+            if (error) throw error;
+
+            var data = csv.map((d,i) => {
+              return {
+                id: i,
+                rank: d.RANK,
+                position: d.POSITION,
+                ethnicity: d.ETHNICITY,
+                division: d.DIVISION,
+                fatality_year: d.FATALITY_YEAR,
+                fatality_month: d.FATALITY_MONTH,
+                province: d.DEPLOYMENT_PROVINCE
+              }
+            })
+
+            var dropdown = d3.select("#vis-container")
+                .insert("select", "svg")
+                .on("change", function() {
+                  // Handler for dropdown value change (filter by regions)
+                  var newSelection = d3.select(this).property('value')
+                  var newData = data.filter(d=>d.region.includes([newSelection]))
+                  update(svg, width, height, newData)
+                })
+
+            var regions = data.map(d => d.region).filter(onlyUnique).filter(e=>e != undefined)
+
+            dropdown.selectAll("option")
+                .data(regions)
+              .enter().append("option")
+                .attr("value", function (d) { return d })
+                .text(function (d) { return d })
+                .property("selected", function(d){ return d === DEFAULT })
+
+            var res = data
+
+            update(svg, width, height, res)
+
+          })
+
+        }
+      }
+
+    }()
+
+    function update(svg, width, height, res) {
+
+      var ranks = res.map(d => d.rank).filter(onlyUnique).filter(e=>e != undefined)
+      var ethnicities = res.map(d => d.ethnicity).filter(onlyUnique).filter(e=>e != undefined)
+      var positions = res.map(d => d.position).filter(onlyUnique).filter(e=>e != undefined)
+      var provinces = res.map(d => d.province).filter(onlyUnique).filter(e=>e != undefined)
+      var years = res.map(d => d.fatality_year).filter(onlyUnique).filter(e=>e != undefined)
+
+      // sort by highest count
+      provinces_nested = d3.nest()
+        .key(d=>d.province)
+        .rollup(function(leaves) { return leaves.length; })
+        .entries(res)
+        .sort(function(a, b){ return d3.ascending(a.value, b.value) })
+
+      var provinces_sorted = provinces_nested.map(d=>d.key)
+
+      var scoreColors = chroma.scale(['skyblue', 'purple', 'hotpink']).mode('lch').colors(ranks.length)
+      var scoresColorScale = d3.scaleOrdinal()
+        .domain(ranks)
+        .range(scoreColors)
+
+      var options = {
+        radius: 1.5,
+        tilesPerRow: 25,
+        width: width,
+        height: height,
+        leftBuffer: 0,
+        bottomBuffer: 0,
+        scales: {'color': scoresColorScale}
+      }
+
+      var dots = createDots(res, 'tiledbar', 'fatality_year', 'province', years, provinces_sorted, options) 
+
+      console.log(dots)
+      updateCircles(svg, dots.dots)
+      updateLabels(svg, dots.labels)
+      updateRects(svg, dots.rects)
+    }
+
+    function updateCircles(svg, data) {
+
+      let circles = svg.selectAll("circle").data(data, d=>d.index);
+
+      circles.exit().remove()
+
+      // Add new circles to the graph.
+      var entered_circles = circles
+          .enter().append("circle")
+          .attr("class", d=> d.parent)
+          .attr("id", d => d.index)
+          .attr("r", d => d.r)
+          .attr("fill", d => d.color)
+          .attr('stroke', d=> d.parent=='root' ? 'red' : d.strokeFill)
+          .attr('stroke-width', d=> d.parent=='root' ? '2.5px' : d.strokeWidth)
+          .attr("cx", d => d.x)
+          .attr("cy", d => d.y)
+
+      circles = circles.merge(entered_circles)
+
+      circles
+        .transition().duration(2000)
+        .attr("fill", d => d.color)
+        .attr('cx', d => d.x)
+        .attr('cy', d => d.y)  
+
+    }
+
+    function updateRects(svg, data) {
+
+      let rect = svg.selectAll("rect").data(data, d=>d.index);
+
+      rect.exit().remove()
+
+      // Add new circles to the graph.
+      var entered_rect = rect
+          .enter().append("rect")
+          .attr("id", d => d.index)
+          .attr("width", d => d.width)
+          .attr("height", d => d.width)
+          .attr("fill", 'none')
+          .attr('stroke', 'white')
+          .attr('stroke-width', '1px')
+          .attr("x", d => d.x)
+          .attr("y", d => d.y)
+
+      rect = rect.merge(entered_rect)
+
+      rect
+        .transition().duration(2000)
+        .attr("fill", 'none')
+        .attr('x', d => d.x)
+        .attr('y', d => d.y)  
+
+    }
+
+    function updateLabels(svg, data) {
+
+      var texts = svg.selectAll("text").data(data, d=>d.key)
+
+      texts.exit().remove() 
+
+      var entered_texts = texts
+          .enter().append("text")
+          .attr("fill", d => 'black')
+          .attr('dy', '0.35em')
+          .attr("x", d => d.x)
+          .attr("y", d => d.y)
+          .text(d=>d.key)
+
+      texts = texts.merge(entered_texts)
+
+      texts
+        .transition().duration(2000)
+        .attr('x', d => d.x)
+        .attr('y', d => d.y)  
+        .text(d=>d.key)
+
+    }
+
+
+    function onlyUnique(value, index, self) { 
+        return self.indexOf(value) === index;
+    }
+
+  </script>
+  <script>
+    graph.run()
+  </script>
+</body>
+</html>

@@ -1,7 +1,10 @@
 var width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
 var height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
 var canvasDim = { width: width, height: screen.width<=1024 ? height: height*2};
-
+var projection, data
+var markerSize = 2
+var mapWidth = 700
+var mapHeight = 500
 var graph = []
 var graphBtnNodes = []
 // Create empty array if haven't already done so
@@ -35,11 +38,11 @@ var line = d3.line()
 
 var svg = d3.select('svg')
   .attr('width', canvasDim.width+800)
-  .attr('height', canvasDim.height+800)
+  .attr('height', canvasDim.height+1100)
 
 var canvas = svg.append("g")
   .attr("class", "canvas")
-  .attr('transform', 'translate(' + 800 + "," + 800 + ")")
+  .attr('transform', 'translate(' + 800 + "," + 1100 + ")")
 
 var same = [4,5,6] //modify diameter of network nodes to makes them more aesthetically pleasing
 
@@ -49,16 +52,30 @@ function init() {
 
   d3.queue()   
     .defer(d3.csv, './data/od_bus.csv') 
-    .defer(d3.csv, './data/busstops.csv') 
+    .defer(d3.csv, './data/busstops.csv')
+    .defer(d3.json, './data/singapore.json')  
     .await(createChart);  
 
 }
 
-function createChart(error, csv1, csv2){
+function createChart(error, csv1, csv2, geoJSON){
 
   initializeData(csv1, csv2)
   networks()
   appendLegend()
+  var container = d3.select('#graph').html('')
+  renderMap(geoJSON, container, mapWidth, mapHeight, graph.links, "showStops", [0,0], 1.5, markerSize)
+
+  d3.select('#score').on("click", function () { 
+    ctx.clearRect(0, 0, mapWidth, mapHeight);
+    data.forEach(function(d){
+      if(d.x && d.y){
+        var grp = d.BusStopCode.toString()[0]== "4" ? "3" : ( d.BusStopCode.toString()[0]== "9" ? "8" : d.BusStopCode.toString()[0] )
+        ctx.fillStyle = colorScale(grp)
+        ctx.fillRect(d.x, d.y, markerSize, markerSize)
+      }
+    });
+  });
 
 }
 
@@ -77,7 +94,9 @@ function initializeData(csv1, csv2){
     return {
     BusStopCode: +d.BusStopCode,
     RoadName: d.RoadName,
-    Description: d.Description
+    Description: d.Description,
+    lat: +d.Latitude,
+    lon: +d.Longitude,
     }
   })
 
@@ -215,11 +234,14 @@ function renderOneNetwork(nodes, links, nodeElement, digit) {
     .attr('d', function (d) { return line(d) })
 
   link.on('mouseover', function (l) {
+
+    var This = d3.select(this)
+
     link
       .style('stroke', null)
       .style('stroke-opacity', 0.7);
 
-    d3.select(this)
+    This
       .style('stroke', colorScale(digit))
       .style('stroke-opacity', 1)
 
@@ -234,6 +256,18 @@ function renderOneNetwork(nodes, links, nodeElement, digit) {
     node.filter(function (n) { return n === l[0] || n === l[l.length - 1]; })
       .selectAll('text')
       .style("visibility","visible")
+
+    reRenderMap1(This, l)
+    //var text = {startCode: l[0].data.name, endCode: l[2].data.name, startLabel: l[0].data.label, endLabel: l[2].data.label}
+    //updateText(text)
+    //function updateText(t) {
+      //svg.select("p")
+        //.data(t)
+        //.enter().append("p")
+        //.attr('width', 200)
+        //.attr('height', 100)
+        //.text("There were " + t.trips + " made between " + t.start + " and " + t.end)
+    //}
 
   })
   .on('mouseout', function (l) {
@@ -258,6 +292,25 @@ function renderOneNetwork(nodes, links, nodeElement, digit) {
       .style("visibility","hidden")
 
   })
+
+  function reRenderMap1(This, l) {
+
+    var source = busstops.find(d=>d.BusStopCode == l[0].data.name)
+    var sourcePt = projection([source.lon, source.lat]);
+    var target = busstops.find(d=>d.BusStopCode == l[2].data.name)
+    var targetPt = projection([target.lon, target.lat]);
+    ctx.clearRect(0, 0, mapWidth, mapHeight);
+    ctx.fillStyle = 'green'
+    ctx.fillRect(sourcePt[0]-(markerSize+6)/2, sourcePt[1]-(markerSize+6)/2, markerSize+6, markerSize+6)
+    ctx.fillStyle = 'red'
+    ctx.fillRect(targetPt[0]-(markerSize+6)/2, targetPt[1]-(markerSize+6)/2, markerSize+6, markerSize+6)
+    ctx.beginPath();
+    ctx.moveTo(sourcePt[0], sourcePt[1]);
+    ctx.lineTo(targetPt[0], targetPt[1]);
+    ctx.strokeStyle = 'white'
+    ctx.stroke();
+
+  }
 
   // NODES
   var node = nodeElement.selectAll('.node')
@@ -305,8 +358,9 @@ function renderOneNetwork(nodes, links, nodeElement, digit) {
       })
       .style('stroke', function (link_d) {
         return link_d[0] === l | link_d[link_d.length - 1] === l ? colorScale(digit) : null;
-      });
-    })
+      })
+
+  })
   .on('mouseout', function (l) {
     node.selectAll('circle')
       .style('fill', colorScale(digit));
@@ -425,7 +479,9 @@ function linksBtnNodes (links, nodeElement) {
 
   linkBtnNodes.on('mouseover', function (l) {
 
-    d3.select(this)
+    var This = d3.select(this)
+
+    This
       .style('stroke', "white")
       .style('stroke-width', 1.5)
 
@@ -443,9 +499,11 @@ function linksBtnNodes (links, nodeElement) {
     d3.select("#text-"+l.target.toString())
       .style("visibility","visible")
 
+    reRenderMap(This, l)
 
   })
   .on('mouseout', function (l) {
+
     linkBtnNodes
       .style("stroke", d=>colorScaleLog(d.total))
       .style('stroke-opacity', 0.7)
@@ -464,8 +522,26 @@ function linksBtnNodes (links, nodeElement) {
     d3.select("#text-"+l.target.toString())
       .style("visibility","hidden")
 
-  });
+  })
 
+}
+
+function reRenderMap(This, l) {
+
+  var source = busstops.find(d=>d.BusStopCode == l.source)
+  var sourcePt = projection([source.lon, source.lat]);
+  var target = busstops.find(d=>d.BusStopCode == l.target)
+  var targetPt = projection([target.lon, target.lat]);
+  ctx.clearRect(0, 0, mapWidth, mapHeight);
+  ctx.fillStyle = 'green'
+  ctx.fillRect(sourcePt[0]-(markerSize+6)/2, sourcePt[1]-(markerSize+6)/2, markerSize+6, markerSize+6)
+  ctx.fillStyle = 'red'
+  ctx.fillRect(targetPt[0]-(markerSize+6)/2, targetPt[1]-(markerSize+6)/2, markerSize+6, markerSize+6)
+  ctx.beginPath();
+  ctx.moveTo(sourcePt[0], sourcePt[1]);
+  ctx.lineTo(targetPt[0], targetPt[1]);
+  ctx.strokeStyle = 'white'
+  ctx.stroke();
 
 }
 
@@ -529,9 +605,13 @@ function pathGenerator(d) {
 
 function appendLegend() {
 
-  var legend = svg.append("g")
+  var legendSvg = d3.select("#legend").append("svg")
+    .attr('width', 400)
+    .attr('height', 500)
+
+  var legend = legendSvg.append("g")
     .attr("class", "legend")
-    .attr("transform", "translate(90,450)")
+    .attr("transform", "translate(50,100)")
 
   var radius = 6
   var dummy_nodes = 
@@ -545,7 +625,7 @@ function appendLegend() {
 
   var yscale = d3.scaleLinear()
     .domain([0, dummy_nodes.length - 1])
-    .range([0, 100]);
+    .range([0, 160]);
 
   dummy_nodes.forEach(function(d, i) {
     // d.x = xscale(i);
@@ -587,7 +667,7 @@ function appendLegend() {
     .attr("x", d=>d.x + (2*radius))
     .attr("y", d=>d.y + radius)
     .style("fill", "white")
-    .style("font-size", 9)
+    .style("font-size", 12)
     .text(d=>d.group)
 
   legend.selectAll(".legend-label")
@@ -599,7 +679,7 @@ function appendLegend() {
     .attr("x", d=>d.x + (4*radius))
     .attr("y", d=>d.y + radius)
     .style("fill", "white")
-    .style("font-size", 9)
+    .style("font-size", 12)
     .text(d=>d.label)
 
   legend
@@ -607,22 +687,22 @@ function appendLegend() {
     .attr("x", dummy_nodes[0].x/2)
     .attr("y", dummy_nodes[0].y - 30)
     .style("fill", "white")
-    .style("font-size", 11)
+    .style("font-size", 13.5)
     .style('font-weight', 'bold')
     .text("Bus Stop Codes starting with:")
 
   legend
     .append("text")
     .attr("x", dummy_nodes[0].x/2)
-    .attr("y", dummy_nodes[0].y - 20)
+    .attr("y", dummy_nodes[0].y - 15)
     .style("fill", "white")
-    .style("font-size", 10)
+    .style("font-size", 11)
     .text("(Hover over nodes to show bus stop names)")
 
   legend
     .append("circle")
     .attr("cx", dummy_nodes[0].x/2 + 6)
-    .attr("cy", 130)
+    .attr("cy", 200)
     .attr("r", 6)
     .style("fill", "transparent")
     .style("stroke", "white")
@@ -631,25 +711,25 @@ function appendLegend() {
   legend
     .append("text")
     .attr("x", dummy_nodes[0].x/2 + 6 + 12)
-    .attr("y", 130+ 6/2)
+    .attr("y", 200+ 6/2)
     .style("fill", "white")
-    .style("font-size", 11)
+    .style("font-size", 12)
     .text("Bus Interchange")
 
   legend
     .append("text")   
     .attr("x", dummy_nodes[0].x/2)
-    .attr("y", 160)
+    .attr("y", 240)
     .style("fill", "white")
-    .style("font-size", 11)
+    .style("font-size", 12)
     .style('font-weight', 'bold')
-    .text("Hover over a link for path details:")
+    .text("Hover over a link to locate bus stops on map:")
 
   legend
     .append("circle")
     .attr("class", "legend-origin")
     .attr("cx", dummy_nodes[0].x/2 + 6)
-    .attr("cy", 180)
+    .attr("cy", 260)
     .attr("r", 6)
     .style("fill", "green")
 
@@ -657,7 +737,7 @@ function appendLegend() {
     .append("circle")
     .attr("class", "legend-dest")
     .attr("cx", dummy_nodes[0].x/2 + 6 + 80)
-    .attr("cy", 180)
+    .attr("cy", 260)
     .attr("r", 6)
     .style("fill", "red")
 
@@ -665,18 +745,18 @@ function appendLegend() {
     .append("text")
     .attr("class", "legend-origin")
     .attr("x", dummy_nodes[0].x/2 + 6 + 12)
-    .attr("y", 180 + 6/2)
+    .attr("y", 260 + 6/2)
     .style("fill", "white")
-    .style("font-size", 11)
+    .style("font-size", 12)
     .text("origin")
 
   legend
     .append("text")
     .attr("class", "legend-dest")
     .attr("x", dummy_nodes[0].x/2 + 6 + 80 + 12)
-    .attr("y", 180 + 6/2)
+    .attr("y", 260 + 6/2)
     .style("fill", "white")
-    .style("font-size", 11)
+    .style("font-size", 12)
     .text("destination")
   
   const barHeight = 20;
@@ -685,7 +765,7 @@ function appendLegend() {
 
   var legend_scale = legend.append('g')
       .attr('class', 'scale')
-      .attr('transform', 'translate(5,200)')
+      .attr('transform', 'translate(5,280)')
 
   legend_scale.selectAll('.legend-bars')
     .data(points)
@@ -703,7 +783,7 @@ function appendLegend() {
       .attr('y', 10)
       .attr('x', 0)
       .attr('fill', 'white') 
-      .style("font-size", 11)
+      .style("font-size", 12)
       .style('font-weight', 'bold')
       .text('Passenger Volume')
 
@@ -716,6 +796,99 @@ function appendLegend() {
       .attr('fill', 'white') 
       .style("font-size", 11)
       .text((d, i) => i%3 === 0 ? d : "") 
+
+}
+
+function renderMap(geoJSON, container, mapWidth, mapHeight, DATA, type, pair, strokeWidth, markerSize) {
+
+  var  svg = container.append("svg")
+    .attr("width", mapWidth)
+    .attr("height", mapHeight)
+
+  var mapWrapper = svg.append("g")
+    .attr("class", "mapWrapper")
+
+  // add foreign object to svg
+  // https://gist.github.com/mbostock/1424037
+  var foreignObject = mapWrapper.append("foreignObject")
+      .attr("width", mapWidth)
+      .attr("height", mapHeight);
+
+  // add embedded body to foreign object
+  var foBody = foreignObject.append("xhtml:body")
+      .style("margin", "0px")
+      .style("padding", "0px")
+      .style("background-color", "transparent")
+      .style("width", mapWidth)
+      .style("height", mapHeight)
+
+  // add embedded canvas to embedded body
+  var canvas = foBody.append("canvas")
+      .attr('class', 'map'+ pair[0] + "-" + pair[1])
+      .attr("width", mapWidth)
+      .attr("height", mapHeight)
+
+  // getContext() method returns an object that provides methods and properties for drawing on the canvas
+  ctx = d3.select('.map'+ pair[0] + "-" + pair[1]).node().getContext('2d')
+
+  // DATA PROCESSING BEFORE PLOTTING
+  // append bus route points to geoJSON already containing multi-polygon describing singapore map
+  // this is important so that projection will include these points and ensure alignment in render 
+
+  var nodesSource = DATA.map(d=>d.source)
+  var nodesTarget = DATA.map(d=>d.target)
+  var nodesAll = [...new Set(nodesSource.concat(nodesTarget))]
+
+  data = nodesAll.map((d,i) => {
+    return Object.assign({}, d, busstops.find(b=>b.BusStopCode===d)||{});
+  })
+
+  data.forEach(function(d) {
+    geoJSON.features.push({
+      type: "Point",
+      properties: {
+        geometry: {
+          type: "Point",
+          coordinates: [d.lon, d.lat]
+        }
+      }
+    });
+  });
+
+  projection = d3.geoMercator().fitSize([mapWidth, mapHeight], geoJSON);
+
+  var path = d3.geoPath().projection(projection);
+  var polygons = geoJSON.features.filter(d=>d.type=='Feature')
+
+  // project gps coordinates of each point in route to screen coordinates (there will be duplicate bus stops coords)
+  data.forEach(function(d) {
+    var pt = projection([d.lon, d.lat]);
+    d.x = pt[0];
+    d.y = pt[1];
+  });
+
+  // DRAW MAP OF SINGAPORE    
+  mapWrapper.selectAll(".country")
+      .data(polygons)
+      .enter()
+      .append("path")
+      .attr("class", "country")
+      .attr("d", path)
+      .style("stroke-width", strokeWidth)
+      .style("stroke", "white")
+      .style("fill", "transparent")
+
+  if (type=='showStops'){
+    // DRAW BUS STOP MARKERS
+    // each rectange represents a bus stop  
+    data.forEach(function(d){
+      if(d.x && d.y){
+        var grp = d.BusStopCode.toString()[0]== "4" ? "3" : ( d.BusStopCode.toString()[0]== "9" ? "8" : d.BusStopCode.toString()[0] )
+        ctx.fillStyle = colorScale(grp)
+        ctx.fillRect(d.x, d.y, markerSize, markerSize)
+      }
+    });
+  }
 
 }
 
