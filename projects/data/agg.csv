@@ -1,0 +1,15 @@
+count,name,parent
+71,bookmarks,
+20,bookmarks|blocks,bookmarks
+24,bookmarks|cool,bookmarks
+8,bookmarks|people,bookmarks
+19,bookmarks|tutorials,bookmarks
+8,bookmarks|cool|data science theory,bookmarks|cool
+1,bookmarks|cool|infographics,bookmarks|cool
+11,bookmarks|cool|interactive,bookmarks|cool
+4,bookmarks|cool|maps,bookmarks|cool
+6,bookmarks|tutorials|D3,bookmarks|tutorials
+2,bookmarks|tutorials|Others,bookmarks|tutorials
+1,bookmarks|tutorials|Visualization,bookmarks|tutorials
+1,bookmarks|tutorials|WebGL,bookmarks|tutorials
+9,bookmarks|tutorials|tools,bookmarks|tutorials

@@ -4,12 +4,12 @@ var distribute = function () {
   ///////////////////////////////// Globals /////////////////////////////////
   /////////////////////////////////////////////////////////////////////////// 
   var simulation, circles, g, DURATION, DELAY, nodes, distributed, scattered
-  var canvasDim = { width: screen.width*0.9, height: screen.height*0.8}
+  var canvasDim = { width: screen.width*0.9, height: screen.height*0.9}
   var margin = {top: 50, right: 50, bottom: 50, left: 50}
   var width = canvasDim.width - margin.left - margin.right;
   var height = canvasDim.height - margin.top - margin.bottom;
   var simulation = d3.forceSimulation()
-  var modal = d3.select(".modal-content2")
+  var modal = d3.select(".content-forces")
   var modalDiv = modal.append('div')
     .attr('id', "div-content2")
     .attr('width', width)
@@ -34,10 +34,10 @@ var distribute = function () {
   var sliderStepDuration = d3.sliderBottom()
     .min(1000)
     .max(2000)
-    .width(300)
+    .width(260)
     .tickFormat(d3.format(''))
-    .ticks(10)
-    .step(100)
+    .ticks(4)
+    .step(500)
     .default(2000)
     .on('onchange', val => {
       d3.select('p#value-step-duration').text(d3.format('.2%')(val))
@@ -47,7 +47,7 @@ var distribute = function () {
   var sliderStepDelay = d3.sliderBottom()
     .min(5)
     .max(50)
-    .width(300)
+    .width(260)
     .tickFormat(d3.format(''))
     .ticks(10)
     .step(5)
@@ -58,14 +58,14 @@ var distribute = function () {
 
   var gStep1 = d3.select('div#slider-step1')
     .append('svg')
-    .attr('width', 500)
+    .attr('width', 300)
     .attr('height', 90)
     .append('g')
     .attr('transform', 'translate(20, 20)')
 
   var gStep2 = d3.select('div#slider-step2')
     .append('svg')
-    .attr('width', 500)
+    .attr('width', 300)
     .attr('height', 90)
     .append('g')
     .attr('transform', 'translate(20, 20)')
@@ -79,7 +79,7 @@ var distribute = function () {
   
   return { 
     clear : function () {
-      modal.select("svg").remove()
+      modalDiv.select("svg").remove()
     },
     run : function () {
 
@@ -91,6 +91,18 @@ var distribute = function () {
       g = svg.append("g")
           .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
+      if(screen.width > 420){
+        svg.append('rect')
+          .attr("width", width*0.8)
+          .attr("height", height*0.95)  
+          .attr('fill', 'none')
+          .style('stroke-width', '2px')
+          .style('rx', '6px') 
+          .style('stroke', 'black')
+          .attr('x', width/4)
+          .attr('y', 10)
+      }
+      
       ///////////////// Run animation sequence based on chosen parameters ///////////////////
       initAllData()
       getParameters()
@@ -184,8 +196,8 @@ var distribute = function () {
   function getData() {
 
     var nodes = []
-    d3.range(1,201).map((d,i) => {
-      var rand = Math.round(randn_bm(1, 8, 1))
+    d3.range(1,301).map((d,i) => {
+      var rand = Math.round(randn_bm(1, 8, 0.72))
       nodes.push({
         'band': rand
       })
@@ -233,9 +245,10 @@ var distribute = function () {
 
   function scatter(data) {
     
+    var buffer = screen.width < 420 ? 0.5 : 3
     simulation = simulation.nodes(data, d=>d.id)
       .force('charge', d3.forceManyBody().strength(-20))
-      .force("collide", d3.forceCollide(function(d,i) { return d.radius + 3}))
+      .force("collide", d3.forceCollide(function(d,i) { return d.radius + buffer}))
       .force("cluster", forceCluster())
       .force("x", d3.forceX(function (d) { return d.x }))
       .force("y", d3.forceY(function (d) { return d.y }))
@@ -283,8 +296,9 @@ var distribute = function () {
       d.x = xScaleCluster(d.band)
     })
 
+    var responsiveCharge = screen.width < 420 ? -5 : -20 // modify the force charge based on screen size
     simulation.nodes(nodes)
-      .force('charge', d3.forceManyBody().strength(-20))
+      .force('charge', d3.forceManyBody().strength(responsiveCharge))
       .force("cluster", forceCluster())
       //.force('center', d3.forceCenter(width/2, height/2))
       //.force('x', d3.forceX(function (d) { return xScaleCluster(d.band) }).strength(0.3)) 
@@ -302,8 +316,9 @@ var distribute = function () {
 
     simulation.stop();
 
+    var responsiveCharge = screen.width < 420 ? -10 : -25
     simulation
-      .force('charge', d3.forceManyBody().strength(-50))
+      .force('charge', d3.forceManyBody().strength(responsiveCharge))
       .force("cluster", forceCluster())
       .force('x', d3.forceX((width/4) + (width*(3/4))/2))
       .force('y', d3.forceY(height/2-100))
@@ -372,10 +387,10 @@ var distribute = function () {
 
   function distributedData(nodes) {
 
-    var nodeRadius = 8
+    var nodeRadius = screen.width < 420 ? 4 : 8
     var tilesPerRow = 8
     var tileSize = nodeRadius * 1.5
-    var barWidth = 200
+    var barWidth = screen.width < 420 ? 50 : (screen.width <= 1024 ? 100 : 150)
 
     // find count of nodes within each category 
     var counts = nodes.reduce((p, c) => {
@@ -403,12 +418,14 @@ var distribute = function () {
     return distributed
 
     function getTiles(num, counter) {
-      var tiles = [];
+      var tiles = []
+      var leftBuffer = screen.width <= 1024 ? 0 : width/4
+      var bottomBuffer = screen.width <=1024 ? 0 : 100
       for(var i = 0; i < num; i++) {
         var rowNumber = Math.floor(i / tilesPerRow)
         tiles.push({
-          x: ((i % tilesPerRow) * tileSize) + (counter * barWidth) + tileSize + (width/4),
-          y: -(rowNumber + 1) * tileSize + height - 50, 
+          x: ((i % tilesPerRow) * tileSize) + (counter * barWidth) + tileSize + leftBuffer,
+          y: -(rowNumber + 1) * tileSize + height - bottomBuffer, 
           color: color[counter],
           band: (counter+1).toString(),
           id: counter + '-' + i, // index each node

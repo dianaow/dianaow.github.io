@@ -2,7 +2,7 @@ var bubble = function () {
 
   var svg
   var counter = 0
-  var modal = d3.select(".modal-content9")
+  var modal = d3.select(".content-vietnam")
 
   // set the dimensions and margins of the graph
   var margin = {top: 20, right: 50, bottom: 50, left:50},

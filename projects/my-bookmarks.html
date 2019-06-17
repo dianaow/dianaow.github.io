@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+    body {
+      background-color: whitesmoke;
+    }
+    #wrapper {
+      width: 100vw;
+      display: flex;
+      justify-content: center
+    }
+    #container {
+      display: flex;
+      flex-direction: column;
+      width: 90%;
+    }
+    text {
+      font-family: 'Karla', sans-serif;
+      font-size: 10px;
+    }
+    #title {
+      font-family: 'Karla', sans-serif;
+      font-size: 9px;      
+    }
+    .tooltip {
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <div id="wrapper">
+    <div id='container'>
+      <div id="tooltip" class="tooltip">
+          <div class="tooltip-title" id="title"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    loadData()
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////// Globals /////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////// 
+
+    var margin = {top: 20, right: 20, bottom: 20, left: 20},
+        width = screen.width*0.9 - margin.left - margin.right,
+        height = screen.height*0.9 - margin.top - margin.bottom
+
+    var svg = d3.select("#container").append('svg')
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+
+    var CIRCLE_RADIUS = 3
+    var STROKE_WIDTH = "2px"
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////////////////////////////// Data Processing ///////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    
+    function loadData() {
+
+      d3.queue()   // queue function loads all external data files asynchronously 
+        .defer(d3.csv, './data/agg.csv')
+        .defer(d3.csv, './data/chrome_bookmarks_June19.csv')  
+        .await(processData);   
+
+    }
+
+
+    function processData(error, csv1, csv2) {
+
+      if (error) throw error;
+
+      var data = csv1.map((d,i) => {
+        return {
+          parent: d.parent,
+          name: d.name,
+          value: +d.count
+        }
+      })
+
+      csv2.map((d,i) => {
+        d.label = d.folder!="" ? ('bookmarks|' + d.category + "|" + d.folder + "|" + d.index) : ('bookmarks|' + d.category + "|" + d.index)
+        console.log(d.label)
+      })
+
+      custom = ['bookmarks|people', 'bookmarks|tutorials', 'bookmarks|blocks', 'bookmarks|cool']
+      data.sort(function(x, y){
+        return custom.indexOf(x.name) - custom.indexOf(y.name)
+      })
+
+      ///////////////////////////////////////////////////////////////////////////
+      ///////////////////////////// Create scales ///////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+
+      var level1_list = data.map(d => d.name.split("|",1)[0]).filter(onlyUnique).filter(e=>e != undefined)
+      var level2_list = data.map(d => d.name.split("|",2)[1]).filter(onlyUnique).filter(e=>e != undefined)
+      var level3_list = data.map(d => d.name.split("|",3)[2]).filter(onlyUnique).filter(e=>e != undefined)
+
+      //var level2Colors = chroma.scale(['navy','deepskyblue']).mode('lch').colors(level2_list.length)
+      var level2Colors = ['deepskyblue', 'navy']
+
+      var level2_link = d3.scaleOrdinal()
+        .domain(level2_list)
+        .range(level2Colors)
+
+      var radiusScale = d3.scaleLinear() 
+        .range([2, 80])
+        .domain(d3.extent(data, d=>d.value))
+
+      var level2_node = "dimgray"
+      var level3_node = 'black'
+
+      ///////////////////////////////////////////////////////////////////////////
+      ///////////////////////// Render vertical tree ////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+
+      // declares a tree layout and assigns the size
+      var treemap = d3.tree()
+          .size([width, height/2]);
+
+      update(data)
+
+      function update(flatData) {
+
+        svg.selectAll('.treeWrapper').remove()
+
+        var g = svg.append("g")
+                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+                 .attr('class', 'treeWrapper')
+
+        // convert the flat data into a hierarchy 
+        var treeData = d3.stratify()
+          .id(function(d) { return d.name; })
+          .parentId(function(d) { return d.parent; })
+          (flatData);
+
+        treeData = treeData.sum(function (d) { return +d.value })
+
+        //  assigns the data to a hierarchy using parent-child relationships
+        var nodes = d3.hierarchy(treeData, function(d) {
+            return d.children;
+          });
+
+        // maps the node data to the tree layout
+        nodes = treemap(nodes);
+
+        var group = g.selectAll('.group')
+                  .data(nodes.descendants().slice(1))
+                  .enter().append("g")
+                  .attr('class', 'group')
+
+        // append a defs (for definition) element to your SVG
+        const defs = g.append('defs')
+
+        // adds the links between the nodes (render with gradient)
+        var link = group
+          .filter(function(d) { return d.depth < 3 })
+          .append("path")
+          .attr("id", function(d) { return "path-" + d.data.id })
+          .style("fill", "none")
+          .style("stroke-width", STROKE_WIDTH)
+          .attr("d", function(d) {
+            if(d.x == d.parent.x) {
+              var buffer=2
+            } else {
+              var buffer=0
+            }
+            return "M" + (d.x+buffer).toString() + "," + d.y
+              + "C" + d.x + "," + (d.y + d.parent.y) / 2
+              + " " + d.parent.x + "," +  (d.y + d.parent.y) / 2
+              + " " + d.parent.x + "," + d.parent.y;
+            })
+
+        link.style("stroke", function(d,i) {
+
+          var depth = d.depth
+          var l2 = d.data.id.split("|",3)[1]
+
+          const gradientID = `gradient${i}` // make unique gradient ids  
+
+          const startColor = level2_node
+          const stopColor = level2_list.indexOf(l2) != -1  ? level2_link(l2) : level3_node
+
+          const linearGradient = defs.append('linearGradient')
+              .attr('id', gradientID)
+              .attr("gradientTransform", "rotate(90)");
+
+          var stops1 = [                             
+            {offset: '0%', color: startColor, opacity: 0 },                           
+            {offset: '100%', color: startColor, opacity: 0.2 }      
+          ]
+
+          var stops2 = [                             
+            {offset: '0%', color: startColor, opacity: 1 },                           
+            {offset: '25%', color: startColor, opacity: 0.75 },      
+            {offset: '75%', color: stopColor, opacity: 0.5 }   
+          ]
+
+          linearGradient.selectAll('stop') 
+            .data(depth==1 ? stops1 : stops2)                  
+            .enter().append('stop')
+            .attr('offset', d => d.offset)   
+            .attr('stop-color', d => d.color)
+            .attr('stop-opacity', d => d.opacity)
+
+          return `url(#${gradientID})`;
+        })
+
+        // adds text along link for middle points
+        group
+          .filter(function(d) { return (d.depth < 2) & (radiusScale(d.data.value) < 5) })
+          .append("text")
+          .append("textPath")
+            .attr("xlink:href", function(d) { return "#path-" + d.data.id })
+            .attr("dy", ".35em")
+            .style("text-anchor", "middle")
+            .attr("startOffset", "5%")
+            .attr("transform", function(d) { return  "rotate(" + (d.x > width/2 ? -180 : 0) + ")translate(" + d.x + "," + (d.y-5).toString() + ")" })
+            .text(function(d) { return d.data.id.split("|",2)[1] });
+
+        // add text above circles
+        group
+          .filter(function(d) { return (d.depth < 2) & (radiusScale(d.data.value) >= 5) })      
+          .append("text")
+          .attr("x", function(d) { return d.x })
+          .attr("y", function(d) { return d.y - radiusScale(d.data.value) - 10 })
+          .attr("dy", ".35em")
+          .style("text-anchor", "middle")
+          .text(function(d) { return d.data.id.split("|",2)[1] })
+
+        group
+          .filter(function(d) { return (d.depth == 2) })
+          .append("text")
+          .attr("x", function(d) { return d.x + radiusScale(d.data.value)/2 })
+          .attr("y", function(d) { return d.y - radiusScale(d.data.value) - 5})
+          .attr("dy", ".35em")
+          .style("text-anchor", "middle")
+          .text(function(d) { return d.data.id.split("|",3)[2] })
+
+        // adds each node as a group
+        var node = group.append("g")
+            .filter(function(d) { return d.depth < 2 })
+            .attr("class", function(d) { return "node" + (d.children ? " node--internal" : " node--leaf"); })
+            .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+        // adds the circle to the node (paths in later groups will overlap depth 2 circles (country nodes))
+        node.append("circle")
+          .attr("r", function(d) { return d.data.value === undefined ? 2 : radiusScale(d.data.value) })
+          .attr('fill', function(d) { return level2_node })
+
+        g.append('text')
+          .attr('x', width/2-80)
+          .attr('y', 20)
+          .style('font-size', '24px')
+          .style('font-family', 'Karla')
+          .text('My bookmarks')
+
+        /////////////////////// Calculate coordinates of dotted plot //////////////////
+
+        var scores = nodes.descendants().filter(d=>d.depth >= 1)
+        scores = scores.filter(d=>(d.data.id != 'bookmarks|cool') & (d.data.id != 'bookmarks|tutorials')) 
+
+        var res_nested = d3.nest()
+          .key(d=>d.data.id)
+          .entries(scores)
+
+        var tiles = createDots(res_nested)
+        tiles.map(d=>{
+          console.log(d.index)
+        })
+        // adds each dot as a group
+        var dot = g.selectAll('.dotsG')
+            .data(tiles)
+            .enter().append("g")
+            .attr("class", 'dotsG')
+            .attr("id", d=>d.index)
+            .attr("transform", function(d,i) { return "translate(" + d.x + "," + d.y + ")" });
+
+        // adds the circle to the dot
+        dot
+        .append("a")
+        .attr("xlink:href", function(d) { return csv2.find(e=>e.label == d.index).url })
+        .attr('target', '_blank')
+        .append("circle")
+          .attr("r", function(d) { return d.r })
+          .attr('fill', function(d) { return d.color })
+
+
+        // add tooltip
+        const tooltip = d3.select("#tooltip")
+
+        dot.select("circle").on('mouseover', function(d){
+          var name = d3.select(this).attr('id')
+          var oneLink = csv2.find(e=>e.label == d.index)
+          
+          tooltip.transition().duration(500).style("opacity", 1)
+          tooltip.select("#title").text(oneLink.title)
+          tooltip.style("transform", `translate(${d.x+25}px,${d.y+(d.r*2*1.75)}px)`)
+
+        }).on("mouseout", function(d) {   
+            tooltip.transition()    
+                .duration(500)    
+                .style("opacity", 0); 
+        });
+
+
+
+        function createDots(data) {
+
+          var arrays 
+          var nodeRadius = CIRCLE_RADIUS * 2
+          var tilesPerRow = 1
+          var tileSize = nodeRadius * 2
+          var barWidth = tileSize
+          var leftBuffer = 0
+          var bottomBuffer = 0
+
+          arrays = []
+          data.map((d,i) => {
+            arrays.push(getTilesBar(d.values)) // get x-y coordinates of all tiles first without rendering the dotted bar chart
+          })
+
+          var distributed = [].concat.apply([], arrays)
+          return distributed
+
+          function getTilesBar(d) {
+            var tiles = []
+            for(var i = 0; i < d.length; i++) {
+              for(var j = 0; j <  d[i].value; j++) {
+                var rowNumber = Math.floor(j / tilesPerRow)
+                var Y = d[i].y + (rowNumber + 1) * tileSize
+                tiles.push({
+                  x: d[i].x,
+                  y: d[i].depth > 1 ? Y : Y + radiusScale(d[i].value), // stack nodes within same group
+                  color: 'mediumvioletred',
+                  //color: scoreColorScale(d[i].key),
+                  index: d[i].data.id + "|" + j, // index each node
+                  r: (tileSize/1.75)/2
+                });
+              }
+            }
+            return tiles
+
+          }
+
+        }
+
+      }
+    }
+
+    function onlyUnique(value, index, self) { 
+        return self.indexOf(value) === index;
+    }
+
+    </script>
+
+  </body>
+</html>

@@ -56,7 +56,7 @@ function dataProcess(error, deathJSON, timelineJSON) {
 
 	// Ensure that all year-months have the same sort arrangement of provinces
 	dataByDate = dataByDate.map(d => d.values.sort(sortOn("DEPLOYMENT PROVINCE")))
-
+  console.log(dataByDate)
 	// Construct and array of all provinces with deaths
 	var provincesList = [... new Set(deathJSON.map(d=>d["DEPLOYMENT PROVINCE"]))]
 
@@ -70,7 +70,7 @@ function dataProcess(error, deathJSON, timelineJSON) {
     })
     dataNew.push(oneMonthProvince)
   })
-  console.log(dataNew)
+  
   // Fix the order arrangement of year-month
   var YearMonthList = [... new Set(deathJSON.map(d=>d['FATALITY_DATE']))].sort(d3.ascending)
 
@@ -117,7 +117,6 @@ function renderStacked(data) {
   bars.enter().append("g")
     .attr("class", d =>d.keys)
     .each(function(d) {
-    	console.log(d)
     	d3.select(this).selectAll("rect")
     		.data(d)
     		.enter().append("rect")

@@ -8,7 +8,7 @@ var panama = function () {
   var margin = {top: 20, right: 20, bottom: 20, left: 20}
   var width = canvasDim.width - margin.left - margin.right;
   var height = canvasDim.height - margin.top - margin.bottom;
-  var modal = d3.select(".modal-content7")
+  var modal = d3.select(".content-panama")
 
   var linkedByIndex = {},
       linkedToID = {},

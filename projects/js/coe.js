@@ -13,7 +13,7 @@ var coe = function () {
   var lineStroke = "1.8px"
   var axisPad = 6 // axis formatting
   var R = 6 //legend marker
-  var modal = d3.select(".modal-content-coe")
+  var modal = d3.select(".content-coe")
 
   ///////////////////////////////////////////////////////////////////////////
   ///////////////////////////// Create scales ///////////////////////////////

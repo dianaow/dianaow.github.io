@@ -19,7 +19,7 @@
     .box-group {
       display: flex;
       flex-direction: column;
-      width: 90%;
+      width: 100%;
       padding: 5px;
     }
     #chart {
@@ -30,7 +30,8 @@
 <body>
   <div class='wrapper'>
     <div class='box-group'>
-      <div id='vis-container'></div>
+      <div id='vis-container'>
+      </div>
       <div id="chart"></div>
     </div>
   </div>
@@ -41,7 +42,7 @@
       ///////////////////////////////////////////////////////////////////////////
       ///////////////////////////////// Globals /////////////////////////////////
       /////////////////////////////////////////////////////////////////////////// 
-      var canvasDim = { width: screen.width * 0.95, height: screen.height*8}
+      var canvasDim = { width: screen.width * 0.95, height: screen.height*10}
       var margin = {top: 200, right: 20, bottom: 20, left: 100}
       var width = canvasDim.width - margin.left - margin.right 
       var height = canvasDim.height - margin.top - margin.bottom 
@@ -112,21 +113,23 @@
 
     function update(svg, width, height, res) {
 
+      // sort by year
+      res = res.sort(function(a, b){ return d3.ascending(+a.fatality_year, +b.fatality_year) })
       var ranks = res.map(d => d.rank).filter(onlyUnique).filter(e=>e != undefined)
       var ethnicities = res.map(d => d.ethnicity).filter(onlyUnique).filter(e=>e != undefined)
       var positions = res.map(d => d.position).filter(onlyUnique).filter(e=>e != undefined)
       var provinces = res.map(d => d.province).filter(onlyUnique).filter(e=>e != undefined)
-      var years = res.map(d => d.fatality_year).filter(onlyUnique).filter(e=>e != undefined)
+      var years = res.map(d => +d.fatality_year).filter(onlyUnique).filter(e=>e != undefined)
 
       // sort by highest count
       provinces_nested = d3.nest()
         .key(d=>d.province)
         .rollup(function(leaves) { return leaves.length; })
         .entries(res)
-        .sort(function(a, b){ return d3.ascending(a.value, b.value) })
+        .sort(function(a, b){ return d3.descending(a.value, b.value) })
 
       var provinces_sorted = provinces_nested.map(d=>d.key)
-
+      
       var scoreColors = chroma.scale(['skyblue', 'purple', 'hotpink']).mode('lch').colors(ranks.length)
       var scoresColorScale = d3.scaleOrdinal()
         .domain(ranks)
@@ -134,7 +137,7 @@
 
       var options = {
         radius: 1.5,
-        tilesPerRow: 25,
+        tilesPerRow: 22,
         width: width,
         height: height,
         leftBuffer: 0,

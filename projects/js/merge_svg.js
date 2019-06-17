@@ -8,7 +8,7 @@ var merge = function () {
   var margin = {top: 0, right: 0, bottom: 0, left: 0}
   var width = canvasDim.width - margin.left - margin.right;
   var height = canvasDim.height - margin.top - margin.bottom;
-  var modal = d3.select(".modal-content5")
+  var modal = d3.select(".content-merge")
 
   ///////////////////////////////////////////////////////////////////////////
   ///////////////////////////// Create scales ///////////////////////////////

@@ -1,0 +1,72 @@
+dateAddedLocal,dateAddedUTC,id,index,parentId,category,folder,title,url
+"20/04/2019, 21:19:49",2019-04-20T13:19:49.041Z,15,0,44,blocks,,Finding adjacent voronoi cells - bl.ocks.org,https://bl.ocks.org/RobinL/76580040f9795503ae9586a9b367aa51
+"21/04/2019, 15:53:28",2019-04-21T07:53:28.366Z,16,1,44,blocks,,lars’s Blocks - bl.ocks.org,https://bl.ocks.org/larsvers
+"21/04/2019, 16:52:47",2019-04-21T08:52:47.453Z,17,2,44,blocks,,Force layout on canvas with zoom/pan and drag - bl.ocks.org,https://bl.ocks.org/jodyphelan/5dc989637045a0f48418101423378fbd
+"21/04/2019, 21:05:27",2019-04-21T13:05:27.483Z,18,3,44,blocks,,Zoom Transitions - bl.ocks.org,https://bl.ocks.org/mbostock/b783fbb2e673561d214e09c7fb5cedee
+"24/04/2019, 11:07:04",2019-04-24T03:07:04.051Z,27,4,44,blocks,,Entropy - bl.ocks.org,https://bl.ocks.org/vasturiano/2992bcb530bc2d64519c5b25201492fd
+"30/04/2019, 17:34:50",2019-04-30T09:34:50.772Z,28,5,44,blocks,,3D Force-Directed Graph with Groups Dataset - bl.ocks.org,https://bl.ocks.org/micahstubbs/a9eb7847c56c4c844d36cfbc5075be73
+"30/04/2019, 17:35:01",2019-04-30T09:35:01.453Z,29,6,44,blocks,,Force split and unite on canvas - bl.ocks.org,http://bl.ocks.org/FrissAnalytics/72508b2eb569c054366eca921fa14ec4
+"30/04/2019, 18:01:18",2019-04-30T10:01:18.803Z,30,7,44,blocks,,Easing - bl.ocks.org,https://bl.ocks.org/mbostock/248bac3b8e354a9103c4
+"03/05/2019, 20:04:46",2019-05-03T12:04:46.310Z,31,8,44,blocks,,Chris Tufts’s Blocks - bl.ocks.org,https://bl.ocks.org/ctufts
+"06/05/2019, 13:46:52",2019-05-06T05:46:52.906Z,34,9,44,blocks,,KoGor’s Blocks - bl.ocks.org,https://bl.ocks.org/KoGor
+"06/05/2019, 14:11:10",2019-05-06T06:11:10.049Z,35,10,44,blocks,,Clustered Interactive Force Layout v4 - bl.ocks.org,https://bl.ocks.org/mcgovey/e59b5542b628fab4c356223b3505f0c0
+"06/05/2019, 14:11:27",2019-05-06T06:11:27.787Z,37,11,44,blocks,,Circle Packing Methods / Mike Bostock / Observable,https://observablehq.com/@mbostock/circle-packing-methods
+"06/05/2019, 20:15:25",2019-05-06T12:15:25.790Z,38,12,44,blocks,,General Update Pattern in Observable / Chris Henrick / Observable,https://observablehq.com/@clhenrick/general-update-pattern-in-observable
+"10/05/2019, 16:01:45",2019-05-10T08:01:45.326Z,40,13,44,blocks,,d3.v4 collapsible force zoomable draggable radial tree using svg - bl.ocks.org,https://bl.ocks.org/anonymous/ca046ccc115520d501060e4256aa6ada
+"10/05/2019, 16:01:49",2019-05-10T08:01:49.563Z,41,14,44,blocks,,Collapsible Force Layout - bl.ocks.org,https://bl.ocks.org/mbostock/1093130
+"13/05/2019, 10:32:54",2019-05-13T02:32:54.449Z,50,15,44,blocks,,Sundar Singh’s Blocks - bl.ocks.org,https://bl.ocks.org/eesur
+"28/05/2019, 13:42:19",2019-05-28T05:42:19.151Z,102,16,44,blocks,,D3 Polar Scatter,https://codepen.io/hey-nick/pen/NxqpVr
+"03/06/2019, 17:21:32",2019-06-03T09:21:32.138Z,113,17,44,blocks,,Force in a Box / John Alexis Guerra Gómez / Observable,https://observablehq.com/@john-guerra/force-in-a-box
+"05/06/2019, 22:36:54",2019-06-05T14:36:54.293Z,118,18,44,blocks,,Linear-time force-directed graph layouts with random vertex sampling - bl.ocks.org,https://bl.ocks.org/rpgove/14bf7407d66cd364ce399ea0540e67b9
+"05/06/2019, 22:37:15",2019-06-05T14:37:15.254Z,120,19,44,blocks,,d3 forceBoundary / John Alexis Guerra Gómez / Observable,https://observablehq.com/@john-guerra/d3-forceboundary
+"06/05/2019, 14:11:23",2019-05-06T06:11:23.283Z,36,0,45,people,,Dueling Data:,http://duelingdata.blogspot.com/p/projects.html
+"28/05/2019, 13:43:02",2019-05-28T05:43:02.952Z,105,1,45,people,,TULP interactive,http://tulpinteractive.com/
+"06/06/2019, 09:54:00",2019-06-06T01:54:00.374Z,121,2,45,people,,romercreative | information design,http://romercreative.com/
+"12/06/2019, 09:54:00",2019-06-12T01:54:00.206Z,131,3,45,people,,Lingdong Huang,https://lingdong.works/
+"16/06/2019, 20:22:31",2019-06-16T12:22:31.677Z,152,4,45,people,,Christopher Cannon graphic & information design,http://christophercannon.net/
+"16/06/2019, 20:24:10",2019-06-16T12:24:10.577Z,153,5,45,people,,Michael Freeman,http://mfviz.com/
+"16/06/2019, 20:42:57",2019-06-16T12:42:57.095Z,160,6,45,people,,Krist Wongsuphasawat,http://kristw.yellowpigz.com/
+"16/06/2019, 20:58:10",2019-06-16T12:58:10.735Z,162,7,45,people,,Jill Hubley,http://jillhubley.com/
+"10/05/2019, 16:05:25",2019-05-10T08:05:25.172Z,43,0,141,cool,infographics,Where the Crime Ends Up | La Lettura 387# dataviz on Behance,https://www.behance.net/gallery/79767529/Where-the-Crime-Ends-Up-La-Lettura-387-dataviz?tracking_source=search%7Ccrime
+"14/06/2019, 20:26:19",2019-06-14T12:26:19.153Z,138,0,142,cool,interactive,The Rhythm of Food — by Google News Lab and Truth & Beauty,http://rhythm-of-food.net/radish
+"04/06/2019, 10:55:26",2019-06-04T02:55:26.497Z,116,1,142,cool,interactive,How will we fill 9 billion bowls by 2050? | #9billionbowls | Thomson Reuters,http://reports.thomsonreuters.com/9billionbowls/
+"28/05/2019, 13:42:56",2019-05-28T05:42:56.627Z,104,2,142,cool,interactive,How Brexit revealed four new political factions | Politics | The Guardian,https://www.theguardian.com/politics/ng-interactive/2019/feb/15/how-brexit-revealed-four-new-political-factions
+"28/05/2019, 13:42:50",2019-05-28T05:42:50.450Z,103,3,142,cool,interactive,"How difficult, and how costly, is a hard Brexit? | UK news | The Guardian",https://www.theguardian.com/uk-news/ng-interactive/2017/feb/20/how-difficult-and-how-costly-is-a-hard-brexit-leaving-eu
+"15/05/2019, 09:16:43",2019-05-15T01:16:43.958Z,63,4,142,cool,interactive,Parable of the Polygons - a playable post on the shape of society,https://ncase.me/polygons/
+"14/05/2019, 20:20:01",2019-05-14T12:20:01.710Z,59,5,142,cool,interactive,"Ost-West-Wanderung: Die Millionen, die gingen | ZEIT ONLINE",https://www.zeit.de/politik/deutschland/2019-05/ost-west-wanderung-abwanderung-ostdeutschland-umzug
+"15/05/2019, 09:17:00",2019-05-15T01:17:00.815Z,64,6,142,cool,interactive,Premiership top 6 vs bottom 14 - Gwilym | Tableau Public,https://public.tableau.com/profile/gwilym#!/vizhome/Premiershiptop6vsbottom14/ThegrowinggapbetweenthePremiershipstopsixandtherest
+"14/05/2019, 20:18:12",2019-05-14T12:18:12.328Z,56,7,142,cool,interactive,How Diverse Are US Newsrooms?,https://googletrends.github.io/asne/?view=2
+"10/05/2019, 16:02:07",2019-05-10T08:02:07.554Z,42,8,142,cool,interactive,Brussels - A lovely melting-pot,http://brussels-diversity.jetpack.ai/
+"06/05/2019, 11:44:35",2019-05-06T03:44:35.331Z,33,9,142,cool,interactive,Connected China,http://china.fathom.info/
+"15/06/2019, 15:49:33",2019-06-15T07:49:33.574Z,149,10,142,cool,interactive,Visualizing MBTA Data,http://mbtaviz.github.io/
+"14/06/2019, 20:56:17",2019-06-14T12:56:17.173Z,139,0,143,cool,data science theory,Seeing Theory - Basic Probability,https://seeing-theory.brown.edu/basic-probability/index.html
+"12/06/2019, 14:03:12",2019-06-12T06:03:12.084Z,132,1,143,cool,data science theory,The Myth of the Impartial Machine,https://parametric.press/issue-01/the-myth-of-the-impartial-machine/
+"10/06/2019, 16:02:43",2019-06-10T08:02:43.405Z,128,2,143,cool,data science theory,An Interactive Introduction to Fourier Transforms,http://www.jezzamon.com/fourier/index.html
+"10/06/2019, 16:02:51",2019-06-10T08:02:51.622Z,129,3,143,cool,data science theory,The State of the Art in Visualizing Multivariate Networks,https://vdl.sci.utah.edu/publications/2019_eurovis_mvn/
+"10/06/2019, 14:20:38",2019-06-10T06:20:38.010Z,127,4,143,cool,data science theory,"Language, trees, and geometry in neural networks",https://pair-code.github.io/interpretability/bert-tree/
+"15/05/2019, 09:16:37",2019-05-15T01:16:37.443Z,62,5,143,cool,data science theory,Going Critical — Melting Asphalt,https://meltingasphalt.com/interactive/going-critical/
+"15/05/2019, 09:16:28",2019-05-15T01:16:28.217Z,61,6,143,cool,data science theory,Distill — Latest articles about machine learning,https://distill.pub/
+"05/06/2019, 22:37:07",2019-06-05T14:37:07.074Z,119,7,143,cool,data science theory,The Barnes-Hut Approximation,https://jheer.github.io/barnes-hut/
+"16/06/2019, 20:40:31",2019-06-16T12:40:31.545Z,156,0,155,cool,maps,Hubway,https://hubway.countlove.org/
+"16/06/2019, 20:40:59",2019-06-16T12:40:59.289Z,157,1,155,cool,maps,Moscow bike share stats 2015 / Статистика Московского велопроката в 2015 году,https://urbica.github.io/bikes/
+"16/06/2019, 20:41:22",2019-06-16T12:41:22.612Z,158,2,155,cool,maps,Manhattan Population Explorer,http://manpopex.us/
+"16/06/2019, 20:41:42",2019-06-16T12:41:42.136Z,159,3,155,cool,maps,The Clubs That Connect The World Cup - The New York Times,https://www.nytimes.com/interactive/2014/06/20/sports/worldcup/how-world-cup-players-are-connected.html?mtrref=undefined&gwh=D25BAD9D462AB437081F75A817B1C51A&gwt=pay
+"21/04/2019, 22:03:48",2019-04-21T14:03:48.188Z,20,0,144,tutorials,D3,Scatterplots in D3 with Voronoi Interaction - Peter Beshai,https://peterbeshai.com/blog/2016-10-30-scatterplot-in-d3-with-voronoi-interaction/
+"21/04/2019, 22:04:00",2019-04-21T14:04:00.188Z,21,1,144,tutorials,D3,The state of d3 Voronoi - Philippe Rivière - Visionscarto,https://visionscarto.net/the-state-of-d3-voronoi
+"12/05/2019, 18:51:24",2019-05-12T10:51:24.721Z,49,2,144,tutorials,D3,D3.js Timer API,https://www.tutorialspoint.com/d3js/d3js_timer_api.htm
+"14/05/2019, 15:36:47",2019-05-14T07:36:47.019Z,53,3,144,tutorials,D3,Using and Abusing the Force,http://vallandingham.me/force_talk/#0
+"14/05/2019, 20:16:59",2019-05-14T12:16:59.373Z,54,4,144,tutorials,D3,So you want to make a map? – Data Visualization Society – Medium,https://medium.com/data-visualization-society/so-you-want-to-make-a-map-58c7f55f6b20
+"16/06/2019, 00:19:31",2019-06-15T16:19:31.674Z,151,5,144,tutorials,D3,D3 Basic General Update Pattern | DashingD3js.com,https://www.dashingd3js.com/lessons/d3-basic-general-update-pattern
+"14/05/2019, 20:17:55",2019-05-14T12:17:55.912Z,55,0,145,tutorials,Others,Svelte 3: Rethinking reactivity,https://svelte.dev/blog/svelte-3-rethinking-reactivity
+"29/05/2019, 22:42:38",2019-05-29T14:42:38.832Z,109,1,145,tutorials,Others,Gephi%20Handout%20Sunbelt%202016.pdf,https://drive.google.com/viewerng/viewer?url=http://www.kateto.net/wp-content/uploads/2016/04/Gephi%2520Handout%2520Sunbelt%25202016.pdf
+"11/06/2019, 09:19:49",2019-06-11T01:19:49.636Z,130,0,146,tutorials,WebGL,Beautifully Animate Points with WebGL and regl - Peter Beshai,https://peterbeshai.com/blog/2017-05-26-beautifully-animate-points-with-webgl-and-regl/
+"03/06/2019, 17:21:20",2019-06-03T09:21:20.761Z,112,0,147,tutorials,Visualization,ML_Visualization_NeurIPS_Tutorial.pdf,https://static.googleusercontent.com/media/research.google.com/en//bigpicture/ML_Visualization_NeurIPS_Tutorial.pdf?fbclid=IwAR3B5XHXMQnqVLAbgycgEJmXSVJeQBxwLsxQ6K0Pt-Na7PAkHRiIqMJfuBY
+"29/05/2019, 00:03:14",2019-05-28T16:03:14.225Z,106,0,140,tutorials,tools,Zdog · Getting started,https://zzz.dog/getting-started
+"29/05/2019, 00:04:09",2019-05-28T16:04:09.347Z,107,1,140,tutorials,tools,Metafizzy · Delightful JavaScript plugins & logos,https://metafizzy.co/
+"03/06/2019, 17:20:26",2019-06-03T09:20:26.457Z,111,2,140,tutorials,tools,What-If Tool,https://pair-code.github.io/what-if-tool/index.html#demos
+"08/06/2019, 01:42:21",2019-06-07T17:42:21.405Z,125,3,140,tutorials,tools,vasturiano/globe.gl: UI component for Globe Data Visualization using ThreeJS/WebGL,https://github.com/vasturiano/globe.gl
+"06/06/2019, 14:33:14",2019-06-06T06:33:14.925Z,123,4,140,tutorials,tools,The Linked Open Data Cloud,https://lod-cloud.net/
+"03/06/2019, 17:52:50",2019-06-03T09:52:50.036Z,114,5,140,tutorials,tools,Data Viz Project | Collection of data visualizations to get inspired and finding the right type.,https://datavizproject.com/#
+"13/06/2019, 00:06:35",2019-06-12T16:06:35.949Z,134,6,140,tutorials,tools,"Faster force-directed graph layouts by reusing force approximations - Two Six Labs | Advanced Analytics, Cyber Capabilities, Tactical Mobility Solutions for National Security",https://www.twosixlabs.com/faster-force-directed-graph-layouts-by-reusing-force-approximations/
+"15/06/2019, 00:50:12",2019-06-14T16:50:12.208Z,148,7,140,tutorials,tools,Plotly Express,https://www.plotly.express/
+"15/06/2019, 22:39:44",2019-06-15T14:39:44.074Z,150,8,140,tutorials,tools,Home - Seeing Data,http://seeingdata.org/

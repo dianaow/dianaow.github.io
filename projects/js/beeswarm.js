@@ -9,7 +9,7 @@ var beeswarm = function () {
   var margin = {top: 30, right: 0, bottom: 20, left: 100}
   var width = canvasDim.width - margin.left - margin.right
   var height = canvasDim.height - margin.top - margin.bottom
-  var modal = d3.select(".modal-content3")
+  var modal = d3.select(".content-beeswarm")
 
   ///////////////////////////////////////////////////////////////////////////
   ///////////////////////////// Create scales ///////////////////////////////

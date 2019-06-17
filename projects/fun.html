@@ -36,7 +36,7 @@
         <div></div>
         <div class='header-desc'>
           <h1>Portfolio</h1>
-          <p>A selection of visualizations I have created. Some are D3 experiments done for fun, some are part of a visual story, some are 'remixed' rejects. I am obssessed with force-directed graphs. See some more code snippets <a href="https://bl.ocks.org/dianaow">here</a></p>
+          <p>A selection of visualizations I have created. Some are D3 experiments done for fun, some are part of a visual story, some are 'remixed' rejects. I love network viz, clustered bubbles, web animations, visual explanations of data science concepts. See some more code snippets <a href="https://bl.ocks.org/dianaow">here</a></p>
         </div>
         <div></div>
       </div>
@@ -48,112 +48,31 @@
       <div class='box-group'>
 
         <div class='group'>
-            <div class="trigger" id="trigger1">
-              <img src="./images/poppingtree.png"></img>
-            </div>
-            <div class="modal">
-              <div class="modal-content1">
-                <span class="close-button">×</span>
-              </div>
-            </div>
  
-            <div class="trigger" id="trigger2">
-              <img src="./images/blobs.png"></img>
-            </div>
-            <div class="modal">
-              <div class="modal-content2" id="modal-fullscreen">
-              <span class="close-button">×</span>
-              <div id='panel-1'>
-                <label>First, select chart type to transition from: </label>
-                <div id="section">
-                  <input name="start_type" 
-                         type="button" 
-                         class='btn run_cluster_sorted'
-                         value="Cluster blob"/>
-                  <input name="start_type" 
-                         type="button" 
-                         class="btn run_cluster_bubbles"
-                         value="Cluster bubbles" />
-                  <input name="start_type" 
-                         type="button" 
-                         class='btn reset_button'
-                         value="Reset to scatter"
-                         checked />
-                </div>
-                <label>Next, select transition type: </label>
-                <div id="section">
-                  <input name="transition_type"
-                         type="radio" 
-                         value="transition_by_index"
-                         > Index<br>
-                  <input name="transition_type"
-                         type="radio"
-                         value="transition_by_length"
-                         > Length<br>
-                  <input name="transition_type"
-                         type="radio" 
-                         value="transition_by_default"
-                         checked > Default<br>
-                </div>
-                <label>Finally, select transition parameters: </label>
-                <div id='slider-step1'></div>
-                <div id='slider-step2'></div>
-                <div id="section">
-                  <input name="submit" 
-                         class="btn submit_button"
-                         type="button" 
-                         value="Morph to dot plot!"/>
-                </div>
-            </div>
-            <div id='panel-2'>
-              <input name="start_type" 
-               type="button" 
-               class="btn run_add"
-               value="Add nodes" />
-            </div>
-              </div>
-            </div>
-
-            <div class="trigger" id="trigger3">
-              <img src="./images/beeswarm.png"></img>
-            </div>
-            <div class="modal">
-              <div class="modal-content3">
-                  <span class="close-button">×</span>
-              </div>
-            </div>
-
-        </div>
-
-        <div class='group'>
-
-            <div class="trigger" id="trigger4">
+            <div class="trigger grid3" id="trigger-constellation">
               <img src="./images/constellation.png"></img>
             </div>
             <div class="modal">
-              <div class="modal-content4" id="modal-fullscreen">
+              <div class="content content-constellation" id="modal-fullscreen">
                   <span class="close-button">×</span>
               </div>
             </div>
 
-            <div class="trigger" id="trigger5">
-              <img src="./images/merge.png"></img>
+            <div class="trigger grid3" id="trigger-panama">
+              <img src="./images/panama_network.png"></img>
             </div>
             <div class="modal">
-              <div class="modal-content5">       
+              <div class="content content-panama" id="modal-fullscreen">
                 <span class="close-button">×</span>
               </div>
             </div>
 
-            <div class="trigger" id="trigger6">
-              <img src="./images/morph.png"></img>
+            <div class="trigger grid3" id="trigger-merge">
+              <img src="./images/merge.png"></img>
             </div>
             <div class="modal">
-              <div class="modal-content6">
-                <div id="clickerWrapper">
+              <div class="content content-merge">
                   <span class="close-button">×</span>
-                  <div id="clicker">Morph!</div>
-                </div>
               </div>
             </div>
 
@@ -161,52 +80,186 @@
 
         <div class='group'>
 
-            <div class="trigger" id="trigger7">
-              <img src="./images/panama_network.png"></img>
+            <div class="trigger grid4" id="trigger-radial">
+              <img src="./images/radial_chart.png"></img>
             </div>
             <div class="modal">
-              <div class="modal-content7" id="modal-fullscreen">
+              <div class="content content-radial">
                 <span class="close-button">×</span>
+                <div id='wrapper'>
+                <input name="type" 
+                  type="button" 
+                    class="btn btn-radial"
+                    id="update"
+                    value="Update"/>
+                </div>
               </div>
             </div>
 
-            <div class="trigger" id="trigger8">
+            <div class="trigger grid4" id="trigger-network">
+              <img src="./images/network.png"></img>
+            </div>
+            <div class="modal">
+              <div class="content content-network"> 
+                <span class="close-button">×</span>
+                <div id='wrapper'>
+                 <input name="type" 
+                  type="button" 
+                  class="btn btn-morph morph"
+                  value="Morph"/>
+                 <div id="chart"></div>
+                </div>      
+              </div>
+            </div>
+
+            <div class="trigger grid4" id="trigger-morph">
+              <img src="./images/morph.png"></img>
+            </div>
+            <div class="modal">
+              <div class="content content-morph">
+              <span class="close-button">×</span>
+               <div id='wrapper'>
+                 <input name="type" 
+                  type="button" 
+                  class="btn btn-morph mutate"
+                  value="Morph"/>
+                  <input name="type" 
+                  type="button" 
+                  class="btn btn-morph reset"
+                  value="Reset"/>
+                 <div id="chart"></div>
+              </div>
+              </div>
+            </div>
+
+            <div class="trigger grid4" id="trigger-forces">
+              <img src="./images/blobs.png"></img>
+            </div>
+            <div class="modal">
+              <div class="content content-forces" id="modal-fullscreen">
+                <span class="close-button">×</span>
+
+                <div id='panel-1'>
+                  <label>First, select chart type to transition from: </label>
+                  <div id="section">
+                    <input name="start_type" 
+                           type="button" 
+                           class='btn run_cluster_sorted'
+                           value="Cluster blob"/>
+                    <input name="start_type" 
+                           type="button" 
+                           class="btn run_cluster_bubbles"
+                           value="Cluster bubbles" />
+                    <input name="start_type" 
+                           type="button" 
+                           class='btn reset_button'
+                           value="Reset to scatter"
+                           checked />
+                  </div>
+                  <label>Next, select transition type: </label>
+                  <div id="section">
+                    <input name="transition_type"
+                           type="radio" 
+                           value="transition_by_index"
+                           > Index<br>
+                    <input name="transition_type"
+                           type="radio"
+                           value="transition_by_length"
+                           > Length<br>
+                    <input name="transition_type"
+                           type="radio" 
+                           value="transition_by_default"
+                           checked > Default<br>
+                  </div>
+                  <label>Finally, select transition parameters: </label>
+                  <div id='slider-step1'></div>
+                  <div id='slider-step2'></div>
+                  <div id="section">
+                    <input name="submit" 
+                           class="btn submit_button"
+                           type="button" 
+                           value="Morph to dot plot!"/>
+                  </div>
+                </div>
+
+                <div id='panel-2'>
+                  <input name="start_type" 
+                         type="button" 
+                         class="btn run_add"
+                         value="Add" />
+                  <input name="start_type" 
+                         type="button" 
+                         class="btn run_move"
+                         value="Move" />
+                  <input name="type" 
+                         type="button" 
+                         class='btn changeFocitoIndustry'
+                         value="Regroup"/>
+                  <input name="type" 
+                         type="button" 
+                         class='btn run_change_foci'
+                         value="Change Foci"/>
+                  <input name="type" 
+                         type="button" 
+                         class="btn changeFocitoCrime"
+                         value="Reset"/>
+                </div>
+
+              </div>
+            </div>
+
+        </div>
+
+        <div class='group'>
+
+            <div class="trigger grid4" id="trigger-coe">
               <img src="./images/coe_multipleline.png"></img>
             </div>
             <div class="modal">
-              <div class="modal-content-coe">
+              <div class="content content-coe">
+                <span class="close-button">×</span>
                 <div class='header'>
-                  <h1>COE Prices from 2010-2018</h1>
+                  <h2>COE Prices from 2010-2018</h2>
                   <p>There are 2 COE Open Bidding exercises each month (Bidding Exercise 1 starts on the first Monday while Bidding Exercise 2 starts on the third Monday of the month)</p>
                 </div>
-                <span class="close-button">×</span>
               </div>
             </div>
 
-            <div class="trigger" id="trigger9">
+            <div class="trigger grid4" id="trigger-vietnam">
               <img src="./images/vietnam.png"></img>
             </div>
             <div class="modal">
-              <div class="modal-content9">
+              <div class="content content-vietnam">
                 <span class="close-button">×</span>
               </div>
             </div>
 
+            <div class="trigger grid4" id="trigger-beeswarm">
+              <img src="./images/beeswarm.png"></img>
+            </div>
+            <div class="modal">
+              <div class="content content-beeswarm">
+                <span class="close-button">×</span>
+              </div>
+            </div>
+
+            <div class="trigger grid4">
+              <a href="http://www.notforcasualfans.com/results-animation" target="_blank">
+                <img src="./images/stackedbar.png"></img>
+              </a>
+            </div>
+
         </div>
 
-      <div class='group'>
+        <div class='group'>
 
-        <div class="trigger">
-          <a href="https://dianameow.com/busroutes/travel_volume.html" target="_blank"><img src="../images/travel_volume2.png"></img></a>
+            <div class="trigger grid4">
+              <a href="http://www.dianameow.com/projects/my-bookmarks.html" target="_blank">
+                <img src="./images/bookmarks.png"></img>
+              </a>
+            </div>
+
         </div>
-
-        <div class="trigger ">
-          <a href="http://www.notforcasualfans.com/results-animation" target="_blank">
-            <img src="./images/stackedbar.png"></img>
-          </a>
-        </div>
-
-      </div>
 
       </div>
 
@@ -223,13 +276,15 @@
     <script src="https://d3js.org/d3-array.v2.min.js"></script>
     <script src="https://unpkg.com/d3-simple-slider"></script>
     <script src="./js/distribute_nodes.js"></script>
-    <script src="./js/distribute_nodes1.js"></script>
+    <script src="./js/moving_bubbles.js"></script>
     <script src="./js/beeswarm.js"></script>
     <script src="./js/constellation/main.js"></script>
     <script src="./js/merge_svg.js"></script>
     <script src="./js/morph.js"></script>
     <script src="./js/panama/panama.js"></script>
     <script src="./js/coe.js"></script>
+    <script src="./js/network.js"></script>
+    <script src="./js/radialChart.js"></script>
     <script src="../vietnamconflict/js/bubble.js"></script>
 
     <script>
@@ -246,61 +301,73 @@
           var closeButton = modal.querySelector(".close-button");
           var trigger = this.id
 
-          if (trigger === "trigger1") {
+          if (trigger === "trigger-pop") {
             poppingtree.run()
             closeButton.addEventListener("click", function() {
               modal.classList.remove("show-modal") 
               poppingtree.clear()
             } );
-          } else if (trigger === "trigger2") {
+          } else if (trigger === "trigger-forces") {
             distribute.run()
-            flying.run()
+            moving_bubbles.run()
             closeButton.addEventListener("click", function() { 
               modal.classList.remove("show-modal")
               distribute.clear() 
-              flying.clear()
+              moving_bubbles.clear()
             } );
-          } else if (trigger === "trigger3") {
+          } else if (trigger === "trigger-beeswarm") {
             beeswarm.run()
             closeButton.addEventListener("click", function() { 
               modal.classList.remove("show-modal")
               beeswarm.clear() 
             } );
-          } else if (trigger === "trigger4") {
+          } else if (trigger === "trigger-constellation") {
             constellation.run()
             closeButton.addEventListener("click", function() { 
               modal.classList.remove("show-modal")
               constellation.clear() 
             } );
-          } else if (trigger === "trigger5") {
+          } else if (trigger === "trigger-merge") {
             merge.run()
             closeButton.addEventListener("click", function() { 
               modal.classList.remove("show-modal")
               merge.clear() 
             } );
-          } else if (trigger === "trigger6") {
+          } else if (trigger === "trigger-morph") {
             morph.run()
             closeButton.addEventListener("click", function() { 
               modal.classList.remove("show-modal")
               morph.clear() 
             } );
-          } else if (trigger === "trigger7") {
+          } else if (trigger === "trigger-panama") {
             panama.run()
             closeButton.addEventListener("click", function() { 
               modal.classList.remove("show-modal")
               panama.clear() 
             } );
-          } else if (trigger === "trigger8") {
+          } else if (trigger === "trigger-coe") {
             coe.run()
             closeButton.addEventListener("click", function() { 
               modal.classList.remove("show-modal")
               coe.clear() 
             } );
-          } else if (trigger === "trigger9") {
+          } else if (trigger === "trigger-vietnam") {
             bubble.run()
             closeButton.addEventListener("click", function() { 
               modal.classList.remove("show-modal")
               bubble.clear() 
+            } );
+          } else if (trigger === "trigger-network") {
+            network.run()
+            closeButton.addEventListener("click", function() { 
+              modal.classList.remove("show-modal")
+              network.clear() 
+            } );
+          } else if (trigger === "trigger-radial") {
+            radialChart.run()
+            closeButton.addEventListener("click", function() { 
+              modal.classList.remove("show-modal")
+              radialChart.clear() 
             } );
           }
         })

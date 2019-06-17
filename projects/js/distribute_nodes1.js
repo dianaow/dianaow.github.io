@@ -9,7 +9,7 @@ var flying = function () {
   var width = canvasDim.width - margin.left - margin.right;
   var height = canvasDim.height - margin.top - margin.bottom;
   var simulation = d3.forceSimulation()
-  var modal = d3.select(".modal-content2")
+  var modal = d3.select(".content-forces")
   var modalDiv = modal.append('div')
     .attr('id', "div-content2-1")
     .attr('width', width)

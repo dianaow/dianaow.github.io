@@ -31,8 +31,6 @@ nav {
 .trigger {
   box-sizing: border-box;
   border: 1rem solid white;
-  flex-basis:30vw;
-  height:25vw;
   display:flex;
   justify-content: center;
   align-items: center;
@@ -43,10 +41,18 @@ nav {
   background-color: white;
 }
 .trigger:hover {
-  border: 0.2rem solid black;
+  border: 0.1rem solid black;
   border-radius: 1rem;
 }
- 
+.grid3 {
+  flex-basis:30vw;
+  height:25vw;
+}
+.grid4 {
+  flex-basis:25vw;
+  height:20vw;
+}
+
 img {
   width: 98%;
   min-width: 200px;
@@ -64,7 +70,7 @@ img {
   transform: scale(1.1);
   transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
 }
-.modal-content1,.modal-content2,.modal-content3,.modal-content4,.modal-content5,.modal-content6,.modal-content7, .modal-content-coe, .modal-content9 {
+.content {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -102,87 +108,8 @@ img {
   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }
 
-.node {
-  cursor: pointer;
-  stroke-width: 1.5px;
-}
-
-.link {
-  fill: none;
-  stroke: grey;
-  stroke-width: 1.5px;
-}
-
-#clickerWrapper {
-  top: 0;
-  z-index: 1;
-  display: block;
-  position: relative;
-  width: 600px;
-  padding-top: 5px;
-  visibility: auto;
-  text-align: center;
-  margin: 0 auto;
-}
-
-#clicker {
-  z-index: 1;
-  display: block;
-  font-size: 30px;
-  font-weight: 300;
-  color: #081EFF;
-  position: relative;
-  /*width: 80px;*/
-  text-align: center;
-  width: 30%;
-  margin: 0 auto;
-  border: 1px solid;
-  border-color: #081EFF;
-  cursor: pointer;
-}
-.modal-content2 {
-  background-color: #101420;
-}
-
-.modal-content7 {
-  background-color:#F0EFEF;
-}
-
-.modal-content4 {
-  margin: 0px;
-  padding: 0px;
-  border: 0px;
-  background-color: black;
-  font-family: 'Muli', sans-serif;
-  color: #a8a394;  display: flex; /* required */
-  flex-flow: row nowrap; /* required */
-}
-.canvas-nodes, .canvas-links, .canvas-captions {
-  box-sizing: border-box; /* required */
-  flex: none; /* required */
-  pointer-events: none;
-  z-index: -1;
-  /* to check if overlay is aligned */
-  /*border: 2px solid white;*/ 
-}
-.canvas-nodes, .canvas-captions {
-  margin-left: -1250px;
-}
-
-.modal-content4 svg {
-  z-index: 2;
-  flex: none; 
-  margin-left: -1250px;
-}
-.hoverRect {
-  fill: none;
-  pointer-events: all;
-}
-
 .btn {
-  color: white;
   background: transparent; 
-  border: 2px solid white; 
   border-radius: 6px; 
   padding: 8px 16px;
   text-align: center;
@@ -194,11 +121,7 @@ img {
   cursor: pointer;
   text-decoration: none;
   text-transform: uppercase;
-}
 
-.btn:hover {
-    background-color: #E47D06;
-    color: white;
 }
 
 /* if mobile device max width 420px */
@@ -223,31 +146,6 @@ img {
     font-size: 0.6em;
     margin: 2px 1px;
   }
-}
-
-#section {
-  padding: 10px;
-}
-#panel-1 {
-  text-align: left;
-  float:left;
-  color:white;
-  position: absolute;
-  width: 300px;
-  top: 50px;
-  left: 50px;
-  z-index: 1;
-}
-
-#panel-2 {
-  text-align: left;
-  float:left;
-  color:white;
-  position: absolute;
-  width: 300px;
-  top: 1000px;
-  left: 50px;
-  z-index: 1;
 }
 
 
@@ -285,5 +183,105 @@ img {
     margin: 0em;
   }
 
+}
+
+/* Constellation */
+.content-constellation {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  background-color: black;
+  font-family: 'Muli', sans-serif;
+  color: #a8a394;  display: flex; /* required */
+  flex-flow: row nowrap; /* required */
+}
+.canvas-nodes, .canvas-links, .canvas-captions {
+  box-sizing: border-box; /* required */
+  flex: none; /* required */
+  pointer-events: none;
+  z-index: -1;
+  /* to check if overlay is aligned */
+  /*border: 2px solid white;*/ 
+}
+.canvas-nodes, .canvas-captions {
+  margin-left: -1250px;
+}
+
+.content-constellation svg {
+  z-index: 2;
+  flex: none; 
+  margin-left: -1250px;
+}
+.hoverRect {
+  fill: none;
+  pointer-events: all;
+}
+
+/*Forces Playground*/
+#section {
+  padding: 10px;
+}
+#panel-1 {
+  text-align: left;
+  float:left;
+  color:black;
+  position: absolute;
+  width: 300px;
+  top: 50px;
+  left: 50px;
+  z-index: 1;
+}
+
+#panel-2 {
+  text-align: left;
+  float:left;
+  color:white;
+  position: absolute;
+  width: 300px;
+  top: 1000px;
+  left: 50px;
+  z-index: 1;
+}
+
+.btn-forces {
+  color: black;
+  border: 2px solid black; 
+}
+.btn-forces:hover {
+    background-color: #E47D06;
+    color: black;
+}
+
+/* Network */
+.btn-morph {
+  color: mediumblue;
+  border: 2px solid mediumblue; 
+}
+.btn-morph:hover {
+    background-color: mediumblue;
+    color: white;
+}
+.btn-morph:focus {
+    background-color: mediumblue;
+    color: white;
+}
+
+/* Radial Point Chart */
+.btn-radial {
+  color: darkgray;
+  border: 2px solid darkgray; 
+}
+.btn-radial:hover {
+    background-color: darkgray;
+    color: white;
+}
+.btn-radial:focus {
+    background-color: darkgray;
+    color: white;
+}
+
+/* Panama */
+.content-panama {
+  background-color:#F0EFEF;
 }
 

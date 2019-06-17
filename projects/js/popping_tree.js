@@ -5,7 +5,7 @@ var poppingtree = function () {
   var margin = {top: 0, right: 0, bottom: 0, left: 0}
   var width = canvasDim.width - margin.left - margin.right
   var height = canvasDim.height - margin.top - margin.bottom
-  var modal = d3.select(".modal-content1")
+  var modal = d3.select(".content-pop")
 
   var force = d3.layout.force()
       .size([width, height])
@@ -90,7 +90,9 @@ var poppingtree = function () {
         .attr("x1", function(d) { return d.source.x; })
         .attr("y1", function(d) { return d.source.y; })
         .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
+        .attr("y2", function(d) { return d.target.y; })
+        .attr('stroke', 'grey')
+        .attr("stroke-width", '1.5px')
 
     node = node.data(nodes, function(d) { return d.id; }).style("fill", color);
 
@@ -103,7 +105,7 @@ var poppingtree = function () {
         .attr("cy", function(d) { return d.y; })
         .attr("r", function(d) { return 4 })
         .attr("stroke", 'white')
-        .attr("stroke-width", '1px')
+        .attr("stroke-width", '1.5px')
         .style("fill", color)
         .on("click", click)
         .call(force.drag);
