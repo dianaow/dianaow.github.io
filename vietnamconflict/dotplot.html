@@ -4,26 +4,58 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <script src="http://d3js.org/d3.v4.min.js"></script>
-  <script src="https://d3js.org/d3-array.v2.min.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
   <script src="./js/chroma.min.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+  <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="../css/semantic.min.css">
+  <script src="../vendor/semantic.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../css/semantic-ui-range.css">
+  <script src="../vendor/semantic-ui-range.js"></script>
   <style>
     .wrapper {
-      background-color: #F0EFEF;
       width: 100vw;
-      height: 156vw;
+      height: 100vh;
       display: flex;
       justify-content: center
     }
     .box-group {
       display: flex;
       flex-direction: column;
-      width: 100%;
-      padding: 5px;
+      width: 95%;
     }
-    #chart {
-      text-align: center;
+    .tabs {
+      width: 500px;
+      height: 240px;
+      position: absolute;
+      top: 20px;
+      left: 850px;
+    }
+    #legend {
+      width: 500px;
+      height: 220px;
+    }
+    .ui.dropdown {
+      width: 300px;
+      position: absolute;
+      top: 20px;
+      left: 420px;
+    }
+    .slider {
+      width: 300px;
+      position: absolute;
+      top: 20px;
+      left: 420px;
+    }
+    #vis-container {
+      position: relative;
+    }
+    #map {
+      position: absolute;
+      left: 10px;
+      top: 10px;
     }
   </style>
 </head>
@@ -31,42 +63,108 @@
   <div class='wrapper'>
     <div class='box-group'>
       <div id='vis-container'>
+
+          <!--<div class="ui selection dropdown">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select a year</div>
+            <div class="menu"></div>
+          </div> -->
+
+          <div class='slider'>
+            <div class="year-header"></div>
+            <div class="ui labeled range" id="year-range"></div>
+          </div>
+
+          <div class='tabs'>
+            <div class="ui top attached tabular menu">
+              <div class="active item btn-month">Month</div>
+              <div class="item btn-rank">Rank</div>
+              <div class="item btn-ethnicity">Ethnicity</div>
+            </div>
+            <div class="ui bottom attached active tab segment">
+              <svg id='legend'></svg>
+            </div>
+          </div>
+
+          <div id='map'></div>
+
+        <div id="chart"></div>
       </div>
-      <div id="chart"></div>
+
     </div>
   </div>
   <script src="./js/dotplot.js"></script>
   <script>
-    var graph = function () {
+    $(document).ready(function(){
+       $('.ui .item').on('click', function() {
+          $('.ui .item').removeClass('active');
+          $(this).addClass('active');
+       });           
+    });
+
+    $('.ui.dropdown').dropdown('show')
+
+    var chart = function () {
 
       ///////////////////////////////////////////////////////////////////////////
       ///////////////////////////////// Globals /////////////////////////////////
       /////////////////////////////////////////////////////////////////////////// 
-      var canvasDim = { width: screen.width * 0.95, height: screen.height*10}
-      var margin = {top: 200, right: 20, bottom: 20, left: 100}
+      var canvasDim = { width: screen.width, height: screen.height*1.05}
+      var margin = {top: 10, right: 10, bottom: 10, left: 10}
       var width = canvasDim.width - margin.left - margin.right 
       var height = canvasDim.height - margin.top - margin.bottom 
-      var modal = d3.select("#chart")
-      var DEFAULT = 'Europe'
+      var mapWidth = 300
+      var mapHeight = 600
+      var chart = d3.select("#chart")
+      var mapWrapper = d3.select("#map")
+      var DEFAULT = 1968
+
+      var provincesSorted = ['Yên Bái', 'Northeast', 'Thừa Thiên Huế', 'Khánh Hòa', 'Ninh Thuận', 'Bình Định', 'Quảng Nam', 'Phú Yên', 'Đắk Lắk', 'Gia Lai', 'Kon Tum', 'Lâm Đồng', 'Bình Dương', 'Tây Ninh', 'Đồng Nai', 'Hồ Chí Minh', 'Long An', 'Bến Tre', 'Tiền Giang', 'Vĩnh Long', 'Đồng Tháp', 'An Giang', 'Mekong (Southern)'].reverse()
+
+      //////////////////// Set up and initiate containers ///////////////////////
+      var svg = chart.append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      var gCircle = svg.append('g')
+      var gRect = svg.append('g')
+      
+      var map = mapWrapper.append("svg")
+        .attr("width", mapWidth)
+        .attr("height", mapHeight)
+
+      var maxDeath = 1300
+      var color = d3.scaleLinear()
+                    .domain([0, maxDeath])
+                    .range(['white', 'black'])
 
       ///////////////////////////////////////////////////////////////////////////
       ///////////////////////////////// Initialize //////////////////////////////
       /////////////////////////////////////////////////////////////////////////// 
 
       return { 
-        clear : function () {
-          modal.select("svg").remove()
-        },
         run : function () {
 
-          //////////////////// Set up and initiate containers ///////////////////////
-          var svg = modal.append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-          .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+          loadData()
 
-          d3.csv("./data/VietnamConflict_clean.csv", function(error, csv) {
+          ///////////////////////////////////////////////////////////////////////////
+          ////////////////////////////// Generate data //////////////////////////////
+          ///////////////////////////////////////////////////////////////////////////
+
+          function loadData() {
+
+            d3.queue()
+              .defer(d3.json, './data/vietnam1.json')
+              .defer(d3.csv, './data/VietnamConflict_clean.csv') 
+              .defer(d3.csv, './data/VietnamConflict_yearPT.csv') 
+              .await(processData);   
+
+          }
+
+          function processData(error, geoJSON, csv, csv2) {
+            
             if (error) throw error;
 
             var data = csv.map((d,i) => {
@@ -82,157 +180,417 @@
               }
             })
 
-            var dropdown = d3.select("#vis-container")
-                .insert("select", "svg")
-                .on("change", function() {
-                  // Handler for dropdown value change (filter by regions)
-                  var newSelection = d3.select(this).property('value')
-                  var newData = data.filter(d=>d.region.includes([newSelection]))
-                  update(svg, width, height, newData)
-                })
+            init(svg, width, height, data)
 
-            var regions = data.map(d => d.region).filter(onlyUnique).filter(e=>e != undefined)
+            var vietnam = geoJSON.features;  // store the path in variable for ease
+            for (var i in vietnam) {    // for each geometry object
+              for (var j in csv2) {  // for each row in the CSV
+                if (vietnam[i].properties.NAME_1 == csv2[j]['DEPLOYMENT_PROVINCE']) {   // if they match
+                  //console.log(csv2[j]['DEPLOYMENT_PROVINCE'])
+                  for (var k in csv2[j]) {   // for each column in the a row within the CSV
+                    if (k != 'DEPLOYMENT_PROVINCE') {  // let's not add the name or id as props since we already have them
+                      vietnam[i].properties[k] = (csv2[j][k] != null ? Number(csv2[j][k]) : 0)  // add each CSV column key/value to geometry object
+                    } 
+                  }
+                  break;  // stop looking through the CSV since we made our match
+                } 
+              }
+            }
+            //console.log(vietnam)
 
-            dropdown.selectAll("option")
-                .data(regions)
-              .enter().append("option")
-                .attr("value", function (d) { return d })
-                .text(function (d) { return d })
-                .property("selected", function(d){ return d === DEFAULT })
-
-            var res = data
-
-            update(svg, width, height, res)
-
-          })
+            drawMap(geoJSON, vietnam)
+            updateMap(DEFAULT)
+            interactive(d3.selectAll('rect'))
+          }
 
         }
       }
 
-    }()
+      ///////////////////////////////////////////////////////////////////////////
+      ////////////////////////// Buttons & Dropdowns ////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+    
+      reset = function() {
 
-    function update(svg, width, height, res) {
-
-      // sort by year
-      res = res.sort(function(a, b){ return d3.ascending(+a.fatality_year, +b.fatality_year) })
-      var ranks = res.map(d => d.rank).filter(onlyUnique).filter(e=>e != undefined)
-      var ethnicities = res.map(d => d.ethnicity).filter(onlyUnique).filter(e=>e != undefined)
-      var positions = res.map(d => d.position).filter(onlyUnique).filter(e=>e != undefined)
-      var provinces = res.map(d => d.province).filter(onlyUnique).filter(e=>e != undefined)
-      var years = res.map(d => +d.fatality_year).filter(onlyUnique).filter(e=>e != undefined)
-
-      // sort by highest count
-      provinces_nested = d3.nest()
-        .key(d=>d.province)
-        .rollup(function(leaves) { return leaves.length; })
-        .entries(res)
-        .sort(function(a, b){ return d3.descending(a.value, b.value) })
-
-      var provinces_sorted = provinces_nested.map(d=>d.key)
-      
-      var scoreColors = chroma.scale(['skyblue', 'purple', 'hotpink']).mode('lch').colors(ranks.length)
-      var scoresColorScale = d3.scaleOrdinal()
-        .domain(ranks)
-        .range(scoreColors)
-
-      var options = {
-        radius: 1.5,
-        tilesPerRow: 22,
-        width: width,
-        height: height,
-        leftBuffer: 0,
-        bottomBuffer: 0,
-        scales: {'color': scoresColorScale}
       }
 
-      var dots = createDots(res, 'tiledbar', 'fatality_year', 'province', years, provinces_sorted, options) 
 
-      console.log(dots)
-      updateCircles(svg, dots.dots)
-      updateLabels(svg, dots.labels)
-      updateRects(svg, dots.rects)
-    }
+      ///////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////// Render map /////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
 
-    function updateCircles(svg, data) {
+      function drawMap(geoJSON, data) {
 
-      let circles = svg.selectAll("circle").data(data, d=>d.index);
+        var projection = d3.geoMercator().fitSize([mapWidth, mapHeight], geoJSON)
 
-      circles.exit().remove()
+        var path = d3.geoPath().projection(projection);
 
-      // Add new circles to the graph.
-      var entered_circles = circles
-          .enter().append("circle")
-          .attr("class", d=> d.parent)
-          .attr("id", d => d.index)
-          .attr("r", d => d.r)
+        provincesPath = map.selectAll(".country")
+            .data(data)
+            .enter()
+            .append("path")
+            .attr("class", "country")
+            .attr('id', d=>d.properties.NAME_1)
+            .attr("d", path)
+            .attr('fill', 'none')
+            .attr("stroke-width", "1px")
+            .attr("stroke", "black")
+      }
+
+      ///////////////////////////////////////////////////////////////////////////
+      ////////////////////////////// Control Center /////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+    
+      function init(svg, width, height, data) {
+
+        data = data.filter(d=>d.province != 'UNKNOWN') // remove all persons with missing provinces
+        
+        data = data.sort(function(x, y){ return provincesSorted.indexOf(x.province) - provincesSorted.indexOf(y.province) })
+
+        var years = data.map(d => +d.fatality_year).filter(onlyUnique).filter(e=>e != undefined).sort(function(x, y){
+           return d3.ascending(x, y)
+        })
+
+        //var months = data.map(d => d.fatality_month).filter(onlyUnique).filter(e=>e != undefined)
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        var monthColors = chroma.scale(['#ffe5e5', '#ff0000']).mode('lch').colors(months.length)
+        var monthColorScale = d3.scaleOrdinal()
+          .domain(months)
+          .range(monthColors)
+
+        var months_groupby = groupby('fatality_month')
+
+        renderBarLegend(months_groupby, monthColorScale, months, 'months')
+
+        // sort provinces by highest death count
+        //provinces_nested = d3.nest()
+          //.key(d=>d.province)
+          //.rollup(function(leaves) { return leaves.length; })
+          //.entries(res)
+          //.sort(function(a, b){ return d3.descending(a.value, b.value) })
+        //var provinces_sorted = provinces_nested.map(d=>d.key)
+
+
+        // intial sort by month-year
+        data = data.sort(function(a, b){ return d3.ascending(a.fatality_month, b.fatality_month) })
+        data = data.sort(function(a, b){ return d3.ascending(+a.fatality_year, +b.fatality_year) })
+        
+        res = data.filter(d=>(d.fatality_year == DEFAULT))
+        var tab = 'month'
+        update(res, tab)
+
+        // 1: Years
+        d3.select(".dropdown .menu").selectAll("div")
+            .data(years)
+          .enter().append("div")
+            .attr('class', 'item')
+            .attr("data-value", function (d) { return d })
+            .text(function (d) { return d })
+          .on("click", function(d) {
+            res = data.filter(b=>(b.fatality_year == d))
+            update(res, tab)
+            updateMap(d)
+          })
+
+        d3.select(".year-header").html("<h1>" + DEFAULT + "</h1>")
+        $('#year-range').range({
+          min: 1967,
+          max: 1973,
+          start: 1968,
+          step: 1,
+          onChange: function(d, meta) {
+            if(meta.triggeredByUser) {
+              res = data.filter(b=>(b.fatality_year == d))
+              update(res, tab)
+              updateMap(d)   
+              d3.select(".year-header").html("<h1>" + d + "</h1>")
+            }         
+          }
+        });       
+
+        // 2: Month
+        d3.select(".btn-month")
+          .on("click", function(d) {
+            tab = 'month'
+            update(res, tab)
+            d3.select('.gLegend').remove()
+            renderBarLegend(months_groupby, monthColorScale, months, 'months')
+          })
+
+        // 2: Rank
+        //var ranks = res.map(d => d.rank).filter(onlyUnique).filter(e=>e != undefined)
+        var army_enlisted = ["PFC", "SPC", "CPL", "SGT", "SSG", "SFC", "MSG", '1SG']
+        var warrant_officer = ['WO1', "CW1", 'CW2', 'CW3', 'CW4']
+        var officer = ['CADET', '2LT', '1LT', 'CPT', 'MAJ', 'LTC']
+        var highest = ['SGM', 'COL', "BG", "MG"]
+        var ranks = [army_enlisted, warrant_officer, officer, highest].flat()
+
+        var colors1 = ['khaki', '#c0eade', '#9dced6', '#80b1cc', '#6694c1', '#4e78b5', '#325da9', '#00429d']
+        var colors2 = chroma.scale(['blue', 'blue']).mode('lch').colors(warrant_officer.length)
+        var colors3 = ['darkgray', '#b4b4b4', '#838383', '#565656', '#2d2d2d', '#000000']
+        var colors4 = chroma.scale(['red', 'red']).mode('lch').colors(ranks.length)
+        var ranksColors = [colors1, colors2, colors3, colors4].flat()
+
+        var ranksColorScale = d3.scaleOrdinal()
+          .domain(ranks)
+          .range(ranksColors)
+
+        var ranks_groupby = groupby('rank')
+
+        d3.select(".btn-rank")
+          .on("click", function(d) {
+            //res = res.sort(function(a,b) { return ranks.indexOf(a.rank) - ranks.indexOf(b.rank); })
+            tab = 'rank'
+            update(res, tab)
+            d3.select('.gLegend').remove()
+            renderBarLegend(ranks_groupby, ranksColorScale, ranks, 'ranks')
+          })
+
+        // 3: Ethnicity
+        var ethnicities = res.map(d => d.ethnicity).filter(onlyUnique).filter(e=>e != undefined)
+        var ethnicitiesColors = chroma.scale(['lightgray', 'black', 'aquamarine', 'hotpink', 'darkslateblue']).mode('lch').colors(ethnicities.length)
+        var ethnicitiesColorScale = d3.scaleOrdinal()
+          .domain(ethnicities)
+          .range(ethnicitiesColors)
+
+        var eth_groupby = groupby('ethnicity')
+
+        d3.select(".btn-ethnicity")
+          .on("click", function(d) {
+            //res = res.sort(function(a,b) { return ethnicities.indexOf(a.ethnicity) - ethnicities.indexOf(b.ethnicity); })
+            tab = 'ethnicity'
+            update(res, tab)
+            d3.select('.gLegend').remove()
+            renderBarLegend(eth_groupby, ethnicitiesColorScale, ethnicities, 'ethnicities')
+          })
+
+        // 4: Positions
+        var positions = res.map(d => d.position).filter(onlyUnique).filter(e=>e != undefined)
+        var positionsColors = chroma.scale(['#fafa6e','#2A4858']).mode('lch').colors(positions.length)
+        var positionsColorScale = d3.scaleOrdinal()
+          .domain(positions)
+          .range(positionsColors)
+
+        d3.select(".btn-position")
+          .on("click", function(d) {
+            //res = res.sort(function(a,b) { return positions.indexOf(a.position) - positions.indexOf(b.position); })
+            tab = 'position'
+            update(res, tab)
+          })
+
+        function update(data, tab) {
+
+          var options = {
+            radius: 1.9,
+            tilesPerRow: 11,
+            width: width,
+            height: height*(3/4),
+            leftBuffer: 0,
+            bottomBuffer: 0
+          }
+
+          if(tab=='ethnicity'){
+            options.category = {'color': ethnicitiesColorScale, 'sort_list': ethnicities, 'sort_category': 'ethnicity'}
+          } else if(tab=='position'){
+            options.category = {'color': positionsColorScale, 'sort_list': positions, 'sort_category': 'position'}
+          } else if(tab=='rank'){
+            options.category = {'color': ranksColorScale, 'sort_list': ranks, 'sort_category': 'rank'}
+          } else if(tab=='month'){
+            options.category = {'color': monthColorScale, 'sort_list': months, 'sort_category': 'fatality_month'}
+          }
+
+          var dots = createDots(data, 'bar', 'province', 'fatality_year', provincesSorted, years, options) 
+
+          updateCircles(svg, dots.dots)
+          updateLabels(svg, dots.labels)
+          updateRects(svg, dots.rects)
+
+        }
+
+        function groupby(X) {
+          const groupby = data.map(d => d[X]).reduce((total, value) => {
+            total[value] = (total[value] || 0) + 1;
+            return total;
+          }, {});
+          return groupby
+        }
+
+
+      }
+
+      ///////////////////////////////////////////////////////////////////////////
+      ///////////////////////////// Interactivity ///////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+
+      // When a bar is hovered, location of province on map is highlighted
+      function interactive(bar) {
+
+        bar.on("mousemove", function(d) {
+          map.selectAll(".country").filter(l=>l.properties.NAME_1 == d.key)
+            .attr('stroke', 'red')
+            .attr('stroke-width', '3px')
+        }).on("mouseout", function(d) {
+          map.selectAll(".country")
+            .attr('stroke', 'black')
+            .attr('stroke-width', '1px')
+        })
+
+      }
+
+      ///////////////////////////////////////////////////////////////////////////
+      ////////////////////////////// Chloropleth map ////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+
+      function updateMap(X) {
+
+        map.selectAll(".country")
+         .attr('fill', function(d) {
+          if (((d.properties[X]) === undefined) || (d.properties[X]) === 0){
+            return "#ffffff"
+          } else {
+            return color(d.properties[X]) 
+          }})
+
+      }
+
+      ///////////////////////////////////////////////////////////////////////////
+      ////////////////////////////// Update dot plot ////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+
+      function updateCircles(svg, data) {
+
+        let circles = gCircle.selectAll("circle").data(data, d=>d.index)
+
+        circles.exit().remove()
+
+        var entered_circles = circles
+            .enter().append("circle")
+            .attr("class", d=> d.parent)
+            .attr("id", d => d.index)
+            .attr("r", d => d.r)
+            .attr("fill", d => d.color)
+            .attr('stroke', d=> d.parent=='root' ? 'red' : d.strokeFill)
+            .attr('stroke-width', d=> d.parent=='root' ? '2.5px' : d.strokeWidth)
+            .attr("cx", d => d.x)
+            .attr("cy", d => d.y)
+
+        circles = circles.merge(entered_circles)
+
+        circles
+          .transition().duration(6000)
           .attr("fill", d => d.color)
-          .attr('stroke', d=> d.parent=='root' ? 'red' : d.strokeFill)
-          .attr('stroke-width', d=> d.parent=='root' ? '2.5px' : d.strokeWidth)
-          .attr("cx", d => d.x)
-          .attr("cy", d => d.y)
+          .attr('cx', d => d.x)
+          .attr('cy', d => d.y)  
 
-      circles = circles.merge(entered_circles)
+      }
 
-      circles
-        .transition().duration(2000)
-        .attr("fill", d => d.color)
-        .attr('cx', d => d.x)
-        .attr('cy', d => d.y)  
+      ///////////////////////////////////////////////////////////////////////////
+      ////////////////// Update rects (layered behind dot plot) /////////////////
+      ///////////////////////////////////////////////////////////////////////////
 
-    }
+      function updateRects(svg, data) {
 
-    function updateRects(svg, data) {
+        let rects = gRect.selectAll("rect").data(data)
 
-      let rect = svg.selectAll("rect").data(data, d=>d.index);
+        rects.exit().remove()
 
-      rect.exit().remove()
+        var entered_rects = rects
+            .enter().append("rect")
+            .attr("width", d => d.width)
+            .attr("height", d=> d.height)
+            .attr("fill", 'white')
+            .attr('stroke', 'black')
+            .attr('stroke-width', '0px')
+            .attr('opacity', 0)
+            .attr('id', d=>d.key)
+            .attr("x", d => d.x)
+            .attr("y", d => 0)
 
-      // Add new circles to the graph.
-      var entered_rect = rect
-          .enter().append("rect")
-          .attr("id", d => d.index)
-          .attr("width", d => d.width)
-          .attr("height", d => d.width)
-          .attr("fill", 'none')
-          .attr('stroke', 'white')
-          .attr('stroke-width', '1px')
-          .attr("x", d => d.x)
-          .attr("y", d => d.y)
+        rects = rects.merge(entered_rects)
 
-      rect = rect.merge(entered_rect)
+        rects
+          .transition().duration(5000)
+          .attr('x', d => d.x)
+          .attr('y', d => 0)  
 
-      rect
-        .transition().duration(2000)
-        .attr("fill", 'none')
-        .attr('x', d => d.x)
-        .attr('y', d => d.y)  
+      }
 
-    }
+      ///////////////////////////////////////////////////////////////////////////
+      ////////////////// Update labels (x-axis of dot plot) /////////////////////
+      ///////////////////////////////////////////////////////////////////////////
 
-    function updateLabels(svg, data) {
+      function updateLabels(svg, data) {
 
-      var texts = svg.selectAll("text").data(data, d=>d.key)
+        var texts = svg.selectAll("text").data(data, d=>d.key)
 
-      texts.exit().remove() 
+        texts.exit().remove() 
 
-      var entered_texts = texts
-          .enter().append("text")
-          .attr("fill", d => 'black')
-          .attr('dy', '0.35em')
-          .attr("x", d => d.x)
-          .attr("y", d => d.y)
-          .text(d=>d.key)
+        var entered_texts = texts
+            .enter().append("text")
+            .attr("fill", d => 'black')
+            .attr('dy', '0.35em')
+            .attr("transform", d=> d.key=='xaxis_label' ? "translate(" + d.x + "," + d.y + ")rotate(45)" : "translate(" + d.x + "," + d.y + ")") 
+            .attr('text-anchor', d=> d.key=='xaxis_label' ? 'start' : 'middle')
+            .text(d=>d.value)
 
-      texts = texts.merge(entered_texts)
+        texts = texts.merge(entered_texts)
 
-      texts
-        .transition().duration(2000)
-        .attr('x', d => d.x)
-        .attr('y', d => d.y)  
-        .text(d=>d.key)
+        texts
+          .transition().duration(2000)
+          .attr("transform", d=> d.key=='xaxis_label' ? "translate(" + d.x + "," + d.y + ")rotate(45)" : "translate(" + d.x + "," + d.y + ")") 
+          .text(d=>d.value)
 
-    }
+      }
 
+      ///////////////////////////////////////////////////////////////////////////
+      ///////////////////////////// Render bar chart ////////////////////////////
+      ///////////////////////////////////////////////////////////////////////////
+      
+      function renderBarLegend(obj, scale, categories, cat_string) {
+
+        var result = Object.keys(obj).map(function(key) {
+          return [`${key}`, obj[key]];
+        });
+
+        var xScale = d3.scaleLinear()
+          .domain([0, Math.ceil(d3.max(result, d=>d[1])/500) * 500])
+          .range([0, 400 - (cat_string=='ethnicities' ? 50 : 0) ])
+          
+        var yScale = d3.scaleBand()
+          .domain(categories)
+          .range([0, 200])
+          .padding(0.1)
+
+        var legend = d3.select('#legend').append('g')
+          .attr('transform', d => 'translate(' + (cat_string=='ethnicities' ? 120 : 50) + ',0)')
+          .attr('class', 'gLegend')
+
+        let rects = legend.selectAll("rect").data(result)
+
+        rects.exit().remove()
+
+        var entered_rects = rects.enter().append("rect")
+            .attr("width", (d,i) => xScale(d[1]))
+            .attr("height", yScale.bandwidth())
+            .attr("fill", (d,i) => scale(d[0]))
+            .attr('stroke', 'black')
+            .attr('stroke-width', '0px')
+            .attr('id', d=>d.key)
+            .attr("x", 0)
+            .attr("y", (d,i) => yScale(d[0]))
+
+        rects = rects.merge(entered_rects)
+
+        legend.append("g")
+          .attr("transform", "translate(0," + 200 + ")")
+          .call(d3.axisBottom(xScale).ticks(10, cat_string=='months' ? 'f' : 's'))
+
+        legend.append("g").call(d3.axisLeft(yScale))
+          .call(legend => legend.select(".domain").remove())
+
+      }
+
+    }()
 
     function onlyUnique(value, index, self) { 
         return self.indexOf(value) === index;
@@ -240,7 +598,7 @@
 
   </script>
   <script>
-    graph.run()
+    chart.run()
   </script>
 </body>
 </html>

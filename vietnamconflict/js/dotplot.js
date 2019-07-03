@@ -8,7 +8,7 @@ var DEFAULT_OPTIONS = {
   color: "black",
   strokeFill: 'black',
   strokeWidth: 0,
-  scales: undefined
+  category: {sort_category: undefined, sort_list: undefined, color: undefined}
 }
 
 function getOptionOrDefault(key, options, defaultOptions) {
@@ -21,7 +21,8 @@ function getOptionOrDefault(key, options, defaultOptions) {
 
 function createDots(data, type, group1_name, group2_name, group1_list, group2_list, options) {
 
-  var labels, arrays 
+  var labels = []
+  var arrays = [] 
   var radius = getOptionOrDefault('radius', options)
   var tilesPerRow = getOptionOrDefault('tilesPerRow', options)
   var width = getOptionOrDefault('width', options)
@@ -29,35 +30,22 @@ function createDots(data, type, group1_name, group2_name, group1_list, group2_li
   var color = getOptionOrDefault('color', options)
   var strokeFill = getOptionOrDefault('strokeFill', options)
   var strokeWidth = getOptionOrDefault('strokeWidth', options)
-  var scales = getOptionOrDefault('scales', options) // import any scales
-  
+  var category = getOptionOrDefault('category', options) 
+  var X = category.sort_category
+  var sort_list = category.sort_list
+  var colorScale = category.color
+
   var nodeRadius = radius * 2
   var tileSize = nodeRadius * 1.5
   var barWidth = (tilesPerRow+1) * tileSize
 
-  group2_listL = group2_list.slice(0,5)
-  group2_listM = group2_list.slice(5,14)
-  group2_listS = group2_list.slice(14,49)
+  var xScale = d3.scaleBand()
+    .domain(group1_list)
+    .range([0, group1_list.length*barWidth])
 
-  //group2_listS = group2_list.slice(0,35)
-  //group2_listM = group2_list.slice(35,44)
-  //group2_listL = group2_list.slice(44,49)
-
-  shortestBlock = group2_listS.length*barWidth
-  middleBlock = group2_listM.length*barWidth*2.5
-  largestBlock = group2_listL.length*barWidth*8
-  console.log(group2_listS, group2_listM, group2_listL)
-  var yScaleS = d3.scaleBand()
-    .domain(group2_listS)
-    .range([shortestBlock, 0])
-
-  var yScaleM = d3.scaleBand() // longer 
-    .domain(group2_listM)
-    .range([shortestBlock + middleBlock, shortestBlock+barWidth])
-
-  var yScaleL = d3.scaleBand() // longer 
-    .domain(group2_listL)
-    .range([shortestBlock + middleBlock + largestBlock, shortestBlock + middleBlock+barWidth*3 ])
+  var yScale = d3.scaleBand()
+    .domain(group2_list)
+    .range([group2_list.length*barWidth, 0])
 
   if(type=='bar'){
     barChart()
@@ -71,16 +59,40 @@ function createDots(data, type, group1_name, group2_name, group1_list, group2_li
     var res_nested_bin = d3.nest()
       .key(d=>d[group1_name])
       .sortKeys(function(a,b) { return group1_list.indexOf(a) - group1_list.indexOf(b); })
+      .sortValues(function(a,b) { return sort_list.indexOf(a[X]) - sort_list.indexOf(b[X]); })
       .entries(data)
 
+    console.log(group1_list, sort_list)
     res_nested_bin.map((d,i) => {
-      arrays.push(getTilesBar(d.key, d.values, i)) // get x-y coordinates of all tiles first without rendering the dotted bar chart
+      arrays.push(getTilesBar(d.key, d.values, i, X)) // get x-y coordinates of all tiles first without rendering the dotted bar chart
     })
 
-    res_nested_bin.map((d,counter) => {
+    labels = []
+    group1_list.map((d,counter) => {
       labels.push({
-        x: (counter * barWidth),
-        y: height
+        x: (counter * barWidth) + (tilesPerRow * tileSize)/2,
+        y: height + tileSize*2,
+        key: 'xaxis_label',
+        value: group1_list[counter],
+        width: barWidth
+      })
+      labels.push({
+        x: (counter * barWidth) + (tilesPerRow * tileSize)/2,
+        y: d3.min(arrays[counter], d=>d.y) ? d3.min(arrays[counter], d=>d.y)-15 : 0,
+        key: 'count_label',
+        value: res_nested_bin[counter].values.length, 
+        width: barWidth
+      })
+    })
+
+    rects = []
+    group1_list.map((d,i) => {
+      rects.push({
+        x: i * barWidth,
+        y: d3.min(arrays[i], d=>d.y) ? d3.min(arrays[i], d=>d.y) : 0,
+        height: height,
+        width: barWidth,
+        key: d
       })
     })
 
@@ -110,7 +122,7 @@ function createDots(data, type, group1_name, group2_name, group1_list, group2_li
     group1_list.map((d,counter) => {
       labels.push({
         x: (counter * barWidth),
-        y: -yScaleS.bandwidth() - tileSize*2,
+        y: -yScale.bandwidth() - tileSize*2,
         key: group1_list[counter],
         width: barWidth
       })
@@ -119,7 +131,7 @@ function createDots(data, type, group1_name, group2_name, group1_list, group2_li
     group2_list.map((d,counter) => {
       labels.push({
         x: -85,
-        y: group2_listL.indexOf(d) != -1 ? yScaleL(d) : ( group2_listM.indexOf(d) != -1 ? yScaleM(d) : yScaleS(d) ),
+        y: yScale(d),
         key: group2_list[counter],
         width: barWidth
       })
@@ -130,7 +142,7 @@ function createDots(data, type, group1_name, group2_name, group1_list, group2_li
       group2_list.map((d2,i2) => {
         rects.push({
           x: i1 * barWidth,
-          y: group2_listL.indexOf(d2) != -1 ? yScaleL(d2) - yScaleL.bandwidth() : ( group2_listM.indexOf(d2) != -1 ? yScaleM(d2) - yScaleM.bandwidth() : yScaleS(d2) - yScaleS.bandwidth() ),
+          y: yScale(d2) - yScale.bandwidth(),
           width: barWidth
         })
       })
@@ -139,22 +151,24 @@ function createDots(data, type, group1_name, group2_name, group1_list, group2_li
   }
 
   var distributed = [].concat.apply([], arrays)
-  var data = {dots: distributed, labels: labels, rects:rects}
+  var data = {dots: distributed, labels: labels, rects: rects}
   return data
 
-  function getTilesBar(key, values, counter) {
+  function getTilesBar(key, values, counter, X) {
 
     var tiles = []
     for(var i = 0; i < values.length; i++) {
       var rowNumber = Math.floor(i / tilesPerRow)
       tiles.push({
-        x: ((i % tilesPerRow) * tileSize) + (counter * barWidth) + tileSize,
+        x: ((i % tilesPerRow) * tileSize) + xScale(values[i][group1_name]) + tileSize,
         y: -(rowNumber + 1) * tileSize + height, // stack nodes within same group
-        index: key + i.toString(), // index each node
+        //index: key + i.toString(), // index each node
+        index: values[i].id + '-' + values[i][group2_name],
         r: (tileSize/1.5)/2,
-        color: colorScale ? colorScale(values[i].value) : color,
+        color: colorScale ? colorScale(values[i][X]) : color,
         strokeFill: strokeFill,
-        strokeWidth: strokeWidth
+        strokeWidth: strokeWidth,
+        val: values
       });
     }
     return tiles
@@ -165,12 +179,11 @@ function createDots(data, type, group1_name, group2_name, group1_list, group2_li
 
     var tiles = []
     for(var i = 0; i < values.length; i++) {
-      var colorScale = scales.color
       var rowNumber = Math.floor(i / tilesPerRow)
       tiles.push({
         x: ((i % tilesPerRow) * tileSize) + (counter * barWidth) + tileSize,
-        y: -(rowNumber + 1) * tileSize + (group2_listL.indexOf(values[i].province) != -1 ? yScaleL(values[i][group2_name]) : ( group2_listM.indexOf(values[i].province) != -1 ? yScaleM(values[i][group2_name]) : yScaleS(values[i][group2_name]) )),
-        index: values[i].id,
+        y: -(rowNumber + 1) * tileSize + yScale(values[i][group2_name]) + height,
+        index: values[i].id + '-' + values[i][group2_name],
         //index: key + i.toString(), // index each node
         r: (tileSize/1.5)/2,
         color: colorScale ? colorScale(values[i].value) : color,
