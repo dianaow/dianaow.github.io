@@ -62,7 +62,6 @@ function createDots(data, type, group1_name, group2_name, group1_list, group2_li
       .sortValues(function(a,b) { return sort_list.indexOf(a[X]) - sort_list.indexOf(b[X]); })
       .entries(data)
 
-    console.log(group1_list, sort_list)
     res_nested_bin.map((d,i) => {
       arrays.push(getTilesBar(d.key, d.values, i, X)) // get x-y coordinates of all tiles first without rendering the dotted bar chart
     })
@@ -164,6 +163,7 @@ function createDots(data, type, group1_name, group2_name, group1_list, group2_li
         y: -(rowNumber + 1) * tileSize + height, // stack nodes within same group
         //index: key + i.toString(), // index each node
         index: values[i].id + '-' + values[i][group2_name],
+        category: values[i][X],
         r: (tileSize/1.5)/2,
         color: colorScale ? colorScale(values[i][X]) : color,
         strokeFill: strokeFill,
@@ -185,6 +185,7 @@ function createDots(data, type, group1_name, group2_name, group1_list, group2_li
         y: -(rowNumber + 1) * tileSize + yScale(values[i][group2_name]) + height,
         index: values[i].id + '-' + values[i][group2_name],
         //index: key + i.toString(), // index each node
+        category: values[i].value,
         r: (tileSize/1.5)/2,
         color: colorScale ? colorScale(values[i].value) : color,
         strokeFill: strokeFill,

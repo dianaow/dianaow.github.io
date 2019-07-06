@@ -8,30 +8,33 @@ var canvasDim = { width: screenWidth, height: screenHeight}
 
 var margin = {top: 0, right: 0, bottom: 0, left: 0}
 var width = canvasDim.width - margin.left - margin.right 
-var height = canvasDim.width - margin.top - margin.bottom 
+var height = canvasDim.height - margin.top - margin.bottom 
 
 ///////////////////////////////////////////////////////////////////////////
 //////////////////// Set up and initiate containers ///////////////////////
 /////////////////////////////////////////////////////////////////////////// 
 
-var svg = d3.select("#chart").append("svg")
+var svg = d3.select("#stacked")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
 .append("g")
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////// Create scales ///////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
 var xScale = d3.scaleBand()
-  .range([margin.left, width])
+  .range([0, width])
 
 var yScale = d3.scaleLinear()
-  .range([height, margin.top])
+  .range([height, height*0.7])
+
+//var color = d3.scaleOrdinal()
+	//.range(['#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c','#cb181d','#a50f15','#67000d'])
 
 var color = d3.scaleOrdinal()
-	.range(['#fff5f0','#fee0d2','#fcbba1','#fc9272','#fb6a4a','#ef3b2c','#cb181d','#a50f15','#67000d'])
+  .range(['#ffbaba', '#fdaaa7', '#fa9a93', '#f78a81', '#f3796e', '#ee685c', '#e8564b', '#e24239', '#db2828'])
 
 run()
 
@@ -43,11 +46,10 @@ function run() {
 
   d3.queue()   
     .defer(d3.json, './data/deathPercentages_byProvince_byTime.json')  
-    .defer(d3.json, './data/VietnamWarTimeline.json')  
     .await(dataProcess);  
 }
 
-function dataProcess(error, deathJSON, timelineJSON) {
+function dataProcess(error, deathJSON) {
 
 	// Nest data with year-month set as key
 	var dataByDate = d3.nest()
@@ -56,7 +58,7 @@ function dataProcess(error, deathJSON, timelineJSON) {
 
 	// Ensure that all year-months have the same sort arrangement of provinces
 	dataByDate = dataByDate.map(d => d.values.sort(sortOn("DEPLOYMENT PROVINCE")))
-  console.log(dataByDate)
+
 	// Construct and array of all provinces with deaths
 	var provincesList = [... new Set(deathJSON.map(d=>d["DEPLOYMENT PROVINCE"]))]
 
@@ -104,7 +106,6 @@ function dataProcess(error, deathJSON, timelineJSON) {
       stackedData[i][I].height = ( d[I][0] ? yScale(d[I][0]) : yScale(0) ) - ( d[I][1] ? yScale(d[I][1]) : yScale(0) )
     })
   })
-  console.log(stackedData)
 
   renderStacked(stackedData)
 }	
@@ -125,9 +126,9 @@ function renderStacked(data) {
         .attr("width", d => d.width)
         .attr("y", 0)
         .attr("height", 0)   
-        .transition().duration(3000)
+        .transition().ease(d3.easeQuadOut).duration(6000)
 		    .attr("y", d => d.y)
-        .attr("height", d => d.height)   
+        .attr("height", height)   
 	
     })
 

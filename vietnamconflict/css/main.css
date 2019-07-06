@@ -1,0 +1,92 @@
+/* Wrapper */
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+.box-group {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+}
+#title-wrapper, #vis-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  min-height: 100vh;
+}
+#stacked, #title {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Title */
+#title {
+  z-index: 10;
+  /*display: flex;*/
+  /*align-items: center;*/ 
+  /*justify-content: center;*/
+  /*flex-direction: column;*/
+  margin-top: 75px;
+  margin-left: 25px;
+}
+.sub-title {
+  z-index: 99;
+  position: absolute;
+  left: 100px;
+  top: 430px; 
+  width: 800px;
+  font-size: 1.2em;
+}
+
+/* Bubble chart */
+#general {
+  z-index: 99;
+  position: absolute;
+  right: 0;
+  bottom: 0;      
+}
+
+/* Dot plot */
+.slider {
+  width: 500px;
+  height: 200px;
+  position: absolute;
+  top: 20px;
+  left: 300px;
+}
+.tabs {
+  z-index: 999;
+  width: 500px;
+  height: 240px;
+  position: absolute;
+  top: 20px;
+  left: 850px;
+}
+#map {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+#legend {
+  width: 500px;
+  height: 220px;
+}
+#header {
+  position: absolute;
+  right: 10px;
+  top: 10px;      
+}
+.ui.huge.header {
+  font-size: 2.5rem!important;
+}
+
+.info {
+  position: absolute;
+  right: 20px;
+  top: 0px;  
+}

@@ -208,6 +208,7 @@ var bubble = function () {
 
     //data1.sort(function(a, b){ return d3.descending(a.count, b.count); })
     var top10 = data1.slice(0, 11)
+    console.log(top10)
     var nest = d3.nest()
     var root = d3.hierarchy({data:nest.entries(top10)},function(d){return d.data;}).sum(function(d) {return d.count; })
     var nodes = pack(root)
