@@ -126,7 +126,7 @@ function renderStacked(data) {
         .attr("width", d => d.width)
         .attr("y", 0)
         .attr("height", 0)   
-        .transition().ease(d3.easeQuadOut).duration(6000)
+        .transition().ease(d3.easeQuadOut).duration(3000)
 		    .attr("y", d => d.y)
         .attr("height", height)   
 	

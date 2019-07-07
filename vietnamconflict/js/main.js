@@ -24,13 +24,6 @@ var chart = function () {
 
   var gCircle = svg.append('g')
   var gRect = svg.append('g')
-  
-  //var gFooter = svg.append('g')
-  //gFooter.append('rect')
-    //.attr('y', height-180)
-    //.attr('height', 180)
-    //.attr('width', width)
-    //.attr('fill', '#db2828')
 
   var map = mapWrapper.append("svg")
     .attr("width", mapWidth)
@@ -61,11 +54,12 @@ var chart = function () {
           .defer(d3.json, './data/vietnam1.json')
           .defer(d3.csv, './data/VietnamConflict_clean.csv') 
           .defer(d3.csv, './data/VietnamConflict_yearPT.csv') 
+          .defer(d3.csv, './data/timeline.csv') 
           .await(processData);   
 
       }
 
-      function processData(error, geoJSON, csv, csv2) {
+      function processData(error, geoJSON, csv, csv2, csv3) {
         
         if (error) throw error;
 
@@ -82,7 +76,14 @@ var chart = function () {
           }
         })
 
-        init(svg, width, height, data)
+        var timeline = csv3.map((d,i) => {
+          return {
+            year: +d.year,
+            description: d.description,
+          }
+        })
+
+        init(svg, width, height, data, timeline)
 
         var vietnam = geoJSON.features;  // store the path in variable for ease
         for (var i in vietnam) {    // for each geometry object
@@ -135,7 +136,7 @@ var chart = function () {
   ////////////////////////////// Control Center /////////////////////////////
   ///////////////////////////////////////////////////////////////////////////
 
-  function init(svg, width, height, data) {
+  function init(svg, width, height, data, timeline) {
 
     data = data.filter(d=>d.province != 'UNKNOWN') // remove all persons with missing provinces
     
@@ -196,8 +197,8 @@ var chart = function () {
         if(meta.triggeredByUser) {
           res = data.filter(b=>(b.fatality_year == d))
           update(res, tab)
-          updateMap(d)   
-          var summary = "The Tet Offensive begins, encompassing a combined assault of Viet Minh and North Vietnamese armies. Attacks are carried out in more than 100 cities and outposts across South Vietnam, including Hue and Saigon, and the U.S. Embassy is invaded. The effective, bloody attacks shock U.S. officials and mark a turning point in the war and the beginning of a gradual U.S. withdrawal from the region."
+          updateMap(d)  
+          var summary = timeline.find(b=>b.year == d).description
           d3.select(".year-header").html("<h1>" + d + "</h1>")
           d3.select(".year-summary").html("<p>" + summary + "</p>")
         }         
@@ -215,17 +216,21 @@ var chart = function () {
 
     // 2: Rank
     //var ranks = res.map(d => d.rank).filter(onlyUnique).filter(e=>e != undefined)
-    var army_enlisted = ["PFC", "SPC", "CPL", "SGT", "SSG", "SFC", "MSG", '1SG']
-    var warrant_officer = ['WO1', "CW1", 'CW2', 'CW3', 'CW4']
-    var officer = ['CADET', '2LT', '1LT', 'CPT', 'MAJ', 'LTC']
-    var highest = ['SGM', 'COL', "BG", "MG"]
-    var ranks = [army_enlisted, warrant_officer, officer, highest].flat()
+    var enlisted = ["PVT", "SPC"]
+    var WO = ['WO']
+    var NCO = ["CPL", "SGT", "SSG", "SFC", "MSG", '1SG', 'SGM']
+    var CO = ['2LT', '1LT', 'CPT']
+    var FO = ['MAJ',' LTC', 'COL']
+    var GO = ['BG', 'MG']
+    var ranks = [enlisted, WO, NCO, CO, FO, GO].flat()
 
-    var colors1 = ['khaki', '#c0eade', '#9dced6', '#80b1cc', '#6694c1', '#4e78b5', '#325da9', '#00429d']
-    var colors2 = chroma.scale(['blue', 'blue']).mode('lch').colors(warrant_officer.length)
-    var colors3 = ['darkgray', '#b4b4b4', '#838383', '#565656', '#2d2d2d', '#000000']
-    var colors4 = chroma.scale(['red', 'red']).mode('lch').colors(ranks.length)
-    var ranksColors = [colors1, colors2, colors3, colors4].flat()
+    var colors_enlisted = ['khaki', 'darkkhaki']
+    var colors_WO = ['MediumVioletRed']
+    var colors_NCO = ['#add8e6', '#a1b3ed', '#918ef2', '#7a69f7', '#5941fb', '#0000ff', 'red']
+    var colors_CO = ['slategray', 'darkslategray', 'black']
+    var colors_FO = ['red', 'red', 'red']
+    var colors_GO = ['red', 'red']
+    var ranksColors = [colors_enlisted, colors_WO, colors_NCO, colors_CO, colors_FO, colors_GO].flat()
 
     var ranksColorScale = d3.scaleOrdinal()
       .domain(ranks)
@@ -367,12 +372,13 @@ var chart = function () {
 
   function updateCircles(svg, data) {
 
-    let circles = gCircle.selectAll("circle").data(data, d=>d.index)
+    let circles = gCircle.selectAll("circle").data(data)
 
     circles.exit().remove()
 
     var entered_circles = circles
         .enter().append("circle")
+        .merge(circles)
         .attr("class", d=> d.category)
         .attr("id", d => d.index)
         .attr("r", d => d.r)
@@ -382,14 +388,14 @@ var chart = function () {
         .attr("cx", d => d.x)
         .attr("cy", d => d.y)
 
-    circles = circles.merge(entered_circles)
+    //circles = circles.merge(entered_circles)
 
-    circles
-      .transition().duration(6000)
-      .attr("class", d=> d.category)
-      .attr("fill", d => d.color)
-      .attr('cx', d => d.x)
-      .attr('cy', d => d.y)  
+    //circles
+      //.transition().duration(3000)
+      //.attr("class", d=> d.category)
+      //.attr("fill", d => d.color)
+      //.attr('cx', d => d.x)
+      //.attr('cy', d => d.y)  
 
   }
 
@@ -405,6 +411,7 @@ var chart = function () {
 
     var entered_rects = rects
         .enter().append("rect")
+        .merge(rects)
         .attr("width", d => d.width)
         .attr("height", d=> d.height)
         .attr("fill", 'white')
@@ -415,12 +422,12 @@ var chart = function () {
         .attr("x", d => d.x)
         .attr("y", d => 0)
 
-    rects = rects.merge(entered_rects)
+    //rects = rects.merge(entered_rects)
 
-    rects
-      .transition().duration(5000)
-      .attr('x', d => d.x)
-      .attr('y', d => 0)  
+    //rects
+      //.transition().duration(5000)
+      //.attr('x', d => d.x)
+      //.attr('y', d => 0)  
 
   }
 
@@ -430,24 +437,25 @@ var chart = function () {
 
   function updateLabels(svg, data) {
 
-    var texts = svg.selectAll("text").data(data, d=>d.key)
+    var texts = svg.selectAll("text").data(data)
 
     texts.exit().remove() 
 
     var entered_texts = texts
         .enter().append("text")
+        .merge(texts)
         .attr("fill", d => 'black')
         .attr('dy', '0.35em')
         .attr("transform", d=> d.key=='xaxis_label' ? "translate(" + d.x + "," + d.y + ")rotate(45)" : "translate(" + d.x + "," + d.y + ")") 
         .attr('text-anchor', d=> d.key=='xaxis_label' ? 'start' : 'middle')
         .text(d=>d.value)
 
-    texts = texts.merge(entered_texts)
+    //texts = texts.merge(entered_texts)
 
-    texts
-      .transition().duration(2000)
-      .attr("transform", d=> d.key=='xaxis_label' ? "translate(" + d.x + "," + d.y + ")rotate(45)" : "translate(" + d.x + "," + d.y + ")") 
-      .text(d=>d.value)
+    //texts
+      //.transition().duration(2000)
+      //.attr("transform", d=> d.key=='xaxis_label' ? "translate(" + d.x + "," + d.y + ")rotate(45)" : "translate(" + d.x + "," + d.y + ")") 
+      //.text(d=>d.value)
 
   }
 
@@ -476,10 +484,9 @@ var chart = function () {
       .attr('class', 'gLegend')
 
     d3.select('#legend').append('text')
-      .attr('transform', d => 'translate(' + 20 + ',' + 220 + ')')
-      .attr('font-size', '0.8em')
-      .attr('fill', 'gray')
-      .text('Click on any of the bars to highlight a category')
+      .attr('class', 'annotation')
+      .attr('transform', d => 'translate(' + 20 + ',' + 215 + ')')
+      .text('Hover over any of the bars to highlight a category')
 
     let rects = legend.selectAll("rect").data(result)
 

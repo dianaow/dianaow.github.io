@@ -18,6 +18,10 @@
       width: 100vw;
       height: 100vh;
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column; 
     }
     #stacked, #title {
       width: 100%;
@@ -49,6 +53,11 @@
       width: 800px;
       font-size: 1.2em;
     }
+    #footer {
+      position: absolute;
+      bottom: 10px;
+      width: 60%;
+    }
   </style>
 </head>
 <body>
@@ -78,6 +87,24 @@
   <div id='general'></div>
   <div id='wrapper'>
     <div id='test'></div>
+    <div id='footer'>
+      <h3 class='ui header'>About</h3>
+      <p>The data used for this analysis comes from:</p>
+        <ul>
+          <li>The Vietnam Conflict Extract Data File of the Defense Casualty Analysis System (DCAS) Extract Files contains records of 58,220 U.S. military fatal casualties of the Vietnam War. It is accessible for direct download via the <a href='https://catalog.archives.gov/id/2240992'>U.S National Archives Catalog</a>.</li>
+          <li>This dataset was taken from <a href='https://www.kaggle.com/orangutan/vietnamconfilct'>Kaggle</a> where the raw data was cleaned and labelled with reference to the accompanying Supplemental Code Lists. I have processed the data further by recategorizing province names.</li>
+        </ul>
+      <p>The realization of this visual data project was performed using several technologies:</p>
+        <ul>
+          <li>Data preparation and analysis was done in Python using <a href='https://github.com/dianaow/dianaow.github.io/blob/master/vietnamconflict/vietnamconflict.ipynb'>Jupyter notebook.</a></li>
+          <li>The visuals were created using D3.js.</li>
+          <li>The UI framework used is Semantic UI.</li>
+        </ul>
+      <p>Special thanks goes to:</p>
+        <ul>
+          <li><a href='https://twitter.com/andszesztai?lang=en'>András Szesztai</a> who inspired this piece with his visualization: <a href='http://boringbarchart.com/influential-painters-of-our-history/'>They Gave Colour To Our History</a>.</li>
+        </ul>
+    </div>
   </div>
   <script src="js/bubble_new.js"></script>
   <script src="js/stacked_d3.js"></script>

@@ -62,8 +62,9 @@ function createDots(data, type, group1_name, group2_name, group1_list, group2_li
       .sortValues(function(a,b) { return sort_list.indexOf(a[X]) - sort_list.indexOf(b[X]); })
       .entries(data)
 
-    res_nested_bin.map((d,i) => {
-      arrays.push(getTilesBar(d.key, d.values, i, X)) // get x-y coordinates of all tiles first without rendering the dotted bar chart
+    group1_list.map((d,i) => {
+      var g = res_nested_bin.find(b=>b.key == d)
+      arrays[i] = g ? getTilesBar(g.key, g.values, i, X) : [] // get x-y coordinates of all tiles first without rendering the dotted bar chart
     })
 
     labels = []
@@ -77,9 +78,9 @@ function createDots(data, type, group1_name, group2_name, group1_list, group2_li
       })
       labels.push({
         x: (counter * barWidth) + (tilesPerRow * tileSize)/2,
-        y: d3.min(arrays[counter], d=>d.y) ? d3.min(arrays[counter], d=>d.y)-15 : 0,
+        y: arrays[counter].length != 0 ? d3.min(arrays[counter], d=>d.y)-15 : height-15,
         key: 'count_label',
-        value: res_nested_bin[counter].values.length, 
+        value: arrays[counter].length != 0 ? arrays[counter].length : 0, 
         width: barWidth
       })
     })
@@ -88,7 +89,7 @@ function createDots(data, type, group1_name, group2_name, group1_list, group2_li
     group1_list.map((d,i) => {
       rects.push({
         x: i * barWidth,
-        y: d3.min(arrays[i], d=>d.y) ? d3.min(arrays[i], d=>d.y) : 0,
+        y: arrays[i].length != 0 ? d3.min(arrays[i], d=>d.y) : 0,
         height: height,
         width: barWidth,
         key: d

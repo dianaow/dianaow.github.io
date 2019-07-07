@@ -39,6 +39,7 @@
       </div>
 
       <div class='sub-title'>
+        <h1 class='ui header'>U.S. Army Casualties</h1>
         <p>The Vietnam War was a long, costly and divisive conflict between the communist government of North Vietnam and South Vietnam and its principal ally, the United States. It lasted from 1955 to the fall of Saigon in 1975, with more than 58,000 Americans killed in the war. This data visualization demonstrates the burden of casualties that the US Army bore in Vietnam.</p>
       </div>
 
@@ -76,19 +77,59 @@
               <div class="active item btn-month">Month</div>
               <div class="item btn-rank">Rank</div>
               <div class="item btn-ethnicity">Ethnicity</div>
-              <span class='info'><i class='black question circular left floated icon'></i></span>
+              <span class='info'><i class='black question circular right floated icon'></i></span>
             </div>
             <div class="ui bottom attached active tab segment">
               <svg id='legend'></svg>
             </div>
           </div>
 
-          <div id='map'></div>
+          <div id='map'>
+            <div class='annotation annotation-map'>
+              <p>Hover over dotplot to locate province on map. Colour intensity on map represents death count.</p>
+            </div>
+          </div>
 
           <div id="chart"></div>
       </div>
 
+      <div id='footer'>
+        <h3 class='ui header'>About</h3>
+        <p>The data used for this analysis comes from:</p>
+          <ul>
+            <li>The Vietnam Conflict Extract Data File of the Defense Casualty Analysis System (DCAS) Extract Files contains records of 58,220 U.S. military fatal casualties of the Vietnam War. It is accessible for direct download via the <a href='https://catalog.archives.gov/id/2240992'>U.S National Archives Catalog</a>.</li>
+            <li>This dataset was taken from <a href='https://www.kaggle.com/orangutan/vietnamconfilct'>Kaggle</a> where the raw data was cleaned and labelled with reference to the accompanying Supplemental Code Lists. I have processed the data further by recategorizing province names.</li>
+          </ul>
+        <p>The realization of this visual data project was performed using several technologies:</p>
+          <ul>
+            <li>Data preparation and analysis was done in Python using <a href='https://github.com/dianaow/dianaow.github.io/blob/master/vietnamconflict/vietnamconflict.ipynb'>Jupyter notebook.</a></li>
+            <li>The visuals were created using D3.js.</li>
+            <li>The UI framework used is Semantic UI.</li>
+          </ul>
+        <p>Special thanks goes to:</p>
+          <ul>
+            <li><a href='https://twitter.com/andszesztai?lang=en'>András Szesztai</a> who inspired this piece with his visualization: <a href='http://boringbarchart.com/influential-painters-of-our-history/'>They Gave Colour To Our History</a>.</li>
+          </ul>
+      </div>
+
     </div>
+  </div>
+
+  <div class="ui flowing popup popup-info">
+    <p>Only death statistics of soldiers in the U.S Army visualized. (Military personnel in the Marine Corps, Navy and  Air Force are excluded)</p>
+    <p>Provinces:</p>
+    <ul>
+      <li>Phong Dinh, Chuong Thien, Kien Giang, Phu Quoc Island, Bac Lieu, An Xuyen regrouped to 'Mekong (Southern)'</li>
+      <li>Ba Xugen, Quang Duc, Con Son Island regrouped to 'Northeast'</li>
+      <li>See <a href='https://en.wikipedia.org/wiki/Provinces_of_Vietnam'>here</a> for a full list of Vietnam Provinces</li>
+    </ul>
+    <p>Ranks: </p>
+    <ul>
+      <li>Enlisted Soldiers: Private First Class (PFC) and Officer Cadets (CADET) combined with Private (PVT). Specialists from all ranks (SPC, SP4, SP5, SP6) regrouped to 'SPC'</li>
+      <li>Noncommissioned Officer: Platoon Sergent (PSG) combined with SFC</li>
+      <li>Warrant Officers from all ranks (WO1, CW1, CW2, CW3, CW4) regrouped to 'WO' </li>
+      <li>See <a href='https://www.federalpay.org/military/army/ranks'>here</a> for a full list of U.S Army Ranks</li>
+    </ul>
   </div>
 
   <script src="js/bubble_new.js"></script>
@@ -97,17 +138,28 @@
   <script src="./js/main.js"></script>
   <script>
     $(document).ready(function(){
-       $('.ui .item').on('click', function() {
-          $('.ui .item').removeClass('active');
-          $(this).addClass('active');
-       });           
+      $('.ui .item').on('click', function() {
+        $('.ui .item').removeClass('active');
+        $(this).addClass('active');
+      });  
+      $('.info').popup({
+        on: 'hover',
+        position: 'bottom center',
+        popup : $('.popup-info')
+      });
+      $('.ui.dropdown').dropdown('show') 
+      $('body').css({'overflow':'hidden'});
+      $(document).bind('scroll',function () { 
+           window.scrollTo(0,0); 
+      });         
     });
 
-    $('.ui.dropdown').dropdown('show')
     bubble.run()
     setTimeout(function(){
       chart.run()
-    }, 3600)
+      $(document).unbind('scroll'); 
+      $('body').css({'overflow':'visible'});
+    }, 3000)
   </script>
 </body>
 </html>
