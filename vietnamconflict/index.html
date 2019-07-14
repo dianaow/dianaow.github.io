@@ -1,26 +1,197 @@
 <!DOCTYPE html>
-<html lang="en">
 
-  <head>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+  <meta name="viewport" content="user-scalable = yes">
 
-    <meta charset="utf-8">
-    <meta name="viewport">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
-    <style>
-      body {
-        margin: 0px;
-        padding: 0px;
-        border: 0px;
-      }
-    </style>
-  </head>
+  <title>Vietnam War</title>
+  <meta name="author" content="Diana Ow">
+  <meta name="description" content="Vietnam War Bloodshed - U.S Army Casualties">
+  <meta name="keywords" content="vietnam, war, data, visualization, visualisation, data visualization, data visualisation, information, information visualization, information visualisation, dataviz, datavis, infoviz, infovis, collaboration, data art">
 
-  <body>
-    <div id="chart"></div>
-    <script src="js/stacked_d3.js"></script>
+  <!-- Styling -->
+  <link rel="stylesheet" type="text/css" href="../css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="../css/semantic-ui-range.css">
+  <link rel="stylesheet" type="text/css" href="./css/main.css">
 
-  </body>
+  <!-- JavaScript files -->
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+    <script src="../vendor/chroma.min.js"></script>
+  <script src="../vendor/semantic.min.js"></script>
+  <script src="../vendor/semantic-ui-range.js"></script>
+  <style>
+    #chart {
+      position: relative;
+    }
+    #dotplot-canvas {
+      position: absolute;
+      top: 0;
+      left:0;
+      z-index: -1;
+      /* to check if overlay is aligned */
+      /*border: 2px solid black; */
+    }
+    #dotplot-svg {
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <div class='wrapper'>
+    <div class='box-group'>
 
+      <!-- TITLE -->
+      <div id='title-wrapper'>
+        <div id='title'>
+          <svg width="826.74" height="431.131" viewBox="0 0 826.74 431.131">
+            <g id="svgGroup" stroke-linecap="round" fill-rule="evenodd" font-size="9pt" stroke="#000" stroke-width="0.25mm" fill="none" style="stroke:#000;stroke-width:0.25mm;fill:none">
+              <defs>
+                <clipPath id="svgPath">
+                  <path d="M 759.78 70.92 L 793.44 4.68 A 15.572 15.572 0 0 1 794.107 3.528 Q 794.451 2.991 794.802 2.562 A 7.228 7.228 0 0 1 795.285 2.025 A 6.166 6.166 0 0 1 796.899 0.851 A 5.764 5.764 0 0 1 797.4 0.63 A 7.973 7.973 0 0 1 798.879 0.227 A 10.378 10.378 0 0 1 800.055 0.09 A 44.191 44.191 0 0 1 801.238 0.035 Q 801.76 0.018 802.331 0.009 A 77.279 77.279 0 0 1 803.52 0 L 826.74 0 L 826.74 131.13 L 799.92 131.13 L 799.92 55.71 A 127.884 127.884 0 0 1 800.091 49.249 A 161.332 161.332 0 0 1 800.46 43.83 L 765.72 111.24 A 12.519 12.519 0 0 1 763.681 114.155 A 10.667 10.667 0 0 1 761.355 116.01 A 11.734 11.734 0 0 1 756.284 117.582 A 14.412 14.412 0 0 1 755.1 117.63 L 750.96 117.63 A 12.982 12.982 0 0 1 747.205 117.103 A 11.301 11.301 0 0 1 744.705 116.01 Q 741.96 114.39 740.34 111.24 L 705.42 43.74 Q 705.78 46.89 705.96 49.995 Q 706.14 53.1 706.14 55.71 L 706.14 131.13 L 679.32 131.13 L 679.32 0 L 702.54 0 Q 704.133 0 705.406 0.059 A 40.622 40.622 0 0 1 706.005 0.09 Q 707.49 0.18 708.66 0.63 A 5.997 5.997 0 0 1 710.654 1.907 A 6.923 6.923 0 0 1 710.775 2.025 Q 711.72 2.97 712.62 4.68 L 746.37 71.19 Q 748.17 74.61 749.835 78.3 Q 751.5 81.99 753.03 85.86 Q 754.56 81.9 756.27 78.165 Q 757.98 74.43 759.78 70.92 Z M 436.68 4.68 L 498.96 83.43 A 167.94 167.94 0 0 1 498.468 76.988 A 152.356 152.356 0 0 1 498.42 76.095 A 142.383 142.383 0 0 1 498.265 71.81 A 118.424 118.424 0 0 1 498.24 69.39 L 498.24 0 L 525.06 0 L 525.06 131.13 L 509.22 131.13 Q 506.246 131.13 504.048 130.355 A 10.425 10.425 0 0 1 503.28 130.05 Q 501.265 129.155 499.374 127.022 A 19.497 19.497 0 0 1 498.6 126.09 L 436.77 47.97 Q 437.04 51.39 437.22 54.675 A 121.795 121.795 0 0 1 437.375 58.623 A 99.65 99.65 0 0 1 437.4 60.84 L 437.4 131.13 L 410.58 131.13 L 410.58 0 L 426.6 0 A 36.205 36.205 0 0 1 427.996 0.026 Q 428.644 0.051 429.204 0.1 A 16.697 16.697 0 0 1 429.93 0.18 A 9.295 9.295 0 0 1 431.401 0.494 A 7.579 7.579 0 0 1 432.36 0.855 Q 433.44 1.35 434.43 2.25 Q 435.148 2.903 436.009 3.888 A 35.561 35.561 0 0 1 436.68 4.68 Z M 201.06 0 L 285.48 0 L 285.48 23.4 L 231.66 23.4 L 231.66 54 L 272.88 54 L 272.88 76.5 L 231.66 76.5 L 231.66 107.73 L 285.48 107.73 L 285.48 131.13 L 201.06 131.13 L 201.06 0 Z M 52.56 131.13 L 0 0 L 24.48 0 Q 28.44 0 30.96 1.8 Q 33.48 3.6 34.56 6.57 L 59.94 76.77 A 224.007 224.007 0 0 1 61.661 81.563 A 279.528 279.528 0 0 1 63.405 86.76 A 184.775 184.775 0 0 1 65.911 95.164 A 207.405 207.405 0 0 1 66.69 98.1 A 132.35 132.35 0 0 1 69.105 88.461 A 118.883 118.883 0 0 1 69.615 86.76 Q 71.28 81.36 72.9 76.77 L 98.1 6.57 Q 99 4.05 101.61 2.025 A 9.579 9.579 0 0 1 106.265 0.115 A 12.702 12.702 0 0 1 108 0 L 132.66 0 L 80.1 131.13 L 52.56 131.13 Z M 617.94 0 L 668.7 131.13 L 645.12 131.13 A 13.953 13.953 0 0 1 642.246 130.85 Q 640.161 130.411 638.595 129.285 Q 636.03 127.44 635.04 124.56 L 627.3 101.7 L 577.44 101.7 L 569.7 124.56 Q 568.8 127.08 566.19 129.105 A 9.579 9.579 0 0 1 561.535 131.015 A 12.702 12.702 0 0 1 559.8 131.13 L 536.04 131.13 L 586.8 0 L 617.94 0 Z M 293.76 0 L 397.98 0 L 397.98 24.12 L 361.08 24.12 L 361.08 131.13 L 330.66 131.13 L 330.66 24.12 L 293.76 24.12 L 293.76 0 Z M 176.76 0 L 176.76 131.13 L 146.16 131.13 L 146.16 0 L 176.76 0 Z M 596.52 45.27 L 584.46 81 L 620.28 81 L 608.22 45.09 A 3139.733 3139.733 0 0 1 607.286 42.354 Q 606.459 39.932 605.475 37.035 A 189.606 189.606 0 0 1 603.524 30.943 A 232.454 232.454 0 0 1 602.37 27 Q 600.93 32.49 599.4 37.17 A 189.839 189.839 0 0 1 598.278 40.503 Q 597.707 42.147 597.163 43.598 A 102.843 102.843 0 0 1 596.52 45.27 Z" vector-effect="non-scaling-stroke"/>
+
+                  <path d="M 40.5 131.13 L 0 0 L 25.56 0 A 14.389 14.389 0 0 1 28.562 0.297 A 10.129 10.129 0 0 1 32.175 1.8 Q 34.83 3.6 35.64 6.57 L 53.64 74.97 Q 54.54 78.3 55.44 82.08 A 63.234 63.234 0 0 1 56.67 88.971 A 70.345 70.345 0 0 1 56.79 90 A 120.333 120.333 0 0 1 58.113 84.418 A 102.498 102.498 0 0 1 58.77 82.035 A 1070.474 1070.474 0 0 1 59.828 78.402 A 904.246 904.246 0 0 1 60.84 74.97 L 82.08 6.57 A 8.114 8.114 0 0 1 83.604 3.857 Q 84.404 2.895 85.545 2.025 Q 88.2 0 91.98 0 L 100.98 0 Q 104.94 0 107.505 1.755 Q 110.07 3.51 111.06 6.57 L 132.12 74.97 Q 133.11 78.12 134.19 81.675 A 76.592 76.592 0 0 1 135.547 86.797 A 89.762 89.762 0 0 1 136.08 89.28 A 270.196 270.196 0 0 1 137.185 83.543 A 236.002 236.002 0 0 1 137.565 81.72 A 176.096 176.096 0 0 1 138.539 77.396 A 146.155 146.155 0 0 1 139.14 74.97 L 157.14 6.57 A 7.557 7.557 0 0 1 158.783 3.589 A 10.936 10.936 0 0 1 160.56 1.98 A 10.186 10.186 0 0 1 165.438 0.095 A 13.2 13.2 0 0 1 167.04 0 L 190.98 0 L 150.48 131.13 L 122.94 131.13 L 98.28 49.86 A 127.14 127.14 0 0 1 97.639 47.88 A 162.74 162.74 0 0 1 96.975 45.72 A 102.172 102.172 0 0 1 96.028 42.346 A 118.673 118.673 0 0 1 95.67 40.95 A 111.216 111.216 0 0 1 94.741 44.433 A 95.543 95.543 0 0 1 94.365 45.72 A 162.738 162.738 0 0 1 93.701 47.88 A 127.14 127.14 0 0 1 93.06 49.86 L 68.04 131.13 L 40.5 131.13 Z M 360.9 82.62 L 353.16 82.62 L 353.16 131.13 L 322.74 131.13 L 322.74 0 L 365.4 0 A 116.866 116.866 0 0 1 375.476 0.412 Q 383.383 1.097 389.655 2.925 Q 398.784 5.586 404.859 10.146 A 33.585 33.585 0 0 1 406.035 11.07 A 31.907 31.907 0 0 1 413.122 19.141 A 29.529 29.529 0 0 1 415.26 23.4 A 39.871 39.871 0 0 1 418.055 36.04 A 46.859 46.859 0 0 1 418.14 38.88 A 42.599 42.599 0 0 1 417.096 48.425 A 38.509 38.509 0 0 1 416.43 50.94 Q 414.72 56.61 411.345 61.425 Q 407.97 66.24 403.065 70.02 Q 398.16 73.8 391.77 76.23 Q 394.83 77.76 397.485 80.01 A 21.922 21.922 0 0 1 401.354 84.32 A 25.482 25.482 0 0 1 402.12 85.5 L 430.02 131.13 L 402.48 131.13 Q 394.83 131.13 391.5 125.37 L 369.72 87.3 Q 368.519 85.199 366.974 84.099 A 6.79 6.79 0 0 0 366.345 83.7 Q 364.41 82.62 360.9 82.62 Z M 261.36 0 L 312.12 131.13 L 288.54 131.13 A 13.953 13.953 0 0 1 285.666 130.85 Q 283.581 130.411 282.015 129.285 Q 279.45 127.44 278.46 124.56 L 270.72 101.7 L 220.86 101.7 L 213.12 124.56 Q 212.22 127.08 209.61 129.105 A 9.579 9.579 0 0 1 204.955 131.015 A 12.702 12.702 0 0 1 203.22 131.13 L 179.46 131.13 L 230.22 0 L 261.36 0 Z M 239.94 45.27 L 227.88 81 L 263.7 81 L 251.64 45.09 A 3139.733 3139.733 0 0 1 250.706 42.354 Q 249.879 39.932 248.895 37.035 A 189.606 189.606 0 0 1 246.944 30.943 A 232.454 232.454 0 0 1 245.79 27 Q 244.35 32.49 242.82 37.17 A 189.839 189.839 0 0 1 241.698 40.503 Q 241.127 42.147 240.583 43.598 A 102.843 102.843 0 0 1 239.94 45.27 Z M 353.16 22.77 L 353.16 61.65 L 365.4 61.65 Q 370.566 61.65 374.455 60.56 A 21.846 21.846 0 0 0 375.975 60.075 A 21.833 21.833 0 0 0 379.939 58.201 A 16.996 16.996 0 0 0 383.13 55.71 Q 385.92 52.92 387.18 49.185 A 24.325 24.325 0 0 0 388.388 42.861 A 28.461 28.461 0 0 0 388.44 41.13 A 21.339 21.339 0 0 0 387.714 35.409 A 15.544 15.544 0 0 0 382.815 27.63 Q 378.757 24.124 371.49 23.147 A 45.843 45.843 0 0 0 365.4 22.77 L 353.16 22.77 Z" vector-effect="non-scaling-stroke" transform="translate(0,150)"/>
+                </clipPath>
+              </defs>
+            </g>
+              <svg id="stacked" clip-path="url(#svgPath)" ></svg>
+          </svg>
+        </div>
+      </div>
+
+      <div class='sub-title'>
+        <h1 class='ui header'>U.S. Army Casualties</h1>
+        <p>The Vietnam War was a long, costly and divisive conflict between the communist government of North Vietnam and South Vietnam and its principal ally, the United States. It lasted from 1955 to the fall of Saigon in 1975, with more than 58,000 Americans killed in the war. This data visualization demonstrates the burden of casualties that the US Army bore in Vietnam.</p>
+      </div>
+
+      <!-- BUBBLE CHART -->
+      <div id='general'></div>
+
+      <!-- MAIN DOT PLOT VIZ -->
+      <div id='vis-container'>
+
+          <!--<div class="ui selection dropdown">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select a year</div>
+            <div class="menu"></div>
+          </div> -->
+
+          <div id='header'>
+            <h1 class='ui red huge icon header'>
+              VIETNAM WAR
+              <div class="content">
+                <div class="sub header">US Army Casualties</div>
+              </div>
+            </h1>
+          </div>
+
+          <div class='slider'>
+            <div class="ui segment">
+              <div class="year-header"></div>
+              <div class="ui labeled range" id="year-range"></div>
+              <div class="year-summary"></div>
+            </div>
+          </div>
+
+          <div class='tabs'>
+            <div class="ui top attached tabular menu">
+              <div class="active item btn-month">Month</div>
+              <div class="item btn-rank">Rank</div>
+              <div class="item btn-ethnicity">Ethnicity</div>
+              <span class='info'><i class='black question circular right floated icon'></i></span>
+            </div>
+            <div class="ui bottom attached active tab segment">
+              <svg id='legend'></svg>
+            </div>
+          </div>
+
+          <div id='map'>
+            <div class='annotation annotation-map'>
+              <p>Hover over dotplot to locate province on map. Colour intensity on map represents death count.</p>
+            </div>
+          </div>
+
+          <div id='chart'>
+            <div id="dotplot-canvas"></div>
+            <div id="dotplot-svg"></div>
+          </div>
+          
+      </div>
+
+      <!-- FOOTER -->
+      <div id='footer'>
+        <h3 class='ui header'>About</h3>
+        <p>The data used for this analysis comes from:</p>
+          <ul>
+            <li>The Vietnam Conflict Extract Data File of the Defense Casualty Analysis System (DCAS) Extract Files contains records of 58,220 U.S. military fatal casualties of the Vietnam War. It is accessible for direct download via the <a href='https://catalog.archives.gov/id/2240992'>U.S National Archives Catalog</a>.</li>
+            <li>This dataset was taken from <a href='https://www.kaggle.com/orangutan/vietnamconfilct'>Kaggle</a> where the raw data was parsed, cleaned and labelled with reference to the accompanying Supplemental Code Lists. I have processed the data further by recategorizing province names.</li>
+          </ul>
+        <p>The realization of this visual data project was performed using several technologies:</p>
+          <ul>
+            <li>Data preparation and analysis was done in Python using <a href='https://github.com/dianaow/dianaow.github.io/blob/master/vietnamconflict/vietnamconflict.ipynb'>Jupyter notebook.</a></li>
+            <li>The visuals were created using D3.js. Canvas was used to render the dotplot.</li>
+            <li>The UI framework used is Semantic UI.</li>
+          </ul>
+        <p>Special thanks goes to:</p>
+          <ul>
+            <li><a href='https://twitter.com/andszesztai?lang=en'>András Szesztai</a> who inspired this piece with his visualization: <a href='http://boringbarchart.com/influential-painters-of-our-history/'>They Gave Colour To Our History</a>.</li>
+          </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="ui flowing popup popup-info">
+    <p>Only death statistics of soldiers in the U.S Army visualized. (Military personnel in the Marine Corps, Navy and  Air Force are excluded)</p>
+    <p>Provinces:</p>
+    <ul>
+      <li>Sa Dec, Kien Phong, An Giang, Binh Thuy, Binh Long, Chau Doc, Phong Dinh, Chuong Thien, Kien Giang, Phu Quoc Island, Bac Lieu, An Xuyen regrouped to 'Mekong'</li>
+      <li>Binh Thuan, Ba Xugen, Quang Duc, Con Son Island regrouped to 'Northeast'</li>
+      <li>See <a href='https://en.wikipedia.org/wiki/Provinces_of_Vietnam'>here</a> for a full list of Vietnam Provinces</li>
+    </ul>
+    <p>Ranks: </p>
+    <ul>
+      <li>Enlisted Soldiers: Private First Class (PFC) and Officer Cadets (CADET) combined with Private (PVT). Specialists from all ranks (SPC, SP4, SP5, SP6) regrouped to 'SPC'</li>
+      <li>Noncommissioned Officer: Platoon Sergent (PSG) combined with SFC</li>
+      <li>Warrant Officers from all ranks (WO1, CW1, CW2, CW3, CW4) regrouped to 'WO' </li>
+      <li>See <a href='https://www.federalpay.org/military/army/ranks'>here</a> for a full list of U.S Army Ranks</li>
+    </ul>
+  </div>
+
+  <script src="js/bubble_new.js"></script>
+  <script src="./js/stacked_d3.js"></script>
+  <script src="./js/dotplot.js"></script>
+  <script src="./js/main-canvas.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('.ui .item').on('click', function() {
+        $('.ui .item').removeClass('active');
+        $(this).addClass('active');
+      });  
+      $('.info').popup({
+        on: 'hover',
+        position: 'bottom center',
+        popup : $('.popup-info')
+      });
+      $('.ui.dropdown').dropdown('show') 
+      $('body').css({'overflow':'hidden'});
+      $(document).bind('scroll',function () { 
+           window.scrollTo(0,0); 
+      });         
+    });
+
+    bubble.run()
+    setTimeout(function(){
+      chart.run()
+      $(document).unbind('scroll'); 
+      $('body').css({'overflow':'visible'});
+    }, 3000)
+  </script>
+</body>
 </html>
