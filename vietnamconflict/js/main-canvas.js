@@ -65,8 +65,8 @@ var chart = function () {
 
         d3.queue()
           .defer(d3.json, './data/vietnam1.json')
-          .defer(d3.csv, './data/VietnamConflict_clean1.csv') 
-          .defer(d3.csv, './data/VietnamConflict_yearPT1.csv') 
+          .defer(d3.csv, './data/VietnamConflict_clean.csv') 
+          .defer(d3.csv, './data/VietnamConflict_yearPT.csv') 
           .defer(d3.csv, './data/timeline.csv') 
           .await(processData);   
 

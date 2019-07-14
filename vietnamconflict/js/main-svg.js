@@ -13,7 +13,7 @@ var chart = function () {
   var mapWrapper = d3.select("#map")
   var DEFAULT = 1968
 
-  var provincesSorted = ['Northeast', 'Quảng Tri', 'Thừa Thiên Huế', 'Quảng Nam', 'Quảng Ngãi', 'Kon Tum', 'Bình Định', 'Gia Lai', 'Phú Yên', 'Đắk Lắk', 'Khánh Hòa', 'Ninh Thuận', 'Lâm Đồng', 'Đồng Nai', 'Bình Phước', 'Bình Dương', 'Tây Ninh',  'Hồ Chí Minh', 'Long An', 'Tiền Giang', 'Bến Tre', 'Vĩnh Long', 'Mekong'].reverse()
+  var provincesSorted = ['Northeast', 'Quảng Trị', 'Thừa Thiên Huế', 'Quảng Nam', 'Quảng Ngãi', 'Kon Tum', 'Bình Định', 'Gia Lai', 'Phú Yên', 'Đắk Lắk', 'Khánh Hòa', 'Ninh Thuận', 'Lâm Đồng', 'Đồng Nai', 'Bình Phước', 'Bình Dương', 'Tây Ninh',  'Hồ Chí Minh', 'Long An', 'Tiền Giang', 'Bến Tre', 'Vĩnh Long', 'Mekong'].reverse()
 
   //////////////////// Set up and initiate containers ///////////////////////
   var svg = chart.append("svg")
