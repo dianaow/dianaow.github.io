@@ -10,6 +10,7 @@
   flex-direction: column;
   width: 95%;
 }
+
 #title-wrapper, #vis-container {
   width: 100%;
   height: 100%;
@@ -48,7 +49,7 @@
   z-index: 99;
   position: absolute;
   right: 0;
-  bottom: 0;      
+  top: 0;      
 }
 
 /* Dot plot */
@@ -77,7 +78,9 @@
   width: 500px;
   height: 220px;
 }
-
+#chart {
+  min-width: 1600px;
+}
 /* Miscellaneous */
 #header {
   position: absolute;
@@ -103,4 +106,15 @@
 }
 .info {
   padding-left: 20px;
+}
+
+@media (max-device-width: 1500px) {
+  .sub-title {
+    z-index: 99;
+    position: absolute;
+    left: 100px;
+    top: 430px; 
+    width: 700px;
+    font-size: 1.2em;
+  }
 }

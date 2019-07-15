@@ -3,8 +3,8 @@ var chart = function () {
   ///////////////////////////////////////////////////////////////////////////
   ///////////////////////////////// Globals /////////////////////////////////
   /////////////////////////////////////////////////////////////////////////// 
-  var canvasDim = { width: screen.width, height: screen.height*1.06}
-  var margin = {top: 10, right: 0, bottom: 0, left: 30}
+  var canvasDim = { width: screen.width < 1500 ? screen.width*1.35 : screen.width, height: screen.width < 1500 ? screen.height*1.1 : screen.height*1.06}
+  var margin = {top: 10, right: 0, bottom: 0, left: 0}
   var width = canvasDim.width - margin.left - margin.right 
   var height = canvasDim.height - margin.top - margin.bottom 
   var mapWidth = 300
@@ -286,8 +286,8 @@ var chart = function () {
     function update(data, tab) {
 
       var options = {
-        radius: 1.9,
-        tilesPerRow: 11,
+        radius: screen.width > 1800 ? 2.1 : 1.9,
+        tilesPerRow: screen.width < 1500 ? 13 : 12,
         width: width,
         height: height*(3/4),
         leftBuffer: 0,

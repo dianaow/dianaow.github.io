@@ -5,10 +5,10 @@ var bubble = function () {
   /////////////////////////////////////////////////////////////////////////// 
   var svg
   var modal = d3.select("#general")
-
+  console.log(screen.width)
   var margin = {top: 0, right: 0, bottom: 0, left: 0},
-      width = 900 - margin.left - margin.right,
-      height = 900 - margin.top - margin.bottom;
+      width = screen.width <  1500 ? 720 : 900 - margin.left - margin.right,
+      height = screen.width <  1500 ? 720 : 900 - margin.top - margin.bottom;
 
   //////////////////// Set up and initiate containers ///////////////////////
   svg = modal.append("svg")
@@ -93,6 +93,7 @@ var bubble = function () {
         .attr("class", "branchLabel")
         .attr("transform", function (d) { return "translate(" + (d.x-d.r/2-10) + ", " + (d.y) + ")"; })
         .attr('font-weight', 'bold')
+        .attr('font-size', screen.width < 1500 ? '0.8em' : '1.1em')
         .attr('fill', 'white')
         .text(function (d) { return d.data.branch })
 
@@ -100,6 +101,7 @@ var bubble = function () {
     wrapper.append("text")
         .attr("class", "countLabel")
         .attr("transform", function (d) { return "translate(" + (d.x-d.r/2-10) + ", " + (d.y+20) + ")"; })
+        .attr('font-size', screen.width < 1500 ? '0.8em' : '1.1em')
         .attr('fill', 'white')
         .text(function (d) { return Math.round(d.data.count) + ' deaths' });
 
