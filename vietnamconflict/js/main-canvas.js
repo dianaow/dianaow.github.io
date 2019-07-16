@@ -3,8 +3,8 @@ var chart = function () {
   ///////////////////////////////////////////////////////////////////////////
   ///////////////////////////////// Globals /////////////////////////////////
   /////////////////////////////////////////////////////////////////////////// 
-  var canvasDim = { width: screen.width < 1500 ? screen.width*1.35 : screen.width, height: screen.width < 1500 ? screen.height*1.1 : screen.height*1.06}
-  var margin = {top: 10, right: 0, bottom: 0, left: 0}
+  var canvasDim = { width: window.innerWidth <= 1440 ? window.innerWidth*1.3 : window.innerWidth, height: window.innerWidth <= 1440 ? window.innerHeight*1.1 : window.innerHeight}
+  var margin = {top: 0, right: 0, bottom: 0, left: 30}
   var width = canvasDim.width - margin.left - margin.right 
   var height = canvasDim.height - margin.top - margin.bottom 
   var mapWidth = 300
@@ -286,10 +286,10 @@ var chart = function () {
     function update(data, tab) {
 
       var options = {
-        radius: screen.width > 1800 ? 2.1 : 1.9,
-        tilesPerRow: screen.width < 1500 ? 13 : 12,
+        radius: window.innerWidth >= 1920 ? 2.1 : 1.9,
+        tilesPerRow: 11,
         width: width,
-        height: height*(3/4),
+        height: height-80,
         leftBuffer: 0,
         bottomBuffer: 0
       }
@@ -509,6 +509,7 @@ var chart = function () {
         .merge(texts)
         .attr("fill", d => 'black')
         .attr('dy', '0.35em')
+        .attr('font-size', '0.8em')
         .attr("transform", d=> d.key=='xaxis_label' ? "translate(" + d.x + "," + d.y + ")rotate(45)" : "translate(" + d.x + "," + d.y + ")") 
         .attr('text-anchor', d=> d.key=='xaxis_label' ? 'start' : 'middle')
         .text(d=>d.value)
