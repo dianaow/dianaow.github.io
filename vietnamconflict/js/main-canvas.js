@@ -3,7 +3,7 @@ var chart = function () {
   ///////////////////////////////////////////////////////////////////////////
   ///////////////////////////////// Globals /////////////////////////////////
   /////////////////////////////////////////////////////////////////////////// 
-  var canvasDim = { width: window.innerWidth <= 1440 ? window.innerWidth*1.3 : window.innerWidth, height: window.innerWidth <= 1440 ? window.innerHeight*1.1 : window.innerHeight}
+  var canvasDim = { width: window.innerWidth <= 1440 ? window.innerWidth*1.3 : window.innerWidth, height: window.innerWidth <= 1440 ? screen.height*0.9 : screen.height}
   var margin = {top: 0, right: 0, bottom: 0, left: 30}
   var width = canvasDim.width - margin.left - margin.right 
   var height = canvasDim.height - margin.top - margin.bottom 
@@ -287,9 +287,9 @@ var chart = function () {
 
       var options = {
         radius: window.innerWidth >= 1920 ? 2.1 : 1.9,
-        tilesPerRow: 11,
+        tilesPerRow: window.innerWidth <= 1440 ? 12 : 11,
         width: width,
-        height: height-80,
+        height: height*(5/6),
         leftBuffer: 0,
         bottomBuffer: 0
       }
