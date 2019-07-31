@@ -131,27 +131,27 @@
           <div id="dotplot-canvas"></div>
           <div id="dotplot-svg"></div>
         </div>
-          
-      </div>
 
-      <!-- FOOTER -->
-      <div id='footer'>
-        <h3 class='ui header'>About</h3>
-        <p>The data used for this analysis comes from:</p>
-          <ul>
-            <li>The Vietnam Conflict Extract Data File of the Defense Casualty Analysis System (DCAS) Extract Files contains records of 58,220 U.S. military fatal casualties of the Vietnam War. It is accessible for direct download via the <a href='https://catalog.archives.gov/id/2240992' target="_blank">U.S National Archives Catalog</a>.</li>
-            <li>This dataset was taken from <a href='https://www.kaggle.com/orangutan/vietnamconfilct' target="_blank">Kaggle</a> where the raw data was parsed, cleaned and labelled with reference to the accompanying Supplemental Code Lists. I have processed the data further by recategorizing province names.</li>
-          </ul>
-        <p>The realization of this visual data project was performed using several technologies:</p>
-          <ul>
-            <li>Data preparation and analysis was done in Python using <a href='https://github.com/dianaow/dianaow.github.io/blob/master/vietnamconflict/vietnamconflict.ipynb' target="_blank">Jupyter notebook.</a></li>
-            <li>The visuals were created using D3.js. Canvas was used to render the dotplot.</li>
-            <li>The UI framework used is Semantic UI.</li>
-          </ul>
-        <p>Special thanks goes to:</p>
-          <ul>
-            <li><a href='https://twitter.com/andszesztai?lang=en' target="_blank">András Szesztai</a> who inspired this piece with his visualization: <a href='http://boringbarchart.com/influential-painters-of-our-history/' target="_blank">They Gave Colour To Our History</a>.</li>
-          </ul>
+        <!-- FOOTER -->
+        <div id='footer'>
+          <h3 class='ui header'>About</h3>
+          <p>The data used for this analysis comes from:</p>
+            <ul>
+              <li>The Vietnam Conflict Extract Data File of the Defense Casualty Analysis System (DCAS) Extract Files contains records of 58,220 U.S. military fatal casualties of the Vietnam War. It is accessible for direct download via the <a href='https://catalog.archives.gov/id/2240992' target="_blank">U.S National Archives Catalog</a>.</li>
+              <li>This dataset was taken from <a href='https://www.kaggle.com/orangutan/vietnamconfilct' target="_blank">Kaggle</a> where the raw data was parsed, cleaned and labelled with reference to the accompanying Supplemental Code Lists. I have processed the data further by recategorizing province names.</li>
+            </ul>
+          <p>The realization of this visual data project was performed using several technologies:</p>
+            <ul>
+              <li>Data preparation and analysis was done in Python using <a href='https://github.com/dianaow/dianaow.github.io/blob/master/vietnamconflict/vietnamconflict.ipynb' target="_blank">Jupyter notebook.</a></li>
+              <li>The visuals were created using D3.js. Canvas was used to render the dotplot.</li>
+              <li>The UI framework used is Semantic UI.</li>
+            </ul>
+          <p>Special thanks goes to:</p>
+            <ul>
+              <li><a href='https://twitter.com/andszesztai?lang=en' target="_blank">András Szesztai</a> who inspired this piece with his visualization: <a href='http://boringbarchart.com/influential-painters-of-our-history/' target="_blank">They Gave Colour To Our History</a>.</li>
+            </ul>
+        </div>
+
       </div>
 
     </div>
@@ -201,7 +201,7 @@
       chart.run()
       $(document).unbind('scroll'); 
       $('body').css({'overflow':'visible'});
-    }, 3000)
+    }, 1800)
   </script>
 </body>
 </html>

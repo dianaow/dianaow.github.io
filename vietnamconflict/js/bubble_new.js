@@ -116,7 +116,7 @@ var bubble = function () {
     dot.append('circle')
       .attr('r', 40)
       .attr('fill', '#db2828')
-      .transition().ease(d3.easeQuadOut).duration(3000)
+      .transition().ease(d3.easeQuadOut).duration(1500)
       .attr('cy', function (d) { return d.r*1.5 })     
 
     dot.append('text')
@@ -124,7 +124,7 @@ var bubble = function () {
       .attr('opacity', 0)
       .attr('font-weight', 'bold')
       .attr('font-size', '1.2em')
-      .transition().ease(d3.easeQuadOut).duration(3000)
+      .transition().ease(d3.easeQuadOut).duration(1500)
       .attr('x', function (d) { return -25 })
       .attr('y', function (d) { return d.r*1.5+5 }) 
       .text('CLICK')

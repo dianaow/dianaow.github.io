@@ -93,8 +93,8 @@
   top: 10px;      
 }
 #footer {
-  position: absolute;
-  top: 1850px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   width: 60%;
   margin-left: 20%;
   margin-right: 20%;
@@ -111,16 +111,6 @@
 }
 .info {
   padding-left: 20px;
-}
-
-@media (max-width: 1920px) {
-  #footer {
-    position: absolute;
-    top: 2100px;
-    width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
-  }
 }
 
 @media (max-width: 1440px) {
