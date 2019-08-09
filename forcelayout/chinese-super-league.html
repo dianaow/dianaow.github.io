@@ -133,6 +133,13 @@
         top: 0; left: 0; bottom: 0; right: 0;
         box-shadow: inset 0px 0px 150px black;
       }
+      .nodes {
+        display:none;
+      }
+      .nodes2 {
+        display:block;
+      }
+
       /* if device (iPad/iPad pro) in portrait orientation */
       @media only screen 
       and (min-width : 768px) 
@@ -150,6 +157,12 @@
           margin-left: 0px;
           text-align: center;
         }
+        .nodes {
+          display:block;
+        }
+        .nodes2 {
+          display:none;
+        }
       }
 
       /* if device (iPad/iPad pro) in landscape orientation */
@@ -165,6 +178,12 @@
           margin-left: 230px;
           position: absolute;
         }
+        .nodes {
+          display:block;
+        }
+        .nodes2 {
+          display:none;
+        }
       }
 
       /* if mobile device max width 577px */
@@ -176,6 +195,12 @@
           position: relative;
           margin-left: 0px;
           text-align: center;
+        }
+        .nodes {
+          display:block;
+        }
+        .nodes2 {
+          display:none;
         }
       } 
 
@@ -225,7 +250,7 @@
       var ipadPRO_landscape = WIDTH>=1024 & WIDTH<=1366 & ORIENTATION==90 //ipadPro portrait will be similat to a small laptop screen
       var ipad_landscape = WIDTH<=1024 & ORIENTATION==90
       var ipad_portrait = WIDTH<=1024 & ORIENTATION==0
-      var mobile = WIDTH<=577
+      var mobile = window.screen.width<=577
 
       if (ipadPRO_landscape) { console.log('ipadPRO_landscape') }
       if (ipad_landscape) { console.log('ipad_landscape') }

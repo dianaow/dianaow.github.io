@@ -155,7 +155,7 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
       }
     }
   })
-  console.log(dataNew)
+
   ///////////////////////////////////////////////////////////////////////////
   /////////////////////////// Create legend /////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////
@@ -316,11 +316,11 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
       var strengthY = 1
     }
 
-    if (ipad_portrait | ipad_landscape | mobile) {
+    //if (ipad_portrait | ipad_landscape | mobile) {
       updateSame(strengthX, strengthY)
-    } else {
+    //} else {
       update(strengthX, strengthY)
-    }
+    //}
 
   }
   function updateSame(strengthX, strengthY) {
@@ -338,13 +338,13 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
 
     for (var i = 0; i < 200; ++i) simulation2.tick()
     
-    var gnodes = nodes2.selectAll('.node-group').data(dataNew) 
+    var gnodes = nodes.selectAll('.node-group-1').data(dataNew) 
 
     /////////////////// Update static node positions based on simulation  //////////////////////
 
     entered_nodes = gnodes.enter().append('g')
       .attr('id', function(d,i) { return d.star == "Star" ? "star" : "other" })
-      .attr("class", function(d,i) { return "node-group"})
+      .attr("class", function(d,i) { return "node-group-1"})
       .attr("transform", function(d,i) { 
         return "translate(" + d.x + "," + d.y + ")" 
       })
@@ -380,13 +380,13 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
 
     for (var i = 0; i < 200; ++i) simulation2.tick()
     
-    var gnodes = nodes2.selectAll('.node-group').data(dataNew) 
+    var gnodes = nodes2.selectAll('.node-group-2').data(dataNew) 
 
     /////////////////// Update static node positions based on simulation  //////////////////////
 
     entered_nodes = gnodes.enter().append('g')
       .attr('id', function(d,i) { return d.star == "Star" ? "star" : "other" })
-      .attr("class", function(d,i) { return "node-group"})
+      .attr("class", function(d,i) { return "node-group-2"})
       .attr("transform", function(d,i) { 
         return "translate(" + d.x + "," + d.y + ")" 
       })
