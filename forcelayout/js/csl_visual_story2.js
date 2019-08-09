@@ -7,30 +7,33 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   var simulaton, entered_nodes 
   var countries = ['Poland', 'Colombia', 'Spain', 'Brazil', 'Morocco', 'Nigeria', 'Croatia', 'Senegal', 'South Korea', 'Argentina', 'Belgium', 'Australia', 'Serbia', 'Portugal', 'Germany', 'Sweden', 'France', 'Japan', 'Iceland', 'Costa Rica', 'Tunisia', 'Uruguay']
   var axisPad = 6
-  var normalRadius = (screen.width < 1024 ? 7.5 : 7) // responsive design: modify node radius based on device's screen width
   var starRadius = 16
-  
-  // Desktop screen view
-  var screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) * 0.92 
-  var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) 
 
-  // If viewed on mobile or iPad, overwrite dimensions
-  if(screen.width <= 1024){
+  if (ipadPRO_landscape | ipad_landscape) {
     var screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) * 0.92
+    var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) 
+  } else {
+    var screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) * 0.92 
     var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-  } 
+  }
+
+  // responsive design: modify node radius based on device's screen width
+  if (ipadPRO_landscape | ipad_landscape | ipad_portrait) {
+    var normalRadius = 7.5
+  } else {
+    var normalRadius = 7
+  }
 
   // Dimensions of first chart
-  var canvasDim = { width: screenWidth, height: screenHeight}
+  var canvasDim = { width: screenWidth, height: screenHeight }
   var margin = {top: 30, right: 20, bottom: 20, left: 80}
   var width = canvasDim.width - margin.left - margin.right
   var height = canvasDim.height - margin.top - margin.bottom
 
   // Dimensions of second chart
-  var canvasDim2 = { width: screenWidth, height: (screen.width <= 1024 ? height : height) }
+  var canvasDim2 = { width: screenWidth, height: screenHeight }
   var margin2 = {top: 0, right: 30, bottom: 0, left: 100}
   var height2 = canvasDim2.height - margin2.top - margin2.bottom
-
 
   ///////////////////////////////////////////////////////////////////////////
   //////////////////// Set up and initiate containers ///////////////////////
@@ -44,7 +47,7 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
 
   var x_axis = svg.append("g")
     .attr("class", "x_axis")
-    .attr("transform", "translate(0," + (50).toString() +  ")")
+    .attr("transform", "translate(0," + 50 +  ")")
     //.attr("transform", "translate(0," + (canvasDim2.height+70).toString() +  ")")
 
   var y_axis = svg.append("g")
@@ -72,11 +75,11 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
 
   var xScale = d3.scaleLinear()
     .domain([2004, 2019])
-    .rangeRound([margin2.left, width])
+    .rangeRound([0, width])
 
   var yScale = d3.scaleBand()
     .domain(countries.sort(function(x, y){ return countries.indexOf(y) - countries.indexOf(x)}))
-    .range([canvasDim2.height, 50])
+    .range([canvasDim2.height-50, 50])
     //.range([height, canvasDim2.height+70])
     .padding(10)
 
@@ -301,11 +304,22 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
 
     /////////////////// Initialize force simulation 2 - Clustered scatterplot ///////////////////////////
 
+    // responsive design: modify node radius based on device's screen width
+    if (ipad_landscape | mobile) {
+      var strengthX = 1
+      var strengthY = 0.3
+    } else if (ipad_portrait) {
+      var strengthX = 1
+    } else {
+      var strengthX = 1
+      var strengthY = 1
+    }
+
     var simulation2 = d3.forceSimulation()  
       .force('charge', d3.forceManyBody().strength(1))
       .force("collide", d3.forceCollide(function(d,i) { return d.star == "Star" ? starRadius+0.5 : normalRadius-4+0.5 }))
-      .force('x', d3.forceX().strength(1).x(d => d.star == "Star" ? d.x-8 : d.x)) // shift node of star player slightly to the left for aesthetic purpose
-      .force('y', d3.forceY().strength(1).y(d => d.y))
+      .force('x', d3.forceX().strength(strengthX).x(d => d.star == "Star" ? d.x-8 : d.x)) // shift node of star player slightly to the left for aesthetic purpose
+      .force('y', d3.forceY().strength(strengthY).y(d => d.y))
       //.alphaDecay(0.1)
       //.velocityDecay(0.4)
       .stop()
@@ -383,7 +397,7 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
       gnodes.selectAll('#other #circle-' + d.player.replace(/[^A-Z0-9]+/ig, "_") + "-" + d.club.replace(/[^A-Z0-9]+/ig, "_"))
         .attr('r', function(d,i) { return d.radius })
         .attr('stroke', 'darkorange')
-        .attr('stroke-width', '2px')
+        .attr('stroke-width', '5px')
         .attr('z-index', 999)
 
       gnodes.selectAll('#star #circle-' + d.player.replace(/[^A-Z0-9]+/ig, "_") + "-" + d.club.replace(/[^A-Z0-9]+/ig, "_"))

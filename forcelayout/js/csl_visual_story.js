@@ -9,11 +9,22 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   var nodes = [] // array to store ALL nodes
   var links = [] // array to store ALL links
 
-  var multiplier = screen.width <= 420 ? 0.53 : (screen.width <= 1024 ? 0.75 : 1) 
-  var screenWidth = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * multiplier
-  var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * 1.2
-  var canvasDim = { width: screenWidth, height: screenHeight}
+  // responsive design: modify network chart radius based on device's screen width
+  if (mobile) {
+    var multiplier = 0.55
+  } else if (ipad_landscape) {
+    var multiplier = 1
+  } else if (ipad_portrait) {
+    var multiplier = 0.7
+  } else if (ipadPRO_landscape) {
+    var multiplier = 1
+  } else {
+    var multiplier = 0.95
+  }
 
+  var screenWidth = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * multiplier
+  var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+  var canvasDim = { width: screenWidth, height: screenHeight}
   var margin = {top: 20, right: 20, bottom: 20, left: 20}
   var width = canvasDim.width - margin.left - margin.right 
   var height = canvasDim.width - margin.top - margin.bottom 

@@ -11,11 +11,6 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
     <script src="js/bboxCollision.js"></script>
-    <script src="js/csl_visual_story.js"></script>
-    <script src="js/csl_visual_story2.js"></script>
-    <script type="text/javascript">
-      window.onbeforeunload = function(){ window.scrollTo(0,0); }
-    </script>
     <style>
       body {
         margin: 0px;
@@ -31,7 +26,7 @@
         padding: 10px 20px;
         background-color: #DCDCDC;
         /*background-color: #201F1D;*/
-        height: 120vh;
+        height: 110vh;
       }
       .div2 {
         padding: 10px 20px;
@@ -88,9 +83,13 @@
         padding-left: 20px;
         color: #212121;
       }
-      .desc > p {
-        line-height: 1.6em;
+      .desc > .desc-main {
+        line-height: 1.4em;
         font-size: 1.2em;
+      }
+      .desc > .desc-sub {
+        line-height: 1em;
+        font-size: 0.8em;
       }
       .header {
         display: flex;
@@ -134,35 +133,60 @@
         top: 0; left: 0; bottom: 0; right: 0;
         box-shadow: inset 0px 0px 150px black;
       }
-      /* if mobile device max width 420px */
-      @media only screen and (max-device-width: 420px) {
+      /* if device (iPad/iPad pro) in portrait orientation */
+      @media only screen 
+      and (min-width : 768px) 
+      and (max-width : 1366px)
+      and (orientation: portrait) {
+        .div1 {
+          height: 90vh;
+        }
         .desc {
           width: 90vw;
-          padding-top: 30px;
+          padding-top: 0px;
         }
         #chart { 
           position: relative;
           margin-left: 0px;
+          text-align: center;
         }
-      } 
+      }
 
-      /* if device (iPad/iPad pro) width greater than 768px and less than 1024px */
+      /* if device (iPad/iPad pro) in landscape orientation */
       @media only screen 
-      and (min-device-width : 768px) 
-      and (max-device-width : 1024px)  {
+      and (min-width : 768px) 
+      and (max-width : 1366px)
+      and (orientation: landscape) {
+        .desc {
+          padding-top: 0px;
+          width: 220px;
+        }
+        #chart {
+          margin-left: 230px;
+          position: absolute;
+        }
+      }
+
+      /* if mobile device max width 577px */
+      @media only screen and (max-device-width: 577px) {
         .desc {
           width: 90vw;
-          padding-top: 30px;
         }
-        .desc > p {
-          line-height: 1.6em;
-          font-size: 1em;
+        .desc > .desc-main {
+          line-height: 1em;
+          font-size: 0.8em;
+        }
+        .desc > .desc-sub {
+          line-height: 0.65em;
+          font-size: 0.65em;
         }
         #chart { 
           position: relative;
-          margin-left: -20px;
+          margin-left: 0px;
+          text-align: center;
         }
-      }
+      } 
+
     </style>
   </head>
 
@@ -180,8 +204,8 @@
 
       <div class='div1'>
         <div class ='desc' style="float:left">
-          <p>How are professional soccer players from the top 32 countries qualified for the 2018 FIFA World Cup involved in the Chinese Super League? Hover over any team node to see how players (from 2004 to 2019) from each country are connected to teams</p>
-          <p style="font-size:0.8em">Amongst these 32 countries, Russia and Saudi Arabia do not have any representatives in CSL. Since only countries with 4 or more players are visualized, Iran, Switzerland, England, Denmark, Peru and Egypt are excluded.</p>
+          <p class='desc-main'>How are professional soccer players from the top 32 countries qualified for the 2018 FIFA World Cup involved in the Chinese Super League? Hover over any team node to see how players (from 2004 to 2019) from each country are connected to teams</p>
+          <p class='desc-sub'>Amongst these 32 countries, Russia and Saudi Arabia do not have any representatives in CSL. Since only countries with 4 or more players are visualized, Iran, Switzerland, England, Denmark, Peru and Egypt are excluded.</p>
         </div>
         <div id="chart"></div>
       </div>
@@ -198,6 +222,26 @@
       </div>
 
     </div>
+    <script src="js/csl_visual_story.js"></script>
+    <script src="js/csl_visual_story2.js"></script>
+    <script type="text/javascript">
+      window.onbeforeunload = function(){ window.scrollTo(0,0); }
+      var WIDTH = Math.min(document.documentElement.clientWidth, screen.width)
+      var ORIENTATION = Math.abs(screen.orientation.angle)
+      var desktop = WIDTH>1680
+      var laptop = WIDTH>=1024 & WIDTH<=1680
+      var ipadPRO_landscape = WIDTH>=1024 & WIDTH<=1366 & ORIENTATION==90 //ipadPro portrait will be similat to a small laptop screen
+      var ipad_landscape = WIDTH<=1024 & ORIENTATION==90
+      var ipad_portrait = WIDTH<=1024 & ORIENTATION==0
+      var mobile = WIDTH<=577
+
+      if (ipadPRO_landscape) { console.log('ipadPRO_landscape') }
+      if (ipad_landscape) { console.log('ipad_landscape') }
+      if (ipad_portrait) { console.log('ipad_portrait') }
+      if (laptop) { console.log('laptop') }
+      if (desktop) { console.log('desktop') }
+      if (mobile) { console.log('mobile') }
+    </script>
   </body>
 
 </html>
