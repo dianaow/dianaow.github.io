@@ -167,15 +167,15 @@ var main = function () {
             if(playing == false) {  // if the map is currently playing
               if(initialized==false) {
                 t = d3.zoomIdentity.translate(-750, -150).scale(1.8)
-                g.transition().duration(750).attr("transform", t)
+                g.transition().duration(250).attr("transform", t)
                 currentDayId = 0
-                timer = d3.pausableTimer(function(elapsed) { animateMarkers(days, elapsed, 0) }, 250)
+                timer = d3.pausableTimer(function(elapsed) { animateMarkers(days, elapsed, 0) }, 350)
                 initialized=true
                 d3.select(this).attr('value', 'Stop');  // change the button label to stop
               } else {
                 if(dragged == true) {
                   currentDayId = 0
-                  timer = d3.pausableTimer(function(elapsed) { animateMarkers(days, elapsed, initDayId) }, 250)
+                  timer = d3.pausableTimer(function(elapsed) { animateMarkers(days, elapsed, initDayId) }, 350)
                 } else {
                   timer.resume()
                 }

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Portfolio</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins|Roboto|Karla" rel="stylesheet">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <link href="../../../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../../../../vendor/jquery/jquery.min.js"></script>
+    <script src="../../../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../../vendor/prism.js"></script>
+    <link href="../../../../vendor/themes/prism.css" rel="stylesheet" />
+    <link href="../../../../css/global.css" rel="stylesheet">
+    <link href="../../../../css/blog.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+      <div id="navbarResponsive">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a style='font-family:Poppins;' class="nav-link" href="https://dianameow.com">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a style='font-family:Poppins;' class="nav-link" href="https://dianameow.com/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a style='font-family:Poppins;' class="nav-link" href="https://dianameow.com/projects/fun.html">Portfolio</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class='header-container'>
+      <div class='header'>
+        <div></div>
+        <div class='header-desc'>
+          <h2>How to create animated SVG Arc Paths</h2>
+          <p style="font-family:Roboto;color:slategrey;text-align:center;">Posted on 4 August, 2019</p>
+        </div>
+        <div></div>
+      </div>
+    </div>
+
+    <div class='wrapper'>
+      <div class='wrapper-group'>
+
+        <div class='box'>
+          <hr>
+          <h4>Render paths</h4>
+
+          <div class='box-group'>
+            <div class='box-sub'>
+              <p class='box-sub-desc'>Code</p>
+            </div>
+            <div class='box-content'>
+              <div class='box-group-nest'>
+                <div class="grid">
+                  <p>Let's start off with straight lines. Create 12 'spokes' around a point. SVG lines are straightforward to create, you simply need to populate the x1, y1, x2, y2 attributes of a line element</p>
+                  <ul>
+                    <li>The x1 attribute defines the start of the line on the x-axis</li>
+                    <li>The y1 attribute defines the start of the line on the y-axis</li>
+                    <li>The x2 attribute defines the end of the line on the x-axis</li>
+                    <li>The y2 attribute defines the end of the line on the y-axis</li>
+                  </ul>
+                  <div id='straight-lines'></div>
+                </div>
+                <div class="grid">
+                  <p>Creating a smooth arc between two points is much more challenging. </p>
+                  <svg id='curve-lines-1'></svg>
+                  <svg id='curve-lines-2'></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class='box'>
+          <hr>
+          <h4>Extra: Path Gradient</h4>
+
+          <div class='box-group'>
+            <div class='box-sub'>
+              <p class='box-sub-desc'>Code</p>
+              <p class='box-sub-tips'>Linear gradients some display unpredicatable behaviour depending on the path coordinates. For example, a gradient cannot be applied along a vertical line, and work </p>
+            </div>
+            <div class='box-content'>
+              <p>To represent path direction or for an aesthetic flourish, a gradient can be applied along an SVG path</p>
+              <p></p>
+              <div class='box-group' style='height:auto'>
+                <div class="grid">
+                  <svg id='straight-lines-gradient-1'>
+                    <defs>
+                      <linearGradient id="LinkStroke1" spreadMethod="pad">
+                        <stop offset="0%" stop-color='#45ADA8' stop-opacity="0%"></stop>
+                        <stop offset="90%" stop-color='#FABF4B' stop-opacity="100%"></stop>
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+
+                <div class="grid">
+                  <svg id='straight-lines-gradient-2'>
+                    <defs>
+                      <linearGradient id="LinkStroke1" spreadMethod="pad">
+                        <stop offset="0%" stop-color='#45ADA8' stop-opacity="0%"></stop>
+                        <stop offset="90%" stop-color='#FABF4B' stop-opacity="100%"></stop>
+                      </linearGradient>
+                      <linearGradient id="LinkStroke2" spreadMethod="pad">
+                        <stop offset="0%" stop-color='#FABF4B' stop-opacity="0%"></stop>
+                        <stop offset="90%" stop-color='#45ADA8' stop-opacity="100%"></stop>
+                      </linearGradient> 
+                    </defs>
+                  </svg>
+                </div>
+              </div>
+
+              <div class='box-group' style='height:auto'>
+                <div class="grid">
+                  <svg id='curve-lines-gradient-1'>
+                    <defs>
+                      <linearGradient id="LinkStroke1" spreadMethod="pad">
+                        <stop offset="0%" stop-color='#45ADA8' stop-opacity="0%"></stop>
+                        <stop offset="90%" stop-color='#FABF4B' stop-opacity="100%"></stop>
+                      </linearGradient>
+                      <linearGradient id="LinkStroke2" spreadMethod="pad">
+                        <stop offset="0%" stop-color='#FABF4B' stop-opacity="0%"></stop>
+                        <stop offset="90%" stop-color='#45ADA8' stop-opacity="100%"></stop>
+                      </linearGradient> 
+                    </defs>
+                  </svg>
+                </div>
+
+                <div class="grid">
+                  <svg id='curve-lines-gradient-2'>
+                  </svg>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class='box'>
+          <hr>
+          <h4>Animate line visibility</h4>
+
+          <div class='box-group'>
+            <div class='box-sub'>
+              <p class='box-sub-desc'>Code</p>
+            </div>
+            <div class='box-content'>
+              <p>The simpliest line animation, useful for representing path flow and direction.</p>
+              <div class="grid">
+                <svg id='curve-lines-gradient-3'>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class='box'>
+          <hr>
+          <h4>Pulse animation</h4>
+
+          <div class='box-group'>
+            <div class='box-sub'>
+              <p class='box-sub-desc'>Code</p>
+            </div>
+            <div class='box-content'>
+              <p>This method while eye-catching at first, its use to show flow/movement is contentious if there are too many interspersing lines going in all directions or wide range of dots from path to path. Performance issues also occur if there are too many dots to be rendered.</p>
+              <div class="grid">
+                <svg id='curve-lines-gradient-4'>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <script src="./js/animate.js"></script>
+    <script src="./js/arc.js"></script>
+    <script src="./js/1-straight-lines.js"></script>
+    <script src="./js/1-curved-lines-1.js"></script>
+    <script src="./js/1-curved-lines-2.js"></script>
+    <script src="./js/3-straight-lines-gradient-1.js"></script>
+    <script src="./js/3-straight-lines-gradient-2.js"></script>
+    <script src="./js/3-curve-lines-gradient-1.js"></script>
+    <script src="./js/3-curve-lines-gradient-2.js"></script>
+    <script src="./js/3-curve-lines-gradient-3.js"></script>
+    <script src="./js/3-curve-lines-gradient-4.js"></script>
+  </body>
+</html>

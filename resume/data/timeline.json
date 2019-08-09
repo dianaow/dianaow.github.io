@@ -1,0 +1,47 @@
+[
+  {
+    "startdate": "2011-08-01",
+    "enddate": "2015-08-01",
+    "title": "Nanyang Technological University, Singapore, Mechanical Engineering",
+    "shorttitle": "Nanyang Technological University, Mechanical Engineering",
+    "type": "education",
+    "glyph": "star",
+    "description": "<p style='padding: 0px; margin: 0px;'>Bachelor of Engineering (Mechanical Engineering), Minor in Business</p><p style='padding: 0px; margin: 0px;'>2nd Class Lower Honours </p>"
+  },
+  {
+    "startdate": "2016-02-01",
+    "enddate": "2017-10-01",
+    "title": "Business Process Analyst, Agilent Technologies",
+    "shorttitle": "Business Analyst, Agilent Technologies",
+    "type": "job",
+    "glyph": "star",
+    "description": "<ul><li> Identified end-to-end service delivery process improvements through designing measurement metrics and statistical analysis of operation team’s performance </li><li> Created data visualization dashboards and wrote Excel VBA scripts to extract data and automate report generation, with the opportunity to present to higher management</li><li> Responsible for developing and maintaining internal customer service organization website</li></ul>"
+  },
+    {
+    "startdate": "2017-11-01",
+    "enddate": "2018-02-01",
+    "title": "General Assembly, Data Science Immersive",
+    "shorttitle": "General Assembly, Data Science",
+    "type": "education",
+    "glyph": "star",
+    "description": "<p>Hands-on practice with Python, SQL web scraping, data munging, predictive analytics - Statistical Modeling, Supervised and Unsupervised Machine Learning </p>"
+  },
+  {
+    "startdate": "2018-07-01",
+    "enddate": "2019-01-01",
+    "title": "Data Science Intern, Mclaren Applied Technologies (Singapore)",
+    "shorttitle": "Data Science Intern, Mclaren",
+    "type": "job",
+    "glyph": "star",
+    "description": "<ul><li> Responsible for developing and coding (in Matlab and Python) data preprocessing and feature generation algorithms for data science project </li><li> Supported data science team in formulating hypothesis testing methods, data mining and creating data visualizations presented to client</li></ul>"
+  },
+  {
+    "startdate": "2019-04-01",
+    "enddate": "",
+    "title": "Data Visualization Developer, Refinitiv Labs (Singapore)",
+    "shorttitle": "Data Viz Developer, Refinitiv",
+    "type": "job",
+    "glyph": "star",
+    "description": "<ul><li> Designed, prototyped and built interactive visualizations that help users rapidly understand complex data and relationships for financial data</li><li> Worked with data scientists to produce publication quality data visualizations to accompany write-up to illustrate project insights</li></ul>"
+  }
+]

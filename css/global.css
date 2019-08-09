@@ -1,12 +1,64 @@
 body {
   margin: 0;
   padding-top: 40px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Karla', sans-serif;
   font-style: normal;
   font-weight: normal;
 }
-h1, a {
-  font-family: 'Poppins', sans-serif;
+
+h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2em;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    font-weight: 700;
+
+}
+
+h2 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: lighter;
+    font-size: 1.8em;
+    margin-top: 20px;
+    margin-bottom: 0.9em;
+}
+
+h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 100;
+    font-size: 1.2em;
+    margin-top: 0.9em;
+    line-height: 1.2em;
+}
+
+h4 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 100;
+    font-size: 1.2em;
+    margin-top: 0.9em;
+    line-height: 1.2em;
+    text-align: left;
+}
+
+b {
+    font-weight: 900;
+}
+
+p {
+  text-align:left;
+  line-height: 1.2em;
+}
+
+li {
+  text-align:left;
+}
+
+.navbar, .navbar-nav {
+  background: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding:10px;
 }
 
 .navbar-nav {
