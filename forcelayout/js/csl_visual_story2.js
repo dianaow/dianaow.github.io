@@ -18,8 +18,8 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   }
 
   // responsive design: modify node radius based on device's screen width
-  if (ipadPRO_landscape | ipad_landscape | ipad_portrait) {
-    var normalRadius = 7.5
+  if (mobile) {
+    var normalRadius = 8
   } else {
     var normalRadius = 7
   }
@@ -310,10 +310,62 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
       var strengthY = 0.3
     } else if (ipad_portrait) {
       var strengthX = 1
+      var strengthY = 0.6
     } else {
       var strengthX = 1
       var strengthY = 1
     }
+
+    if (mobile) {
+      updateSame(strengthX, strengthY)
+    } else {
+      update(strengthX, strengthY)
+    }
+
+  }
+  function updateSame(strengthX, strengthY) {
+
+    var simulation2 = d3.forceSimulation()  
+      .force('charge', d3.forceManyBody().strength(1))
+      .force("collide", d3.forceCollide(normalRadius-4+0.5))
+      .force('x', d3.forceX().strength(strengthX).x(d => d.star == "Star" ? d.x-8 : d.x)) // shift node of star player slightly to the left for aesthetic purpose
+      .force('y', d3.forceY().strength(strengthY).y(d => d.y))
+      //.alphaDecay(0.1)
+      //.velocityDecay(0.4)
+      .stop()
+
+    simulation2.nodes(dataNew)
+
+    for (var i = 0; i < 200; ++i) simulation2.tick()
+    
+    var gnodes = nodes2.selectAll('.node-group').data(dataNew) 
+
+    /////////////////// Update static node positions based on simulation  //////////////////////
+
+    entered_nodes = gnodes.enter().append('g')
+      .attr('id', function(d,i) { return d.star == "Star" ? "star" : "other" })
+      .attr("class", function(d,i) { return "node-group"})
+      .attr("transform", function(d,i) { 
+        return "translate(" + d.x + "," + d.y + ")" 
+      })
+
+    entered_nodes
+      .append("circle")
+        .attr('id', function(d,i) { return "circle-" + d.player.replace(/[^A-Z0-9]+/ig, "_") + "-" + d.club.replace(/[^A-Z0-9]+/ig, "_") })
+        .attr('r', normalRadius-4)
+        .attr('fill', function(d,i) { return colorScale(d.duration) })
+        .attr('fill-opacity', 1)
+        .attr('stroke', 'none')
+
+    gnodes = gnodes.merge(entered_nodes) // required to merge entering elements before we can use 'gnodes.on('mouseover')'
+
+    gnodes.exit().remove()
+
+    interactive(gnodes)
+
+  }
+
+  function update(strengthX, strengthY) {
 
     var simulation2 = d3.forceSimulation()  
       .force('charge', d3.forceManyBody().strength(1))
@@ -328,13 +380,7 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
 
     for (var i = 0; i < 200; ++i) simulation2.tick()
     
-    var gnodes2 = nodes2.selectAll('.node-group').data(dataNew) 
-
-    update(gnodes2)
-
-  }
-
-  function update(gnodes) {
+    var gnodes = nodes2.selectAll('.node-group').data(dataNew) 
 
     /////////////////// Update static node positions based on simulation  //////////////////////
 
@@ -388,7 +434,14 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
 
     gnodes.exit().remove()
 
-    /////////////////// Interactivity  ///////////////////////////
+    interactive(gnodes)
+  }
+
+  ///////////////////////////////////////////////////////////////////////////
+  //////////////////////////////// Interactivity  ///////////////////////////
+  ///////////////////////////////////////////////////////////////////////////
+
+  function interactive(gnodes) {
 
     gnodes.on('mouseover', function (d,i) {
  
@@ -427,7 +480,7 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   }
 
   ///////////////////////////////////////////////////////////////////////////
-  ////////////////////////// Set up tooltip  ////////////////////////////////
+  ///////////////////////////// Set up tooltip //////////////////////////////
   ///////////////////////////////////////////////////////////////////////////
 
   function updateTooltipContent(d) {

@@ -11,19 +11,19 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
 
   // responsive design: modify network chart radius based on device's screen width
   if (mobile) {
-    var multiplier = 0.55
+    var multiplier = 1
   } else if (ipad_landscape) {
-    var multiplier = 1
+    var multiplier = 0.8
   } else if (ipad_portrait) {
-    var multiplier = 0.7
-  } else if (ipadPRO_landscape) {
     var multiplier = 1
+  } else if (ipadPRO_landscape) {
+    var multiplier = 0.8
   } else {
-    var multiplier = 0.95
+    var multiplier = 1
   }
 
-  var screenWidth = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * multiplier
-  var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+  var screenWidth = 900 * multiplier
+  var screenHeight = 900
   var canvasDim = { width: screenWidth, height: screenHeight}
   var margin = {top: 20, right: 20, bottom: 20, left: 20}
   var width = canvasDim.width - margin.left - margin.right 
