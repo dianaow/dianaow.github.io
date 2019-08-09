@@ -316,7 +316,7 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
       var strengthY = 1
     }
 
-    if (mobile) {
+    if (ipad_portrait | ipad_landscape | mobile) {
       updateSame(strengthX, strengthY)
     } else {
       update(strengthX, strengthY)

@@ -9,6 +9,7 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   var nodes = [] // array to store ALL nodes
   var links = [] // array to store ALL links
 
+  console.log(mobile)
   // responsive design: modify network chart radius based on device's screen width
   if (mobile) {
     var multiplier = 1
