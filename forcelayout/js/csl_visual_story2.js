@@ -9,13 +9,8 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   var axisPad = 6
   var starRadius = 16
 
-  if (ipadPRO_landscape | ipad_landscape) {
-    var screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) * 0.92
-    var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) 
-  } else {
-    var screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) * 0.92 
-    var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-  }
+  var screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0) * 0.92 
+  var screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
 
   // responsive design: modify node radius based on device's screen width
   if (mobile) {

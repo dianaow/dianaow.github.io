@@ -3,6 +3,7 @@ function skills() {
     var groupChartData = [
     { "0": 7, "1": 10, "skill": "Javascript" }, 
     { "0": 8, "1": 10, "skill": 'D3.js' }, 
+    { "0": 7, "1": 10, "skill": 'CSS' },
     { "0": 7, "1": 10, "skill": "React" },
     { "0": 7, "1": 9, "skill": "Python" },
     { "0": 5, "1": 7, "skill": "SQL" },
