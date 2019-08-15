@@ -918,7 +918,6 @@ var main = function () {
           return top_countries
         }
 
-
       }
 
     } 
