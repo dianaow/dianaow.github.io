@@ -114,12 +114,16 @@ h5 {
 .stats-perc {
   padding-top: 20px;
   padding-bottom: 0px;
-  opacity: 0;
 }
 .country-ratio {
   opacity: 0;
 }
-
+#country-header {
+  height: 50px;
+}
+#country-details {
+  height: 250px;
+}
 .country-name {
   text-transform: uppercase;
 }

@@ -41,7 +41,7 @@
 
       <div class='menu'>
         <div id='global-header'>  
-          <p>Select a country from the dropdown or click one on the map
+          <p>Select a <span style="color:#FDB715">donor</span> or <span style="color:#70CACB">recipient</span> country from the dropdown or click one on the map
             <button class="ui mini inverted icon button" id='reset' onclick='reset()'>Reset</button>
           </p>
 
@@ -68,24 +68,20 @@
         <svg>
           <defs>
               <linearGradient id="originLinkStroke1" spreadMethod="pad">
-                  <stop offset="10%" stop-color="#FF5000"></stop>
-                  <stop offset="50%" stop-opacity="10%" stop-color="#7887a0"></stop>
-                  <stop offset="90%" stop-color="#00D0D4"></stop>
+                  <stop offset="30%" stop-color="#FDB715"></stop>
+                  <stop offset="70%" stop-color="#70CACB"></stop>
               </linearGradient>
               <linearGradient id="originLinkStroke2" spreadMethod="pad">
-                  <stop offset="10%" stop-color="#00D0D4"></stop>
-                  <stop offset="50%" stop-opacity="10%" stop-color="#7887a0"></stop>
-                  <stop offset="90%" stop-color="#FF5000"></stop>
+                  <stop offset="30%" stop-color="#70CACB"></stop>
+                  <stop offset="70%" stop-color="#FDB715"></stop>
               </linearGradient> 
               <linearGradient id="destinationLinkStroke1" spreadMethod="pad">
-                  <stop offset="10%" stop-color="#FF5000"></stop>
-                  <stop offset="50%" stop-opacity="10%" stop-color="#7887a0"></stop>
-                  <stop offset="90%" stop-color="#00D0D4"></stop>
+                  <stop offset="30%" stop-color="#FDB715"></stop>
+                  <stop offset="70%" stop-color="#70CACB"></stop>
               </linearGradient>   
               <linearGradient id="destinationLinkStroke2" spreadMethod="pad">
-                  <stop offset="10%" stop-color="#00D0D4"></stop>
-                  <stop offset="50%" stop-opacity="10%" stop-color="#7887a0"></stop>
-                  <stop offset="90%" stop-color="#FF5000"></stop>
+                 <stop offset="30%" stop-color="#70CACB"></stop>
+                  <stop offset="70%" stop-color="#FDB715"></stop>
               </linearGradient>
           </defs>
         </svg>
@@ -93,13 +89,12 @@
 
       <div id='panel'>
         <h1 class="country-name"></h1>
-        <div class="ui inverted divider"></div>
         <div id='country-header'> 
             <div class='row'>
               <div class="ui tiny statistic stats-sum">
                 <div class="label">Commitment Amount</div>
                 <div class="value"></div>
-                <div class='stats-perc'>
+                <!--<div class='stats-perc'>
                   <div class="ui white mini statistic perc_recipient">
                     <div class="value"></div>
                     <div class="label">RECIPIENTS</div>
@@ -108,7 +103,7 @@
                     <div class="value"></div>
                     <div class="label">DONORS</div>
                   </div>
-                </div>
+                </div>-->
               </div>
               <div class="ui tiny statistic country-ratio">
                 <h3>Donor : Recipient</h3>
@@ -121,14 +116,9 @@
             </div>
         </div>
 
-        <div id='country-details'>
-          <div class='row'>
-            <div class='countries-ranking'>
-              <h3>Countries</h3>
-              <div class='countries-ranking-content'></div>
-            </div>
-          </div>
-        </div>
+        <div class='stats-perc'></div>
+        <div class='countries-content'></div>
+
       </div> 
 
     </div>
@@ -138,7 +128,7 @@
   <script>
 
     var toggle, reset, zoomIn, zoomOut
-    var colors = {'recipient': '#00D0D4', 'donor': '#FF5000', 'net': 'white'}
+    var colors = {'recipient': '#70CACB', 'donor': '#FDB715', 'net': 'white'}
     $(document).ready(function(){
       $('.ui .item').on('click', function() {
       $('.ui .item').removeClass('active');

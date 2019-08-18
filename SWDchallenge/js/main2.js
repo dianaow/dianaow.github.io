@@ -3,7 +3,7 @@ var main = function () {
   ///////////////////////////////////////////////////////////////////////////
   ///////////////////////////////// Globals /////////////////////////////////
   /////////////////////////////////////////////////////////////////////////// 
-  var connData, densityData, arcs, all_arcs, bubbles, newCountry, lineGenerator, bounds
+  var connData, densityData, arcs, all_arcs, bubbles, newCountry
 
   var ipadPRO_landscape = Math.min(window.innerWidth, screen.width)>1024 & Math.min(window.innerWidth, screen.width)<=1366 & (Math.abs(screen.orientation.angle == 90))
   var ipad_landscape = Math.min(window.innerWidth, screen.width)<=1024 & (Math.abs(screen.orientation.angle == 90))
@@ -23,7 +23,7 @@ var main = function () {
   var NUM_VAR = 2
   var newCategory = 'net'
   var newYear = 'All'
-  var DEFAULT_MAP_COLOR = 'black'
+  var DEFAULT_MAP_COLOR = 'white'
   var DEFAULT_MAP_STROKE = 'black'
   var DEFAULT_PATH_WIDTH = 1
   var M = d3.formatPrefix(",.0", 1e6)
@@ -70,11 +70,19 @@ var main = function () {
       bubbles = g.append("g").attr("class","bubbles")
       arcs = g.append("g").attr("class","arcs")
       all_arcs = g.append("g").attr("class","all_arcs")
-      
-      var stats_perc = d3.select('.stats-perc').append('svg')
+
+      var svg_panel = d3.select('.countries-ranking-content').append('svg')
         .attr("width", '330px')
-        .attr("height", '50px')
-            
+        .attr("height", '150px')
+
+      var donor_rank = svg_panel.append("g")
+        .attr("class",".donor-rank")
+        .attr('transform', "translate(" + 0 + "," + 0 + ")")
+
+      var recipient_rank = svg_panel.append("g")
+        .attr("class",".recipient-rank")
+        .attr('transform', "translate(" + 165 + "," + 0 + ")")
+
       loadData()
 
       ///////////////////////////////////////////////////////////////////////////
@@ -84,12 +92,12 @@ var main = function () {
       function loadData() {
 
         d3.queue()   // queue function loads all external data files asynchronously 
-          .defer(d3.json, './data/custom1.geo.json')
+          .defer(d3.json, './data/asia.geo.json')
           .defer(d3.csv, './data/wn_country_PT.csv')  
           .defer(d3.csv, './data/all_country_PT.csv')  
           .defer(d3.csv, './data/all_country_pctPT.csv')
-          .defer(d3.csv, './data/all_country.csv')  
-          .defer(d3.csv, './data/countries_ranking.csv')
+          .defer(d3.csv, './data/all_countryPT.csv') 
+          .defer(d3.csv, './data/countries_ranking.csv') 
           .await(processData);   
 
       }
@@ -106,6 +114,17 @@ var main = function () {
         timelineData = csv4
         countriesData = csv5
 
+        var asia = ['Afghanistan', 'American Samoa', 'Australia', 'Bangladesh',
+       'Bhutan', 'Brunei Darussalam', 'Cambodia', 'China', 'Fiji',
+       'French Polynesia', 'Guam', 'Hong Kong', 'India', 'Indonesia',
+       'Japan', 'Kiribati', "Korea, Dem. People's Rep.", 'Korea, Rep.',
+       'Laos', 'Macau', 'Malaysia', 'Maldives', 'Marshall Islands',
+       'Micronesia, Fed. Sts.', 'Mongolia', 'Myanmar', 'Nauru', 'Nepal',
+       'New Caledonia', 'New Zealand', 'Northern Mariana Islands',
+       'Pakistan', 'Palau', 'Papua New Guinea', 'Philippines', 'Samoa',
+       'Singapore', 'Solomon Islands', 'Sri Lanka', 'Taiwan', 'Thailand',
+       'Timor-Leste', 'Tonga', 'Tuvalu', 'Vanuatu', 'Vietnam']
+
         world = geoJSON.features;  // store the path in variable for ease
         for (var i in connData) {    // for each geometry object
           for (var j in world) {  // for each row in the CSV
@@ -118,17 +137,21 @@ var main = function () {
           }
         }
 
+        // only plot countries in asia
+        connData = connData.filter(d=>asia.indexOf(d.country) != -1)
+
         menu()
-        createLineChart()
         updateGlobalPanel()
         drawMap(world)
         drawCirclesMap('show_all')
         drawAllLinksMap(world)
-
+        
         var countries = densityData.map(d=>d.country).filter(onlyUnique)
         var selectedPaths = countriesPaths.filter(d=>countries.indexOf(d.properties.name)!=-1)
         interactive(selectedPaths)
         interactive(d3.selectAll(".bubble")) 
+        interactive(d3.selectAll('.bar'))
+
       }
 
       ///////////////////////////////////////////////////////////////////////////
@@ -268,21 +291,21 @@ var main = function () {
       //////////////////////////////// Render map ///////////////////////////////
       ///////////////////////////////////////////////////////////////////////////
       if (ipadPRO_landscape) {
-        var scale = width/6
-        var translateX = 0
-        var translateY = 0
+        var scale = width/4
+        var translateX = -width/2
+        var translateY = height/12
       } else if (ipad_portrait) {
-        var scale = width/5.5 
-        var translateX = 0
-        var translateY = 0
+        var scale = width/3.5
+        var translateX = -width/2
+        var translateY = height/12
       } else if (desktop){
-        var scale = width/6
-        var translateX = 0
-        var translateY = 120
+        var scale = width/3.5
+        var translateX = -width/2
+        var translateY = height/12
       } else {
-        var scale = width/6.2
-        var translateX = 0
-        var translateY = 120
+        var scale = width/3.5
+        var translateX = -width/2
+        var translateY = height/12
       }
 
       var projection = d3.geoMercator()
@@ -454,7 +477,7 @@ var main = function () {
           .merge(arcPaths)
           .attr('class', 'line')
           .attr('id', function(d,i){ return 'line-' + d.id })
-          .attr('d', function(d) {
+          .attr('d', function(d) { 
             return line(d, 'sourceLocation', 'targetLocation')
             //var a = Math.atan2(d.targetLocation[1] - d.sourceLocation[1], d.targetLocation[0] - d.sourceLocation[0]) * (180 / Math.PI)
             //return arc(d, 'sourceLocation', 'targetLocation', 1)
@@ -763,20 +786,14 @@ var main = function () {
         var count_recipient = d3.sum(densityData.filter(d=>d.category == 'recipient'), d=>d['All'])
         var total = count_donor+count_recipient
   
-        d3.select('.statistic.stats-sum > .value').html("$ " + M(total))
+        d3.select('.statistic.stats-sum > .value')
+          .html("$ " + M(total))
 
-        //d3.select('.stats-perc').style('opacity', 0)
+        d3.select('.stats-perc').style('opacity', 0)
         d3.select('.country-ratio').style('opacity', 0)
- 
-        var barData = [
-         {category: 'donor', perc: 8},
-         {category: 'recipient', perc: 8}
-        ]
-        barChart(barData, "no_label")
 
-        lineData = timelineData.filter(d=>(d.country == "All") & (d.year != "All"))
-        var maxY = d3.max(lineData, d=>d.sum)
-        multipleLineChart(lineData, 30000000000)
+        barChart(donor_rank, 'global_level','donor')
+        barChart(recipient_rank, 'global_level', 'recipient')
 
       }
 
@@ -804,25 +821,20 @@ var main = function () {
         var perc_recipient = densityPctData.find(d=>(d.country == newCountry) & (d.category == 'recipient'))
         var perc_donor_value = perc_donor ? +perc_donor[newYear] : 0
         var perc_recipient_value = perc_recipient ? +perc_recipient[newYear] : 0
-        var barData = [
-         {category: 'donor', perc: Math.round(parseFloat(perc_donor_value)*100)/100},
-         {category: 'recipient', perc: Math.round(parseFloat(perc_recipient_value)*100)/100}
-        ]
-        barChart(barData, 'show_label')
 
-        //d3.select('.stats-perc').style('opacity', 1)
+        d3.select('.stats-perc').style('opacity', 1)
         d3.select('.country-ratio').style('opacity', 1)
 
-        //d3.select('.statistic.perc_recipient > .value')
-          //.attr('id', newCategory)
-          //.html((Math.round(parseFloat(perc_recipient_value)*100)/100).toString() + " %") 
+        d3.select('.statistic.perc_recipient > .value')
+          .attr('id', newCategory)
+          .html((Math.round(parseFloat(perc_recipient_value)*100)/100).toString() + " %") 
 
-        //d3.select('.statistic.perc_donor > .value')
-          //.attr('id', newCategory)
-          //.html((Math.round(parseFloat(perc_donor_value)*100)/100).toString() + " %")
+        d3.select('.statistic.perc_donor > .value')
+          .attr('id', newCategory)
+          .html((Math.round(parseFloat(perc_donor_value)*100)/100).toString() + " %")
 
-        lineData = timelineData.filter(d=>(d.country == newCountry) & (d.year != "All"))
-        multipleLineChart(lineData, 12000000000)
+        barChart(donor_rank, 'country_level', 'donor')
+        barChart(recipient_rank, 'country_level','recipient')
 
       }
 
@@ -852,220 +864,29 @@ var main = function () {
       }
 
       ///////////////////////////////////////////////////////////////////////////
-      //////////////////////////////// Line chart ///////////////////////////////
+      ///////////////////////////////// Bar chart ///////////////////////////////
       ///////////////////////////////////////////////////////////////////////////
-      function createLineChart(g) {
 
-        // 2. Create chart dimensions
-        var axisPad = 6
-        dimensions = {
-          width: 330,
-          height: 250,
-          margin: {
-            top: 15,
-            right: 15,
-            bottom: 40,
-            left: 50,
-          },
-        }
+      function barChart(obj, type, category) {
 
-        dimensions.boundedWidth = dimensions.width
-          - dimensions.margin.left
-          - dimensions.margin.right
-        dimensions.boundedHeight = dimensions.height
-          - dimensions.margin.top
-          - dimensions.margin.bottom
-
-        // 3. Draw canvas
-        var wrapper = d3.select('.countries-content').append('svg')
-          .attr("width", dimensions.width)
-          .attr("height", dimensions.height)
-
-        bounds = wrapper.append("g")
-          .attr("class","timeline")
-          .attr('transform', "translate(" + dimensions.margin.left + "," + dimensions.margin.top + ")")
-
-        bounds.append("g").attr("class", "x_axis")
-        bounds.append("g").attr("class", "y_axis")
-        mouseG = bounds.append("g").attr("class", "mouse-over-effects")
-
-        tooltip = d3.select('body').append("div")
-          .attr('id', 'tooltip')
-          .style('position', 'absolute')
-          .style("background-color", "black")
-          .style('padding', 6)
-          .style('display', 'none')
-
-        // 4. Create scales
-        xScaleLine = d3.scaleBand()
-          .domain(d3.range(1973, 2014))
-          .range([0, dimensions.boundedWidth])
-          .padding(0.1)
-
-        // 6. Draw peripherals
-
-        var ticks = xScaleLine.domain().filter((d,i)=>{ return !(i%5) } ) // only show tick labels for the first bidding exercise of the year
-        const xAxisGenerator = d3.axisBottom()
-          .scale(xScaleLine)
-          .tickSizeOuter(0)
-          .tickValues(ticks)
-
-        xAxis = d3.select('.x_axis')
-          .call(xAxisGenerator)
-          .style("transform", `translateY(${ dimensions.boundedHeight }px)`)
-          .call(g => {
-            g.selectAll("text").attr('fill', 'white')
-            g.selectAll("line").attr('stroke', 'white')
-            g.select(".domain")
-              .attr('stroke', 'white')
-              .attr('stroke-width', 0.7)
-              .attr('opacity', 0.3)
-          })      
-
-        yScaleLine = d3.scaleLinear()
-          .domain([0, 30000000000])
-          .range([dimensions.boundedHeight, 0]);
-
-        yAxisGenerator = d3.axisLeft()
-          .ticks(6)
-          .tickSize(-dimensions.boundedWidth)
-          .tickFormat(d=>"$" + M(d))
-          .tickSizeOuter(0)
-          .scale(yScaleLine)
-
-        lineGenerator = d3.line()
-          //.defined(d => !isNaN(+d.sum))
-          .x(d => xScaleLine(d.year) + xScaleLine.bandwidth() / 2)
-          .y(d => yScaleLine(+d.sum))
-
-        // CREATE HOVER TOOLTIP WITH VERTICAL LINE //
-        mouseG.append("path") // create vertical line to follow mouse
-          .attr("class", "mouse-line")
-          .style("stroke", "#A9A9A9")
-          .style("stroke-width", '1px')
-          .style("opacity", "0")
-
-        mouseG.append('svg:rect') // append a rect to catch mouse movements
-          .attr('class', 'dummy_rect')
-          .attr('width', dimensions.boundedWidth) 
-          .attr('height', dimensions.boundedHeight)
-          .attr('fill', 'none')
-          .attr('pointer-events', 'all')
-
-      }
-
-      function multipleLineChart(data, maxY) {
-
-        yScaleLine.domain([0, maxY])
-        const yAxis = d3.select('.y_axis')
-          .call(yAxisGenerator)
-          .call(g => {
-            g.selectAll("text").attr('fill', 'white')
-            g.selectAll("line")
-              .attr('stroke', 'white')
-              .attr('stroke-width', 0.7) // make horizontal tick thinner and lighter so that line paths can stand out
-              .attr('opacity', 0.3)
-            g.select(".domain").remove()
-          }) 
-
-        var res_nested = d3.nest() // necessary to nest data so that keys represent each category
-          .key(d=>d.category)
-          .entries(data)
-
-        var glines = bounds.selectAll('.line-group').data(res_nested)
-
-        var entered_lines = glines.enter().append('g').attr('class', 'line-group') 
-
-        entered_lines.append('path').attr('class', 'line') 
-
-        glines.merge(entered_lines).select('.line')  
-          //.transition().duration(500) 
-          .attr('d', d => lineGenerator(d.values))
-          .style('stroke', (d, i) => colors[d.key])
-          .style('fill', 'none')
-          .style('opacity', 1)
-          .style('stroke-width', 1)
-
-        glines.exit().remove()
-
-        mouse = mouseG.selectAll('.mouse-per-line').data(res_nested)
-
-        var entered_mouse = mouse.enter().append("g")
-          .attr("class", "mouse-per-line")
-
-        entered_mouse.append("circle")
-
-        mouse.merge(entered_mouse).select('circle')         
-          .attr("r", 4)
-          .style("stroke", function (d) { return colors[d.key] })
-          .style("fill", "none")
-          .style("stroke-width", '1px')
-          .style("opacity", "0");
-
-        mouse.exit().remove()
-
-        d3.select('.dummy_rect')
-          .on('mouseout', function () { // on mouse out hide line, circles and text
-            d3.select(".mouse-line")
-              .style("opacity", "0");
-            d3.selectAll(".mouse-per-line circle")
-              .style("opacity", "0");
-            d3.selectAll(".mouse-per-line text")
-              .style("opacity", "0");
-            d3.selectAll("#tooltip")
-              .style('display', 'none')
-
-          })
-          .on('mouseover', function () { // on mouse in show line, circles and text
-            d3.select(".mouse-line")
-              .style("opacity", "1");
-            d3.selectAll(".mouse-per-line circle")
-              .style("opacity", "1");
-            d3.selectAll("#tooltip")
-              .style('display', 'block')
-          })
-          .on('mousemove', function () { // update tooltip content, line, circles and text when mouse moves
-            var mouse = d3.mouse(this) // detect coordinates of mouse position within svg rectangle created within mouseG
-            d3.selectAll(".mouse-per-line")
-              .attr("transform", function (d, i) {
-                var xDate = scaleBandPosition(mouse) // None of d3's ordinal (band/point) scales have the 'invert' method to to get date corresponding to distance of mouse position relative to svg, so have to create my own method
-                var bisect = d3.bisector(function (d) { return d.year}).left // retrieve row index of date on parsed csv
-                var idx = bisect(d.values, xDate)
-                d3.select(".mouse-line")
-                  .attr("d", function () {
-                    var data = "M" + (xScaleLine(d.values[idx].year) + 2).toString() + "," + dimensions.boundedHeight;
-                    data += " " + (xScaleLine(d.values[idx].year) + 2).toString() + "," + 0;
-                    return data;
-                  });
-                return "translate(" + (xScaleLine(d.values[idx].year) + 2).toString() + "," + yScaleLine(d.values[idx].sum) + ")";
-
-              });
-            updateTooltipContent(mouse, res_nested)
-          })
-
-      }
-
-      ///////////////////////////////////////////////////////////////////////////
-      ////////////////////////////////// Bar chart //////////////////////////////
-      ///////////////////////////////////////////////////////////////////////////
-      function barChart(data, label) {
+        var top_countries = topData(type, category)
 
         var xScale = d3.scaleLinear()
-          .domain([0, 100])
-          .range([0, 300])
+          .domain([0, 1])
+          .range([0, 150])
           
         var yScale = d3.scaleBand()
-          .domain(['donor', 'recipient'])
-          .range([0, 50])  
+          .domain(top_countries.map(d=>d.country))
+          .range([0, 150])  
           .padding(0.1)  
 
-        var rects = stats_perc.selectAll('g').data(data) 
+        var rects = obj.selectAll('g').data(top_countries) 
 
         const entered_rects = rects.enter().append('g')
 
         entered_rects.merge(rects)
            .attr("transform", function(d) {
-              return "translate(" + 60 + "," + yScale(d.category) + ")" 
+              return "translate(" + 0 + "," + yScale(d.country) + ")" 
            })
 
         rects.exit().remove()
@@ -1073,45 +894,45 @@ var main = function () {
         entered_rects.append('rect')
           .merge(rects.select("rect"))
           .attr('class', 'bar')
-          .attr('id', function(d) { return "bar-" + d.category })
-          .attr("fill", d=>colors[d.category])
+          .attr('id', function(d) { return "bar-" + category + '-' + d.country.replace(/ +/g, "") })
+          .attr("fill", colors[category])
           .attr("height", yScale.bandwidth())
           .attr("width", function(d) { return xScale(d.perc) })
 
+        // add the text to the label group showing country name
         entered_rects.append("text")
           .merge(rects.select("text"))
            .attr('class', 'rectLabel')
-           .attr('id', function(d) { return "rectLabel-" + d.category })
+           .attr('id', function(d) { return "rectLabel-" + category + '-' + d.country.replace(/ +/g, "") })
            .attr("dx", d=>xScale(d.perc)+10)
            .attr("dy", yScale.bandwidth()/2)
            .attr('font-size', '8px')
            .attr('font-weight', 'bold')
            .attr('alignment-baseline', 'middle')
-           .attr('fill', d=>colors[d.category])
-           .text(function(d) { return label=='show_label' ? d.perc + '%' : ''})
-    
-        var axis = stats_perc.selectAll('g.axis').data(data) 
+           .attr('fill', colors[category])
+           .text(function(d) { return d.country })
 
-        const entered_axis = axis.enter().append('g').attr('class', 'axis')
+        function topData(type, category) {
 
-        entered_axis.merge(axis)
-           .attr("transform", function(d) {
-              return "translate(" + 0 + "," + yScale(d.category) + ")" 
-           })
-
-        axis.exit().remove()
-
-        entered_axis.append("text")
-          .merge(axis.select("text.axisLabel"))
-           .attr('class', 'axisLabel')
-           .attr('id', function(d) { return "axisLabel-" + d.category })
-           .attr("x", 0)
-           .attr("y", yScale.bandwidth()/2)
-           .attr('font-size', '8px')
-           .attr('font-weight', 'bold')
-           .attr('alignment-baseline', 'middle')
-           .attr('fill', d=>colors[d.category])
-           .text(function(d) { return d.category })
+          if(type=='global_level'){
+             var data = densityData.filter(d=>d.category==category)
+          } else {
+            var data = densityData.filter(d=>(d.country == newCountry) & (d.category == category))
+          }
+          data = data.sort(function(a, b){ return d3.descending(+a[newYear], +b[newYear]) })
+          var countriesSorted = data.map(d=>d.country)
+          var total = d3.sum(data, d=>+d[newYear])
+          data = data.sort(function(a, b){ return countriesSorted.indexOf(a.country) - countriesSorted.indexOf(b.country) })
+          
+          var top_countries = []
+          for ( var i = 0; i < 10; i++) {
+            if(data[i]){
+              var perc = Math.round((+data[i]['All']/total)*100)/100
+              top_countries.push({'index':i, 'country': data[i]['country'], 'perc': perc})
+            }
+          }
+          return top_countries
+        }
 
       }
 
@@ -1121,81 +942,30 @@ var main = function () {
   ///////////////////////////////////////////////////////////////////////////
   ///////////////////////////// Helper functions ////////////////////////////
   ///////////////////////////////////////////////////////////////////////////
-  function topData(densityData, type, category) {
-
-    if(type=='global_level'){
-       var data = densityData.filter(d=>d.category==category)
-    } else {
-      var data = densityData.filter(d=>(d.country == newCountry) & (d.category == category))
-    }
-    data = data.sort(function(a, b){ return d3.descending(+a[newYear], +b[newYear]) })
-    var countriesSorted = data.map(d=>d.country)
-    var total = d3.sum(data, d=>+d[newYear])
-    data = data.sort(function(a, b){ return countriesSorted.indexOf(a.country) - countriesSorted.indexOf(b.country) })
-    
-    var top_countries = []
-    for ( var i = 0; i < 10; i++) {
-      if(data[i]){
-        var perc = Math.round((+data[i]['All']/total)*100)/100
-        top_countries.push({'index':i, 'country': data[i]['country'], 'perc': perc})
-      }
-    }
-    return top_countries
-  }
-
-  function updateTooltipContent(mouse, res_nested) {
-
-    sortingObj = []
-    res_nested.map(d => {
-      xDate = scaleBandPosition(mouse)
-      var bisect = d3.bisector(function (d) { return d.year }).left
-      var idx = bisect(d.values, xDate)
-      sortingObj.push({key: d.values[idx].category, sum: d.values[idx].sum})
-    })
-
-    sortingObj.sort(function(x, y){ return d3.descending(x.sum, y.sum)})
-    var sortingArr = sortingObj.map(d=> d.key)
-    var res_nested1 = res_nested.slice().sort(function(a, b){
-      return sortingArr.indexOf(a.key) - sortingArr.indexOf(b.key)
-    })
-    tooltip.html(xDate)
-      .style('display', 'inline')
-      .style('left', (d3.event.pageX + 20) + "px")
-      .style('top', (d3.event.pageY - 20) + "px")
-      .style('color', 'white')
-      .selectAll()
-      .data(res_nested1).enter() // for each vehicle category, list out name and price of premium
-      .append('div')
-      .style('color', d => colors[d.key])
-      .style('font-size', 10)
-      .html(d => {
-        var xDate = scaleBandPosition(mouse)
-        var bisect = d3.bisector(function (d) { return d.year }).left
-        var idx = bisect(d.values, xDate)
-        return d.key + ": $" + (M(d.values[idx].sum)).toString()
-      })
-  }
-
-  function scaleBandPosition(mouse, xScale) {
-    var xPos = mouse[0];
-    var domain = xScaleLine.domain(); 
-    var range = xScaleLine.range();
-    var rangePoints = d3.range(range[0], range[1], xScaleLine.step())
-    return domain[d3.bisectLeft(rangePoints, xPos)]
-  }
-
-  function roundToNearest(x) {
-    return Math.round(x / 1000000000) * 1000000000
-  }
-
   function getTextBox(selection) {
     selection.each(function(d) {
       d.bbox = this.getBBox();
     });
   }
 
+  function gcd (a, b) {
+      return (b == 0) ? a : gcd (b, a%b);
+  }
+
   function onlyUnique(value, index, self) { 
       return self.indexOf(value) === index;
+  }
+
+  function sortOn(property) {
+    return function(a, b){
+      if(a[property] < b[property]){
+          return -1;
+      }else if(a[property] > b[property]){
+          return 1;
+      }else{
+          return 0;   
+      }
+    }
   }
 
   function findCenters(r, p1, p2) {
