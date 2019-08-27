@@ -96,7 +96,7 @@ h5 {
   bottom: 50px;
 }
 .countryLabel{
-  display: none;   /* hide all country labels by default */
+  visibility: hidden;   /* hide all country labels by default */
 }
 .countryBg{
   fill: none;   /* country label background colour */
@@ -183,11 +183,13 @@ h5 {
 }
 .ui.dropdown.dropdown-country .text{
   color: white !important;
-  width: 150px !important;
+  width: 200px !important;
+  font-size: 1.8em;
 }
 .ui.dropdown.dropdown-year .text{
   color: white !important;
-  width: 75px !important;
+  width: 100px !important;
+  font-size: 1.8em;
 }
 .dd-icon {
   right: 0% !important;
@@ -202,13 +204,13 @@ h5 {
   opacity: 0;
 }
 .ui.btn-source.basic.button {
-  color: #FF5000 !important;
-  border: solid 1px #FF5000;
+  color: #FDB715 !important;
+  border: solid 1px #FDB715;
   opacity: 0;
 }
 .ui.btn-destination.basic.button {
-  color: #00D0D4 !important;
-  border: solid 1px #00D0D4;
+  color: #70CACB !important;
+  border: solid 1px #70CACB;
   opacity: 0;
 }
 .ui.btn-net.basic.button:hover, .ui.btn-net.basic.button:focus {
@@ -216,25 +218,19 @@ h5 {
   color: white !important;
 }
 .ui.btn-source.basic.button:hover, .ui.btn-source.basic.button:focus {
-  background: #FF5000 !important;
+  background: #FDB715 !important;
   color: white !important;
 }
 .ui.btn-destination.basic.button:hover, .ui.btn-destination.basic.button:focus {
-  background: #00D0D4 !important;
+  background: #70CACB !important;
   color: white !important;
 }
 .ui.btn-net.basic.button:active {
   background: white !important;
 }
 .ui.btn-source.basic.button:active {
-  background: #FF5000 !important;
+  background: #FDB715 !important;
 }
 .ui.btn-destination.basic.button:active {
-  background: #00D0D4 !important;
-}
-#donor {
-  color: #FF5000 !important;
-} 
-#recipient {
-  color: #00D0D4 !important;
+  background: #70CACB !important;
 }

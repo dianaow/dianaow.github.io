@@ -10,6 +10,11 @@ var main = function () {
   var ipad_portrait = Math.min(window.innerWidth, screen.width)<=1024 & (Math.abs(screen.orientation.angle == 0))
   var laptop = Math.min(window.innerWidth, screen.width) > 1024
   var desktop = Math.min(window.innerWidth, screen.width) > 1680
+  if(ipadPRO_landscape) { console.log('ipadPRO_landscape')}
+  if(ipad_landscape) { console.log('ipad_landscape')}
+  if(ipad_portrait) { console.log('ipad_portrait')}
+  if(laptop) { console.log('laptop')}
+  if(desktop) { console.log('desktop')}
 
   var canvasDim = { width: window.innerWidth*0.98, height: ipad_portrait ? 400 : window.innerHeight*0.98}
   var margin = {top: 0, right: 0, bottom: 0, left: 0}
@@ -158,6 +163,7 @@ var main = function () {
         d3.select('.arcs').attr('display', 'none')
         drawAllLinksMap(world, 'show_all')
         drawCirclesMap('show_all')
+        updateGlobalPanel()
       }
 
       // ZOOM
@@ -277,8 +283,8 @@ var main = function () {
         var translateY = 0
       } else if (desktop){
         var scale = width/6
-        var translateX = 0
-        var translateY = 120
+        var translateX = -50
+        var translateY = 150
       } else {
         var scale = width/6.2
         var translateX = 0
@@ -607,7 +613,7 @@ var main = function () {
 
         circles.merge(entered_circles).select('.bubble')         
           .attr('id', d=>'bubble' + d.country)
-          .transition().duration(500) 
+          .transition().duration(300) 
           .attr('r', d=>rScale(d.value))
           .attr('stroke', 'white')
           .attr('stroke-width', '1px')
@@ -647,7 +653,7 @@ var main = function () {
         countryLabels
            .insert("rect", "text")
            .attr("class", "countryBg")
-            .attr('z-index', 999)
+           .attr('z-index', 999)
            .attr("transform", function(d) {
               return "translate(" + (d.bbox.x - 2) + "," + d.bbox.y + ")";
            })
@@ -685,7 +691,7 @@ var main = function () {
           })
           .on("mouseout",  function(d) { 
             if(isClicked==false){
-              d3.selectAll(".countryLabel").style('display', 'none') // hide 'tooltip'
+              d3.selectAll(".countryLabel").style('visibility', 'hidden') // hide 'tooltip'
               undoMapActions()
               updateGlobalPanel()
             }
@@ -698,7 +704,7 @@ var main = function () {
       //////////////////////////////////////////////////////////////////////////////////// 
 
       function doActions(d) {
-
+        console.log(newCategory + '_' + newCountry + '_' + newYear)
         newCountry = d // assign new country to global variable
         var attribute = newCategory + '_' + newCountry + '_' + newYear
         updateCountryPanel()
@@ -728,7 +734,7 @@ var main = function () {
         ////////////////////////////////////////////////////////////////////////////////////
 
         //////////////////////////////////////// Map ///////////////////////////////////////
-        d3.select("#countryLabel" + newCountry).style('display', 'block') // update 'tooltip'
+        d3.select("#countryLabel" + newCountry).style('visibility', 'visible') // update 'tooltip'
         updateMap(attribute) // Modify color density (in %)
         
         // PATHS : Individual donor/recipient country connectors (Only draw if there is a connection)
@@ -774,7 +780,11 @@ var main = function () {
         ]
         barChart(barData, "no_label")
 
-        lineData = timelineData.filter(d=>(d.country == "All") & (d.year != "All"))
+        lineData = timelineData.filter(d=>(d.country == "All") & (d.year != "All")) 
+        //lineData = timelineData.filter(d=>(d.country == "All") & (d.year != "All") & (d.category == "donor")) // both donor and recipient line will overlap, so only one line is required
+        //lineData.map(d=>{
+          //d.category = 'net'
+        //})
         var maxY = d3.max(lineData, d=>d.sum)
         multipleLineChart(lineData, 30000000000)
 
@@ -1014,7 +1024,6 @@ var main = function () {
               .style("opacity", "0");
             d3.selectAll("#tooltip")
               .style('display', 'none')
-
           })
           .on('mouseover', function () { // on mouse in show line, circles and text
             d3.select(".mouse-line")
@@ -1026,9 +1035,9 @@ var main = function () {
           })
           .on('mousemove', function () { // update tooltip content, line, circles and text when mouse moves
             var mouse = d3.mouse(this) // detect coordinates of mouse position within svg rectangle created within mouseG
+            var xDate = scaleBandPosition(mouse) // None of d3's ordinal (band/point) scales have the 'invert' method to to get date corresponding to distance of mouse position relative to svg, so have to create my own method
             d3.selectAll(".mouse-per-line")
               .attr("transform", function (d, i) {
-                var xDate = scaleBandPosition(mouse) // None of d3's ordinal (band/point) scales have the 'invert' method to to get date corresponding to distance of mouse position relative to svg, so have to create my own method
                 var bisect = d3.bisector(function (d) { return d.year}).left // retrieve row index of date on parsed csv
                 var idx = bisect(d.values, xDate)
                 d3.select(".mouse-line")
@@ -1038,9 +1047,13 @@ var main = function () {
                     return data;
                   });
                 return "translate(" + (xScaleLine(d.values[idx].year) + 2).toString() + "," + yScaleLine(d.values[idx].sum) + ")";
-
               });
+            newYear = xDate
+            d3.selectAll('.bubble').interrupt()
+            setTimeout(function() { drawCirclesMap('show_all') }, 200)
+            drawAllLinksMap(world, 'show_all')
             updateTooltipContent(mouse, res_nested)
+            $('.dropdown-year').dropdown('set selected', newYear);
           })
 
       }
