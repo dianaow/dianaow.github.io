@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css?family=Karla');
+
+body{
+  font-family: 'Karla', SANS-SERIF;
+  font-weight: bold;
+}
+#gameBoard {
+  width: 600px;
+  margin: 80px auto 0px auto;
+  text-align: center;
+}
+
+.container {
+  width: 600px;
+  height: 600px;  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.square {
+  min-width: 32%;
+  min-height: 32%;
+  margin-bottom: 2%; /* (100-32*3)/2 */
+  border: 1px solid black;
+  text-align: center;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  font-weight: bold;
+  font-size: 86px;
+  cursor: pointer;
+}
+
+.btn {
+  color: black;
+  background: transparent; 
+  border: 2px solid black; 
+  border-radius: 6px; 
+  padding: 8px 16px;
+  text-align: center;
+  display: inline-block;
+  font-size: 0.8em;
+  margin: 4px 2px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.btn:hover {
+    background-color: black;
+    color: white;
+}
