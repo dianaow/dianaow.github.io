@@ -19,7 +19,12 @@
     crossorigin="anonymous"></script>
   <script src="../vendor/semantic/semantic.min.js"></script>
   <script src="../vendor/semantic/semantic-ui-range.js"></script>
-
+  <style>
+    .axis path, .axis tick, .axis line {
+      fill: none;
+      stroke: none;
+    }
+  </style>
 </head>
 <body>
 
@@ -43,22 +48,11 @@
       ///////////////////////////////////////////////////////////////////////////
       ///////////////////////////////// Globals /////////////////////////////////
       /////////////////////////////////////////////////////////////////////////// 
-      var colorScale, countScale, xScale, yScale, rScale, svg
-      var ipadPRO_landscape = Math.min(window.innerWidth, screen.width)>1024 & Math.min(window.innerWidth, screen.width)<=1366 & (Math.abs(screen.orientation.angle == 90))
-      var ipad_landscape = Math.min(window.innerWidth, screen.width)<=1024 & (Math.abs(screen.orientation.angle == 90))
-      var ipad_portrait = Math.min(window.innerWidth, screen.width)<=1024 & (Math.abs(screen.orientation.angle == 0))
-      var laptop = Math.min(window.innerWidth, screen.width) > 1024
-      var desktop = Math.min(window.innerWidth, screen.width) > 1680
-      if(ipadPRO_landscape) { console.log('ipadPRO_landscape')}
-      if(ipad_landscape) { console.log('ipad_landscape')}
-      if(ipad_portrait) { console.log('ipad_portrait')}
-      if(laptop) { console.log('laptop')}
-      if(desktop) { console.log('desktop')}
-
+      var colorScale, countScale, xScale, yScale, rScale, svg, groups, countries
       const margin = { top: 50, right: 0, bottom: 0, left: 100 },
           width = window.innerWidth*0.98 - margin.left - margin.right,
-          height = window.innerHeight*0.48 - margin.top - margin.bottom,
-          gridSize = 30
+          height = window.innerHeight*0.58 - margin.top - margin.bottom,
+          gridSize = 24
 
       ///////////////////////////////////////////////////////////////////////////
       ///////////////////////////////// Initialize //////////////////////////////
@@ -92,7 +86,7 @@
               d.r = +d.total
             })
             drawHeatMap(data)
-            createGradient([-1,1])
+            createGradient([-1,1], '')
 
             var steps = {
               "step-1": function(){ 
@@ -102,7 +96,10 @@
                   d.value = +d.value
                   d.r = +d.total
                 })
-                updateHeatMap(data, [-1,1])
+                updateHeatMap(data, [-1, 0, 1])
+                svg.select('defs').remove()
+                d3.select('.legendWrapper').remove()
+                createGradient([-1,1], '')
               },
               "step-2": function(){ 
                 data.forEach(d=>{
@@ -111,7 +108,10 @@
                   d.value = +d['donor_growth']
                   d.r = +d.total
                 })
-                updateHeatMap(data, [-5,25])
+                updateHeatMap(data, [-5, 0, 25])
+                svg.select('defs').remove()
+                d3.select('.legendWrapper').remove()
+                createGradient([-5,25], 'Donor Growth Percentage (%)')
               },
               "step-3": function(){ 
                 data.forEach(d=>{
@@ -120,7 +120,10 @@
                   d.value = +d['recipient_growth']
                   d.r = +d.total
                 })
-                updateHeatMap(data, [-5,25])
+                updateHeatMap(data, [-5, 0, 25])
+                svg.select('defs').remove()
+                d3.select('.legendWrapper').remove()
+                createGradient([-5,25], 'Recipient Growth Percentage (%)')
               },
             }
 
@@ -156,10 +159,20 @@
             
           }
 
+          ///////////////////////////////////////////////////////////////////////////
+          //////////////////////////////// GEOGRAPHIC MAP ///////////////////////////
+          ///////////////////////////////////////////////////////////////////////////
+          function drawGeographicMap(data) {
+
+          }
+
+          ///////////////////////////////////////////////////////////////////////////
+          /////////////////////////////////// HEAT MAP //////////////////////////////
+          ///////////////////////////////////////////////////////////////////////////
           function drawHeatMap(data) {
 
-            const groups = data.map(d=>d.group).filter(onlyUnique)
-            const countries = data.map(d=>d.country).filter(onlyUnique)
+            groups = data.map(d=>d.group).filter(onlyUnique)
+            countries = data.map(d=>d.country).filter(onlyUnique)
 
             xScale = d3.scaleBand()
               .domain(countries)
@@ -197,7 +210,7 @@
 
             const yaxis = svg.append('g')
               .attr('class', 'y_axis')
-              .attr("transform", "translate(" + -15 + "," + yScale.bandwidth()/2 + ")")
+              .attr("transform", "translate(" + 0 + "," + yScale.bandwidth()/2 + ")")
 
             const dayLabels = yaxis.selectAll(".dayLabel")
                 .data(groups)
@@ -209,7 +222,7 @@
                   .attr('fill', 'black')
                   .style("text-anchor", "end")
 
-            updateHeatMap(data, [-1,1])
+            updateHeatMap(data, [-1, 0, 1])
 
           }
 
@@ -217,7 +230,7 @@
        
             colorScale = d3.scaleLinear()
               .domain(RANGE)
-              .range(['#FDB715','#70CACB']);
+              .range(['#FDB715', '#E3E5E5', '#70CACB']);
 
             const cards = svg.selectAll(".hour").data(data, (d) => d.index);
 
@@ -226,12 +239,14 @@
             cards.enter().append("circle")
                 .attr("cx", function(d) { return xScale(d.x) })
                 .attr("cy", function(d) { return yScale(d.y) })
-                //.attr("r", function(d) { return 4 })
-                .attr("r", function(d) { return rScale(d.r) })
+                .attr("r", function(d) { return 10 })
+                //.attr("r", function(d) { return rScale(d.r) })
                 .attr("class", "hour bordered")
                 .attr("width", gridSize)
                 .attr("height", gridSize)
-                .style("fill", function(d) { return colorScale(d.value) })
+                .style("fill", function(d) { 
+                  console.log(colorScale(d.value), d.value)
+                  return colorScale(d.value) })
               .merge(cards)
                 .transition()
                 .duration(1000)
@@ -246,7 +261,7 @@
           ///////////////////////////////////////////////////////////////////////////
           //////////////// Create the gradient for the legend ///////////////////////
           ///////////////////////////////////////////////////////////////////////////
-          function createGradient(RANGE) {
+          function createGradient(RANGE, TEXT) {
 
             const countScale = d3.scaleLinear() //Extra scale since the color scale is interpolated
               .domain(RANGE)
@@ -277,19 +292,19 @@
                 return colorScale( countPoint[i] ); 
               });
 
-            drawLegend()
+            drawLegend(RANGE, TEXT)
           }
 
           ///////////////////////////////////////////////////////////////////////////
           ////////////////////////// Draw the legend ////////////////////////////////
           ///////////////////////////////////////////////////////////////////////////
-          function drawLegend() {
+          function drawLegend(RANGE, TEXT) {
 
             var legendWidth = Math.min(width*0.8, 400);
             //Color Legend container
             var legendsvg = svg.append("g")
               .attr("class", "legendWrapper")
-              .attr("transform", "translate(" + (width/2) + "," + (gridSize * group.length + 40) + ")");
+              .attr("transform", "translate(" + (gridSize * countries.length)/2 + "," + (gridSize * groups.length + 120) + ")");
 
             //Draw the Rectangle
             legendsvg.append("rect")
@@ -307,12 +322,12 @@
               .attr("x", 0)
               .attr("y", -10)
               .style("text-anchor", "middle")
-              .text("Number of Accidents");
+              .text(TEXT);
 
             //Set scale for x-axis
             var xScale = d3.scaleLinear()
                .range([-legendWidth/2, legendWidth/2])
-               .domain([0, (groups.length * gridSize)] );
+               .domain(RANGE);
 
             //Define x-axis
             var xAxis = d3.axisBottom()
@@ -325,7 +340,6 @@
               .attr("class", "axis")
               .attr("transform", "translate(0," + (10) + ")")
               .call(xAxis);
-
 
           }
 
