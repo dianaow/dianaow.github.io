@@ -80,7 +80,7 @@ function undoMapActions() {
 
   countriesPaths.attr('fill', DEFAULT_MAP_COLOR) // reset map color
 
-  bubbles.selectAll('circle')
+  bubbles_explore.selectAll('circle')
     .attr('stroke-opacity', 1)
     .attr('fill-opacity', newCategory=='net' ? 0.1 : 0.6) // show bubble chart again
 
@@ -230,7 +230,7 @@ function multipleLineChart(data, maxY) {
 
   glines.merge(entered_lines).select('.line')  
     //.transition().duration(500) 
-    .attr('d', d => lineGenerator(d.values))
+    .attr('d', function(d) { return lineGenerator(d.values) })
     .style('stroke', (d, i) => colors[d.key])
     .style('fill', 'none')
     .style('opacity', 1)
@@ -289,8 +289,8 @@ function multipleLineChart(data, maxY) {
           return "translate(" + (xScaleLine(d.values[idx].year) + 2).toString() + "," + yScaleLine(d.values[idx].sum) + ")";
         });
       newYear = xDate
-      d3.selectAll('.bubble').interrupt()
-      setTimeout(function() { drawCirclesMap('show_all') }, 200)
+      bubbles_explore.selectAll('.bubble').interrupt()
+      setTimeout(function() { drawCirclesMap(densityData, 'show_all') }, 200)
       drawAllLinksMap(world, 'show_all')
       updateTooltipContent(mouse, res_nested)
       $('.dropdown-year').dropdown('set selected', newYear);

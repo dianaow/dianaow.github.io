@@ -20,11 +20,11 @@
         .x(d => x(d.x))
         .y(d => y(d.y))
 
-    d3.csv("./data/all_country_agg.csv",function(error, data) {
+    d3.csv("./data/all_country.csv",function(error, data) {
 
       data.forEach(function(d) {
         d.x = d.group
-        d.y = +d.value
+        d.y = +d.sum
       });
 
       // A color scale: one color for each country
@@ -85,13 +85,14 @@
       var dataReady = d3.nest() // necessary to nest data so that keys represent each category
         .key(d=>d.country)
         .entries(data)
-      console.log(dataReady)
+
       svg.selectAll("myLines")
         .data(dataReady)
         .enter()
         .append("path")
           .attr("d", function(d){ return lineGenerator(d.values) } )
-          .attr("stroke", function(d){ return myColor(d.key) })
+          .attr('stroke', 'black')
+          //.attr("stroke", function(d){ return myColor(d.key) })
           .style("stroke-width", 1.5)
           .style("fill", "none")
 
@@ -112,6 +113,7 @@
           .attr("cy", function(d) { return y(d.y) } )
           .attr("r", 3)
           .attr("stroke", "white")
+          .attr('')
 
     })
 

@@ -304,12 +304,12 @@ function animatePaths(selector) {
 ////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Draw density circles on map ////////////////////////
 //////////////////////////////////////////////////////////////////////////////////// 
-function drawCirclesMap(type) {
+function drawCirclesMap(data, type) {
 
   if(type=='show_country'){
-    data = densityData.filter(d=>d.category == newCategory & d.country==newCountry)
+    data = data.filter(d=>d.category == newCategory & d.country==newCountry)
   } else {
-    data = densityData.filter(d=>d.category == newCategory)
+    data = data.filter(d=>d.category == newCategory)
   }
 
   var X = newYear
@@ -326,7 +326,7 @@ function drawCirclesMap(type) {
       bubbleData.push(bubbleOne)
     }
   })
-  circles = bubbles.selectAll("g.nodegroup").data(bubbleData, d=>d.country)
+  circles = bubbles_explore.selectAll("g.nodegroup").data(bubbleData, d=>d.country)
 
   var entered_circles = circles.enter().append("g")
     .attr('class', 'nodegroup')

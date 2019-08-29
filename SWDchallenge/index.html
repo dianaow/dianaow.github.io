@@ -7,7 +7,6 @@
 
   <!-- Styling -->
   <link rel="stylesheet" type="text/css" href="../vendor/semantic/semantic.min.css">
-  <link rel="stylesheet" type="text/css" href="../vendor/semantic/semantic-ui-range.css">
   <link rel="stylesheet" type="text/css" href="./css/main.css">
 
   <!-- JavaScript files -->
@@ -17,9 +16,7 @@
     src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
     crossorigin="anonymous"></script>
-  <script src="../vendor/chroma.min.js"></script>
   <script src="../vendor/semantic/semantic.min.js"></script>
-  <script src="../vendor/semantic/semantic-ui-range.js"></script>
   <style>
     #vis-nav {
       position: absolute;
@@ -29,16 +26,19 @@
       fill: none;
       stroke: none;
     }
+    .axis text {
+      fill: white;
+    }
+    #heatmap {
+      position: absolute;
+    }
   </style>
 </head>
 <body>
 
-  <div class="ui dimmer" id="dimmer">
-      <div class="ui massive text loader">
-          <h3>Loading</h3>
-      </div>
+  <div id='heatmap'>
+    <div id='heatmap-story'></div>
   </div>
-
   <div id="wrapper">
     <div id="container">
       
@@ -46,6 +46,27 @@
         <h1>GLOBAL DEVELOPMENT AID</h1>
         <p style='color:white'>DONORS AND RECIPIENTS</p>
         <h2 style='color:white'>1973-2013</h2>
+      </div>
+
+      <div class='intro'>
+        <div class='intro-main'><h2>
+          Financial aid flows between countries, specifically from rich nations to poorer nations of the global south is not a new phenomenon. AidData maintains the most comprehensive project-level database tracking international development finance and have publically released the data. This visualization is based on data on global development aid between 1973 and 2014 collected by AidData. It aims to answer questions on how aid flows have changed over time and serves as an exploration tool of donations distributed across countries.
+        </h2></div><br>
+        <div class='intro-sub'>
+          <b>Official Citation</b>
+          <p>Tierney, Michael J., Daniel L. Nielson, Darren G. Hawkins, J. Timmons Roberts, Michael G. Findley, Ryan M. Powers, Bradley Parks, Sven E. Wilson, and Robert L. Hicks. 2011.   More Dollars than Sense: Refining Our Knowledge of Development Finance Using AidData. World Development 39 (11): 1891-1906.</p>
+          <p>Updated in: AidData. 2017. AidDataCore_ResearchRelease_Level1_v3.1 Research Releases dataset. Williamsburg, VA: AidData. Accessed on [date]. http://aiddata.org/datasets. </p>
+          <br>
+        </div>
+        <div class='intro-controls'>
+          <p>Press Start to be taken through the complete story, or press the circles that correspond to each section to jump straight to the intermediary views.</p>
+        </div>
+      </div>
+
+      <div class='subtitle'>
+        <h3></h3>
+        <h1></h1>
+        <p></p>
       </div>
 
       <div class='menu'>
@@ -129,9 +150,13 @@
       </div> 
 
       <div id="vis-nav">
-        <a href="#" id="step-1" class="step-link active target">Step1</a>
-        <a href="#" id="step-2" class="step-link">Step2</a>
-        <a href="#" id="step-3" class="step-link">Step3</a>
+        <button id="clickerBack" class="ui mini btn-control basic button progressButton inactiveButton">Back</button>
+        <div id="circle_1" class="step-link"></div>
+        <div id="circle_2" class="step-link"></div>
+        <div id="circle_3" class="step-link"></div>
+        <div id="circle_4" class="step-link"></div>
+        <div id="circle_5" class="step-link"></div>
+        <button id="clickerFront" class="ui mini btn-control basic button progressButton activeButton">Start</button>
       </div>
 
     </div>
