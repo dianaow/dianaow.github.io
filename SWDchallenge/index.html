@@ -32,13 +32,18 @@
     #heatmap {
       position: absolute;
     }
+    #heatmap-story {
+      position: absolute;
+      left: 450px;
+      top: 200px;
+    }   
   </style>
 </head>
 <body>
 
-  <div id='heatmap'>
-    <div id='heatmap-story'></div>
-  </div>
+  <div id='heatmap'></div>
+  <div id='heatmap-story'></div>
+
   <div id="wrapper">
     <div id="container">
       
@@ -66,14 +71,20 @@
       <div class='subtitle'>
         <h3></h3>
         <h1></h1>
-        <p></p>
+        <br>
+        <p class='subtitle-1'>42 donors committed $367 Billion in country to country aid. While over half of the 42 donors are in Europe, United States and Japan accounted for over half of the $367 Billion aid. India is the biggest recipient of aid.</p>
+        <p class='subtitle-2'>How are donations distributed across countries? Select a <span style="color:#FDB715">donor</span> or <span style="color:#70CACB">recipient</span> country from the dropdown or click one on the map to explore. To filter by year, select a year from the dropdown or scrub your mouse over the timeline chart.
+          <button class="ui mini inverted icon button" id='reset' onclick='reset()'>Reset</button>
+        </p>
+        <p class='subtitle-3'></p>
       </div>
 
       <div class='menu'>
         <div id='global-header'>  
-          <p>Select a <span style="color:#FDB715">donor</span> or <span style="color:#70CACB">recipient</span> country from the dropdown or click one on the map
-            <button class="ui mini inverted icon button" id='reset' onclick='reset()'>Reset</button>
-          </p>
+
+          <button class="ui mini btn-net basic button">Total Amount</button>
+          <button class="ui mini btn-source basic button">Donors</button>
+          <button class="ui mini btn-destination basic button">Recipients</button>
 
           <div class="ui search dropdown dropdown-country">
             <div class="default text">All Countries</div>
@@ -87,9 +98,6 @@
             <div class="menu"></div>
           </div>
         
-          <button class="ui mini btn-net basic button">Total Amount</button>
-          <button class="ui mini btn-source basic button">Donors</button>
-          <button class="ui mini btn-destination basic button">Recipients</button>
         </div>
       </div>
 

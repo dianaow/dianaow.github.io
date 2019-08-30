@@ -173,12 +173,14 @@ h5 {
   opacity: 1;
   z-index: 99;
   font-size: 18px;
+  width: 400px;
+  height: 200px;
 }
 
 .menu {
   position: absolute;
   top: 30px;
-  right: 50px;
+  right: 30px;
   text-align: center !important;
   color: white !important;
   opacity: 1;
@@ -195,13 +197,13 @@ h5 {
 }
 .ui.dropdown.dropdown-country .text{
   color: white !important;
-  width: 200px !important;
-  font-size: 1.8em;
+  width: 180px !important;
+  font-size: 1.3em;
 }
 .ui.dropdown.dropdown-year .text{
   color: white !important;
-  width: 100px !important;
-  font-size: 1.8em;
+  width: 90px !important;
+  font-size: 1.3em;
 }
 .dd-icon {
   right: 0% !important;
@@ -273,4 +275,7 @@ h5 {
   transform: translate(-50%, -50%);
   text-align: center;
   color: white;
+}
+.subtitle-1, .subtitle-2, .subtitle-3 {
+  display: none;
 }

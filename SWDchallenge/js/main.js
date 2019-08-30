@@ -141,16 +141,16 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
     }//for
     //Back to beginning
     if(counter == 0) { introText() }
-    //Start bubble map
-    if(counter == 1) { bubbleMap() }
-    //Transition to heatmap 1
-    if(counter == 2) { heatmap1() }
-    //Transition to heatmap 2
-    if(counter == 3) { heatmap2() }
-    //Transition to heatmap 3
-    if(counter == 4) { heatmap3() }  
     //Map exploration tool
-    if(counter == 5) { exploreBubbleMap() }  
+    if(counter == 1) { exploreBubbleMap() }  
+    //Start bubble map
+    if(counter == 2) { bubbleMap() }
+    //Transition to heatmap 1
+    if(counter == 3) { heatmap1() }
+    //Transition to heatmap 2
+    if(counter == 4) { heatmap2() }
+    //Transition to heatmap 3
+    if(counter == 5) { heatmap3() }  
   }
 
   //Order of steps when clicking the front button
@@ -211,6 +211,7 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
     d3.select('.menu').style('display', 'none')
     d3.select('#panel').style('display', 'none')
     d3.select('.all_arcs').attr('display', 'none')
+    bubbles_explore.attr('display', 'none')
     bubbles.attr('display', 'block')
     d3.select("#clickerFront").html("Continue");
   }
@@ -222,7 +223,7 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
       createGradient([-1,1], '')
     }, 1000) 
     d3.select("#clickerFront").html("Continue");
-    //d3.select('#heatmap-story').html('Heatmap 1')
+    d3.select('#heatmap-story').html('Heatmap 1')
   }
     
   function heatmap2(){ 
@@ -230,7 +231,7 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
     drawHeatMap(heatmapData, [-5, 0, 25], 'donor_growth')
     createGradient([-5,25], 'Donor Growth Percentage (%)')
     d3.select("#clickerFront").html("Continue");
-    //d3.select('#heatmap-story').html('Heatmap 2')
+    d3.select('#heatmap-story').html('Heatmap 2')
   }
 
   function heatmap3(){
@@ -238,22 +239,37 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
     drawHeatMap(heatmapData, [-5, 0, 25], 'recipient_growth')
     createGradient([-5,25], 'Recipient Growth Percentage (%)')
     d3.select("#clickerFront").html("Continue");
-    //d3.select('#heatmap-story').html('Heatmap 2')
+    d3.select('#heatmap-story').html('Heatmap 2')
   }
 
   function exploreBubbleMap(){ 
     heatmap_to_map_clearance()
-    d3.select('.subtitle').style('display', 'none')
-    d3.select('.menu').style('display', 'block')
-    d3.select('#panel').style('display', 'block')
-    d3.select('.all_arcs').attr('display', 'block')
-    drawCirclesMap(densityData, 'show_all')
-    drawAllLinksMap(world)
-    var countries = densityData.map(d=>d.country).filter(onlyUnique)
-    var selectedPaths = countriesPaths.filter(d=>countries.indexOf(d.properties.name)!=-1)
-    interactive(selectedPaths)
-    interactive(d3.selectAll(".bubble")) 
-    bubbles_explore.attr('display', 'block')
+    //d3.select('.subtitle').style('display', 'none')
+    setTimeout(function() {
+      drawCirclesMap(densityData, 'show_all')
+      d3.select('.subtitle-1')
+        .style('display', 'block')
+        .style('opacity', 0)
+        .transition().duration(500)
+        .style('opacity', 1)
+    }, 1000)
+    setTimeout(function() {
+      drawAllLinksMap(world)
+      var countries = densityData.map(d=>d.country).filter(onlyUnique)
+      var selectedPaths = countriesPaths.filter(d=>countries.indexOf(d.properties.name)!=-1)
+      interactive(selectedPaths)
+      interactive(d3.selectAll(".bubble")) 
+      bubbles_explore.attr('display', 'block')
+      d3.select('.menu').style('display', 'block')
+      d3.select('#panel').style('display', 'block')
+      d3.select('.all_arcs').attr('display', 'block')
+      d3.select('.subtitle-1').style('display', 'none')
+      d3.select('.subtitle-2 ')
+        .style('display', 'block')
+        .style('opacity', 0)
+        .transition().duration(500)
+        .style('opacity', 1)
+    }, 2000)   
   }
  
   function heatmap_to_map_clearance() {
@@ -269,6 +285,8 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
   }
 
   function map_to_heatmap_clearance() {
+    d3.select('.subtitle-1').style('display', 'none')
+    d3.select('.subtitle-2').style('display', 'none')
     d3.selectAll('.intro').style("visibility","hidden")
     d3.select('.subtitle').style('display', 'none')
     d3.select('#heatmap').style('display', 'block')

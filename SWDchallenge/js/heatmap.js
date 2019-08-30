@@ -86,12 +86,21 @@ function drawCirclesHeatMap(data) {
     layer(arr, i)
   })
 
+  d3.select('.subtitle-1').style('display', 'none')
+  d3.select('.subtitle-2').style('display', 'none')
+  var subtitles = ['sub1', 'sub2', 'sub3', 'sub4', 'sub5', 'sub6', 'sub7', 'sub8']
   function layer(arr,i) {
     var timer = setTimeout(function() {
       bubbleData_filt = bubbleData.filter(d=>arr.indexOf(d.group) != -1)
       updateCircles(bubbleData_filt, 'initial_map')  
       d3.select('.subtitle h3').html('Average commitment amount donated/received') 
       d3.select('.subtitle h1').html(arr[arr.length-1])
+      d3.select('.subtitle-3').html(subtitles[i])
+      d3.select('.subtitle-3')
+        .style('display', 'block')
+        .style('opacity', 0)
+        .transition().duration(500)
+        .style('opacity', 1)
     }, 1000*(i+1))
     timers.push(timer)
   }
@@ -123,7 +132,7 @@ function updateCircles(data, transitionType) {
     circles.merge(entered_circles).select('.bubble')   
       .transition().duration(3000) 
       .attr('id', d=>'bubble' + d.country)
-      .attr('transform', d=>'translate(' + d.x + "," + (yearGroups.length * gridSize) + ")")
+      .attr('transform', d=>'translate(' + d.x + "," + (yearGroups.length * gridSize)*2 + ")")
       .attr('stroke', d=>d.strokeColor)
       .attr('stroke-opacity', 1)
       .attr('fill', function(d) { return d.color })
@@ -218,7 +227,6 @@ function drawHeatMap(data, RANGE, COLUMN) {
     .tickSize(0)
     .tickValues(xScaleHeatMap.domain())
 
-  console.log(render)
   if(render==0){
     const xaxis = gHeatMap.append('g')
       .attr('class', 'x_axis_heatmap')
@@ -250,17 +258,7 @@ function drawHeatMap(data, RANGE, COLUMN) {
           .attr("y", (d, i) => (i * gridSize))
           .attr('fill', 'white')
           .style("text-anchor", "end")
-  }
-
-  const dayLabels = yaxis.selectAll(".dayLabel")
-      .data(yearGroups)
-      .enter().append("text")
-        .attr('class', 'dayLabel')
-        .text(function (d) { return d; })
-        .attr("x", -15)
-        .attr("y", (d, i) => (i * gridSize))
-        .attr('fill', 'white')
-        .style("text-anchor", "end")
+  } 
 
   colorScale = d3.scaleLinear()
     .domain(RANGE)
@@ -357,7 +355,7 @@ function drawLegend(RANGE, TEXT) {
   legendsvg.append("text")
     .attr("class", "legendTitleRight")
     .attr("x", legendWidth/2+10)
-    .attr("y", 5)
+    .attr("y", 8)
     .style("text-anchor", "start")
     .attr('fill', 'white')
     .style('font-size', '10px')
@@ -367,10 +365,10 @@ function drawLegend(RANGE, TEXT) {
   legendsvg.append("text")
     .attr("class", "legendTitleLeft")
     .attr("x", -legendWidth/2-10)
-    .attr("y", 5)
+    .attr("y", 8)
     .style("text-anchor", "end")
     .attr('fill', 'white')
-    .style('font-size', '12px')
+    .style('font-size', '10px')
     .text('Country only received aid money');
 
   //Set scale for x-axis

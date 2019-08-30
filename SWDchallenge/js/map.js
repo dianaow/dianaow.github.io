@@ -109,6 +109,7 @@ function drawAllLinksMap(data, type) {
 
   var entered_arcs = arcPaths.enter().append("path")
     .merge(arcPaths)
+    .transition().duration(500)
     .attr("class", "connector")
     .attr('id', function(d,i){ return 'connector-' + i })
     .attr('d', function(d) { 
@@ -336,7 +337,7 @@ function drawCirclesMap(data, type) {
 
   circles.merge(entered_circles).select('.bubble')         
     .attr('id', d=>'bubble' + d.country)
-    .transition().duration(300) 
+    .transition().duration(500)
     .attr('r', d=>rScale(d.value))
     .attr('stroke', 'white')
     .attr('stroke-width', '1px')
