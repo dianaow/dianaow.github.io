@@ -73,14 +73,17 @@ function drawCirclesHeatMap(data) {
   })
 
   yearGroups = [
-  ['1973-1977'], 
-  ['1973-1977', '1978-1982'], 
-  ['1973-1977', '1978-1982', '1983-1987'],
-  ['1973-1977', '1978-1982', '1983-1987', '1988-1992'],
-  ['1973-1977', '1978-1982', '1983-1987', '1988-1992', '1993-1997'],
-  ['1973-1977', '1978-1982', '1983-1987', '1988-1992', '1993-1997','1998-2002'],
-  ['1973-1977', '1978-1982', '1983-1987', '1988-1992', '1993-1997','1998-2002', '2003-2007'],
-  ['1973-1977', '1978-1982', '1983-1987', '1988-1992', '1993-1997','1998-2002', '2003-2007', '2008-2013']]
+  ['1973-1976'], 
+  ['1973-1976', '1977-1980'], 
+  ['1973-1976', '1977-1980', '1981-1984'],
+  ['1973-1976', '1977-1980', '1981-1984', '1985-1988'],
+  ['1973-1976', '1977-1980', '1981-1984', '1985-1988', '1989-1992'],
+  ['1973-1976', '1977-1980', '1981-1984', '1985-1988', '1989-1992','1993-1996'],
+  ['1973-1976', '1977-1980', '1981-1984', '1985-1988', '1989-1992','1993-1996', '1997-2000'],
+  ['1973-1976', '1977-1980', '1981-1984', '1985-1988', '1989-1992','1993-1996', '1997-2000', '2001-2004'],
+  ['1973-1976', '1977-1980', '1981-1984', '1985-1988', '1989-1992','1993-1996', '1997-2000', '2001-2004', '2005-2008'],
+  ['1973-1976', '1977-1980', '1981-1984', '1985-1988', '1989-1992','1993-1996', '1997-2000', '2001-2004', '2005-2008', '2009-2013']
+  ]
 
   yearGroups.map((arr,i)=>{
     layer(arr, i)
@@ -88,20 +91,20 @@ function drawCirclesHeatMap(data) {
 
   d3.select('.subtitle-1').style('display', 'none')
   d3.select('.subtitle-2').style('display', 'none')
-  var subtitles = ['sub1', 'sub2', 'sub3', 'sub4', 'sub5', 'sub6', 'sub7', 'sub8']
+  d3.select('.subtitle-3')
+    .style('display', 'block')
+    .style('opacity', 0)
+    .transition().duration(500).delay(500)
+    .style('opacity', 1)
+
   function layer(arr,i) {
     var timer = setTimeout(function() {
       bubbleData_filt = bubbleData.filter(d=>arr.indexOf(d.group) != -1)
-      updateCircles(bubbleData_filt, 'initial_map')  
-      d3.select('.subtitle h3').html('Average commitment amount donated/received') 
-      d3.select('.subtitle h1').html(arr[arr.length-1])
-      d3.select('.subtitle-3').html(subtitles[i])
-      d3.select('.subtitle-3')
-        .style('display', 'block')
-        .style('opacity', 0)
-        .transition().duration(500)
-        .style('opacity', 1)
-    }, 1000*(i+1))
+      d3.select('.title h2').html('Average commitment amount donated/received')  
+      d3.select('.title p').html('(in constant USD') 
+      d3.select('.title h1').html(arr[arr.length-1])
+      updateCircles(bubbleData_filt, 'initial_map') 
+    }, 800*(i+1))
     timers.push(timer)
   }
 
@@ -119,7 +122,7 @@ function updateCircles(data, transitionType) {
 
   if(transitionType=='initial_map'){
     circles.merge(entered_circles).select('.bubble')   
-      .transition().duration(900)
+      .transition().duration(750)
       .attr('id', d=>'bubble' + d.index)
       .attr('transform', d=>'translate(' + d.x + "," + d.y + ")")
       .attr('r', d=>d.r)
@@ -130,9 +133,9 @@ function updateCircles(data, transitionType) {
   }
   if(transitionType=='map_to_heatmap'){
     circles.merge(entered_circles).select('.bubble')   
-      .transition().duration(3000) 
+      .transition().duration(2000) 
       .attr('id', d=>'bubble' + d.country)
-      .attr('transform', d=>'translate(' + d.x + "," + (yearGroups.length * gridSize)*2 + ")")
+      .attr('transform', d=>'translate(' + d.x + "," + ((yearGroups.length * gridSize)-gridSize)*2 + ")")
       .attr('stroke', d=>d.strokeColor)
       .attr('stroke-opacity', 1)
       .attr('fill', function(d) { return d.color })
@@ -221,7 +224,7 @@ function drawHeatMap(data, RANGE, COLUMN) {
 
   yScaleHeatMap = yScaleHeatMap
     .domain(yearGroups)
-    .range([(yearGroups.length * gridSize), 0])
+    .range([0, (yearGroups.length * gridSize)])
 
   var xAxis = d3.axisBottom(xScaleHeatMap)
     .tickSize(0)
@@ -264,11 +267,21 @@ function drawHeatMap(data, RANGE, COLUMN) {
     .domain(RANGE)
     .range(['#70CACB', '#E3E5E5', '#FDB715']);
 
+  function chooseColors(d) {
+    if(d[COLUMN]=='NA'){
+      return '#000'
+    } else if(+d[COLUMN]<=2) {
+      return colorScale(+d[COLUMN]) 
+    } else {
+      return '#FDB715'
+    }
+  }
+
   data.forEach(d=>{
     d.x = xScaleHeatMap(d.country)+margin.left
     d.y = yScaleHeatMap(d.group)+margin.top
     d.r = gridSize/2
-    d.color = colorScale(+d[COLUMN])
+    d.color = COLUMN=='value' ? colorScale(+d[COLUMN]): chooseColors(d)
     d.strokeColor = 'none'
   })
 
@@ -351,25 +364,68 @@ function drawLegend(RANGE, TEXT) {
     .style('font-size', '18px')
     .text(TEXT);
 
-  //Append legend label
-  legendsvg.append("text")
-    .attr("class", "legendTitleRight")
-    .attr("x", legendWidth/2+10)
-    .attr("y", 8)
-    .style("text-anchor", "start")
-    .attr('fill', 'white')
-    .style('font-size', '10px')
-    .text('Country only gave aid money');
+  if(TEXT==''){
+    //Append legend label
+    legendsvg.append("text")
+      .attr("class", "legendTitleRight")
+      .attr("x", legendWidth/2+10)
+      .attr("y", 8)
+      .style("text-anchor", "start")
+      .attr('fill', 'white')
+      .style('font-size', '10px')
+      .text('Country only gave aid');
 
-  //Append legend label
-  legendsvg.append("text")
-    .attr("class", "legendTitleLeft")
-    .attr("x", -legendWidth/2-10)
-    .attr("y", 8)
-    .style("text-anchor", "end")
-    .attr('fill', 'white')
-    .style('font-size', '10px')
-    .text('Country only received aid money');
+    //Append legend label
+    legendsvg.append("text")
+      .attr("class", "legendTitleLeft")
+      .attr("x", -legendWidth/2-10)
+      .attr("y", 8)
+      .style("text-anchor", "end")
+      .attr('fill', 'white')
+      .style('font-size', '10px')
+      .text('Country only received aid');
+
+    legendsvg.append("text")
+      .attr("class", "legendTitleMiddle")
+      .attr("x", 0)
+      .attr("y", -24)
+      .style("text-anchor", "middle")
+      .attr('fill', 'white')
+      .style('font-size', '10px')
+      .text('Country did not');
+ 
+    legendsvg.append("text")
+      .attr("class", "legendTitleMiddle")
+      .attr("x", 0)
+      .attr("y", -12)
+      .style("text-anchor", "middle")
+      .attr('fill', 'white')
+      .style('font-size', '10px')
+      .text('donate/receive any aid');
+
+   }
+
+  if(TEXT!=''){
+    //Append legend label
+    legendsvg.append("text")
+      .attr("class", "legendTitleRight")
+      .attr("x", legendWidth/2+10)
+      .attr("y", 8)
+      .style("text-anchor", "start")
+      .attr('fill', 'white')
+      .style('font-size', '10px')
+      .text('Greater than or equal');
+
+    //Append legend label
+    legendsvg.append("text")
+      .attr("class", "legendTitleLeft")
+      .attr("x", -legendWidth/2-10)
+      .attr("y", 8)
+      .style("text-anchor", "end")
+      .attr('fill', 'white')
+      .style('font-size', '10px')
+      .text('Less than or equal');
+   }
 
   //Set scale for x-axis
   var xScale = d3.scaleLinear()

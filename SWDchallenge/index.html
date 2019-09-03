@@ -34,15 +34,40 @@
     }
     #heatmap-story {
       position: absolute;
-      left: 450px;
-      top: 200px;
-    }   
+      left: 250px;
+      top: 600px;
+      color: white;
+      width: 80vw;
+      font-size: 15px;
+    }  
+    .title{
+      color: white;
+      position: fixed;
+      text-align: center;
+      padding-top: 10px;
+    } 
   </style>
 </head>
 <body>
 
   <div id='heatmap'></div>
-  <div id='heatmap-story'></div>
+  <div id='heatmap-story'>
+    <ul class='subtitle-4'>
+      <li>Hungary, Poland, Romania were the first Soviet bloc countries to receive foreign aid in early 1980s.</li>
+      <li>The collapse of the Communist Regimes in the Soviet bloc countries of Czech Republic, Estonia, Latvia, Lithuania, Slovenia saw these countries receive aid for the first time in 1989.</li>
+      <li>Soviet bloc countries continue to soley receive aid from 1995 to 2006.</li>
+      <li>It is interesting to note that the start of the 2007-2008 global financial crisis coincided with the time period when many countries went from being receivers to donors: Czech Republic, Hungary, Korea, Qatar, Taiwan, Slovakia. Since 2011, Poland, Slovenia, UAE joined this group of countries.
+    </ul>
+    <ul class='subtitle-5'>
+      <li>Growth in donations does not exceed 1.2% for 75% of the country-year buckets</li>
+      <li>The slowdown of Japanese economy saw aid given by Japan drop drastically from 1999 to 2000.</li>
+      <li>Germany’s willingness to continue its large development aid was undermined by the financial, economic, and political costs of reunification</li>
+    </ul>
+    <ul class='subtitle-6'>
+      <li>Growth in aid amount received by specific countries over the years were more obvious.</li>
+      <li>After initial injection of aid to Czech Republic, Romania, Estonia, Latvia, these countries saw a slight drop in the amount of aid in the late 1990s. Reductions in aid disbursements could be driven by the disappearance of an important motive for aid.</li>
+    </ul>
+  </div>
 
   <div id="wrapper">
     <div id="container">
@@ -55,7 +80,7 @@
 
       <div class='intro'>
         <div class='intro-main'><h2>
-          Financial aid flows between countries, specifically from rich nations to poorer nations of the global south is not a new phenomenon. AidData maintains the most comprehensive project-level database tracking international development finance and have publically released the data. This visualization is based on data on global development aid between 1973 and 2014 collected by AidData. It aims to answer questions on how aid flows have changed over time and serves as an exploration tool of donations distributed across countries.
+          Financial aid flows between countries, specifically from rich nations to poorer nations of the global south is not a new phenomenon. AidData maintains the most comprehensive project-level database tracking international development finance and have publically released the data. This visualization is based on data on global development aid between 1973 and 2013 collected by AidData. It aims to answer questions on how aid flows have changed over time and serves as an exploration tool of donations distributed across countries.
         </h2></div><br>
         <div class='intro-sub'>
           <b>Official Citation</b>
@@ -68,15 +93,21 @@
         </div>
       </div>
 
-      <div class='subtitle'>
-        <h3></h3>
+      <div class='title'>
+        <h2></h2>
         <h1></h1>
+      </div>
+
+      <div class='subtitle'>
         <br>
-        <p class='subtitle-1'>42 donors committed $367 Billion in country to country aid. While over half of the 42 donors are in Europe, United States and Japan accounted for over half of the $367 Billion aid. India is the biggest recipient of aid.</p>
-        <p class='subtitle-2'>How are donations distributed across countries? Select a <span style="color:#FDB715">donor</span> or <span style="color:#70CACB">recipient</span> country from the dropdown or click one on the map to explore. To filter by year, select a year from the dropdown or scrub your mouse over the timeline chart.
+        <h3 class='subtitle-1'>42 donors committed $367 Billion in country to country aid. While over half of the 42 donors are in Europe, United States and Japan accounted for over half of the $367 Billion aid. India is the biggest recipient of aid.</h3>
+        <h3 class='subtitle-2'>How are donations distributed across countries? Select a <span style="color:#FDB715">donor</span> or 
+        <span style="color:#70CACB">recipient</span> country from the dropdown or click one on the map to explore. To filter by year, select a year from the dropdown or scrub your mouse over the timeline chart.
           <button class="ui mini inverted icon button" id='reset' onclick='reset()'>Reset</button>
-        </p>
-        <p class='subtitle-3'></p>
+        </h3>
+        <h3 class='subtitle-3'>
+          Overall growth of development aid has slowed down since early 2000s. In many countries the increasing burden of foreign debt overhang suggests that new aid, particularly loans, would only compound the problem. An ideology of international political economy that privileges private capital flows and trade over aid is becoming increasingly influential, shifting responsibility for development to the developing and transition economies themselves.
+        </h3>
       </div>
 
       <div class='menu'>

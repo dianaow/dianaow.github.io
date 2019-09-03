@@ -73,7 +73,7 @@ function zoomed(d){
 
 }  
 
-svg.call(zoom)
+//svg.call(zoom)
 
 ////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////// Chloropleth map ///////////////////////////////
@@ -109,7 +109,7 @@ function drawAllLinksMap(data, type) {
 
   var entered_arcs = arcPaths.enter().append("path")
     .merge(arcPaths)
-    .transition().duration(500)
+    //.transition().duration(500)
     .attr("class", "connector")
     .attr('id', function(d,i){ return 'connector-' + i })
     .attr('d', function(d) { 
@@ -144,7 +144,7 @@ function createLinksNet(data, X) {
         if(d.properties[X] > 0){
           arcData.push({
             value: d.properties[X],
-            sourceName: d.country,
+            sourceName: d.properties.name,
             targetName: country,
             sourceLocation: [cS.x, cS.y],
             targetLocation: [cT.x, cT.y],
@@ -153,7 +153,7 @@ function createLinksNet(data, X) {
         } else if(d.properties[X] < 0){
            arcData.push({
             value: Math.abs(d.properties[X]),
-            targetName: d.country,
+            targetName: d.properties.name,
             sourceName: country,
             targetLocation: [cS.x, cS.y],
             sourceLocation: [cT.x, cT.y],
@@ -306,7 +306,7 @@ function animatePaths(selector) {
 /////////////////////////////// Draw density circles on map ////////////////////////
 //////////////////////////////////////////////////////////////////////////////////// 
 function drawCirclesMap(data, type) {
-
+  console.log(newCountry)
   if(type=='show_country'){
     data = data.filter(d=>d.category == newCategory & d.country==newCountry)
   } else {
@@ -327,6 +327,7 @@ function drawCirclesMap(data, type) {
       bubbleData.push(bubbleOne)
     }
   })
+  console.log(bubbleData)
   circles = bubbles_explore.selectAll("g.nodegroup").data(bubbleData, d=>d.country)
 
   var entered_circles = circles.enter().append("g")
@@ -354,7 +355,7 @@ function drawCirclesMap(data, type) {
 
   entered_labels.merge(countryLabels)
      .attr("class", "countryLabel")
-     .attr("id", function(d) { return "countryLabel" + d.country })
+     .attr("id", function(d) { return "countryLabel" + d.country.replace(/[^A-Z0-9]+/ig, "") })
      .attr("transform", function(d) {
         return (
            "translate(" + d.x + "," + (d.y+rScale(d.value)+10).toString() + ")" // centroid of countries
@@ -371,23 +372,8 @@ function drawCirclesMap(data, type) {
      .attr('font-weight', 'bold')
      .attr('fill', colors[newCategory])
      .text(function(d) { return d.country.toUpperCase() })
-     .call(getTextBox)
+     //.call(getTextBox)
   
-  // add a background rectangle the same size as the text
-  countryLabels
-     .insert("rect", "text")
-     .attr("class", "countryBg")
-     .attr('z-index', 999)
-     .attr("transform", function(d) {
-        return "translate(" + (d.bbox.x - 2) + "," + d.bbox.y + ")";
-     })
-     .attr("width", function(d) {
-        return d.bbox.width + 4;
-     })
-     .attr("height", function(d) {
-        return d.bbox.height;
-     })
-
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -412,6 +398,7 @@ function topData(densityData, type, category) {
       top_countries.push({'index':i, 'country': data[i]['country'], 'perc': perc})
     }
   }
+  console.log(top_countries)
   return top_countries
 }
 

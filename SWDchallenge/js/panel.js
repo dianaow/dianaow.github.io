@@ -205,7 +205,7 @@ function createLineChart(g) {
 }
 
 function multipleLineChart(data, maxY) {
-
+  
   yScaleLine.domain([0, maxY])
   const yAxis = d3.select('.y_axis')
     .call(yAxisGenerator)
@@ -231,7 +231,7 @@ function multipleLineChart(data, maxY) {
   glines.merge(entered_lines).select('.line')  
     //.transition().duration(500) 
     .attr('d', function(d) { return lineGenerator(d.values) })
-    .style('stroke', (d, i) => colors[d.key])
+    .style('stroke', (d, i) => newCountry=='All' ? 'white' :colors[d.key])
     .style('fill', 'none')
     .style('opacity', 1)
     .style('stroke-width', 1)

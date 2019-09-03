@@ -24,9 +24,10 @@ var timers = []
 var centroids = []
 var attributeArray = []
 var attribute
-var NUM_VAR = 2
+var NUM_VAR = 3
 var newCategory = 'net'
 var newYear = 'All'
+var newCountry = 'All'
 var DEFAULT_MAP_COLOR = 'black' 
 var DEFAULT_MAP_STROKE = 'black'
 var DEFAULT_PATH_WIDTH = 1
@@ -126,7 +127,6 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
   menu()
   createLineChart()
   updateGlobalPanel()
-  //multipleLineChart(timelineData, 12000000000)
 
   ////////////////////////////////////////////////////////////  
   /////////////////// Initiate Buttons ///////////////////////
@@ -144,13 +144,13 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
     //Map exploration tool
     if(counter == 1) { exploreBubbleMap() }  
     //Start bubble map
-    if(counter == 2) { bubbleMap() }
+    if(counter == 2) { bubbleMap() } 
     //Transition to heatmap 1
     if(counter == 3) { heatmap1() }
     //Transition to heatmap 2
     if(counter == 4) { heatmap2() }
     //Transition to heatmap 3
-    if(counter == 5) { heatmap3() }  
+    if(counter == 5) { heatmap3() } 
   }
 
   //Order of steps when clicking the front button
@@ -199,10 +199,7 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
     //De-activate the back button
     d3.select("#clickerBack").classed("inactiveButton",true);  
     d3.select("#clickerBack").classed("activeButton",false);
-    //Change text of front button
-    d3.select("#clickerFront").html("Start");
 
-    bubbles.attr('display', 'none')
   }
 
   function bubbleMap(){ 
@@ -214,67 +211,89 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
     bubbles_explore.attr('display', 'none')
     bubbles.attr('display', 'block')
     d3.select("#clickerFront").html("Continue");
+    d3.select('.title').style('display', 'block')
   }
 
   function heatmap1(){ 
     map_to_heatmap_clearance()
-    setTimeout(function() {
-      drawHeatMap(heatmapData, [-1, 0, 1], 'value')
-      createGradient([-1,1], '')
-    }, 1000) 
+    drawHeatMap(heatmapData, [-1, 0, 1], 'value')
+    createGradient([-1,1], '')
+    d3.select('.subtitle-5').style('display', 'none')
+    d3.select('.subtitle-6').style('display', 'none')
+    d3.select('.subtitle-4')
+      .style('display', 'block')
+      .style('opacity', 0)
+      .transition().duration(500).delay(500)
+      .style('opacity', 1)
     d3.select("#clickerFront").html("Continue");
-    d3.select('#heatmap-story').html('Heatmap 1')
   }
     
   function heatmap2(){ 
     map_to_heatmap_clearance()
-    drawHeatMap(heatmapData, [-5, 0, 25], 'donor_growth')
-    createGradient([-5,25], 'Donor Growth Percentage (%)')
+    drawHeatMap(heatmapData, [-2, 0, 2], 'donor_growth')
+    createGradient([-2,2], 'Donor Growth Percentage (%)')
+    d3.select('.subtitle-4').style('display', 'none')
+    d3.select('.subtitle-6').style('display', 'none')
+    d3.select('.subtitle-5')
+      .style('display', 'block')
+      .style('opacity', 0)
+      .transition().duration(500)
+      .style('opacity', 1)
     d3.select("#clickerFront").html("Continue");
-    d3.select('#heatmap-story').html('Heatmap 2')
   }
 
   function heatmap3(){
     map_to_heatmap_clearance()
-    drawHeatMap(heatmapData, [-5, 0, 25], 'recipient_growth')
-    createGradient([-5,25], 'Recipient Growth Percentage (%)')
-    d3.select("#clickerFront").html("Continue");
-    d3.select('#heatmap-story').html('Heatmap 2')
+    drawHeatMap(heatmapData, [-2, 0, 2], 'recipient_growth')
+    createGradient([-2,2], 'Recipient Growth Percentage (%)')
+    d3.select('.subtitle-4').style('display', 'none')
+    d3.select('.subtitle-5').style('display', 'none')
+    d3.select('.subtitle-6')
+      .style('display', 'block')
+      .style('opacity', 0)
+      .transition().duration(500)
+      .style('opacity', 1)
+    d3.select("#clickerFront").html("Finished");
   }
 
   function exploreBubbleMap(){ 
     heatmap_to_map_clearance()
-    //d3.select('.subtitle').style('display', 'none')
+    d3.select('.title').style('display', 'none')
+    d3.select('.subtitle-1').style('display', 'none')
+    d3.select('.subtitle-2').style('display', 'none')
+    d3.select('.subtitle-3').style('display', 'none')
+
+    drawCirclesMap(densityData, 'show_all')
+    d3.select('.subtitle-1')
+      .style('display', 'block')
+      .style('opacity', 0)
+      .transition().duration(500)
+      .style('opacity', 1)
     setTimeout(function() {
-      drawCirclesMap(densityData, 'show_all')
-      d3.select('.subtitle-1')
-        .style('display', 'block')
-        .style('opacity', 0)
-        .transition().duration(500)
-        .style('opacity', 1)
-    }, 1000)
-    setTimeout(function() {
-      drawAllLinksMap(world)
+      drawAllLinksMap(world, 'show_all')
       var countries = densityData.map(d=>d.country).filter(onlyUnique)
       var selectedPaths = countriesPaths.filter(d=>countries.indexOf(d.properties.name)!=-1)
       interactive(selectedPaths)
-      interactive(d3.selectAll(".bubble")) 
+      interactive(bubbles_explore.selectAll(".bubble")) 
       bubbles_explore.attr('display', 'block')
       d3.select('.menu').style('display', 'block')
       d3.select('#panel').style('display', 'block')
       d3.select('.all_arcs').attr('display', 'block')
-      d3.select('.subtitle-1').style('display', 'none')
-      d3.select('.subtitle-2 ')
+      d3.select('.subtitle-2')
         .style('display', 'block')
         .style('opacity', 0)
         .transition().duration(500)
         .style('opacity', 1)
-    }, 2000)   
+    }, 2000)  
+     d3.select("#clickerFront").html("Continue"); 
   }
  
   function heatmap_to_map_clearance() {
+    d3.select('.subtitle-4').style('display', 'none')
+    d3.select('.subtitle-5').style('display', 'none')
+    d3.select('.subtitle-6').style('display', 'none')
     d3.selectAll('.intro').style("visibility","hidden")
-    d3.select('.subtitle').style('display', 'block')
+    
     d3.select('#heatmap').style('display', 'none')
     map.attr('display', 'block')
     svg.select('defs').remove()
@@ -285,10 +304,12 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
   }
 
   function map_to_heatmap_clearance() {
+    d3.select('.title').style('display', 'none')
     d3.select('.subtitle-1').style('display', 'none')
     d3.select('.subtitle-2').style('display', 'none')
+    d3.select('.subtitle-3').style('display', 'none')
     d3.selectAll('.intro').style("visibility","hidden")
-    d3.select('.subtitle').style('display', 'none')
+
     d3.select('#heatmap').style('display', 'block')
     map.attr('display', 'none')
     bubbles.selectAll('.bubble').interrupt()
@@ -319,6 +340,7 @@ reset = function() {
 }
 
 function resetVar() {
+  newCountry = 'All'
   newCategory = 'net'
   newYear = 'All'    
   isClicked = false
@@ -334,7 +356,7 @@ function resetActions() {
   d3.select('.all_arcs').attr('display', 'block')
   d3.select('.arcs').attr('display', 'none')
   drawAllLinksMap(world, 'show_all')
-  drawCirclesMap('show_all')
+  drawCirclesMap(densityData, 'show_all')
   updateGlobalPanel()
 }
 
@@ -352,11 +374,11 @@ d3.select(".btn-net")
   .on("click", function(d) {
     newCategory = 'net'
     undoMapActions()
-    drawCirclesMap('show_country')
+    drawCirclesMap(densityData, 'show_country')
     d3.select('.all_arcs').attr('display', 'block')
-    d3.select('.arcs').attr('display', 'none')
+    d3.select('.arcs').attr('display', 'block')
     setTimeout(function(){
-      drawAllLinksMap(world)
+      drawAllLinksMap(world, 'show_country')
       doActions(newCountry)
     }, 250)
   })
@@ -365,7 +387,7 @@ d3.select(".btn-source")
   .on("click", function(d) {
     newCategory = 'donor'
     undoMapActions()
-    drawCirclesMap('show_country')
+    drawCirclesMap(densityData, 'show_country')
     d3.select('.all_arcs').attr('display', 'none')
     d3.select('.arcs').attr('display', 'block')
     setTimeout(function(){
@@ -377,7 +399,7 @@ d3.select(".btn-destination")
   .on("click", function(d) {
     newCategory = 'recipient'
     undoMapActions()
-    drawCirclesMap('show_country')
+    drawCirclesMap(densityData, 'show_country')
     d3.select('.all_arcs').attr('display', 'none')
     d3.select('.arcs').attr('display', 'block')
     setTimeout(function(){
@@ -405,9 +427,10 @@ function menu() {
       d3.selectAll(".countryLabel").style('display', 'none') // hide 'tooltip'
       if(d=='All Countries'){
         drawAllLinksMap(world, 'show_all')
-        drawCirclesMap('show_all')
+        drawCirclesMap(densityData, 'show_all')
       } else {
         newCountry = d
+        drawCirclesMap(densityData, 'show_country')
         doActions(newCountry)
       }
     })
@@ -429,13 +452,13 @@ function menu() {
       }
       d3.selectAll(".countryLabel").style('display', 'none') // hide 'tooltip'
       if(countrySearched==true){
-        drawCirclesMap('show_country')
+        drawCirclesMap(densityData, 'show_country')
         drawAllLinksMap(world, 'show_country')
         setTimeout(function(){
           doActions(newCountry)
         }, 250)
       } else {
-        drawCirclesMap('show_all')
+        drawCirclesMap(densityData, 'show_all')
         drawAllLinksMap(world, 'show_all')
       }
     })
@@ -454,7 +477,7 @@ function interactive(obj) {
       } 
     })
     .on("click", function(d) {
-      isClicked == false ? isClicked = true : isClicked = false  
+      isClicked == false ? isClicked = true : isClicked = false 
       countrySearched == false ? countrySearched = true : countrySearched = false  
       if(isClicked==true){
         doActions(d.country ? d.country : d.properties.name) 
@@ -469,6 +492,7 @@ function interactive(obj) {
         d3.selectAll(".countryLabel").style('visibility', 'hidden') // hide 'tooltip'
         undoMapActions()
         updateGlobalPanel()
+        drawCirclesMap(densityData, 'show_all')
       }
     })
 
@@ -508,7 +532,7 @@ function doActions(d) {
   ////////////////////////////////////////////////////////////////////////////////////
 
   //////////////////////////////////////// Map ///////////////////////////////////////
-  d3.select("#countryLabel" + newCountry).style('visibility', 'visible') // update 'tooltip'
+  d3.select("#countryLabel" + newCountry.replace(/[^A-Z0-9]+/ig, "")).style('visibility', 'visible') // update 'tooltip'
   updateMap(attribute) // Modify color density (in %)
   
   // PATHS : Individual donor/recipient country connectors (Only draw if there is a connection)
@@ -519,7 +543,8 @@ function doActions(d) {
   // PATHS: All total amount country connectors
   if(all_arcs){
     all_arcs.selectAll('path.connector')
-      .filter(function(d){ return d.sourceName!=newCountry & d.targetName!=newCountry })
+      .filter(function(d){ 
+        return d.sourceName!=newCountry & d.targetName!=newCountry })
       .attr('opacity', 0)
 
     all_arcs.selectAll('path.connector')
