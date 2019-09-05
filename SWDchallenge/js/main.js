@@ -153,6 +153,10 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
     if(counter == 5) { heatmap3() } 
   }
 
+  //De-activate the back button
+  d3.select("#clickerBack").classed("inactiveButton",true); 
+  d3.select("#clickerBack").classed("activeButton",false);
+
   //Order of steps when clicking the front button
   d3.select("#clickerFront")      
     .on("click", function(e){
@@ -208,6 +212,7 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
     d3.select('.menu').style('display', 'none')
     d3.select('#panel').style('display', 'none')
     d3.select('.all_arcs').attr('display', 'none')
+    interactive(bubbles_explore.selectAll(".bubble"), 'static') 
     bubbles_explore.attr('display', 'none')
     bubbles.attr('display', 'block')
     d3.select("#clickerFront").html("Continue");
@@ -273,8 +278,8 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
       drawAllLinksMap(world, 'show_all')
       var countries = densityData.map(d=>d.country).filter(onlyUnique)
       var selectedPaths = countriesPaths.filter(d=>countries.indexOf(d.properties.name)!=-1)
-      interactive(selectedPaths)
-      interactive(bubbles_explore.selectAll(".bubble")) 
+      interactive(selectedPaths, 'explore')
+      interactive(bubbles_explore.selectAll(".bubble"), 'explore') 
       bubbles_explore.attr('display', 'block')
       d3.select('.menu').style('display', 'block')
       d3.select('#panel').style('display', 'block')
@@ -468,33 +473,35 @@ function menu() {
 ////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////// Interactive map ///////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////// 
-function interactive(obj) {
+function interactive(obj, step) {
 
-  obj
-    .on("mousemove", function(d) {
-      if(isClicked==false){
-        doActions(d.country ? d.country : d.properties.name) 
-      } 
-    })
-    .on("click", function(d) {
-      isClicked == false ? isClicked = true : isClicked = false 
-      countrySearched == false ? countrySearched = true : countrySearched = false  
-      if(isClicked==true){
-        doActions(d.country ? d.country : d.properties.name) 
-      } else {
-        $('.ui.search.dropdown.dropdown-country').dropdown('restore defaults')
-        undoMapActions()
-        undoPanelActions(d.country ? d.country : d.properties.name)
-      }
-    })
-    .on("mouseout",  function(d) { 
-      if(isClicked==false){
-        d3.selectAll(".countryLabel").style('visibility', 'hidden') // hide 'tooltip'
-        undoMapActions()
-        updateGlobalPanel()
-        drawCirclesMap(densityData, 'show_all')
-      }
-    })
+  if(step=='explore'){
+    obj
+      .on("mousemove", function(d) {
+        if(isClicked==false){
+          doActions(d.country ? d.country : d.properties.name) 
+        } 
+      })
+      .on("click", function(d) {
+        isClicked == false ? isClicked = true : isClicked = false 
+        countrySearched == false ? countrySearched = true : countrySearched = false  
+        if(isClicked==true){
+          doActions(d.country ? d.country : d.properties.name) 
+        } else {
+          $('.ui.search.dropdown.dropdown-country').dropdown('restore defaults')
+          undoMapActions()
+          undoPanelActions(d.country ? d.country : d.properties.name)
+        }
+      })
+      .on("mouseout",  function(d) { 
+        if(isClicked==false){
+          d3.selectAll(".countryLabel").style('visibility', 'hidden') // hide 'tooltip'
+          undoMapActions()
+          updateGlobalPanel()
+          drawCirclesMap(densityData, 'show_all')
+        }
+      })
+  }
 
 }
 

@@ -306,7 +306,7 @@ function animatePaths(selector) {
 /////////////////////////////// Draw density circles on map ////////////////////////
 //////////////////////////////////////////////////////////////////////////////////// 
 function drawCirclesMap(data, type) {
-  console.log(newCountry)
+
   if(type=='show_country'){
     data = data.filter(d=>d.category == newCategory & d.country==newCountry)
   } else {

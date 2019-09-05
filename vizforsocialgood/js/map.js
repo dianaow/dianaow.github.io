@@ -58,7 +58,7 @@ var main = function () {
   
   var formatTime = d3.timeFormat("%d %b %Y") // eg 16 Oct 2015
   var formatDate = d3.timeFormat("%b %Y");
-  var parseDate = d3.timeParse("%Y-%m-%d")
+  var parseDate = d3.timeParse("%d-%m-%y")
 
   ///////////////////////////////////////////////////////////////////////////
   ///////////////////////////////// Initialize //////////////////////////////

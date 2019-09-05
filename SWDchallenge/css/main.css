@@ -279,3 +279,87 @@ h5 {
   display: none;
 }
 
+
+#clickerWrapper {
+  z-index: 10;
+  display: block;
+  position: absolute;
+  width: 1000px;
+  top: 680px;
+  visibility: auto;
+}
+
+#progressButtonWrapper{
+  text-align: center;
+  position: relative;
+  width: 400px;
+  height: 30px;
+  margin: 0 auto;
+}
+
+#progress {
+  z-index: 1;
+  display: block;
+  position: relative;
+  width: 40%;
+  height: 6px;
+  margin: 0px auto;
+  padding-bottom: 30px;
+  visibility: hidden;
+}
+    
+.progressButton {
+  display: block;
+  font-weight: 300;
+  position: relative;
+  /*width: 80px;*/
+  text-align: center;
+  width: 20%;
+  margin: 0 auto;
+  border: 1px solid;
+  cursor: pointer;
+  display:inline-block;
+  font-family: 'AvenirNext', sans-serif;
+  font-size: 12px;
+}
+
+.inactiveButton {
+  color: #363636;
+  border-color: #363636;
+  cursor: default;
+  pointer-events: none;
+}
+
+.activeButton {
+  color: #D3D3D3;
+  border-color: #D3D3D3;
+  cursor: pointer;
+}
+
+.space{
+  position: relative;
+  width:  2%;
+  height: 10px;
+  display:inline-block;
+  cursor: default;
+} 
+
+.circleBase {
+  position: relative;
+    border-radius: 50%;
+    behavior: url(PIE.htc); /* remove if you don't care about IE8 */
+    width: 10px;
+    height: 10px;
+    border: 1px solid #D3D3D3;
+  top: -5px;
+  display:inline-block;
+    background: white;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.title text {
+  font-size:25px;
+}

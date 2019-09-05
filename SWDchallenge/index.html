@@ -94,8 +94,9 @@
       </div>
 
       <div class='title'>
-        <h2></h2>
         <h1></h1>
+        <p></p>
+        <text></text>
       </div>
 
       <div class='subtitle'>
@@ -188,14 +189,30 @@
         <div class='countries-content'></div>
       </div> 
 
-      <div id="vis-nav">
-        <button id="clickerBack" class="ui mini btn-control basic button progressButton inactiveButton">Back</button>
-        <div id="circle_1" class="step-link"></div>
-        <div id="circle_2" class="step-link"></div>
-        <div id="circle_3" class="step-link"></div>
-        <div id="circle_4" class="step-link"></div>
-        <div id="circle_5" class="step-link"></div>
-        <button id="clickerFront" class="ui mini btn-control basic button progressButton activeButton">Start</button>
+      <!-- Buttons at the bottom -->
+      <div id="clickerWrapper">
+        <div id="progress"></div>
+        <div id="progressButtonWrapper">
+          <div id="clickerBack" class="progressButton inactiveButton">Back</div>
+          <div class="space"> </div>
+          <div class="space"> </div>
+          <div id="circle_1" class="circleBase mapView clickable"></div>
+          <div class="space"> </div>
+          <div class="space"> </div>
+          <div id="circle_2" class="circleBase slopeView clickable"></div>
+          <div class="space"> </div>
+          <div class="space"> </div>
+          <div id="circle_3" class="circleBase histoView clickable"></div>
+          <div class="space"> </div>
+          <div class="space"> </div>
+          <div id="circle_4" class="circleBase scatterView clickable"></div>
+          <div class="space"> </div>
+          <div class="space"> </div>
+          <div id="circle_5" class="circleBase scatterView clickable"></div>
+          <div class="space"> </div>
+          <div class="space"> </div>
+          <div id="clickerFront" class="progressButton activeButton">Start</div>
+        </div>
       </div>
 
     </div>

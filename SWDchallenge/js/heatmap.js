@@ -101,10 +101,10 @@ function drawCirclesHeatMap(data) {
     var timer = setTimeout(function() {
       bubbleData_filt = bubbleData.filter(d=>arr.indexOf(d.group) != -1)
       d3.select('.title h2').html('Average commitment amount donated/received')  
-      d3.select('.title p').html('(in constant USD') 
-      d3.select('.title h1').html(arr[arr.length-1])
+      d3.select('.title p').html('in constant USD 2011') 
+      d3.select('.title text').transition().duration(800).text(arr[arr.length-1])
       updateCircles(bubbleData_filt, 'initial_map') 
-    }, 800*(i+1))
+    }, 1000*(i+1))
     timers.push(timer)
   }
 
@@ -122,7 +122,7 @@ function updateCircles(data, transitionType) {
 
   if(transitionType=='initial_map'){
     circles.merge(entered_circles).select('.bubble')   
-      .transition().duration(750)
+      .transition().duration(800)
       .attr('id', d=>'bubble' + d.index)
       .attr('transform', d=>'translate(' + d.x + "," + d.y + ")")
       .attr('r', d=>d.r)
@@ -244,6 +244,12 @@ function drawHeatMap(data, RANGE, COLUMN) {
         g.select(".domain").remove()
       })
 
+    xaxis.append("text")
+      .attr("class", "axis-label-text")
+      .attr("transform", "translate(0," + (60) + ")")
+      .attr('fill', 'white')
+      .attr('font-size', 22)
+      .text('--> GDP per capita, 2011')
    }
 
   if(render==0){
