@@ -21,6 +21,7 @@ var gHeatMap = d3.select('#heatmap')
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+
 ////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Draw density circles on map ////////////////////////
 //////////////////////////////////////////////////////////////////////////////////// 
@@ -305,7 +306,7 @@ function drawHeatMap(data, RANGE, COLUMN) {
 ///////////////////////////////////////////////////////////////////////////
 //////////////// Create the gradient for the legend ///////////////////////
 ///////////////////////////////////////////////////////////////////////////
-function createGradient(RANGE, TEXT) {
+function createGradient(legendsvg, legendWidth, RANGE, TEXT) {
 
   const countScale = d3.scaleLinear() //Extra scale since the color scale is interpolated
     .domain(RANGE)
@@ -336,19 +337,13 @@ function createGradient(RANGE, TEXT) {
       return colorScale( countPoint[i] ); 
     });
 
-  drawLegend(RANGE, TEXT)
+  drawLegend(legendsvg, legendWidth, RANGE, TEXT)
 }
 
 ///////////////////////////////////////////////////////////////////////////
 ////////////////////////// Draw the legend ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
-function drawLegend(RANGE, TEXT) {
-
-  var legendWidth = Math.min(width*0.8, 400);
-  //Color Legend container
-  var legendsvg = gHeatMap.append("g")
-    .attr("class", "legendWrapper")
-    .attr("transform", "translate(" + (gridSize * countries.length)/2 + "," + (-80) + ")");
+function drawLegend(legendsvg, legendWidth, RANGE, TEXT) {
 
   //Draw the Rectangle
   legendsvg.append("rect")

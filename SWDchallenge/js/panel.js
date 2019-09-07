@@ -90,7 +90,7 @@ function undoMapActions() {
   if(countrySearched==false){
     all_arcs.selectAll('path.connector').attr('opacity', function(d) { return opacityScale(d.value) })
   }
-  
+
 }
 
 function undoPanelActions() {
@@ -264,6 +264,8 @@ function multipleLineChart(data, maxY) {
         .style("opacity", "0");
       d3.selectAll("#tooltip")
         .style('display', 'none')
+      newYear='All'
+      $('.dropdown').dropdown('restore defaults')
     })
     .on('mouseover', function () { // on mouse in show line, circles and text
       d3.select(".mouse-line")
@@ -289,11 +291,13 @@ function multipleLineChart(data, maxY) {
           return "translate(" + (xScaleLine(d.values[idx].year) + 2).toString() + "," + yScaleLine(d.values[idx].sum) + ")";
         });
       newYear = xDate
-      bubbles_explore.selectAll('.bubble').interrupt()
-      setTimeout(function() { drawCirclesMap(densityData, 'show_all') }, 200)
-      drawAllLinksMap(world, 'show_all')
+      if(newCountry == 'All') {
+        bubbles_explore.selectAll('.bubble').interrupt()
+        setTimeout(function() { drawCirclesMap(densityData, 'show_all') }, 200)
+        drawAllLinksMap(world, 'show_all')
+        $('.dropdown-year').dropdown('set selected', newYear);
+      }
       updateTooltipContent(mouse, res_nested)
-      $('.dropdown-year').dropdown('set selected', newYear);
     })
 
 }

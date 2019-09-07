@@ -103,6 +103,10 @@ function drawAllLinksMap(data, type) {
   })
   arcData = arcData.flat()
 
+  lineScale = d3.scaleSqrt()
+    .range([0.25, 5])
+    .domain([0, d3.max(arcData, d=>d.value)])
+
   var arcPaths = all_arcs.selectAll("path").data(arcData)
 
   arcPaths.exit().remove()
@@ -327,7 +331,7 @@ function drawCirclesMap(data, type) {
       bubbleData.push(bubbleOne)
     }
   })
-  console.log(bubbleData)
+
   circles = bubbles_explore.selectAll("g.nodegroup").data(bubbleData, d=>d.country)
 
   var entered_circles = circles.enter().append("g")

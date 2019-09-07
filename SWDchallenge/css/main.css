@@ -112,7 +112,7 @@ h5 {
   display: none;
 }
 .stats-perc {
-  padding-top: 20px;
+  padding-top: 30px;
   padding-bottom: 0px;
 }
 .country-ratio {
@@ -275,6 +275,16 @@ h5 {
   text-align: center;
   color: white;
 }
+.end {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  visibility: hidden;
+}
 .subtitle-1, .subtitle-2, .subtitle-3, .subtitle-4, .subtitle-5, .subtitle-6 {
   display: none;
 }
@@ -362,4 +372,9 @@ h5 {
 
 .title text {
   font-size:25px;
+}
+
+.subtitle-legend {
+  width: 100%;
+  height: 80px;
 }

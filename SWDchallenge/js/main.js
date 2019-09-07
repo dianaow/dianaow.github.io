@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////// Globals /////////////////////////////////
 /////////////////////////////////////////////////////////////////////////// 
-var connData, densityData, arcs, all_arcs, bubbles, newCountry, lineGenerator, bounds
+var connData, densityData, arcs, all_arcs, bubbles, newCountry, lineGenerator, bounds, lineScale
 
 var ipadPRO_landscape = Math.min(window.innerWidth, screen.width)>1024 & Math.min(window.innerWidth, screen.width)<=1366 & (Math.abs(screen.orientation.angle == 90))
 var ipad_landscape = Math.min(window.innerWidth, screen.width)<=1024 & (Math.abs(screen.orientation.angle == 90))
@@ -37,10 +37,6 @@ var counter = 0
 var rScale = d3.scaleSqrt()
   .range([0, 50])
   .domain([0, 133980469969])
-
-var lineScale = d3.scaleSqrt()
-  .range([0.25, 5])
-  .domain([0, 50000000000])
 
 var lineDashedScale = d3.scaleSqrt()
   .range([0.15, 3])
@@ -151,6 +147,8 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
     if(counter == 4) { heatmap2() }
     //Transition to heatmap 3
     if(counter == 5) { heatmap3() } 
+    //Transition to end
+    if(counter == 6) { endText() } 
   }
 
   //De-activate the back button
@@ -198,31 +196,72 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
     });
 
   function introText() {
+
+    d3.select('.x_axis_heatmap').attr('display', 'none')
+    d3.select('.y_axis_heatmap').attr('display', 'none')
+    d3.select('.menu').style('display', 'none')
+    d3.select('#panel').style('display', 'none')
+    d3.select('.all_arcs').attr('display', 'none')
+    bubbles_explore.attr('display', 'none')
+
+    d3.select('.subtitle-1').style('display', 'none')
+    d3.select('.subtitle-2').style('display', 'none')
+    d3.select('.subtitle-3').style('display', 'none')
+    
+    d3.selectAll('.end').style("visibility","hidden")
     d3.selectAll('.intro').style("visibility","visible")
-
-    //De-activate the back button
-    d3.select("#clickerBack").classed("inactiveButton",true);  
+    
+    d3.select("#clickerFront").html("Start");
+    d3.select("#clickerFront").classed("activeButton",true);  
+    d3.select("#clickerFront").classed("inactiveButton",false);  
     d3.select("#clickerBack").classed("activeButton",false);
+    d3.select("#clickerBack").classed("inactiveButton",true);
+  }
 
+  function endText() {
+    heatmap_to_map_clearance()
+    d3.selectAll('.intro').style("visibility","hidden")
+    d3.selectAll('.end').style("visibility","visible")
+
+    d3.select("#clickerFront").classed("activeButton",false);  
+    d3.select("#clickerFront").classed("inactiveButton",true);
+    d3.select("#clickerBack").classed("activeButton",true);  
+    d3.select("#clickerBack").classed("inactiveButton",false);
   }
 
   function bubbleMap(){ 
     heatmap_to_map_clearance()
     drawCirclesHeatMap(heatmapData)
+    countries = heatmapData.map(d=>d.country).filter(onlyUnique)
+    gridSize = Math.floor(width / countries.length)
+    var legendWidth = Math.min(width*0.8, 200);
+    var legendsvg = d3.select('.subtitle-legend').append("g")
+      .attr("class", "legendWrapper")
+      .attr("transform", "translate(" + (legendWidth/2+150).toString() + "," + 35 + ")");
+    createGradient(legendsvg, legendWidth, [-1,1], '')
     d3.select('.menu').style('display', 'none')
     d3.select('#panel').style('display', 'none')
     d3.select('.all_arcs').attr('display', 'none')
     interactive(bubbles_explore.selectAll(".bubble"), 'static') 
     bubbles_explore.attr('display', 'none')
     bubbles.attr('display', 'block')
-    d3.select("#clickerFront").html("Continue");
     d3.select('.title').style('display', 'block')
+
+    d3.select("#clickerFront").html("Continue");
+    d3.select("#clickerFront").classed("activeButton",true);  
+    d3.select("#clickerFront").classed("inactiveButton",false);
+    d3.select("#clickerBack").classed("activeButton",true);  
+    d3.select("#clickerBack").classed("inactiveButton",false);
   }
 
   function heatmap1(){ 
     map_to_heatmap_clearance()
     drawHeatMap(heatmapData, [-1, 0, 1], 'value')
-    createGradient([-1,1], '')
+    var legendWidth = Math.min(width*0.8, 400);
+    var legendsvg = gHeatMap.append("g")
+      .attr("class", "legendWrapper")
+      .attr("transform", "translate(" + (gridSize * countries.length)/2 + "," + (-80) + ")");
+    createGradient(legendsvg, legendWidth, [-1,1], '')
     d3.select('.subtitle-5').style('display', 'none')
     d3.select('.subtitle-6').style('display', 'none')
     d3.select('.subtitle-4')
@@ -230,13 +269,22 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
       .style('opacity', 0)
       .transition().duration(500).delay(500)
       .style('opacity', 1)
+
     d3.select("#clickerFront").html("Continue");
+    d3.select("#clickerFront").classed("activeButton",true);  
+    d3.select("#clickerFront").classed("inactiveButton",false);
+    d3.select("#clickerBack").classed("activeButton",true);  
+    d3.select("#clickerBack").classed("inactiveButton",false);
   }
     
   function heatmap2(){ 
     map_to_heatmap_clearance()
     drawHeatMap(heatmapData, [-2, 0, 2], 'donor_growth')
-    createGradient([-2,2], 'Donor Growth Percentage (%)')
+    var legendWidth = Math.min(width*0.8, 400);
+    var legendsvg = gHeatMap.append("g")
+      .attr("class", "legendWrapper")
+      .attr("transform", "translate(" + (gridSize * countries.length)/2 + "," + (-80) + ")");
+    createGradient(legendsvg, legendWidth, [-2,2], 'Donor Growth Percentage (%)')
     d3.select('.subtitle-4').style('display', 'none')
     d3.select('.subtitle-6').style('display', 'none')
     d3.select('.subtitle-5')
@@ -244,13 +292,22 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
       .style('opacity', 0)
       .transition().duration(500)
       .style('opacity', 1)
+
     d3.select("#clickerFront").html("Continue");
+    d3.select("#clickerFront").classed("activeButton",true);  
+    d3.select("#clickerFront").classed("inactiveButton",false);
+    d3.select("#clickerBack").classed("activeButton",true);  
+    d3.select("#clickerBack").classed("inactiveButton",false);
   }
 
   function heatmap3(){
     map_to_heatmap_clearance()
     drawHeatMap(heatmapData, [-2, 0, 2], 'recipient_growth')
-    createGradient([-2,2], 'Recipient Growth Percentage (%)')
+    var legendWidth = Math.min(width*0.8, 400);
+    var legendsvg = gHeatMap.append("g")
+      .attr("class", "legendWrapper")
+      .attr("transform", "translate(" + (gridSize * countries.length)/2 + "," + (-80) + ")");
+    createGradient(legendsvg, legendWidth, [-2,2], 'Recipient Growth Percentage (%)')
     d3.select('.subtitle-4').style('display', 'none')
     d3.select('.subtitle-5').style('display', 'none')
     d3.select('.subtitle-6')
@@ -258,7 +315,12 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
       .style('opacity', 0)
       .transition().duration(500)
       .style('opacity', 1)
-    d3.select("#clickerFront").html("Finished");
+
+    d3.select("#clickerFront").html("Finish");
+    d3.select("#clickerFront").classed("activeButton",true);  
+    d3.select("#clickerFront").classed("inactiveButton",false);
+    d3.select("#clickerBack").classed("activeButton",true);  
+    d3.select("#clickerBack").classed("inactiveButton",false);
   }
 
   function exploreBubbleMap(){ 
@@ -269,6 +331,7 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
     d3.select('.subtitle-3').style('display', 'none')
 
     drawCirclesMap(densityData, 'show_all')
+    bubbles_explore.attr('display', 'block')
     d3.select('.subtitle-1')
       .style('display', 'block')
       .style('opacity', 0)
@@ -280,7 +343,6 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
       var selectedPaths = countriesPaths.filter(d=>countries.indexOf(d.properties.name)!=-1)
       interactive(selectedPaths, 'explore')
       interactive(bubbles_explore.selectAll(".bubble"), 'explore') 
-      bubbles_explore.attr('display', 'block')
       d3.select('.menu').style('display', 'block')
       d3.select('#panel').style('display', 'block')
       d3.select('.all_arcs').attr('display', 'block')
@@ -290,7 +352,12 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
         .transition().duration(500)
         .style('opacity', 1)
     }, 2000)  
-     d3.select("#clickerFront").html("Continue"); 
+
+    d3.select("#clickerFront").html("Continue");
+    d3.select("#clickerFront").classed("activeButton",true);  
+    d3.select("#clickerFront").classed("inactiveButton",false);
+    d3.select("#clickerBack").classed("activeButton",true);  
+    d3.select("#clickerBack").classed("inactiveButton",false);
   }
  
   function heatmap_to_map_clearance() {
@@ -298,7 +365,7 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
     d3.select('.subtitle-5').style('display', 'none')
     d3.select('.subtitle-6').style('display', 'none')
     d3.selectAll('.intro').style("visibility","hidden")
-    
+    d3.selectAll('.end').style("visibility","hidden")
     d3.select('#heatmap').style('display', 'none')
     map.attr('display', 'block')
     svg.select('defs').remove()
@@ -314,7 +381,7 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
     d3.select('.subtitle-2').style('display', 'none')
     d3.select('.subtitle-3').style('display', 'none')
     d3.selectAll('.intro').style("visibility","hidden")
-
+    d3.selectAll('.end').style("visibility","hidden")
     d3.select('#heatmap').style('display', 'block')
     map.attr('display', 'none')
     bubbles.selectAll('.bubble').interrupt()
