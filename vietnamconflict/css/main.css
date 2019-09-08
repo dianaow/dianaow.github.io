@@ -8,12 +8,12 @@
 .box-group {
   display: flex;
   flex-direction: column;
-  width: 95%;
+  width: 100%;
 }
 .alert {
   display: none;
   flex-direction: column;
-  width: 95%;
+  width: 100%;
 }
 
 #title-wrapper, #vis-container {
@@ -69,9 +69,9 @@
 .tabs {
   z-index: 999;
   width: 500px;
-  height: 240px;
+  height: 300px;
   position: absolute;
-  top: 20px;
+  top: 15px;
   left: 850px;
 }
 #map {
@@ -92,6 +92,15 @@
   right: 10px;
   top: 10px;      
 }
+
+#footerWrapper {
+  margin: 0px;
+  padding: 9px;
+  background-image: linear-gradient(white, #DB2829);
+  background-repeat: no-repeat;
+  width: 100%;
+}
+
 #footer {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -105,10 +114,12 @@
   color: grey;
 }
 .annotation-map {
-  width: 150px;
+  width: 120px;
   position: absolute;
-  bottom: 110px;
+  top: 50%;
+  left: 20px;
 }
+
 .info {
   padding-left: 20px;
 }

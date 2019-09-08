@@ -64,10 +64,10 @@ var g = svg.append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")scale(" + sf + ")")
 
 map = g.append("g").attr("id", "map")
-bubbles = g.append("g").attr("class","bubbles")
-bubbles_explore = g.append("g").attr("class","bubbles_explore")
 arcs = g.append("g").attr("class","arcs")
 all_arcs = g.append("g").attr("class","all_arcs")
+bubbles = g.append("g").attr("class","bubbles")
+bubbles_explore = g.append("g").attr("class","bubbles_explore")
 
 var stats_perc = d3.select('.stats-perc').append('svg')
   .attr("width", '330px')
@@ -207,7 +207,7 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
     d3.select('.subtitle-1').style('display', 'none')
     d3.select('.subtitle-2').style('display', 'none')
     d3.select('.subtitle-3').style('display', 'none')
-    
+
     d3.selectAll('.end').style("visibility","hidden")
     d3.selectAll('.intro').style("visibility","visible")
     
@@ -232,19 +232,23 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
   function bubbleMap(){ 
     heatmap_to_map_clearance()
     drawCirclesHeatMap(heatmapData)
-    countries = heatmapData.map(d=>d.country).filter(onlyUnique)
-    gridSize = Math.floor(width / countries.length)
-    var legendWidth = Math.min(width*0.8, 200);
-    var legendsvg = d3.select('.subtitle-legend').append("g")
-      .attr("class", "legendWrapper")
-      .attr("transform", "translate(" + (legendWidth/2+150).toString() + "," + 35 + ")");
-    createGradient(legendsvg, legendWidth, [-1,1], '')
     d3.select('.menu').style('display', 'none')
     d3.select('#panel').style('display', 'none')
     d3.select('.all_arcs').attr('display', 'none')
     interactive(bubbles_explore.selectAll(".bubble"), 'static') 
     bubbles_explore.attr('display', 'none')
     bubbles.attr('display', 'block')
+
+    setTimeout(function() {
+      countries = heatmapData.map(d=>d.country).filter(onlyUnique)
+      gridSize = Math.floor(width / countries.length)
+      var legendWidth = Math.min(width*0.8, 200);
+      var legendsvg = d3.select('.subtitle-legend').append("g")
+        .attr("class", "legendWrapper")
+        .attr("transform", "translate(" + (legendWidth/2+150).toString() + "," + 35 + ")");
+      createGradient(legendsvg, legendWidth, [-1,1], '')
+    }, 600)
+
     d3.select('.title').style('display', 'block')
 
     d3.select("#clickerFront").html("Continue");
@@ -339,13 +343,13 @@ function processData(error, geoJSON, csv, csv2, csv3, csv4, csv5, csv6) {
       .style('opacity', 1)
     setTimeout(function() {
       drawAllLinksMap(world, 'show_all')
+      d3.select('.all_arcs').attr('display', 'block')
       var countries = densityData.map(d=>d.country).filter(onlyUnique)
       var selectedPaths = countriesPaths.filter(d=>countries.indexOf(d.properties.name)!=-1)
       interactive(selectedPaths, 'explore')
       interactive(bubbles_explore.selectAll(".bubble"), 'explore') 
       d3.select('.menu').style('display', 'block')
       d3.select('#panel').style('display', 'block')
-      d3.select('.all_arcs').attr('display', 'block')
       d3.select('.subtitle-2')
         .style('display', 'block')
         .style('opacity', 0)
@@ -562,6 +566,7 @@ function interactive(obj, step) {
       })
       .on("mouseout",  function(d) { 
         if(isClicked==false){
+          newCountry = 'All'
           d3.selectAll(".countryLabel").style('visibility', 'hidden') // hide 'tooltip'
           undoMapActions()
           updateGlobalPanel()
@@ -630,6 +635,9 @@ function doActions(d) {
   bubbles_explore.selectAll('circle')
     .attr('stroke-opacity', d=>d.country == newCountry ? 0.6 : 0) 
     .attr('fill-opacity', d=>d.country == newCountry ? (newCategory=='net' ? 0.1 : 0.6) : 0) // Only show circle of hovered country
+
+  bubbles_explore.selectAll('text')
+    .style('visibility', d=>d.country==newCountry ? 'visible' : 'hidden')
   ////////////////////////////////////////////////////////////////////////////////////
 
 }

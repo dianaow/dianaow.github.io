@@ -352,14 +352,18 @@ function drawCirclesMap(data, type) {
 
   circles.exit().remove()
 
+  top_countries = topData(densityData, 'global_level', 'donor') // top 10 donor countries
+  top_countries_list = top_countries.map(d=>d.country)
+
   // append country labels below their respective bubble
-  var countryLabels = map.selectAll(".countryLabel").data(bubbleData, d=>d.country)
+  var countryLabels = bubbles_explore.selectAll(".countryLabel").data(bubbleData, d=>d.country)
 
   var entered_labels = countryLabels.enter().append("g")
 
   entered_labels.merge(countryLabels)
      .attr("class", "countryLabel")
      .attr("id", function(d) { return "countryLabel" + d.country.replace(/[^A-Z0-9]+/ig, "") })
+     .style('visibility', d=>(top_countries_list.indexOf(d.country)!=-1 | d.country==newCountry)? 'visible' : 'hidden')
      .attr("transform", function(d) {
         return (
            "translate(" + d.x + "," + (d.y+rScale(d.value)+10).toString() + ")" // centroid of countries
@@ -367,17 +371,27 @@ function drawCirclesMap(data, type) {
      })
 
   entered_labels.append("text")
-    .merge(countryLabels.select("text"))
+    .merge(countryLabels.select(".countryName"))
      .attr("class", "countryName")
      .style("text-anchor", "middle")
      .attr("dx", 0)
-     .attr("dy", 0)
+     .attr("dy", 4)
      .attr('font-size', '12px')
      .attr('font-weight', 'bold')
      .attr('fill', colors[newCategory])
      .text(function(d) { return d.country.toUpperCase() })
-     //.call(getTextBox)
-  
+ 
+   entered_labels.append("text")
+    .merge(countryLabels.select(".countryValue"))
+     .attr("class", "countryValue")
+     .style("text-anchor", "middle")
+     .attr("dx", 0)
+     .attr("dy", 16)
+     .attr('font-size', '12px')
+     .attr('font-weight', 'bold')
+     .attr('fill', colors[newCategory])
+     .text(function(d) { return '$' + M(d.value).toString() })
+
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -396,13 +410,13 @@ function topData(densityData, type, category) {
   data = data.sort(function(a, b){ return countriesSorted.indexOf(a.country) - countriesSorted.indexOf(b.country) })
   
   var top_countries = []
-  for ( var i = 0; i < 10; i++) {
+  for ( var i = 0; i <5; i++) {
     if(data[i]){
       var perc = Math.round((+data[i]['All']/total)*100)/100
       top_countries.push({'index':i, 'country': data[i]['country'], 'perc': perc})
     }
   }
-  console.log(top_countries)
+
   return top_countries
 }
 

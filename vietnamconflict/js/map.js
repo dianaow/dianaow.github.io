@@ -3,8 +3,8 @@ var INTERVAL = 1500
 
 var provinceFontSize = screen.width < 420 ? 14 : (screen.width <= 1024 ? 14 : 12)  
 
-var mapWidth =  screen.width < 420 ? w*0.8 : (screen.width <= 1024 ? w*0.8 : w*0.8),
-    mapHeight = screen.width < 420 ? h*0.8 : (screen.width <= 1024 ? h*0.8 : h*0.82)  
+var mapWidth =  screen.width < 420 ? w*0.8 : (screen.width <= 1440 ? w*0.75 : w*0.8),
+    mapHeight = screen.width < 420 ? h*0.8 : (screen.width <= 1440 ? h*0.8 : h*0.82)  
     legendFullWidth = 200,
     legendFullHeight = 400;
     descFullWidth = w*0.4,
@@ -108,7 +108,7 @@ function drawMap(vietnam, vietnam1, desc) {
   
   var path = d3.geoPath().projection(projection);
 
-  mapWrapper .selectAll(".country")
+  mapWrapper.selectAll(".country")
       .data(vietnam)
       .enter()
       .append("path")

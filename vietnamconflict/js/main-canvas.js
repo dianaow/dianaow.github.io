@@ -3,11 +3,11 @@ var chart = function () {
   ///////////////////////////////////////////////////////////////////////////
   ///////////////////////////////// Globals /////////////////////////////////
   /////////////////////////////////////////////////////////////////////////// 
-  var canvasDim = { width: window.innerWidth <= 1440 ? window.innerWidth*1.3 : window.innerWidth, height: window.innerWidth <= 1440 ? screen.height*0.9 : screen.height}
+  var canvasDim = { width: screen.width, height: screen.height}
   var margin = {top: 0, right: 0, bottom: 0, left: 30}
   var width = canvasDim.width - margin.left - margin.right 
   var height = canvasDim.height - margin.top - margin.bottom 
-  var mapWidth = 300
+  var mapWidth = window.innerWidth <= 1440 ? 240 : 280
   var mapHeight = 600
   var DEFAULT = 1968
   var provincesSorted = ['Northeast', 'Quảng Trị', 'Thừa Thiên Huế', 'Quảng Nam', 'Quảng Ngãi', 'Kon Tum', 'Bình Định', 'Gia Lai', 'Phú Yên', 'Đắk Lắk', 'Khánh Hòa', 'Ninh Thuận', 'Lâm Đồng', 'Đồng Nai', 'Bình Phước', 'Bình Dương', 'Tây Ninh',  'Hồ Chí Minh', 'Long An', 'Tiền Giang', 'Bến Tre', 'Vĩnh Long', 'Mekong'].reverse()
@@ -67,7 +67,7 @@ var chart = function () {
           .defer(d3.json, './data/vietnam1.json')
           .defer(d3.csv, './data/VietnamConflict_clean.csv') 
           .defer(d3.csv, './data/VietnamConflict_yearPT.csv') 
-          .defer(d3.csv, './data/timeline.csv') 
+          .defer(d3.csv, './data/timeline1.csv') 
           .await(processData);   
 
       }
@@ -75,7 +75,7 @@ var chart = function () {
       function processData(error, geoJSON, csv, csv2, csv3) {
         
         if (error) throw error;
-
+        console.log(csv3)
         var data = csv.map((d,i) => {
           return {
             id: i,
@@ -88,7 +88,7 @@ var chart = function () {
             province: d.DEPLOYMENT_PROVINCE
           }
         })
-        console.log(csv.filter(d=>d.DEPLOYMENT_PROVINCE == 'Quảng Trị'))
+
         var timeline = csv3.map((d,i) => {
           return {
             year: +d.year,
@@ -284,10 +284,9 @@ var chart = function () {
       })
 
     function update(data, tab) {
-
       var options = {
-        radius: window.innerWidth >= 1920 ? 2.1 : 1.9,
-        tilesPerRow: window.innerWidth <= 1440 ? 12 : 11,
+        radius: window.innerWidth <= 1440 ? 1.4 : 1.9,
+        tilesPerRow: window.innerWidth <= 1440 ? 13 : 11,
         width: width,
         height: height*(5/6),
         leftBuffer: 0,

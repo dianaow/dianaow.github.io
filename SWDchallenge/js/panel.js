@@ -20,13 +20,14 @@ function updateGlobalPanel(){
   ]
   barChart(barData, "no_label")
 
-  lineData = timelineData.filter(d=>(d.country == "All") & (d.year != "All")) 
-  //lineData = timelineData.filter(d=>(d.country == "All") & (d.year != "All") & (d.category == "donor")) // both donor and recipient line will overlap, so only one line is required
-  //lineData.map(d=>{
-    //d.category = 'net'
-  //})
+  //lineData = timelineData.filter(d=>(d.country == "All") & (d.year != "All")) 
+  lineData = timelineData.filter(d=>(d.country == "All") & (d.year != "All") & (d.category == "donor")) // both donor and recipient line will overlap, so only one line is required
+  var lineDataNet = []
+  lineData.map(d=>{
+    lineDataNet.push({country: 'All', year: d.year, category: 'net', sum: d.sum})
+  })
   var maxY = d3.max(lineData, d=>d.sum)
-  multipleLineChart(lineData, 30000000000)
+  multipleLineChart(lineDataNet, 30000000000)
 
 }
 
@@ -83,6 +84,9 @@ function undoMapActions() {
   bubbles_explore.selectAll('circle')
     .attr('stroke-opacity', 1)
     .attr('fill-opacity', newCategory=='net' ? 0.1 : 0.6) // show bubble chart again
+
+  bubbles_explore.selectAll('text')
+    .style('visibility', d=>(top_countries_list.indexOf(d.country)!=-1 | d.country==newCountry)? 'visible' : 'hidden')
 
   arcs.selectAll('path').remove() // remove all connector paths
   arcs.selectAll('path.line-dashed').interrupt() // stop all animations
@@ -265,6 +269,10 @@ function multipleLineChart(data, maxY) {
       d3.selectAll("#tooltip")
         .style('display', 'none')
       newYear='All'
+      setTimeout(function() { 
+        drawCirclesMap(densityData, 'show_all') 
+        drawAllLinksMap(world, 'show_all')
+      }, 200)
       $('.dropdown').dropdown('restore defaults')
     })
     .on('mouseover', function () { // on mouse in show line, circles and text
