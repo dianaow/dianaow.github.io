@@ -50,6 +50,29 @@ h5 {
   padding: 0px;
   font-family: 'AvenirNext', sans-serif;
 }
+/* unvisited link */
+a:link {
+  color:white;
+  text-decoration: underline;
+}
+
+/* visited link */
+a:visited {
+  color: white;
+  text-decoration: underline;
+}
+
+/* mouse over link */
+a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+/* selected link */
+a:active {
+  color: white;
+  text-decoration: underline;
+}
 
 /* Main Components */
 #wrapper {

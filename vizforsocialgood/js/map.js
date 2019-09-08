@@ -57,8 +57,8 @@ var main = function () {
     .domain([0, 100])
   
   var formatTime = d3.timeFormat("%d %b %Y") // eg 16 Oct 2015
-  var formatDate = d3.timeFormat("%b %Y");
-  var parseDate = d3.timeParse("%d-%m-%y")
+  var formatDate = d3.timeFormat("%b %Y")
+  var parseDate = d3.timeParse("%Y-%m-%d")
 
   ///////////////////////////////////////////////////////////////////////////
   ///////////////////////////////// Initialize //////////////////////////////
@@ -126,7 +126,7 @@ var main = function () {
             attended_university: d.attended_university
           }
         })
-
+        console.log()
         var cols = []
         world = geoJSON.features;  // store the path in variable for ease
         for (var i in connData) {    // for each geometry object

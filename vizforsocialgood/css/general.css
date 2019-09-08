@@ -94,7 +94,7 @@ img {
   height: auto;
   fill: white; 
   opacity: 0.7;
-  font-size: 1em;
+  font-size: 0.85em;
 }
 .blurry { 
   position: absolute;
