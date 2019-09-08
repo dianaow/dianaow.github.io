@@ -76,7 +76,7 @@
 }
 #map {
   position: absolute;
-  left: 10px;
+  left: 20px;
   top: 10px;
 }
 #legend {
@@ -89,7 +89,7 @@
 /* Miscellaneous */
 #header {
   position: absolute;
-  right: 10px;
+  right: 30px;
   top: 10px;      
 }
 
@@ -122,6 +122,10 @@
 
 .info {
   padding-left: 20px;
+}
+
+.click-btn:hover {
+  cursor: pointer;
 }
 
 @media (max-width: 1440px) {
