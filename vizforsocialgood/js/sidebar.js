@@ -227,8 +227,8 @@ var sidebar = function () {
         var entered_text = text.enter().append("text")
           .merge(text)
           .attr("x", 10)
-          .attr('y', d=>yScale(d)+yScale.bandwidth()/2)
-          .style("alignment-baseline", "middle")
+          .attr('y', d=>yScale(d)+yScale.bandwidth()/2+3)
+          //.style("alignment-baseline", "middle")
           .attr('fill', 'black')
           .attr('font-size', '12px')
           .text(d=>d)
@@ -258,8 +258,8 @@ var sidebar = function () {
             .attr("class", "legend-text")
             .attr("x", R*2)
             .attr("y", R/2)
-            .style("fill", "#A9A9A9")
-            .style("font-size", 12)
+            .attr("fill", "#A9A9A9")
+            .attr("font-size", 10)
             .text(d=>d)
 
       }
