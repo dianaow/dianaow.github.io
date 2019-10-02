@@ -28,16 +28,15 @@
         font-weight: bold;
         src: local('ProximaNova'), url("../vendor/fonts/proximanova-bold.otf") format("opentype");
     }
-    h1, h2, h3, h4, p, text, span, div {
+    h1, h2, h3, h4, p, text, span, div, a, a:visited {
       font-family: 'ProximaNova', sans-serif;
       padding: 5px;
       margin: 0px;
       border: 0px;
       color: #11210D;
     }
-    }
-    text {
-      font-size: 1.1em;
+    a:hover {
+      color: #1E6E0F;
     }
     h3 {
       float: left;
@@ -48,14 +47,14 @@
       width: 100vw;
       height: 100vh;
       display: flex;
-      justify-content: center
+      justify-content: center;
     }
     .container {
       display: flex;
       flex-direction: column;
       width: 85%;
       height: 90%;
-      padding: 20px;
+      padding: 10px;
     }
     #main {
       display: flex;
@@ -64,7 +63,7 @@
       /*box-sizing: border-box;
       border: 1px solid black;*/
       width: 100%;
-      height: 85%;
+      height: 70%;
     }
     #panel {
       display: flex;
@@ -73,7 +72,17 @@
       /*box-sizing: border-box;
       border: 1px solid black;*/
       width: 100%;
-      height: 15%;
+      height: 20%;
+    }
+    #title {
+      height: 10%;
+    }
+    #footer {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 0.7em;
+      color: whitesmoke !important;
     }
     #searchBar {
       flex: 1;
@@ -139,7 +148,7 @@
   <div class='wrapper'>
     <div class='container'>
 
-      <div id=title style="padding: 10px">
+      <div id='title' style="padding: 10px">
         <h1>Data Visualization Community's Geographical Trends</h1>
       </div>
 
@@ -173,6 +182,11 @@
       <div id='main'>
         <div id='chart-timeline'></div>
         <div id='chart'></div>
+      </div>
+
+      <div id='footer'>
+        <span>Designed and built by: <a href='https://twitter.com/dianalikescats' target="_blank">Diana</a></span>
+        <span>Data Source: <a href='https://github.com/data-visualization-society/data_visualization_survey' target="_blank">DVS</a></span>
       </div>
 
     </div>
@@ -211,7 +225,7 @@
     var margin = {top: 20, right: 0, bottom: 80, left: 40}
     var rect = document.getElementById('chart').getBoundingClientRect()
     var w = rect.width 
-    var h = rect.height
+    var h = rect.height*0.9
 
     // BAR CHART
     var svg = d3.select("#chart").append("svg")
@@ -224,8 +238,8 @@
     var margin = {top: 0, right: 160, bottom: 80, left: 30}
     var rect = document.getElementById('chart-timeline').getBoundingClientRect()
     var w = rect.width * 0.8
-    var h2 = rect.height
-    var h2_chart = h2 * 0.9
+    var h2 = rect.height*0.9
+    var h2_chart = h2
     var timeline_svg = d3.select("#chart-timeline").append("svg")
       .attr("width", w + margin.left + margin.right)
       .attr("height", h2_chart + margin.top + margin.bottom)
@@ -240,6 +254,19 @@
       .text('Year since person started doing professional data visualization')
 
     var lines = timeline_svg.append('g').attr('class', 'lines')
+
+    // Add a tooltip div. Here I define the general feature of the tooltip: stuff that do not depend on the data point.
+    // Its opacity is set to 0: we don't see it by default.
+    var tooltip = d3.select("#chart")
+      .append("div")
+      .style("opacity", 0)
+      .attr("class", "tooltip")
+      .style("background-color", "white")
+      .style("border", "solid")
+      .style("border-width", "1px")
+      .style("border-radius", "5px")
+      .style("padding", "10px")
+      .style('position', 'absolute')
 
     function init() {
       d3.queue()   
@@ -453,7 +480,7 @@
 
       var xScale = d3.scaleBand()
           .domain(sectors)
-          .range([0, sectors.length <= 4 ? 300 : w])
+          .range([0, sectors.length <= 4 ? 450 : w])
           .padding(0.2)
 
       var countries_sorted = sort_order.slice(0,5)
@@ -480,6 +507,7 @@
 
       groups
         //.transition().duration(1000)
+        .attr('class', 'bar')
         .attr('id', d=>d.key.replace(/[^A-Z0-9]+/ig, "_"))
         .attr("fill", d=>d.color)
         .attr("x", d => d.x)
@@ -523,7 +551,11 @@
       var y_axis = svg.append("g")
         .attr("class", "y_axis").attr("transform", "translate(" + (-axisPad*2) + "," + 0 + ")")
         .call(yAxis.tickValues(yScale.ticks()))
-      
+   
+      //d3.selectAll('.bar')
+        //.on("mouseover", mouseover)
+        //.on("mousemove", mousemove)
+        //.on("mouseout", mouseout)   
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -673,6 +705,15 @@
 
       d3.select('.dropdown-country .text').html(el.key)
 
+      tooltip.style("opacity", 1)
+    }
+
+    function mousemove(el) {
+      tooltip
+        .html(el.key)
+        .style("left", ((d3.event.pageX)+10) + "px")
+        .style("top", ((d3.event.pageY)) + "px")
+
     }
 
     function mouseout() {
@@ -694,6 +735,7 @@
 
       $('.ui.search.dropdown.dropdown-country').dropdown('restore defaults')
 
+      tooltip.style("opacity", 0)
     }
 
     ///////////////////////////////////////////////////////////////////////////
