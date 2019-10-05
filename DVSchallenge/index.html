@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://d3js.org/d3.v4.min.js" type="text/javascript"></script>
   <script
     src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -56,26 +57,27 @@
       height: 90%;
       padding: 10px;
     }
-    #main {
+    #mainWrapper {
       display: flex;
       flex-direction: row;
-      justify-content: center;  
-      /*box-sizing: border-box;
-      border: 1px solid black;*/
       width: 100%;
-      height: 70%;
-    }
-    #panel {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;  
-      /*box-sizing: border-box;
-      border: 1px solid black;*/
-      width: 100%;
-      height: 20%;
+      height: 95%;      
     }
     #title {
-      height: 10%;
+      width: 100%;
+      height: 5%;
+    }
+    #main1 {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      height: 100%;
+    }
+    #main2 {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      height: 100%;
     }
     #footer {
       position: absolute;
@@ -84,27 +86,13 @@
       font-size: 0.7em;
       color: whitesmoke !important;
     }
-    #searchBar {
-      flex: 1;
-      width: 50%;
-      height: 100%;
+    #searchBar, #section {
+      width: 100%;
+      height: 20%;
     }
-    #section {
-      flex: 1;
-      width: 50%;
-      height: 100%;
-    }
-    #chart {
-      /*box-sizing: border-box;
-      border: 1px solid blue;*/
-      width: 50%;
-      height: 100%;
-    }
-    #chart-timeline {
-      /*box-sizing: border-box;
-      border: 1px solid blue;*/
-      width: 50%;
-      height: 100%;
+     #chart, #chart-timeline {
+      width: 100%;
+      height: 80%;
     }
     .btn {
       color: #11210D;
@@ -138,9 +126,105 @@
       .wrapper {
         width: 1640px;
         height: 100%;
-        overflow-x: scroll;
       }
     }
+
+    /* if device (iPad/iPad pro) in landscape orientation */
+    @media only screen 
+    and (min-width : 768px) 
+    and (max-width : 1366px)
+    and (orientation: portrait) {
+      .wrapper {
+        width: 100vw;
+        height: 100vh;
+      }
+      .container {
+        padding: 5px;
+        width: 100%;
+      }
+    }
+
+    /* if mobile device max width 577px */
+    @media only screen and (max-width: 577px) {
+      h1 {
+        font-size: 1.6em;
+      }
+      h4 {
+        font-size: 1em;
+      }
+      .wrapper {
+        overflow: hidden;
+        width: 100vw;
+        height: 200vh;
+      }
+      .container {
+        padding: 5px;
+        width: 100%;
+      }
+      #mainWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; 
+        width: 100%;
+        height: 95%;      
+      }
+      #main1, #main2 {
+        width: 100%;
+        height: 60%;
+      }
+      #title {
+        height: 5%;
+      }
+      #searchBar {
+        width: 100%;
+        height: 30%;
+      }
+       #chart {
+        width: 100%;
+        height: 70%;
+      }
+      #section {
+        width: 100%;
+        height: 10%;
+      }
+      #chart-timeline {
+        width: 100%;
+        height: 70%;
+      }
+      #chart-legend-MOBILE {
+        width: 100%;
+        height: 20%;
+      }
+      .btn {
+        color: #11210D;
+        background: transparent; 
+        border: 0px; 
+        border-radius: 0px; 
+        padding: 4px 8px;
+        text-align: center;
+        display: block;
+        margin: 2px 1px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 10px;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+      .search-label {
+        display: none;
+      }
+      #footer {
+        display: none;
+      }
+      .x_axis_line_annotate {
+        font-size: 0.7em;
+      }
+      .x_axis{
+        display: none;
+      }
+    } 
   </style>
 </head>
 
@@ -152,36 +236,38 @@
         <h1>Data Visualization Community's Geographical Trends</h1>
       </div>
 
-      <div id='panel'>
-        <div id='searchBar'>
-          <h4>1359 people from 77 different countries participated in Data Visualization Society's Annual Data Visualization Community Survey that ran from May to June 2019. This dashboard visualizes the geographical differences in occupation, experience, practices and tools of survey respondents.</h4>  
-          <h3>Search: </h3>
-          <div class="ui search dropdown dropdown-country" style='display: inline-block;'>
-            <div class="default text">All Countries</div>
-            <i class="dropdown icon" ></i>
-            <div class="menu"></div>
+      <div id='mainWrapper'>
+        <div id='main1'>
+          <div id='searchBar'>
+            <h4>1359 people from 77 different countries participated in Data Visualization Society's Annual Data Visualization Community Survey that ran from May to June 2019. This dashboard visualizes the geographical differences in occupation, experience, practices and tools of survey respondents.</h4>  
+            <h3>Search: </h3>
+            <div class="ui search dropdown dropdown-country" style='display: inline-block;'>
+              <div class="default text">All Countries</div>
+              <i class="dropdown icon" ></i>
+              <div class="menu"></div>
+            </div>
           </div>
+          <div id='chart-timeline'></div>
         </div>
-        <div id="section">
-          <h3>Select: </h3>
-          <input name="role" 
-                 type="button" 
-                 class='btn role'
-                 value="What is your role in data visualization?"/>
-          <input name='level' 
-                 type="button" 
-                 class="btn level"
-                 value="What focus is data visualization in your work?" />
-          <input name="mode" 
-                 type="button" 
-                 class='btn mode'
-                 value="What modes of data visualization are in use at your organization?"/>
-        </div>
-      </div>
 
-      <div id='main'>
-        <div id='chart-timeline'></div>
-        <div id='chart'></div>
+        <div id='main2'>
+          <div id="section">
+            <h3>Select: </h3>
+            <input name="role" 
+                   type="button" 
+                   class='btn role'
+                   value="What is your role in data visualization?"/>
+            <input name='level' 
+                   type="button" 
+                   class="btn level"
+                   value="What focus is data viz in your work?" />
+            <input name="mode" 
+                   type="button" 
+                   class='btn mode'
+                   value="What modes of data viz are in use at your organization?"/>
+          </div>
+          <div id='chart'></div>
+        </div>
       </div>
 
       <div id='footer'>
@@ -222,12 +308,19 @@
     var parseDate = d3.timeParse("%b %Y");
 
     //////////////////// Set up and initiate containers ///////////////////////
-    var margin = {top: 20, right: 0, bottom: 80, left: 40}
-    var rect = document.getElementById('chart').getBoundingClientRect()
-    var w = rect.width 
-    var h = rect.height*0.9
+    var WIDTH = Math.max(document.documentElement.clientWidth, screen.width)
 
     // BAR CHART
+    var margin = {top: 20, right: 0, bottom: 80, left: 40}
+    var rect = document.getElementById('chart').getBoundingClientRect()
+    if(WIDTH<=577){
+      var rectAdj = {width: screen.width*0.9, height: rect.height}
+    } else {
+      var rectAdj = rect
+    }
+    var w = rectAdj.width * 0.8;
+    var h = rectAdj.height;
+
     var svg = d3.select("#chart").append("svg")
       .attr("width", w + margin.left + margin.right)
       .attr("height", h + margin.top + margin.bottom)
@@ -235,13 +328,18 @@
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     // MAIN TIMELINE
-    var margin = {top: 0, right: 160, bottom: 80, left: 30}
-    var rect = document.getElementById('chart-timeline').getBoundingClientRect()
-    var w = rect.width * 0.8
-    var h2 = rect.height*0.9
+    var margin = {top:20, right: 160, bottom: 80, left: 30}
+    var rect = document.getElementById('chart-timeline').getBoundingClientRect();
+    if(WIDTH<=577){
+      var rectAdj = {width: screen.width, height: rect.height*0.8}
+    } else {
+      var rectAdj = rect
+    }
+    var w2 = rectAdj.width * 0.8;
+    var h2 = rectAdj.height;
     var h2_chart = h2
     var timeline_svg = d3.select("#chart-timeline").append("svg")
-      .attr("width", w + margin.left + margin.right)
+      .attr("width", w2 + margin.left + margin.right)
       .attr("height", h2_chart + margin.top + margin.bottom)
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
@@ -594,7 +692,7 @@
 
       var xScale1 = d3.scaleTime()
         .domain(d3.extent(years, function(d) { return d }))
-        .range([0, w])
+        .range([0, w2])
 
       var yScale1 = d3.scaleSqrt()
         .domain([0, d3.max(res_nested.map(d=>d.values).flat(), d=>d.value)+50])
