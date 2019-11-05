@@ -7,8 +7,8 @@
     src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
     crossorigin="anonymous"></script>
-  <script src="../vendor/semantic/semantic.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="../vendor/semantic/semantic.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
   <style>
     @font-face {
         font-family: 'ProximaNova';
@@ -29,6 +29,7 @@
         font-weight: bold;
         src: local('ProximaNova'), url("../vendor/fonts/proximanova-bold.otf") format("opentype");
     }
+    body { margin:0;top:0;right:0;bottom:0;left:0;background-color:white;}
     h1, h2, h3, h4, p, text, span, div, a, a:visited {
       font-family: 'ProximaNova', sans-serif;
       padding: 5px;
@@ -43,29 +44,29 @@
       float: left;
       padding-top: 8px;
     }
-    body { margin:0;top:0;right:0;bottom:0;left:0;background-color:white;}
     .wrapper {
-      width: 100vw;
+      max-width: 100%;
       height: 100vh;
       display: flex;
       justify-content: center;
+      align-items: flex-start;
     }
     .container {
       display: flex;
       flex-direction: column;
-      width: 85%;
-      height: 85%;
+      width: 95%;
+      height: 80%;
       padding: 10px;
     }
     #mainWrapper {
       display: flex;
       flex-direction: row;
       width: 100%;
-      height: 90%;      
+      height: 95%;      
     }
     #title {
       width: 100%;
-      height: 10%;
+      height: 5%;
     }
     #main1 {
       display: flex;
@@ -99,10 +100,10 @@
       background: transparent; 
       border: 0px; 
       border-radius: 0px; 
-      padding: 8px 16px;
+      padding: 4px 8px;
       text-align: center;
       display: inline-block;
-      margin: 4px 2px;
+      margin: 2px 1px;
       -webkit-transition-duration: 0.4s; /* Safari */
       transition-duration: 0.4s;
       cursor: pointer;
@@ -124,11 +125,10 @@
     }
     @media (max-width: 1440px) { 
       .wrapper {
-        width: 1440px;
-        height: 100vh;
+        width: 1640px;
+        height: 100%;
       }
     }
-
     /* if device (iPad/iPad pro) in landscape orientation */
     @media only screen 
     and (min-width : 768px) 
@@ -143,7 +143,6 @@
         width: 100%;
       }
     }
-
     /* if mobile device max width 577px */
     @media only screen and (max-width: 577px) {
       h1 {
@@ -232,8 +231,8 @@
   <div class='wrapper'>
     <div class='container'>
 
-      <div id='title' style="padding: 10px">
-        <h1>Data Visualization Community's Geographical Trends</h1>
+      <div id='title' style="padding: 30px 10px">
+        <h1>Data Visualization Community's Geographical Trends</h>
       </div>
 
       <div id='mainWrapper'>
@@ -269,12 +268,12 @@
           <div id='chart'></div>
         </div>
       </div>
-
+      
       <div id='footer'>
         <span>Designed and built by: <a href='https://twitter.com/dianalikescats' target="_blank">Diana</a></span>
         <span>Data Source: <a href='https://github.com/data-visualization-society/data_visualization_survey' target="_blank">DVS</a></span>
       </div>
-
+      
     </div>
   </div>
 
@@ -306,32 +305,28 @@
     var axisColor = colorPalette.iron
     var axisPad = 6
     var parseDate = d3.timeParse("%b %Y");
-
     //////////////////// Set up and initiate containers ///////////////////////
     var WIDTH = Math.max(document.documentElement.clientWidth, screen.width)
-
     // BAR CHART
     var margin = {top: 20, right: 0, bottom: 80, left: 40}
     var rect = document.getElementById('chart').getBoundingClientRect()
     if(WIDTH<=577){
-      var rectAdj = {width: screen.width*0.9, height: rect.height}
+      var rectAdj = {width: screen.width*0.85, height: rect.height}
     } else {
       var rectAdj = rect
     }
-    var w = rectAdj.width * 0.8;
+    var w = rectAdj.width * 0.9;
     var h = rectAdj.height;
-
     var svg = d3.select("#chart").append("svg")
       .attr("width", w + margin.left + margin.right)
       .attr("height", h + margin.top + margin.bottom)
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
     // MAIN TIMELINE
     var margin = {top:20, right: 160, bottom: 80, left: 30}
     var rect = document.getElementById('chart-timeline').getBoundingClientRect();
     if(WIDTH<=577){
-      var rectAdj = {width: screen.width, height: rect.height*0.8}
+      var rectAdj = {width: screen.width*0.85, height: rect.height*0.8}
     } else {
       var rectAdj = rect
     }
@@ -344,27 +339,24 @@
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
       .style("pointer-events", "all")
-
     timeline_svg.append("g").attr("class", "x_axis_line").attr("transform", "translate(" + 0 + "," + (h2_chart+(axisPad*2)).toString() + ")") 
     timeline_svg.append("g").attr("class", "y_axis_line").attr("transform", "translate(" + 0 + "," + 0 + ")")
     timeline_svg.append("text").attr("class", "x_axis_line_annotate")
       .attr("transform", "translate(" + 0 + "," + (h2_chart+50).toString() + ")") 
       .text('Year since person started doing professional data visualization')
-
     var lines = timeline_svg.append('g').attr('class', 'lines')
-
     // Add a tooltip div. Here I define the general feature of the tooltip: stuff that do not depend on the data point.
     // Its opacity is set to 0: we don't see it by default.
-    var tooltip = d3.select("#chart")
-      .append("div")
-      .style("opacity", 0)
-      .attr("class", "tooltip")
-      .style("background-color", "white")
-      .style("border", "solid")
-      .style("border-width", "1px")
-      .style("border-radius", "5px")
-      .style("padding", "10px")
-      .style('position', 'absolute')
+    //var tooltip = d3.select("#chart")
+      //.append("div")
+      //.style("opacity", 0)
+      //.attr("class", "tooltip")
+      //.style("background-color", "white")
+      //.style("border", "solid")
+      //.style("border-width", "1px")
+      //.style("border-radius", "5px")
+      //.style("padding", "10px")
+      //.style('position', 'absolute')
 
     function init() {
       d3.queue()   
@@ -372,11 +364,9 @@
         .defer(d3.csv, './data/cleaned_survey_results_filtered.csv')
         .defer(d3.csv, './data/grouped_modes.csv') 
         .await(processData); 
-
     }
  
     function processData(error, csv, csv1, csv2) {
-
       data = csv.map((d,i) => {
         return {
           country: d.country,
@@ -384,7 +374,6 @@
           date: parseDate(d.date)
         }
       })
-
       dataFull = csv1.map((d,i) => {
         return {
           country: d.country,
@@ -392,7 +381,6 @@
           role: d.role
         }
       })
-
       dataMode = csv2.map((d,i) => {
         return {
           country: d.country,
@@ -400,19 +388,14 @@
           value: d.values
         }
       })
-
       dataFull = dataFull.filter(d=>d.level != "")
-
       data = data.filter(d=>d.date >= new Date(2000, 0, 1))
-
       // set up dropdown menu
       var countries = data.map(d=>d.country).filter(onlyUnique)
       menu(data, countries)
       multipleLineChart(data)
-
       // LEVELS
       var data_levels = nestData(dataFull, 'level', 'country')
-
       // ROLES
       var data_roles = nestData(dataFull, 'role', 'country')
       
@@ -421,25 +404,20 @@
         .key(d=>d['mode'])
         .rollup(function(leaves) { return d3.sum(leaves, function(d) {return d.value})} )
         .entries(dataMode)
-
       var modes = modes1.sort(function(a,b) { return b.value - a.value } ).map(d=>d.key)
-
       var dataMode_nested = d3.nest()
         .key(d=>d['mode'])
         .sortKeys(function(a,b) { return modes.indexOf(a) - modes.indexOf(b) } )
         .key(d=>d['country'])
         .rollup(function(leaves) { return d3.sum(leaves, function(d) {return d.value})} )
         .entries(dataMode)
-
       var data_modes = { data: dataMode_nested, sort_order: modes, max: d3.max(modes1, d=>d.value)}
       
       stackedBarChart(data_roles) // initial chart to show
-
       var flag_level = false
       var flag_role = true
       var flag_mode = false
       changeButtonsStyle()
-
       d3.select('.level').on("click", function () { 
         d3.select('.x_axis').remove()
         d3.select('.y_axis').remove()
@@ -470,31 +448,27 @@
 
       function changeButtonsStyle() {
         if(flag_level==true){
-          console.log('level')
+          //console.log('level')
           d3.select('.level').style('background-color', colorPalette.iron).style('color', 'white')
         } else {
           d3.select('.level').style('background-color', 'white').style('color', colorPalette.iron)
         }
-
         if(flag_role==true){
-          console.log('role')
+          //console.log('role')
           d3.select('.role').style('background-color', colorPalette.iron).style('color', 'white')
         } else {
           d3.select('.role').style('background-color', 'white').style('color', colorPalette.iron)
         }
-
         if(flag_mode==true){
-          console.log('mode')
+          //console.log('mode')
           d3.select('.mode').style('background-color', colorPalette.iron).style('color', 'white')
         } else {
           d3.select('.mode').style('background-color', 'white').style('color', colorPalette.iron)
         }
       }
-
     }
 
     function menu(data, countries) {
-
       countries.unshift("All Countries")
       d3.select(".dropdown-country .menu").selectAll("div")
           .data(countries)
@@ -510,31 +484,25 @@
             mouseover({'key': country})
           }
         })
-
-      }
+    }
 
     function nestData(data, X, Y) {
-
       var nested = d3.nest()
         .key(d=>d[X])
         .rollup(function(leaves) { return leaves.length })
         .entries(data)
-
       var sort_order = nested.sort(function(a,b) { return b.value - a.value } ).map(d=>d.key)
       var max = d3.max(nested, d=>d.value)
-
       var double_nested = d3.nest()
         .key(d=>d[X])
         .sortKeys(function(a,b) { return sort_order.indexOf(a) - sort_order.indexOf(b) } )
         .key(d=>d[Y])
         .rollup(function(leaves) { return leaves.length })
         .entries(data)
-
       return {data: double_nested, sort_order: sort_order, max: max}
     }
 
     function createLegend(category){
-
       d3.selectAll('.gLegend').selectAll('.legend-pill')
         .data(category)
         .enter().append('div')
@@ -542,17 +510,14 @@
           .style("background-color", d=>color(d))
           .style("color", "white")
           .text(d=>d)
-
     }
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////// Stacked bar chart ///////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     function stackedBarChart(data) {
-
       var sectors = data.sort_order
       var max = data.max
-
       var dataNew = []
       data.data.map((D,I) => {
         var oneCountryBin = Array.from(Array(sort_order.length), () => 0)
@@ -561,28 +526,22 @@
         })
         dataNew.push(oneCountryBin)
       })
-
       var stackedData = Object.assign(d3.stack().keys(d3.range(sort_order.length))(dataNew), {
         keys: sort_order,
         ids: sort_order.map(R => sectors.map(P => `${R}_${P}`)),
         sectors: sectors
       })
-
       var yScale = d3.scaleLinear()
           .domain([0, roundToNearest(max)])
           .range([h, 0])  
-
       function roundToNearest(x) {
         return Math.round(x / 50) * 50
       }
-
       var xScale = d3.scaleBand()
           .domain(sectors)
-          .range([0, sectors.length <= 4 ? 450 : w])
+          .range([0, sectors.length <= 4 ? 350 : w])
           .padding(0.2)
-
       var countries_sorted = sort_order.slice(0,5)
-
       stackedData.forEach((d,i) => {
         stackedData.sectors.forEach((D,I) => {
           stackedData[i][I].key = stackedData.ids[i][I]
@@ -594,15 +553,10 @@
           stackedData[i][I].value = d[I][1] - d[I][0]
         })
       })
-
       var groups = svg.selectAll("rect").data(stackedData.flat(), d=>d.key)
-
       groups.exit().remove()
-
       var groupsEnter = groups.enter().append("rect")
-
       groups = groups.merge(groupsEnter)
-
       groups
         //.transition().duration(1000)
         .attr('class', 'bar')
@@ -612,15 +566,10 @@
         .attr("width", d => d.width)
         .attr("y", d => d.y)
         .attr("height", d => d.height)
-
       var groupsT = svg.selectAll("text").data(stackedData.flat(), d=>d.key)
-
       groupsT.exit().remove()
-
       var groupsEnterT = groupsT.enter().append("text").attr('class', 'rect-annotate')
-
       groupsT = groupsT.merge(groupsEnterT)
-
       groupsT
         //.transition().duration(1000)
         .attr('id', d=>d.key.replace(/[^A-Z0-9]+/ig, "_"))
@@ -632,11 +581,9 @@
         .attr('text-anchor', 'middle')
         .style('font-size', '11px')
         .text(d=>d.value > 0 ? d.value : "")
-
       // AXES // 
       var xAxis = d3.axisBottom(xScale).tickSizeOuter(0).tickSizeInner(0)
       var yAxis = d3.axisLeft(yScale).tickSizeOuter(0).tickSizeInner(-axisPad)
-
       var x_axis = svg.append("g").attr("class", "x_axis")
         .attr("transform", "translate(" + 0 + "," + (h+(axisPad*2)).toString() + ")") 
         .call(xAxis)
@@ -645,7 +592,6 @@
             .attr('fill', colorPalette.iron)
             .call(wrap, xScale.bandwidth());
         })
-
       var y_axis = svg.append("g")
         .attr("class", "y_axis").attr("transform", "translate(" + (-axisPad*2) + "," + 0 + ")")
         .call(yAxis.tickValues(yScale.ticks()))
@@ -660,7 +606,6 @@
     //////////////////////////// Multiple line chart //////////////////////////
     ///////////////////////////////////////////////////////////////////////////
     function multipleLineChart(data) {
-
       var years = []
       d3.range(2000, 2020).map(year=>{
         Object.values(months).map(month=>{
@@ -668,11 +613,9 @@
           years.push(parseDate(label))
         })
       })  
-
       var res_nested = d3.nest()
           .key(d=>d.country)
           .entries(data)
-
       var res_nested_sum = d3.nest()
         .key(d=>d.country)
         .rollup(function(leaves) { return d3.sum(leaves, d=>+d.value) })
@@ -685,31 +628,24 @@
       
       res_nested = res_nested.sort(function(a,b) { return countries_sorted.indexOf(a.key) - countries_sorted.indexOf(b.key); })
       sort_order.push(sort_order.splice(sort_order.indexOf("Not specified"), 1)[0])
-
       color = d3.scaleOrdinal()
         .domain(countries_sorted)
         .range([colorPalette.turquoise, colorPalette.mustard, colorPalette.plum, colorPalette.navy, colorPalette.copper, colorPalette.emerald])
-
       var xScale1 = d3.scaleTime()
         .domain(d3.extent(years, function(d) { return d }))
         .range([0, w2])
-
       var yScale1 = d3.scaleSqrt()
         .domain([0, d3.max(res_nested.map(d=>d.values).flat(), d=>d.value)+50])
         .range([h2_chart, 0]);
-
       // APPEND MULTIPLE LINES //
       // line generator
       var line = d3.line() 
         .curve(d3.curveMonotoneX)
         .x(function(d) { return xScale1(d.date) })
         .y(function(d) { return yScale1(d.value) })
-
       // FOCUS
       var glines = lines.selectAll('path').data(res_nested)
-
       var entered_lines = glines.enter().append('path')
-
       glines.merge(entered_lines)  
         .attr('class', 'line')
         .attr('id', d=> 'line-' + d.key.replace(/[^A-Z0-9]+/ig, "_"))
@@ -720,16 +656,12 @@
         .attr('stroke-width', '3px')
         .style("mix-blend-mode", "multiply")
         .style("pointer-events", "all")
-
       glines.exit().remove()
-
       var gtext = lines.selectAll('text').data(res_nested)
-
       var entered_text = gtext.enter().append('text').attr('class', 'line-annotate') 
-
       gtext.merge(entered_text) 
         .attr('id', d=>d.key.replace(/[^A-Z0-9]+/ig, "_"))
-        .attr('x', w-axisPad)
+        .attr('x', w2-axisPad)
         .attr('y', function(d) { return yScale1(d.values.map(d=>d.value).slice(-1)[0]) })
         .attr('fill', (d, i) => countries_sorted.indexOf(d.key)!=-1 ? color(d.key) : colorPalette.lightgrey)
         .attr('opacity', (d, i) => countries_sorted_incl_ns.indexOf(d.key)!=-1 ? 1 : 0)
@@ -740,21 +672,16 @@
           var val = arr[arr.length-1].value
           return d.key + ": " + val
         })
-
       gtext.exit().remove() 
-
       d3.select('#Germany.line-annotate').attr('transform', 'translate(0,8)')
-
       // AXES // 
       var xAxis = d3.axisBottom(xScale1).tickSizeOuter(0).tickSizeInner(-axisPad)
       var yAxis = d3.axisLeft(yScale1).tickSize(-axisPad)
-
       timeline_svg.append("text").attr("class", "x_axis_line_here")
         .attr("transform", "translate(" + xScale1(years[years.length-7]) + "," + (h2_chart+(axisPad*6)).toString() + ")") 
         .attr('fill', colorPalette.iron)
         .attr('font-size', '9px')
         .text('Survey closed in June 19')
-
       timeline_svg.append("line").attr("class", "x_axis_line_here")
         .attr('x1', xScale1(years[years.length-7]))
         .attr('y1', (h2_chart+(axisPad*2)))
@@ -762,48 +689,38 @@
         .attr('y2', (h2_chart+(axisPad*4)))
         .attr('stroke', colorPalette.iron)
         .attr('stroke-width', 2)
-
       d3.select(".x_axis_line")
         .call(xAxis)
-
       d3.select(".y_axis_line")
         .call(yAxis)
-
       d3.selectAll('.line')
         .on("mouseover", mouseover)
         .on("mouseout", mouseout)
-
     }
 
     init()
 
     function mouseover(el) {
-
       d3.selectAll('.line').attr('stroke', colorPalette.lightgrey)
       d3.selectAll('.line-annotate').attr('opacity', 0)
       d3.selectAll('rect').attr('fill', colorPalette.lightgrey)
-
       d3.select("path.line[id*='" + el.key.replace(/[^A-Z0-9]+/ig, "_") + "']")
         .attr('cursor', 'pointer')
         .attr('stroke', countries_sorted.indexOf(el.key)!=-1 ? color(el.key) : colorPalette.emerald)
         .attr('stroke-width', '5px')
         .raise()
-
       d3.selectAll("text.line-annotate[id*='" + el.key.replace(/[^A-Z0-9]+/ig, "_") + "']")
         .attr('fill', countries_sorted.indexOf(el.key)!=-1 ? color(el.key) : colorPalette.emerald)
         .attr('opacity', 1)
         .attr('font-weight', 'bold')
-
       d3.selectAll("text.rect-annotate[id*='" + el.key.replace(/[^A-Z0-9]+/ig, "_") + "']")
         .attr('fill', countries_sorted.indexOf(el.key)!=-1 ? color(el.key) : colorPalette.emerald)
         .attr('opacity', 1)
        
       d3.selectAll("rect[id*='" + el.key.replace(/[^A-Z0-9]+/ig, "_") + "']")
         .attr('fill', countries_sorted.indexOf(el.key)!=-1 ? color(el.key) : colorPalette.emerald)
-
       d3.select('.dropdown-country .text').html(el.key)
-
-      tooltip.style("opacity", 1)
+      //tooltip.style("opacity", 1)
     }
 
     function mousemove(el) {
@@ -811,31 +728,23 @@
         .html(el.key)
         .style("left", ((d3.event.pageX)+10) + "px")
         .style("top", ((d3.event.pageY)) + "px")
-
     }
 
     function mouseout() {
-
       d3.selectAll('.line')
         .attr('stroke', (d, i) => countries_sorted.indexOf(d.key)!=-1 ? color(d.key) : colorPalette.lightgrey)
         .attr('stroke-width', '3px') 
-
       d3.selectAll('.line-annotate')
         .attr('fill', (d, i) => countries_sorted.indexOf(d.key)!=-1 ? color(d.key) : colorPalette.lightgrey)
         .attr('opacity', (d, i) => countries_sorted.indexOf(d.key)!=-1 ? 1 : 0)
         .attr('font-weight', 'normal')
-
       d3.selectAll('.rect-annotate')
         .attr('opacity', 0)
-
       d3.selectAll("rect")
         .attr("fill", d=>d.color)
-
       $('.ui.search.dropdown.dropdown-country').dropdown('restore defaults')
-
       tooltip.style("opacity", 0)
     }
-
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////// Helper functions ////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -882,7 +791,6 @@
         }
       });
     }
-
   </script>
 </body>
 </html>
