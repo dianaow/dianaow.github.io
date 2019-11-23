@@ -167,9 +167,8 @@
 
     bubble.run()
     setTimeout(function(){
-      chart.run()
+      chart.run(initScroll)
       $(document).unbind('scroll'); 
-      $('body').css({'overflow':'visible'});
     }, 3000)
   </script>
 </body>

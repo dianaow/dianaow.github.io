@@ -7,8 +7,8 @@ var bubble = function () {
   var modal = d3.select("#general")
 
   var margin = {top: 0, right: 0, bottom: 0, left: 0},
-      width = window.innerWidth <= 1440 ? 720 : 820 - margin.left - margin.right,
-      height = window.innerWidth <= 1440 ? 720 : 820 - margin.top - margin.bottom;
+      width = window.innerWidth >= 1680 ? 820 - margin.left - margin.right : 660,
+      height = window.innerWidth >= 1680 ? 820 - margin.top - margin.bottom : 720;
 
   //////////////////// Set up and initiate containers ///////////////////////
   svg = modal.append("svg")

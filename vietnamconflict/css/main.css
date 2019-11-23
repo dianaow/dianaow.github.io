@@ -3,11 +3,11 @@
   width: 100vw;
   height: 100vh;
   display: flex;
-  justify-content: center;
 }
 .box-group {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
 }
 .alert {
@@ -16,13 +16,25 @@
   width: 100%;
 }
 
-#title-wrapper, #vis-container {
+#header-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#vis-container {
   width: 100%;
   height: 100%;
   position: relative;
   min-height: 100vh;
 }
-#stacked, #title {
+
+#stacked {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -31,40 +43,31 @@
 }
 
 /* Title */
-#title {
-  z-index: 10;
-  /*display: flex;*/
-  /*align-items: center;*/ 
-  /*justify-content: center;*/
-  /*flex-direction: column;*/
-  margin-top: 100px;
-  margin-left: 25px;
+#title-wrapper {
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  flex-direction: column;
+  flex: 2;
 }
-.sub-title {
-  z-index: 99;
-  position: absolute;
-  left: 100px;
-  top: 430px; 
-  width: 650px;
-  font-size: 1.2em;
+#general {
+  flex: 1;
 }
 
-/* Bubble chart */
-#general {
-  z-index: 99;
-  position: absolute;
-  right: 0;
-  top: 0;      
+.sub-title {
+  width: 750px;
+  font-size: 1.2em;
+  margin-left:80px;
 }
 
 /* Dot plot */
 .slider {
   z-index: 999;
-  width: 500px;
+  width: 520px;
   height: 200px;
   position: absolute;
   top: 20px;
-  left: 300px;
+  left: 350px;
 }
 .tabs {
   z-index: 999;
@@ -72,7 +75,7 @@
   height: 300px;
   position: absolute;
   top: 15px;
-  left: 850px;
+  left: 900px;
 }
 #map {
   position: absolute;
@@ -87,12 +90,6 @@
   min-width: 1600px;
 }
 /* Miscellaneous */
-#header {
-  position: absolute;
-  right: 30px;
-  top: 10px;      
-}
-
 #footerWrapper {
   margin: 0px;
   padding: 9px;
@@ -116,7 +113,7 @@
 .annotation-map {
   width: 120px;
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 20px;
 }
 
@@ -128,18 +125,15 @@
   cursor: pointer;
 }
 
-@media (max-width: 1440px) {
-  .sub-title {
-    z-index: 99;
-    position: absolute;
-    left: 100px;
-    top: 430px; 
-    width: 600px;
-    font-size: 1.2em;
-  }
+.barLegend {
+  cursor: pointer;
 }
 
-@media (max-width: 1390px) {
+.year-image {
+  padding: 10px 0px;
+} 
+
+@media (max-width: 1400px) {
   .box-group {
     display: none;
   }

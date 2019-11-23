@@ -5,8 +5,8 @@ var bubble = function () {
   var modal = d3.select(".content-vietnam")
 
   // set the dimensions and margins of the graph
-  var margin = {top: 20, right: 50, bottom: 50, left:50},
-      width = screen.width*0.8 - margin.left - margin.right,
+  var margin = {top: 0, right: 0, bottom: 0, left:0},
+      width = screen.width*0.7 - margin.left - margin.right,
       height = screen.height*0.7 - margin.top - margin.bottom;
 
   ///////////////////////////////////////////////////////////////////////////

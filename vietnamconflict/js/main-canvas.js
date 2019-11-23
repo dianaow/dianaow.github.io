@@ -3,11 +3,12 @@ var chart = function () {
   ///////////////////////////////////////////////////////////////////////////
   ///////////////////////////////// Globals /////////////////////////////////
   /////////////////////////////////////////////////////////////////////////// 
-  var canvasDim = { width: screen.width, height: screen.height}
+  var points
+  var canvasDim = { width: screen.width, height: window.innerWidth >=1920 ? window.innerHeight*1.2 : window.innerHeight*1.3}
   var margin = {top: 0, right: 0, bottom: 0, left: 30}
   var width = canvasDim.width - margin.left - margin.right 
   var height = canvasDim.height - margin.top - margin.bottom 
-  var mapWidth = window.innerWidth <= 1440 ? 240 : 280
+  var mapWidth = window.innerWidth >=1920 ? 280 : 240
   var mapHeight = 600
   var DEFAULT = 1968
   var provincesSorted = ['Northeast', 'Quảng Trị', 'Thừa Thiên Huế', 'Quảng Nam', 'Quảng Ngãi', 'Kon Tum', 'Bình Định', 'Gia Lai', 'Phú Yên', 'Đắk Lắk', 'Khánh Hòa', 'Ninh Thuận', 'Lâm Đồng', 'Đồng Nai', 'Bình Phước', 'Bình Dương', 'Tây Ninh',  'Hồ Chí Minh', 'Long An', 'Tiền Giang', 'Bến Tre', 'Vĩnh Long', 'Mekong'].reverse()
@@ -75,7 +76,7 @@ var chart = function () {
       function processData(error, geoJSON, csv, csv2, csv3) {
         
         if (error) throw error;
-        console.log(csv3)
+         d3.select('#dimmer').style('display', 'none')
         var data = csv.map((d,i) => {
           return {
             id: i,
@@ -89,12 +90,7 @@ var chart = function () {
           }
         })
 
-        var timeline = csv3.map((d,i) => {
-          return {
-            year: +d.year,
-            description: d.description,
-          }
-        })
+        var timeline = csv3
 
         init(svg, width, height, data, timeline)
 
@@ -185,7 +181,7 @@ var chart = function () {
     res = data.filter(d=>(d.fatality_year == DEFAULT))
     var tab = 'month'
     var dots = update(res, tab)
-    var points = dots.dots
+    points = dots.dots
     interactiveLegend(d3.selectAll('rect.barLegend'), points)
 
     // 1: Years
@@ -197,8 +193,10 @@ var chart = function () {
         .text(function (d) { return d })
       .on("click", function(d) {
         res = data.filter(b=>(b.fatality_year == d))
-        update(res, tab)
+        let dots = update(res, tab)
+        points = dots.dots
         updateMap(d)
+        interactiveLegend(d3.selectAll('rect.barLegend'), points)
       })
 
     d3.select(".year-header").html("<h1>" + DEFAULT + "</h1>")
@@ -210,11 +208,20 @@ var chart = function () {
       onChange: function(d, meta) {
         if(meta.triggeredByUser) {
           res = data.filter(b=>(b.fatality_year == d))
-          update(res, tab)
+          let dots = update(res, tab)
+          points = dots.dots
           updateMap(d)  
-          var summary = timeline.find(b=>b.year == d).description
+          interactiveLegend(d3.selectAll('rect.barLegend'), points)
+          let dataYear = timeline.find(b=>+b.year == d)
           d3.select(".year-header").html("<h1>" + d + "</h1>")
-          d3.select(".year-summary").html("<p>" + summary + "</p>")
+          d3.select(".year-summary").html("<h4>" + dataYear.description + "</h4>")
+          if(dataYear.image){
+            d3.select(".year-image").html("<img src='./images/" + dataYear.image + "' width='300px'>")
+            d3.select(".year-caption").html("<p>" + dataYear.caption + "<a href=" + dataYear.source + " style='color:grey;font-style:italic;'>  Wikimedia Commons</a></p>")
+          } else {
+            d3.select(".year-image").html("")
+            d3.select(".year-caption").html("")
+          }
         }         
       }
     });       
@@ -285,8 +292,8 @@ var chart = function () {
 
     function update(data, tab) {
       var options = {
-        radius: window.innerWidth <= 1440 ? 1.4 : 1.9,
-        tilesPerRow: window.innerWidth <= 1440 ? 13 : 11,
+        radius: window.innerWidth >= 1920 ? 1.9 : 1.4,
+        tilesPerRow: 13,
         width: width,
         height: height*(5/6),
         leftBuffer: 0,
@@ -390,7 +397,6 @@ var chart = function () {
 
   // When each bar on legend is hovered, dots in respective category is highlight
   function interactiveLegend(bar, points) {
-
     bar.on("mousemove", function(d) {
       draw(d, 0.05, points)
     }).on("mouseout", function(d) {

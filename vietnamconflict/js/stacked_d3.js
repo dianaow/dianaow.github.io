@@ -36,8 +36,6 @@ var yScale = d3.scaleLinear()
 var color = d3.scaleOrdinal()
   .range(['#ffbaba', '#fdaaa7', '#fa9a93', '#f78a81', '#f3796e', '#ee685c', '#e8564b', '#e24239', '#db2828'])
 
-run()
-
 ///////////////////////////////////////////////////////////////////////////
 /////////////////////////// Data Processing ///////////////////////////////
 /////////////////////////////////////////////////////////////////////////// 
@@ -47,6 +45,7 @@ function run() {
   d3.queue()   
     .defer(d3.json, './data/deathPercentages_byProvince_byTime.json')  
     .await(dataProcess);  
+
 }
 
 function dataProcess(error, deathJSON) {
