@@ -19,7 +19,7 @@ d3.csv("./data/csl_foreign_players.csv", function(csv) {
   } else if (ipadPRO_landscape) {
     var multiplier = 0.8
   } else {
-    var multiplier = 1
+    var multiplier = 0.8
   }
 
   var screenWidth = 900 * multiplier

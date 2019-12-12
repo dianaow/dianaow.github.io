@@ -172,6 +172,101 @@
         height: 30vh;
       }  
     }
+  .box {
+    box-sizing: border-box;
+    border: 10px solid #fff;
+    width:100%;
+    height:100%;
+    float:left;
+    overflow:hidden;
+    position:relative;
+    text-align:center;
+    cursor:default;    
+  }
+  .box .overlay {
+    width:100%;
+    height:100%;
+    position:absolute;
+    overflow:hidden;
+    top:0;
+    left:0;
+    opacity:0;
+    background-color:rgba(0,0,0,0.7);
+    -webkit-transition:all .4s ease-in-out;
+    transition:all .4s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .box img {
+    display:block;
+    position:relative;
+    -webkit-transition:all .4s linear;
+    transition:all .4s linear;
+  }
+  img {
+    width: 100%;
+  }
+  .box h1 {
+    color:#fff;
+    text-align:center; 
+    font-size:24px;  
+    -webkit-transform:translatey(-100px);
+    -ms-transform:translatey(-100px);
+    transform:translatey(-100px);
+    -webkit-transition:all .2s ease-in-out;
+    transition:all .2s ease-in-out;  
+    padding: 0;
+    align-self: center; 
+  }
+  .box h2 {
+    width: 70%;
+    color:#fff;
+    text-align:center;
+    font-size:15px;
+    position:relative;
+    -webkit-transform:translatey(-100px);
+    -ms-transform:translatey(-100px);
+    transform:translatey(-100px);
+    -webkit-transition:all .2s ease-in-out;
+    transition:all .2s ease-in-out;
+    padding:0px;
+    align-self: center;
+  }
+  .box a.info {
+    flex: initial;
+    width: 20%;
+    align-self: center;
+    text-decoration:none;
+    display:inline-block;
+    text-transform:uppercase;
+    color:white;
+    font-size:12px;
+    border:1px solid #fff;
+    background-color:transparent;
+    opacity:0;
+    filter:alpha(opacity=0);
+    -webkit-transition:all .2s ease-in-out;
+    transition:all .2s ease-in-out;
+    margin:20px 0 0;
+    padding:5px 10px;
+  }
+    .box:hover .overlay {
+      opacity:1;
+      filter:alpha(opacity=100);
+    }
+    .box:hover h1, .box:hover h2,.box:hover a.info {
+      opacity:1;
+      filter:alpha(opacity=100);
+      -ms-transform:translatey(0);
+      -webkit-transform:translatey(0);
+      transform:translatey(0);
+    }
+    .box:hover a.info {
+    -webkit-transition-delay:.2s;
+    transition-delay:.2s;
+    }
+
     </style>
 
   </head>
@@ -209,55 +304,85 @@
 
         <div class='group'>
           <div class='box'>
+            <img src='images/f1_square.png'>
             <a href="http://www.notforcasualfans.com/results-bubbles" target="_blank">
-              <img src='images/f1_square.png'>
+              <div class="overlay">
+                <h1>Formula 1</h1>
+                <h2>React + D3</h2>
+              </div>
             </a>
           </div>
           <div class='box'>
-            <p class='left'><span>< </span><br>Formula 1</p>
-            <h2>Sports</h2>
-            <p class='right'>Chinese Super League<br><span> ></span></p>
+            <img src='images/sgp_ethnicity.png'>
+            <a href="http://singapore-stories.s3-website-ap-southeast-1.amazonaws.com/ethnicity/" target="_blank">
+              <div class="overlay">
+                <h1>Singapore Ethnic Diversity</h1>
+              </div>
+            </a>
           </div>           
           <div class='box'>
+            <img src='images/csl.png'>
             <a href="https://dianameow.com/forcelayout/chinese-super-league.html" target="_blank">
-              <img src='images/csl.png'>
+              <div class="overlay">
+                <h1>Chinese Super League</h1>
+              </div>
             </a>
           </div>
         </div>
 
         <div class='group'>
           <div class='box'>
+            <img src='images/kiron_vizforsocialgood.png'>
             <a href="https://dianameow.com/vizforsocialgood/" target="_blank">
-              <img src='images/kiron_vizforsocialgood.png'>
+              <div class="overlay">
+                <h1>Kiron</h1>
+                <h2>#vizforsocialgood</h2>
+              </div>
             </a>
           </div>
           <div class='box'>
-            <p class='left'>Refugee crisis<br><span> <</span></p>
-            <h2>History<br><span>&</span><br>Politics</h2>
-              <p class='right'><span> ></span><br>Vietnam War</p>          
+            <img src='images/dvs_survey.png'>
+            <a href="https://dianameow.com/DVSchallenge" target="_blank">
+              <div class="overlay">
+                <h1>Data Visualization Society Survey</h1>
+              </div> 
+            </a>    
           </div>
           <div class='box'>
+            <img src='images/vietnam_square.png'>
             <a href="https://dianameow.com/vietnamconflict/index.html" target="_blank">
-              <img src='images/vietnam_square.png'>
+              <div class="overlay">
+                <h1>Vietnam War</h1>
+              </div>
             </a>
           </div>
         </div>
 
         <div class='group'>
           <div class='box'>
+            <img src='images/travel_volume1.png'>
             <a href="https://dianameow.com/busroutes/travel_volume1.html" target="_blank">
-              <img src='images/travel_volume1.png'>
+              <div class="overlay">
+                <h1>Singapore Bus Ridership</h1>
+              </div>
             </a>
           </div>
           <div class='box'>
-            <p class='left'>Singapore's Bus Ridership<br><span> <</span></p>
-            <h2>Transport</h2>
-            <p class='right'><span> ></span><br>MapboxGL</p>
-          </div>
-          <div class='box'>
+            <img src='images/map_square.png'>
             <a href="https://dianameow.com/busroutes/mapboxgl.html" target="_blank">
-              <img src='images/map_square.png'>
+              <div class="overlay">
+                <h1>Singapore Bus Ridership</h1>
+                <h2>Mapbox GL</h2>
+              </div>
             </a>
+          </div>
+          <div class='box'>
+            <img src='images/swd_1.png'>
+            <a href="https://dianameow.com/SWDchallenge" target="_blank">
+              <div class="overlay">
+                <h1>Global Development Aid</h1> 
+              </div>  
+            </a>  
           </div>
         </div>
 
