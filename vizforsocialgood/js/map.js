@@ -2,13 +2,13 @@
 ///////////////////////////////// Globals /////////////////////////////////
 /////////////////////////////////////////////////////////////////////////// 
 var entityData, map, arcs, markersGroup, xTimeDailyScale, handle, label, topCountries_list
-console.log(Math.min(window.innerWidth, screen.width))
-var ipadPRO_landscape = Math.min(window.innerWidth, screen.width)>1024 & Math.min(window.innerWidth, screen.width)<=1366 & (Math.abs(screen.orientation.angle == 90))
-var ipadPRO_portrait = Math.min(window.innerWidth, screen.width)>=1024 & Math.min(window.innerWidth, screen.width)<=1366 &(Math.abs(screen.orientation.angle == 0))
-var ipad_landscape = Math.min(window.innerWidth, screen.width)<=1024 & (Math.abs(screen.orientation.angle == 90))
-var ipad_portrait = Math.min(window.innerWidth, screen.width)<1024 & (Math.abs(screen.orientation.angle == 0))
-var laptop = Math.min(window.innerWidth, screen.width) > 1366
-var desktop = Math.min(window.innerWidth, screen.width) > 1680
+console.log(Math.max(window.innerWidth, screen.width))
+var ipadPRO_landscape = Math.max(window.innerWidth, screen.width)>1024 & Math.max(window.innerWidth, screen.width)<1366 & (Math.abs(screen.orientation.angle == 90))
+var ipadPRO_portrait = Math.max(window.innerWidth, screen.width)>=1024 & Math.max(window.innerWidth, screen.width)<1366 &(Math.abs(screen.orientation.angle == 0))
+var ipad_landscape = Math.max(window.innerWidth, screen.width)<=1024 & (Math.abs(screen.orientation.angle == 90))
+var ipad_portrait = Math.max(window.innerWidth, screen.width)<1024 & (Math.abs(screen.orientation.angle == 0))
+var laptop = Math.max(window.innerWidth, screen.width) >= 1366
+var desktop = Math.max(window.innerWidth, screen.width) > 1680
 
 if (ipadPRO_landscape) {
   console.log('ipadPRO_landscape')
@@ -115,7 +115,6 @@ function loadData() {
 function processData(error, geoJSON, csv, csv2, json) {
   
   if (error) throw error;
-  d3.select('#dimmer').style('display', 'none')
 
   var connData = csv
 
@@ -625,11 +624,11 @@ function slider(json) {
   } else if (desktop){
     var targetValue = Math.min(window.innerWidth, screen.width) * 0.63 
     var sliderPosX = Math.min(window.innerWidth, screen.width) * 0.32
-    var sliderPosY = 670
+    var sliderPosY = Math.min(window.innerHeight, screen.height) - 90
   } else {
     var targetValue = Math.min(window.innerWidth, screen.width) * 0.63
     var sliderPosX = Math.min(window.innerWidth, screen.width) * 0.32
-    var sliderPosY = 670
+    var sliderPosY = Math.min(window.innerHeight, screen.height) - 90
   }
 
   var currentValue = 0;
