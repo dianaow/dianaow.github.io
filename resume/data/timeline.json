@@ -37,11 +37,20 @@
   },
   {
     "startdate": "2019-04-01",
-    "enddate": "",
+    "enddate": "2019-10-01",
     "title": "Data Visualization Developer, Refinitiv Labs (Singapore)",
     "shorttitle": "Data Viz Developer, Refinitiv",
     "type": "job",
     "glyph": "star",
     "description": "<ul><li> Designed, prototyped and built interactive visualizations that help users rapidly understand complex data and relationships for financial data</li><li> Worked with data scientists to produce publication quality data visualizations to accompany write-up to illustrate project insights</li></ul>"
+  },
+  {
+    "startdate": "2019-11-01",
+    "enddate": "",
+    "title": "Data Visualization Specialist, St Electronics",
+    "shorttitle": "Data Viz Specialist, ST Electronics",
+    "type": "job",
+    "glyph": "star",
+    "description": "<ul><li> UI design & development of customized data analytics dashboard and tools with React and D3.js</li></ul>"
   }
 ]

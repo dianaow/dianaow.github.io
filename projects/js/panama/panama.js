@@ -511,7 +511,7 @@ var panama = function () {
       path = path.enter().append("path").merge(path)
 
       circle = circle.data(nodes, d=>d.id)
-      8
+      
       circle.exit().remove();
       
       circle = circle.enter().append("circle").merge(circle)
