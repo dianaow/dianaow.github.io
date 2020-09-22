@@ -18,7 +18,7 @@
     <link href="./css/global.css" rel="stylesheet">
     <style>
     body {
-      overflow-x: hidden;
+      /*overflow-x: hidden;*/
     }
     .wrapper {
       width: 100vw;
@@ -73,13 +73,21 @@
     .box-group {
       display: flex;
       flex-direction: column;
-      width: 80%;
-      height: 80%;
-      padding: 10px;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 0px;
     }
     .group {
       width: 100%;
-      height: 40%;
+      height: 25%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+    .group-1 {
+      width: 80%;
+      height: 25%;
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -173,7 +181,7 @@
     }
   .box {
     box-sizing: border-box;
-    border: 10px solid #fff;
+    border: 5px solid #fff;
     width:100%;
     height:100%;
     float:left;
@@ -303,14 +311,47 @@
 
         <div class='group'>
           <div class='box'>
-            <img src='images/f1_square.png'>
-            <a href="http://www.notforcasualfans.com/results-bubbles" target="_blank">
+            <img src='images/kiron_full.png'>
+              <a href="https://dianameow.com/vizforsocialgood/" target="_blank">
+                <div class="overlay">
+                  <h1>Kiron</h1>
+                  <h2>#vizforsocialgood</h2>
+                </div>
+              </a>
+          </div>
+          <div class='box'>
+            <img src='images/covid_network.png'>
+            <a href="http://covid19-singapore.s3-website-ap-southeast-1.amazonaws.com/" target="_blank">
               <div class="overlay">
-                <h1>Formula 1</h1>
+                <h1>COVID-19 Network Singapore</h1>
                 <h2>React + D3</h2>
               </div>
             </a>
           </div>
+        </div>
+
+        <div class='group'>         
+          <div class='box'>
+            <img src='images/homlessness.png'>
+            <a href="http://singapore-stories.s3-website-ap-southeast-1.amazonaws.com/homeless/" target="_blank">
+              <div class="overlay">
+                <h1>Homelessness in Singapore</h1>
+                <h2>Scrollytelling</h2>
+              </div>
+            </a>
+          </div>
+          <div class='box'>
+            <img src='images/hdb.png'>
+            <a href="http://singapore-stories.s3-website-ap-southeast-1.amazonaws.com/map_hdb/" target="_blank">
+              <div class="overlay">
+                <h1>Mapping Housing Development Board properties</h1>
+                <h2>Mapbox</h2>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class='group-1'>
           <div class='box'>
             <img src='images/sgp_ethnicity.png'>
             <a href="http://singapore-stories.s3-website-ap-southeast-1.amazonaws.com/ethnicity/" target="_blank">
@@ -318,34 +359,22 @@
                 <h1>Singapore Ethnic Diversity</h1>
               </div>
             </a>
-          </div>           
+          </div>  
           <div class='box'>
-            <img src='images/csl.png'>
-            <a href="https://dianameow.com/forcelayout/chinese-super-league.html" target="_blank">
+            <img src='images/swd_1.png'>
+            <a href="https://dianameow.com/SWDchallenge" target="_blank">
               <div class="overlay">
-                <h1>Chinese Super League</h1>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div class='group'>
-          <div class='box'>
-            <img src='images/kiron_vizforsocialgood.png'>
-            <a href="https://dianameow.com/vizforsocialgood/" target="_blank">
-              <div class="overlay">
-                <h1>Kiron</h1>
-                <h2>#vizforsocialgood</h2>
-              </div>
-            </a>
+                <h1>Global Development Aid</h1> 
+              </div>  
+            </a> 
           </div>
           <div class='box'>
-            <img src='images/dvs_survey.png'>
-            <a href="https://dianameow.com/DVSchallenge" target="_blank">
+            <img src='images/travel_volume1.png'>
+            <a href="https://dianameow.com/busroutes/travel_volume1.html" target="_blank">
               <div class="overlay">
-                <h1>Data Visualization Society Survey</h1>
-              </div> 
-            </a>    
+                <h1>Singapore Bus Ridership</h1>
+              </div>
+            </a>   
           </div>
           <div class='box'>
             <img src='images/vietnam_square.png'>
@@ -354,34 +383,6 @@
                 <h1>Vietnam War</h1>
               </div>
             </a>
-          </div>
-        </div>
-
-        <div class='group'>
-          <div class='box'>
-            <img src='images/travel_volume1.png'>
-            <a href="https://dianameow.com/busroutes/travel_volume1.html" target="_blank">
-              <div class="overlay">
-                <h1>Singapore Bus Ridership</h1>
-              </div>
-            </a>
-          </div>
-          <div class='box'>
-            <img src='images/map_square.png'>
-            <a href="https://dianameow.com/busroutes/mapboxgl.html" target="_blank">
-              <div class="overlay">
-                <h1>Singapore Bus Ridership</h1>
-                <h2>Mapbox GL</h2>
-              </div>
-            </a>
-          </div>
-          <div class='box'>
-            <img src='images/swd_1.png'>
-            <a href="https://dianameow.com/SWDchallenge" target="_blank">
-              <div class="overlay">
-                <h1>Global Development Aid</h1> 
-              </div>  
-            </a>  
           </div>
         </div>
 
