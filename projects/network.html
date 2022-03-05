@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Campy Vanilla Creations</title>
+    <meta name="author" content="campy vanilla">
+    <meta name="description" content="">
+    <meta name="keywords" content="generative art, creative coding, visualization, visualisation, p5, javascript, flow fields, flowfields">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+
+  <body>
+    <div class='wrapper'>
+
+    <nav class="navbar navbar-expand-lg">
+        <div id="navbarResponsive">
+        <a href="https://campyoutsider.github.io/">---go back</a>
+        <h1 style='font-size: 60px; padding: 0px; margin: 10px; margin-left:0px;'>Networks</h1>
+        <h4 style='padding:0px;margin:0px'>An exploration of graph/network topology and styles.</h4>
+        <h4 style='text-align: center;width: 500px;padding:4px;margin:2px;background-color:#000000; color:#ffffff' onclick="refresh()">Click to load another fresh grid of networks.</h4>
+    </nav>
+
+      
+    <div class='box-wrapper'>
+      <div class='box-group'>
+
+        <div class='group'>
+          <div class='box box-1'>
+          </div>
+          <div class='box box-2'>
+          </div>
+          <div class='box box-3'>
+          </div>
+
+        </div>
+
+        <div class='group'>         
+          <div class='box box-4'>
+          </div>
+          <div class='box box-5'>
+          </div>
+          <div class='box box-6'>
+          </div>
+        </div>
+
+        <div class='group'>         
+          <div class='box box-7'>
+          </div>
+          <div class='box box-8'>
+          </div>
+          <div class='box box-9'>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      let images = []
+
+      fetch('./network_images_list.txt')
+        .then((response) => {
+          return response.text();
+        })
+        .then((data) => {
+          images = Array.from(data.split("\n"))
+          let ids = chooseRandomImgs()
+          appendImages(ids)
+        })
+
+      function chooseRandomImgs(){
+        var numbers = []; // new empty array
+
+        var min, max, r, n, p;
+
+        min = 0;
+        max = 500;
+        r = 9; // how many numbers you want to extract
+
+        for (let i = 0; i < r; i++) {
+          do {
+            n = Math.floor(Math.random() * (max - min + 1)) + min;
+            p = numbers.includes(n);
+            if(!p){
+              numbers.push(n);
+            }
+          }
+          while(p);
+        }
+        return numbers
+      }
+
+      function appendImages(numbers){
+        numbers.forEach((d,i)=>{
+          var img = document.createElement("img");
+          img.src =  `https://campy-photos.s3.ap-southeast-1.amazonaws.com/${images[d]}`
+          document.querySelector(`.box-${i+1}`).appendChild(img)
+        })
+      }
+
+      function refresh(){
+        let imgs = document.querySelectorAll('img')
+        imgs.forEach(img =>{
+          img.remove()
+        })
+        let ids = chooseRandomImgs()
+        appendImages(ids)
+      }
+
+    </script>
+  </body>
+
+</html>

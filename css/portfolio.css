@@ -6,7 +6,7 @@
 }
 .header {
   width: 900px;
-  height: 120px;
+  height: 80px;
   display: flex;
   justify-content: space-between;
   text-align: center;

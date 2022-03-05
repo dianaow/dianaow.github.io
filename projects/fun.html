@@ -10,6 +10,14 @@
     <link href="../css/portfolio.css" rel="stylesheet">
     <link rel="stylesheet" href="general.css" />
     <link href="../css/global.css" rel="stylesheet">
+    <style>
+      .centered {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
   </head>
   <body>
 
@@ -19,9 +27,6 @@
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               <a style='font-family:Poppins;' class="nav-link" href="https://dianameow.com">PROJECTS</a>
-            </li>
-            <li class="nav-item active">
-              <a style='font-family:Poppins;' class="nav-link" href="https://dianameow.com/resume">ABOUT</a>
             </li>
             <li class="nav-item">
               <a style='font-family:Poppins;' class="nav-link" href="https://dianameow.com/projects/fun.html">PLAYGROUND</a>
@@ -34,7 +39,38 @@
       <div class='header'>
         <div></div>
         <div class='header-desc'>
-          <h2>A selection of visualizations I have created in my free time. Most are D3 experiments done for fun</h2>
+          <h2>Generative art</h2>
+        </div>
+        <div></div>
+      </div>
+    </div>
+
+    <div class='box-wrapper'>
+      <div class='box-group'>
+
+        <div class='group'>
+          
+          <a href="https://dianaow.github.io/projects/network.html">
+            <div style='position:relative;cursor:pointer;text-align: center;width: 500px; height: auto; padding:0px;margin:0px;color:#000000'>
+              <img src="./images/network_green.png"></img>
+              <h2 class='centered'>Networks</h2>
+            </div>
+          </a>
+          <a href="https://dianaow.github.io/projects/flowfields.html">
+            <div style='position:relative;cursor:pointer;text-align: center;width: 500px; height: auto; padding:0px;margin:0px;color:#000000'>
+              <img src="./images/flowfields_collage.png"></img>
+              <h2 class='centered'>Flowfields</h2>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class='header-container'>
+      <div class='header'>
+        <div></div>
+        <div class='header-desc'>
+          <h2>D3 experiments</h2>
         </div>
         <div></div>
       </div>
@@ -204,44 +240,6 @@
                 </div>
 
               </div>
-            </div>
-
-        </div>
-
-        <div class='group'>
-
-            <div class="trigger grid4" id="trigger-coe">
-              <img src="./images/coe_multipleline.png"></img>
-            </div>
-            <div class="modal">
-              <div class="content content-coe">
-                <span class="close-button">×</span>
-                <div class='header'>
-                  <h2>COE Prices from 2010-2018</h2>
-                  <p>There are 2 COE Open Bidding exercises each month (Bidding Exercise 1 starts on the first Monday while Bidding Exercise 2 starts on the third Monday of the month)</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="trigger grid4" id="trigger-vietnam">
-              <img src="./images/vietnam.png"></img>
-            </div>
-            <div class="modal">
-              <div class="content content-vietnam">
-                <span class="close-button">×</span>
-              </div>
-            </div>
-
-            <div class="trigger grid4">
-              <a href="http://www.dianameow.com/projects/my-bookmarks.html" target="_blank">
-                <img src="./images/bookmarks.png"></img>
-              </a>
-            </div>
-
-            <div class="trigger grid4">
-              <a href="http://www.notforcasualfans.com/results-animation" target="_blank">
-                <img src="./images/stackedbar.png"></img>
-              </a>
             </div>
 
         </div>
