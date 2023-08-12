@@ -4,22 +4,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <title>Diana Ow</title>
     <meta name="author" content="Diana Ow">
     <meta name="description" content="Diana Ow's website">
     <meta name="keywords" content="data, visualization, visualisation, data visualization, data visualisation, information, information visualization, information visualisation, dataviz, datavis, infoviz, infovis, collaboration, data art">
 
     <link href="https://fonts.googleapis.com/css?family=Nunito|Roboto|Poppins|Karla" rel="stylesheet" crossorigin="anonymous">
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <link href="./css/global.css" rel="stylesheet">
     <style>
-    body {
-      /*overflow-x: hidden;*/
-    }
     .wrapper {
       width: 100vw;
       height: 100vw;
@@ -273,7 +265,6 @@
     -webkit-transition-delay:.2s;
     transition-delay:.2s;
     }
-
     </style>
 
   </head>
@@ -297,7 +288,7 @@
             <a style='font-family:Poppins;' class="nav-link" href="https://dianameow.com">PROJECTS</a>
           </li>
           <li class="nav-item">
-            <a style='font-family:Poppins;' class="nav-link" href="https://dianameow.com/projects/fun.html">PLAYGROUND</a>
+            <a style='font-family:Poppins;' class="nav-link" href="https://dianameow.com/projects/generativeart.html">PLAYGROUND</a>
           </li>
           <li class="nav-item">
             <a style='font-family:Poppins;' class="nav-link" href="https://dianameow.com/blog/index.html">BLOG</a>
@@ -310,7 +301,7 @@
       <div class='box-group'>
         <br/>
         
-        <h3>D3 dashboards</h3>   
+        <h3>Dashboards</h3>   
         <div class='group'>      
           <div class='box'>
             <img src='images/biovitals-demo.jpeg'>
@@ -348,8 +339,8 @@
             </a>
           </div>
           <div class='box'>
-            <img src='images/medical_dashboard.jpeg'>
-            <a href="https://js-rt68bz.stackblitz.io" target="_blank">
+            <img src='blog/health_timeline/health_timeline_mockup_simple.png'>
+            <a href="https://dianameow.com/blog/health_timeline/index.html" target="_blank">
               <div class="overlay">
                 <h1>Web-based tool for monitoring clinical data</h1>
                 <h3>D3.js</h3>
@@ -379,7 +370,7 @@
             <a href="http://covid19-singapore.s3-website-ap-southeast-1.amazonaws.com/" target="_blank">
               <div class="overlay">
                 <h1>COVID-19 Network Singapore</h1>
-                <h2>React + D3</h2>
+                <h3>React + D3</h3>
               </div>
             </a>
           </div>
@@ -391,29 +382,48 @@
         <h3>Geospatial</h3>  
         <div class='group'>
           <div class='box'>
+            <img src='images/leaflet_dash_map.png'>
+            <a href="" target="_blank">
+              <div class="overlay">
+                <h1>Interactive geospatial dashboard</h1>
+                <h3>Leaflet + Dash</h3>
+                <h2>Developed a geospatial app for a US-based technology company to visualise fibre broadband installation sites in the US, giving client a bird-eye's view of biz operations, while able to investigate specific locations.</h2>
+              </div>
+            </a>
+          </div>
+          <div class='box'>
             <img src='images/kiron_full.png'>
               <a href="https://dianameow.com/vizforsocialgood/" target="_blank">
                 <div class="overlay">
                   <h1>Kiron</h1>
+                  <h3>D3.js + GeoJSON</h3>
                   <h2>#vizforsocialgood</h2>
                 </div>
               </a>
-          </div>
-          <div class='box'>
-            <img src='images/hdb.png'>
-            <a href="http://singapore-stories.s3-website-ap-southeast-1.amazonaws.com/map_hdb/" target="_blank">
-              <div class="overlay">
-                <h1>Mapping Housing Development Board properties</h1>
-                <h2>Mapbox</h2>
-              </div>
-            </a>
           </div>
         </div>
 
         <br/>
         <br/>
+  
+        <div style="width: 50%; margin-top: 30px;"> 
+          <div style="border-width: 2px; border-color: black; border-style: solid; padding: 20px;">
+          <h2>Testimonials from my clients</h2>      
+          <h3 style="font-family: Karla;">
+            "Diana was excellent to work with! In addition to creating a great looking visualization of my data, she was able to build off and integrate with my current codebase. Will definitively use again in the future for interactive data application. She was also well organized on scope and deliverables and finished the final product very quickly once work began."
+          </h3>
+          <br/>
+          <br/>
+          <h3 style="font-family: Karla;">
+            "Diana did an awesome job on taking our visualizations of Twitter activity to the next level. Not only she was able to quickly interpret and implement the features we were needing, but she also went ahead to proactively implement aesthetical improvements and code optimizations that made the visualization much more fluid and appealing. All of this was performed within budget and schedule and with a lot of attention to detail"
+          </h3>  
+        </div>  
+        </div>
+       
+        <br/>
+        <br/>
 
-        <h3>Scrollytelling</h3>   
+        <h3>The unusual</h3>   
         <div class='group'>      
           <div class='box'>
             <img src='images/d3-force-collection-demo.gif'>
@@ -425,11 +435,13 @@
             </a>
           </div>
           <div class='box'>
-            <img src='images/homlessness.png'>
-            <a href="http://singapore-stories.s3-website-ap-southeast-1.amazonaws.com/homeless/" target="_blank">
+            <video width="100%" height="auto" src="images/data-visualizers.mov" autoplay loop playsinline muted></video>
+            <a href="https://data-visualizers.netlify.app/" target="_blank">
               <div class="overlay">
-                <h1>Homelessness in Singapore</h1>
-                <h2>Scrollytelling</h2>
+                <h1>Data Visualization Society members in 2020</h1>
+                <h3>PixiJS</h3>
+                <h2>The Data Visualization Society released their 2020 survey results and I participated in visualizing the results, choosing to represent all respondents as animating and interactive dots on the screen. I wanted audiences to be able to find out how represented they are in the data viz community based on their skillset.</h2>
+                <h2> I allowed audiences to explore by funneling the technology/tool selection with dropdowns, hoping to create a unique data experience with the particle animation.</h2>
               </div>
             </a>
           </div>
@@ -437,33 +449,66 @@
 
         <br/>
         <br/>
-        <h3>Other visualizations</h3>
+        <h3>Visualizations about Singapore</h3>
         <div class='group-1'>
           <div class='box'>
             <img src='images/sgp_ethnicity.png'>
             <a href="http://singapore-stories.s3-website-ap-southeast-1.amazonaws.com/ethnicity/" target="_blank">
               <div class="overlay">
                 <h1>Singapore Ethnic Diversity</h1>
+                <h3>D3.js</h3>
               </div>
             </a>
           </div>  
           <div class='box'>
-            <img src='images/swd_1.png'>
-            <a href="https://dianameow.com/SWDchallenge" target="_blank">
+            <img src='images/hdb_new.png'>
+            <a href="http://singapore-stories.s3-website-ap-southeast-1.amazonaws.com/map_hdb/" target="_blank">
               <div class="overlay">
-                <h1>Global Development Aid</h1> 
-              </div>  
-            </a> 
+                <h1>Mapping Housing Development Board properties</h1>
+                <h3>Mapbox</h3>
+              </div>
+            </a>
           </div>
           <div class='box'>
             <img src='images/travel_volume1.png'>
             <a href="https://dianameow.com/busroutes/travel_volume1.html" target="_blank">
               <div class="overlay">
                 <h1>Singapore Bus Ridership</h1>
+                <h3>D3.js</h3>
               </div>
             </a>   
           </div>
         </div>
+
+        <br/>
+        <br/>
+
+        <footer>
+          <div class="flex-container">
+            <div class="left"><h1 class="name">Thanks for visiting!</h1> 
+              <div class="column-content">
+                <p style="font-weight: 400; font-size: 1.2rem;">Diana Ow</p> 
+              </div>
+            </div> 
+            <div class="right">
+              <div class="column">
+                <h5 class="column-header">Connect</h5> 
+                <div class="column-content connect">
+                  <a class="link" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/dianaow/">LinkedIn</a> 
+                  <a class="link" target="_blank" rel="noopener noreferrer" href="https://github.com/dianaow/">GitHub</a> 
+                  <a class="link" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/follow?screen_name=notforcasual">Twitter</a>
+                </div>
+              </div> 
+              <div class="column">
+                <h5 class="column-header">Contact</h5> 
+                <div class="column-content contact">
+                  <a class="link" target="_blank" rel="noopener noreferrer" href="mailto:diana.ow@outlook.com">Personal</a> 
+                  <a class="link" target="_blank" rel="noopener noreferrer" href="https://calendly.com/dianaow/meeting">Meet</a>
+                </div>
+              </div>
+            </div>
+        </div>
+      </footer>
 
     </div>
 

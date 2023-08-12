@@ -33,9 +33,8 @@ h2 {
 
 .wrapper {
   width: 100vw;
-  height: 156vw;
   display: flex;
-  justify-content: center
+  justify-content: center;
 }
 .wrapper-group {
   display: flex;
@@ -111,7 +110,6 @@ pre {
 
 #portfolio__title_img {
     width: 100%;
-    height: 100vh;
     background-position: 50% 0px;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -126,6 +124,7 @@ pre {
     display: inline-block;
     max-width: 60vw;
     margin-top: 70px;
+    display: flex;
 }
 
 .portfolio__date {

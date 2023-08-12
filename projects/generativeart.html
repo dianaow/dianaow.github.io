@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport">
+    <title>Generative Art</title>
+    <meta name="author" content="Diana Ow">
+    <meta name="description" content="Diana Ow's Generative Art">
+    <meta name="keywords" content="d3js, pixijs, generative art, creative code, network, graphs, data, visualization, visualisation, data visualization, data visualisation, information, information visualization, information visualisation, dataviz, datavis, infoviz, infovis, dashboard, data art, web development">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins|Roboto|Karla" rel="stylesheet">
+    <link rel="stylesheet" href="general.css" />
+    <style>
+      body {
+        padding-top: 0px !important;
+        background: #000;
+        overflow-x: hidden;
+      }
+      .centered {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      #wrapper {
+        height: 80vh;
+      }
+      .group {
+        position: relative;
+        text-align: center;
+        width: 500px;
+      }
+      .box-group {
+        flex-direction: row;
+      }
+      .box-wrapper {
+        justify-content: left;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="wrapper"></div>
+    
+    </br>
+
+    <div class='box-wrapper'>
+      <div class='box-group'>
+        <div class='group'>    
+          <a href="https://dianaow.github.io/projects/network.html">
+            <div style='position:relative;cursor:pointer;text-align: center;width: 500px; height: auto; padding:0px;margin:0px;color:#000000'>
+              <img src="./images/network_green.png"></img>
+              <h2 class='centered'>Networks</h2>
+            </div>
+          </a>
+        </div>
+        <div class='group'> 
+          <a href="https://dianaow.github.io/projects/flowfields.html">
+            <div style='position:relative;cursor:pointer;text-align: center;width: 500px; height: auto; padding:0px;margin:0px;color:#000000'>
+              <img src="./images/flowfields_collage.png"></img>
+              <h2 class='centered'>Flowfields</h2>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class='box-wrapper'>
+      <div class='box-group'>
+        <div class='group'>
+          <a href="https://www.instagram.com/monsta_fungus/">
+            <div style='position:relative;cursor:pointer;text-align: center;width: 500px; height: auto; padding:0px;margin:0px;color:#000000'>
+              <img src="./fxhash-monsta-flower.jpeg"></img>
+              <h2 class='centered'>Flowers</h2>
+            </div>
+          </a>
+        </div>
+        <div class="group" style='flex-direction: column;'>
+          <div>
+            <h4 style="color: white; padding-bottom: 10px">Click the images to see a gallery of generative artwork</h4>
+          </div>
+          <div>
+            <p style="color: white">I was <a href="https://dianaow.github.io/projects/flowfields.html">interviewed</a> on Channel 8's 狮城有约 programme. We discussed the world of generative art — creating art with code.</p>
+          </div>
+          <div>
+            <h4 style="color: white; padding-bottom: 10px">Buy an artwork <a href="https://www.fxhash.xyz/u/campyoutsider">here</a></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class='box-wrapper' style="padding: 40px">
+      <a style='font-family:Poppins;' class="nav-link" href="https://dianameow.com">BACK TO DATA VIZ AND WEB DEV PROJECTS</a>
+    </div>
+
+    <script src="./js/pathseg.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/opentype.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+      const colors = [
+        '#418BFC',
+        '#46BCC8',
+        '#D6AB1B',
+        '#EB5E68',
+        '#B6BE1C',
+        '#F64D1A',
+        '#BA6DE4',
+        '#EA6BCB',
+        '#B9AAC8',
+        '#F08519',
+      ];
+      const bgcolors = [
+        '#418BFC',
+        '#46BCC8',
+        '#D6AB1B',
+        '#EB5E68',
+        '#B6BE1C',
+        '#F64D1A',
+        '#BA6DE4',
+        '#EA6BCB',
+        '#B9AAC8',
+        '#F08519',
+      ];
+
+      let element_colorIdx = Math.floor(Math.random() * 9)
+      let element_color2Idx = Math.floor(Math.random() * 9)
+      let nested_node_colorIdx = Math.floor(Math.random() * 9)
+      let nested_node_color2Idx = Math.floor(Math.random() * 9)
+
+      window.features = {
+        'background color': "#000",
+        'element color': colors[element_colorIdx],
+        'element color2': colors[element_colorIdx] === colors[element_color2Idx] ? '#F4E560' : colors[element_color2Idx],
+        'nested node color':
+        colors[element_colorIdx] === colors[nested_node_colorIdx] || colors[element_color2Idx] === colors[nested_node_colorIdx] ? '#ffffff' : colors[nested_node_colorIdx],
+        'nested node color2':
+        colors[element_colorIdx] === colors[nested_node_color2Idx] || colors[element_color2Idx] === colors[nested_node_color2Idx] || colors[nested_node_colorIdx] === colors[nested_node_color2Idx] ? 'tomato' : colors[nested_node_color2Idx],
+      };
+
+    </script>
+    <script>
+        //const FONT_SIZE = window.innerWidth >= 1600 ? 550 : 375
+        //const SCALE = window.innerWidth >= 1600 ? 0.5 : 0.36
+        //const SPACING = window.innerWidth >= 1600 ? 30 : 25
+        let SIZE = window.innerWidth >= 1600 ? 0.3 : 0.275
+        const FONT_SIZE = window.innerWidth >= 1600 ? 430 : 342
+        const SCALE = window.innerWidth >= 1600 ? 0.41 : 0.3
+        const SPACING = window.innerWidth >= 1600 ? 30 : 25
+        let pointsAll = []
+        let fontOutlineBodies = []; // Store Matter.js bodies representing the font outline
+        let newCommandAll = []
+
+        function calculateDistance(x1, y1, x2, y2) {
+          const deltaX = x2 - x1;
+          const deltaY = y2 - y1;
+          const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+          return distance;
+        }
+
+        function calculateCentroid(points) {
+          const totalPoints = points.length;
+          let sumX = 0;
+          let sumY = 0;
+
+          points.forEach(point => {
+            sumX += point.x;
+            sumY += point.y;
+          });
+
+          const centroidX = sumX / totalPoints;
+          const centroidY = sumY / totalPoints;
+
+          return { x: centroidX, y: centroidY };
+        }
+
+        function calculateCentroidIndex(points) {
+          const totalPoints = points.length;
+          let sumX = 0;
+          let sumY = 0;
+
+          points.forEach(point => {
+            sumX += point.xIndex;
+            sumY += point.yIndex;
+          });
+
+          const centroidX = sumX / totalPoints;
+          const centroidY = sumY / totalPoints;
+
+          return { x: centroidX, y: centroidY };
+        }
+
+        // Function to group points into a square grid
+        function groupPointsIntoGrid(points) {
+          let pointsNew = []
+          //pick a random pairing of xIndex and yIndex that is present in points
+          for (let i = 0; i < 30; i++) {
+            let maxXIndex = Math.max(...points.map(d => d.xIndex))
+            let maxYIndex = Math.max(...points.map(d => d.yIndex))
+            let xIndex = Math.floor(Math.random() * maxXIndex)
+            let yIndex = Math.floor(Math.random() * maxYIndex)
+            // get other indexes diagonally, top and right
+            let r = points.find(point => (point.xIndex === xIndex + 1 && point.yIndex === yIndex))
+            let t = points.find(point => (point.xIndex === xIndex && point.yIndex === yIndex - 1))
+            let d = points.find(point => (point.xIndex === xIndex + 1 && point.yIndex === yIndex - 1))
+            let pt = points.find(point => (point.xIndex === xIndex && point.yIndex === yIndex))
+            
+            let r1 = points.find(point => (point.xIndex === xIndex + 2 && point.yIndex === yIndex))
+            let t1 = points.find(point => (point.xIndex === xIndex && point.yIndex === yIndex - 2))
+            let d1 = points.find(point => (point.xIndex === xIndex + 2 && point.yIndex === yIndex - 2))
+            let r2 = points.find(point => (point.xIndex === xIndex + 2 && point.yIndex === yIndex - 1))
+            let t2 = points.find(point => (point.xIndex === xIndex + 1 && point.yIndex === yIndex - 2))
+
+            if(r && t && d && r1 && t1 && d1 && pt && r2 && t2) {
+              const centroid1 = calculateCentroid([r, t, d, pt, r1, t1, d1, r2, t2]);
+              const centroidIndex1 = calculateCentroidIndex([r, t, d, pt, r1, t1, d1, r2, t2]);
+              pointsNew.push({
+                x: centroid1.x,
+                y: centroid1.y,
+                pointsLen: 7,
+                xIndex: centroidIndex1.x,
+                yIndex: centroidIndex1.y
+              })
+              points = points.filter(point => {
+                if (
+                  (point.xIndex === xIndex + 1 && point.yIndex === yIndex) ||
+                  (point.xIndex === xIndex && point.yIndex === yIndex - 1) ||
+                  (point.xIndex === xIndex + 1 && point.yIndex === yIndex - 1) ||
+                  (point.xIndex === xIndex && point.yIndex === yIndex) ||
+                  (point.xIndex === xIndex + 2 && point.yIndex === yIndex) ||
+                  (point.xIndex === xIndex && point.yIndex === yIndex - 2) ||
+                  (point.xIndex === xIndex + 2 && point.yIndex === yIndex - 2) ||
+                  (point.xIndex === xIndex + 2 && point.yIndex === yIndex - 1) ||
+                  (point.xIndex === xIndex + 1 && point.yIndex === yIndex - 2)
+                ) {
+                  return false; // Exclude the point from the filtered array
+                }
+                return true; // Keep the point in the filtered array
+              });
+            } else if(r && t && d && pt) {
+              const centroid = calculateCentroid([r, t, d, pt]);
+              const centroidIndex = calculateCentroidIndex([r, t, d, pt]);
+              pointsNew.push({
+                x: centroid.x,
+                y: centroid.y,
+                pointsLen: 4 ,
+                xIndex: centroidIndex.x,
+                yIndex: centroidIndex.y
+              })
+              points = points.filter(point => {
+                if (
+                  (point.xIndex === xIndex + 1 && point.yIndex === yIndex) ||
+                  (point.xIndex === xIndex && point.yIndex === yIndex - 1) ||
+                  (point.xIndex === xIndex + 1 && point.yIndex === yIndex - 1) ||
+                  (point.xIndex === xIndex && point.yIndex === yIndex)
+                ) {
+                  return false; // Exclude the point from the filtered array
+                }
+                return true; // Keep the point in the filtered array
+              });
+            }
+
+          }
+          return pointsNew.concat(points)
+        }
+
+        function generateSpacedPointsInsideGlyph(glyph, paths, spacing, offsetX, offsetY) {
+          const boundingBox = glyph.getBoundingBox();
+          const points = [];
+          let yIndex = 0
+          for (let y = boundingBox.y1; y <= boundingBox.y2; y += spacing) {
+            let xIndex = 0
+            for (let x = boundingBox.x1; x <= (boundingBox.x2 + spacing); x += spacing) {
+              const point = { 
+                x: (x + offsetX) - spacing, 
+                y: (y + offsetY),
+                xIndex,
+                yIndex,
+                pointsLen: 1
+              };
+              xIndex++   
+              if (isPointInsideGlyph(glyph, paths, point)) {
+                points.push(point);
+              }
+            }
+            yIndex++
+          }
+
+          return points;
+        }
+
+        function isPointInsideGlyph(glyph, paths, point) {
+
+          let intersections = 0;
+          const ray = { x: point.x, y: point.y };
+
+          paths.map(path => {
+            const segments = path
+            for (let i = 0; i < segments.length; i++) {
+              const cmd = segments[i];
+              const nextCmd = segments[i + 1]
+              if(nextCmd){
+              //if ((cmd.type === 'M' || cmd.type === 'L') && (nextCmd.type === 'M' || nextCmd.type === 'L')) {
+                const p1 = { x: cmd.x, y: cmd.y };
+                const p2 = { x: nextCmd.x, y: nextCmd.y };
+                // Check if the ray intersects the segment defined by p1 and p2
+                if (segmentIntersectsRay(p1, p2, ray)) {
+                  intersections++;
+                }
+              }
+            }
+          })
+
+          // If the number of intersections is odd, the point is inside
+          return intersections % 2 !== 0;
+        }
+
+        function segmentIntersectsRay(p1, p2, ray) {
+
+          // Calculate the direction of the ray
+          const rayDirection = { x: 1, y: 0 };
+
+          // Calculate the direction of the segment
+          const segmentDirection = { x: p1.x - p2.x, y: p1.y - p2.y };
+
+          // Calculate the determinant to check if the ray and segment are not parallel
+          const determinant = rayDirection.x * segmentDirection.y - rayDirection.y * segmentDirection.x;
+
+          if (determinant === 0) {
+            // The ray and segment are parallel
+            return false;
+          }
+
+          // Calculate the parameters for the intersection point
+          const t1 = ((ray.x - p1.x) * rayDirection.y - (ray.y - p1.y) * rayDirection.x) / determinant;
+          const t2 = ((ray.x - p1.x) * segmentDirection.y - (ray.y - p1.y) * segmentDirection.x) / determinant;
+
+          // Check if the intersection point is within the segment and the ray is in the positive direction
+          return t1 >= 0 && t1 <= 1 && t2 >= 0;
+        }
+
+        function generateFlower(index, size) {
+          let RANDOM = Math.random() * 9
+          let RANDOM1 = Math.random() * 9
+          let color = window.features['element color'];
+          let color2 = window.features['element color2'];
+          let stroke = window.features['nested node color'];
+          let stroke2 = window.features['nested node color2'];
+          let COLOR = Math.random() < 0.5 ? color : color2;
+          let STROKE = Math.random() < 0.6 ? stroke : stroke2;
+          let COLOR2 = Math.random() < 0.7 ? stroke2 : color;
+          let STROKE2 = Math.random() < 0.2 ? color2 : stroke;
+
+          let petals = [];
+          let petals1 = [];
+
+          let numPetals = Math.max(5, Math.floor(Math.random() * 9));
+          let numPetals1 = Math.max(5, RANDOM);
+
+          if(Math.random() < 0.6) {
+            for (let p = 0; p < numPetals; p++) {
+              let petalPath;
+              if (RANDOM <= 1) {
+                petalPath = 'M 0,0 C -12, -15 -5,-20 0, -15 C 5, -20 11, -15 0, 0';
+              } else if (RANDOM <= 3) {
+                petalPath =
+                  'M0,0 C-1,-7.5 -12.5,-15 -5,-25 C-5,-20 5,-20 5,-25 C25,-15 1,-7.5 0,0';
+              } else if (RANDOM <= 5) {
+                petalPath = 'M 0,0 C -10,-16 -12,-24 0,-18 C 12,-24 10,-16 0, 0';
+              } else if (RANDOM <= 6) {
+                petalPath = 'M 0,0 C -5,-5 -15,-25 0,-25 C 15,-25 5,-5 0, 0';
+              }  else if (RANDOM <= 8) {
+                petalPath = 'M 0,0 C -9,-10 -12,-16 0,-25 C 12,-16 9,-10 0, 0';
+              } else if (RANDOM <= 9) {
+                petalPath = 'M 0,0 C -9,-18 -12,-15 0,-25 C 12,-15 9,-18 0, 0';
+              } else {
+                petalPath = 'M 0,0 C -10,-30 -10,-40 0,-50 C 10,-40 10,-30 0, 0';
+              }
+              petals.push({
+                scale: size,
+                angle: (360 * p) / numPetals || 0,
+                petalPath,
+                color: COLOR,
+                stroke: STROKE,
+              });
+            }
+          }
+
+          for (let p = 0; p < numPetals1; p++) {
+            let petalPath1;
+            if (RANDOM1 <= 1) {
+              petalPath1 = 'M 0,0 C -12, -15 -5,-20 0, -15 C 5, -20 11, -15 0, 0';
+            } else if (RANDOM1 <= 3) {
+              petalPath1 =
+                'M0,0 C-1,-7.5 -12.5,-15 -5,-25 C-5,-20 5,-20 5,-25 C25,-15 1,-7.5 0,0';
+            } else if (RANDOM1 <= 5) {
+              petalPath1 = 'M 0,0 C -10,-16 -12,-24 0,-18 C 12,-24 10,-16 0, 0';
+            } else if (RANDOM1 <= 6) {
+              petalPath1 = 'M 0,0 C -5,-5 -15,-25 0,-25 C 15,-25 5,-5 0, 0';
+            } else if (RANDOM1 <= 8) {
+              petalPath1 = 'M 0,0 C -9,-10 -12,-16 0,-25 C 12,-16 9,-10 0, 0';
+            } else if (RANDOM1 <= 9) {
+              petalPath1 = 'M 0,0 C -9,-18 -12,-15 0,-25 C 12,-15 9,-18 0, 0';
+            } else {
+              petalPath1 = 'M 0,0 C -12, -15 -5,-20 0, -15 C 5, -20 11, -15 0, 0';
+            }
+            petals1.push({
+              scale: size * 1.8,
+              angle: (360 * p) / numPetals1 || 0,
+              petalPath: petalPath1,
+              color: COLOR2,
+              stroke: STROKE2,
+            });
+          }
+
+          return { petals, petals1 };
+        }
+
+        function generateElements(points) {
+          let elements = [];
+          let counter = 0;
+          for (let i = 0; i < points.length; i++) {
+            counter += 1;
+            if (counter === 15) counter = 0;
+            let size = Math.max(SIZE, SIZE * points[i].pointsLen/2.2)
+            //let size = 0.275
+            let strokeWidth = Math.random() * 2;
+            const element = {
+              id: `${i}`, // `id` is needed to distinguish the particles when some of them finish and disappear
+              //charIndex: points[i].charIndex,
+              //charIndex: Math.random() * points.length,
+              //charIndex: calculateDistance(0, 0, points[i].xIndex, points[i].yIndex),
+              charIndex: points[i].pointsLen > 1 ? 0 : calculateDistance(0, 0, points[i].xIndex, points[i].yIndex),
+              pointsLen: points[i].pointsLen,
+              strokeWidth,
+              size,
+              flower: generateFlower(
+                i,
+                size
+              ),
+              x: points[i].x,
+              y: points[i].y
+            };
+            elements.push(element);
+          }
+          return elements;
+        }
+
+        function opentypeCommandsToSvgPath(commands) {
+          let pathString = '';
+
+          commands.forEach(command => {
+            if (command.type === 'M') {
+              pathString += `M${command.x} ${command.y}`;
+            } else if (command.type === 'L') {
+              pathString += `L${command.x} ${command.y}`;
+            } else if (command.type === 'C') {
+              pathString += `C${command.x1} ${command.y1},${command.x2} ${command.y2},${command.x} ${command.y}`;
+            } else if (command.type === 'Q') {
+              pathString += `Q${command.x1} ${command.y1},${command.x} ${command.y}`;
+            } else if (command.type === 'Z') {
+              pathString += 'Z';
+            }
+          });
+
+          return pathString;
+        }
+
+        const dimensions = {
+          width: window.innerWidth,
+          height: window.innerHeight
+        }
+
+        const wrapper = d3
+          .select('#wrapper')
+          .append('svg')
+          .attr('class', 'svg_canvas')
+          .attr('width', dimensions.width)
+          .attr('height', dimensions.height)
+          .style('background-color', window.features['background color']);
+
+        const bounds = wrapper
+          .append('g')
+
+        const markersGroup = bounds.append('g').attr('class', 'markers-group');
+     
+        // Load the font file using opentype.js
+        opentype.load('./Poppins-Bold.ttf', function (err, font) {
+          if (err) {
+            console.error('Font could not be loaded:', err);
+          } else {
+            // Font is loaded, proceed with extracting geometry.
+            const characters = ['M', 'O', 'N', 'S', 'T', 'A', 'F', 'U', 'N', 'G', 'U', 'S']
+            let glyphX = 0 
+            let glyphX1 = 0 
+
+            characters.forEach((character,i) => {
+              // Get the glyph object for the character
+              const glyph = font.charToGlyph(character);
+
+              // Get the glyph's path as an array of commands (moveto, lineto, etc.)
+              const path = glyph.getPath(i >= 6 ? glyphX1 : glyphX, i >= 6 ? FONT_SIZE*2*0.9 : FONT_SIZE*0.9, FONT_SIZE); // (x, y, fontSize)
+              path.close = true
+
+              let newCommand = []
+              for (let i = 0; i < path.commands.length; i++) {
+                const command = path.commands[i];
+                newCommand.push(command)
+                if (command.type === 'Z') {
+                  newCommandAll.push(newCommand)
+                  newCommand = []
+                }
+              } 
+
+              // Generate an array of points spaced X px apart that are inside the glyph
+              const points = generateSpacedPointsInsideGlyph(glyph, newCommandAll, SPACING, i >= 6 ? glyphX1 : glyphX, i >= 6 ? FONT_SIZE : 0);
+
+              points.sort((a,b) => a.x - b.x)
+
+              const glyphWidth = glyph.advanceWidth;
+
+              const groupedPoints = groupPointsIntoGrid(points);
+              pointsAll.push(groupedPoints)
+
+              if(i >= 6){
+                glyphX1 += (glyphWidth * SCALE) + 16 
+              } else {
+                glyphX += (glyphWidth * SCALE) + 16
+              }
+            })
+        
+            const elements = generateElements(pointsAll.flat())
+            
+            markersGroup
+            .selectAll('.marker')
+            .data(elements, (d) => d.id)
+            .join(
+              (enter) => {
+                const marker = enter
+                  .append('g')
+                  .attr('class', 'marker')
+                  .attr('id', d =>'marker-' + d.id)
+                  .attr('opacity', 1)
+                  .attr('transform', (d, i) => {
+                    return `translate(${d.x}, ${0})scale(1)`;
+                  })
+                  .attr('data-char-index', d => d.charIndex)
+                  .each(function (d, i) {
+                    d3.select(this)
+                      .selectAll('.flower1')
+                      .data(elements.find((el) => el.id === d.id).flower.petals1)
+                      .enter()
+                      .append('path')
+                      .attr('class', 'flower1')
+                      .attr(
+                        'transform',
+                        (d, i) => `scale(${d.scale})rotate(${d.angle})`
+                      )
+                      .attr('d', (d) => d.petalPath)
+                      //.attr('stroke', 'black')
+                      .attr('stroke', (d) => d.stroke)
+                      .attr('stroke-width', (d) => d.strokeWidth)
+                      .attr('fill', (d) => d.color);
+
+                    d3.select(this)
+                      .selectAll('.flower')
+                      .data(elements.find((el) => el.id === d.id).flower.petals)
+                      .enter()
+                      .append('path')
+                      .attr('class', 'flower')
+                      .attr(
+                        'transform',
+                        (d, i) => `scale(${d.scale})rotate(${d.angle})`
+                      )
+                      .attr('d', (d) => d.petalPath)
+                      //.attr('stroke', 'black')
+                      .attr('stroke', (d) => d.stroke)
+                      .attr('stroke-width', (d) => d.strokeWidth)
+                      .attr('fill', (d) => d.color);
+                  });
+              },
+              (update) => update,
+              (exit) => exit.remove()
+            )
+
+            d3.selectAll('.marker')
+              .transition()
+              .duration(300) // Set the transition duration as needed
+              .delay((d) => d.charIndex * 20) 
+              .attr('transform', (d, i) => {
+                return `translate(${d.x}, ${d.y})scale(0)`; // Increase scale to 1
+              })
+              .transition()
+              .duration(500) // Set the transition duration as needed
+              .delay((d) => d.charIndex * 50) 
+              .attr('transform', (d, i) => {
+                return `translate(${d.x}, ${d.y})scale(1)`; // Increase scale to 1
+              })
+              .transition()
+              .duration(700)
+              .attr('transform', (d, i) => {
+                if(Math.random() < 0.3){
+                  return `translate(${d.x}, ${d.y})scale(0)`
+                } else {
+                  return `translate(${d.x}, ${d.y})scale(1)`
+                }
+              })
+              .transition()
+              .duration(500)
+              .attr('transform', (d, i) => {
+                return `translate(${d.x}, ${d.y})scale(1)`
+              })
+
+          }
+        });
+    </script>
+   </body>
+</html>

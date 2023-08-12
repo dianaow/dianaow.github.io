@@ -25,9 +25,9 @@ h2 {
 
 h3 {
     font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-    font-size: 1.2em;
-    margin-top: 0.9em;
+    font-weight: 900;
+    font-size: 1.4em;
+    margin-top: 1em;
     line-height: 1.2em;
 }
 
@@ -102,4 +102,32 @@ a, a:hover, a:visited, a:active {
   h2 {
     margin: 0px;
   }
+}
+
+footer {
+  margin-top: 40px;
+  min-height: 240px;
+  width: 100vw;
+  border-top: 2px solid black;
+}
+.flex-container {
+  display: flex;
+  padding: 40px;
+}
+.left {
+  width: 40%;
+}
+.right {
+  width: 60%;
+  display: flex;
+  justify-content: end;
+}
+.column {
+  width: 30%;
+}
+.link {
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  width: 80px;
 }

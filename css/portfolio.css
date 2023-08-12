@@ -1,8 +1,9 @@
 .header-container {
-  color: black;
+  color: white;
   background-color: transparent; 
   display: flex;
   justify-content: center;
+  padding: 20px;
 }
 .header {
   width: 900px;
