@@ -529,7 +529,8 @@
             console.error('Font could not be loaded:', err);
           } else {
             // Font is loaded, proceed with extracting geometry.
-            const characters = ['M', 'O', 'N', 'S', 'T', 'A', 'F', 'U', 'N', 'G', 'U', 'S']
+            //const characters = ['M', 'O', 'N', 'S', 'T', 'A', 'F', 'U', 'N', 'G', 'U', 'S']
+            const characters = ['D', 'I', 'A', 'N', 'A', 'O', 'W']
             let glyphX = 0 
             let glyphX1 = 0 
 
@@ -538,7 +539,7 @@
               const glyph = font.charToGlyph(character);
 
               // Get the glyph's path as an array of commands (moveto, lineto, etc.)
-              const path = glyph.getPath(i >= 6 ? glyphX1 : glyphX, i >= 6 ? FONT_SIZE*2*0.9 : FONT_SIZE*0.9, FONT_SIZE); // (x, y, fontSize)
+              const path = glyph.getPath(i >= 5 ? glyphX1 : glyphX, i >= 5 ? FONT_SIZE*2*0.9 : FONT_SIZE*0.9, FONT_SIZE); // (x, y, fontSize)
               path.close = true
 
               let newCommand = []
@@ -552,7 +553,7 @@
               } 
 
               // Generate an array of points spaced X px apart that are inside the glyph
-              const points = generateSpacedPointsInsideGlyph(glyph, newCommandAll, SPACING, i >= 6 ? glyphX1 : glyphX, i >= 6 ? FONT_SIZE : 0);
+              const points = generateSpacedPointsInsideGlyph(glyph, newCommandAll, SPACING, i >= 5 ? glyphX1 : glyphX, i >= 5 ? FONT_SIZE : 0);
 
               points.sort((a,b) => a.x - b.x)
 
@@ -561,7 +562,7 @@
               const groupedPoints = groupPointsIntoGrid(points);
               pointsAll.push(groupedPoints)
 
-              if(i >= 6){
+              if(i >= 5){
                 glyphX1 += (glyphWidth * SCALE) + 16 
               } else {
                 glyphX += (glyphWidth * SCALE) + 16
