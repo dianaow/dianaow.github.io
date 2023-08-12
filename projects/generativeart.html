@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Generative Art</title>
     <meta name="author" content="Diana Ow">
     <meta name="description" content="Diana Ow's Generative Art">
@@ -36,6 +36,46 @@
       .box-wrapper {
         justify-content: left;
       }
+
+      #wrapper {
+        height: 90vh;
+        width: 100vw;
+      }
+      .group-text {
+        position:relative;
+        cursor:pointer;
+        text-align: center;
+        width: 500px; 
+        height: auto; 
+        padding:0px;
+        margin:0px;
+        color:#000000;
+      }
+
+    /* if mobile device max width 420px */
+    @media only screen and (max-device-width: 420px) {
+      body {
+        padding-top: 0px !important;
+        height: 100vh;
+        overflow-y: scroll;
+      }
+      #wrapper {
+        display: none;
+      }
+      .box-group { 
+        display: block;
+      }
+      .box-wrapper {
+        height: auto;
+      }
+      .group-text {
+        width: 360px; 
+      }
+      .group {
+        width: 360px;
+      }   
+    } 
+
     </style>
   </head>
   <body>
@@ -48,7 +88,7 @@
       <div class='box-group'>
         <div class='group'>    
           <a href="https://dianaow.github.io/projects/network.html">
-            <div style='position:relative;cursor:pointer;text-align: center;width: 500px; height: auto; padding:0px;margin:0px;color:#000000'>
+            <div class='group-text'>
               <img src="./images/network_green.png"></img>
               <h2 class='centered'>Networks</h2>
             </div>
@@ -56,7 +96,7 @@
         </div>
         <div class='group'> 
           <a href="https://dianaow.github.io/projects/flowfields.html">
-            <div style='position:relative;cursor:pointer;text-align: center;width: 500px; height: auto; padding:0px;margin:0px;color:#000000'>
+            <div class='group-text'>
               <img src="./images/flowfields_collage.png"></img>
               <h2 class='centered'>Flowfields</h2>
             </div>
@@ -69,7 +109,7 @@
       <div class='box-group'>
         <div class='group'>
           <a href="https://www.instagram.com/monsta_fungus/">
-            <div style='position:relative;cursor:pointer;text-align: center;width: 500px; height: auto; padding:0px;margin:0px;color:#000000'>
+            <div class='group-text'>
               <img src="./fxhash-monsta-flower.jpeg"></img>
               <h2 class='centered'>Flowers</h2>
             </div>
@@ -89,7 +129,7 @@
       </div>
     </div>
     
-    <div class='box-wrapper' style="padding: 40px">
+    <div class='box-wrapper'>
       <a style='font-family:Poppins;' class="nav-link" href="https://dianameow.com">BACK TO DATA VIZ AND WEB DEV PROJECTS</a>
     </div>
 
