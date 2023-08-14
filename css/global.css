@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding-top: 40px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Interr', sans-serif;
   font-style: normal;
   font-weight: normal;
 }
@@ -20,14 +20,13 @@ h2 {
     font-weight: lighter;
     font-size: 1.8em;
     padding-top: 20px;
-    margin-bottom: 0.2em;
 }
 
 h3 {
     font-family: 'Poppins', sans-serif;
     font-weight: 900;
     font-size: 1.4em;
-    margin-top: 1em;
+    margin-top: 1.4em;
     line-height: 1.2em;
 }
 
@@ -96,9 +95,9 @@ a, a:hover, a:visited, a:active {
   body {
     padding-top: 30px;
   }
-  h1 {
+  /* h1 {
     font-size: 24px;
-  }
+  } */
   h2 {
     margin: 0px;
   }

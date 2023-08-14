@@ -7,19 +7,24 @@
     <meta name="author" content="Diana Ow">
     <meta name="keywords" content="health, medical, EHR, data, visualization, visualisation, data visualization, data visualisation, information, information visualization, information visualisation, dataviz, datavis, infoviz, infovis, collaboration, data art">
     <title>Web-based tool for monitoring medical data</title>
-    <link href="https://fonts.googleapis.com/css?family=Poppins|Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins|Inter" rel="stylesheet">
     <link href="../../../../css/global.css" rel="stylesheet">
     <link href="../../../../css/blog.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
   </head>
   <body>
 
     <div id="portfolio__title_img">
       <div class="portfolio__header" style="background-color: aliceblue">
-        <div style="width: 40%">
+        <div style="width: 50%">
           <h1 class="portfolio__title">Web-based tool for monitoring medical data</h1>
         </div>
-        <div style="width: 60%">
-          <h3 class="portfolio__description">Bringing unique, usable and effective data visualizations into the daily work life of doctors.</h3>
+        <div style="width: 50%">
+          <h3 class="portfolio__description">Bringing unique, usable and effective data visualizations into the daily work life of clinicians.</h3>
+          <p>Tools: D3.js</p>
         </div>
       </div>
     </div>
@@ -27,56 +32,272 @@
     <div class='wrapper'>
       <div class='wrapper-group'>
 
-        <div class='box' style='display: flex;'>
-          <div style="min-width: 65%">
-            <img width="680px" height="auto" src="./health_timeline_mockup_simple.png" class='mockup'>
+        <div class='box box-landing'>
+          <div class="box-content">
+            <img width="660px" height="auto" src="./health_timeline_mockup_simple.png" class='mockup'>
           </div>
-          <div style="width: 35%">
-            <p>I worked together with a doctor, the subject matter expert, to bring his visual design of a dashboard to life, creating an interactive timeline visualization befitting of high dimensional medical data</p>
-            <p>One of the challenges was implementing the complex logic of encoding the glyphs and labels, enhanced by the temporal and hierarchical nature of the data.</p>
+          <div class="box-content">
+            <p>I worked together with a doctor, the subject matter expert, from January to July 2023 to bring his visual design of a dashboard displaying patients' health records to life, creating an interactive timeline visualization befitting of high dimensional medical data. This dashboard was meant to be eventually used by clinicians specialised in sexual health. The goal of the project is to transform the way medical data is currently presented, utilizing visualization techniques to represent complex information in a digestible graphical format to easily obtain insights, changes and patterns.</p>
             <p>Click <a style='font-family:Poppins;' class="nav-link" href="https://stackblitz.com/edit/js-rt68bz">here</a> to go directly to the interactive visualization.</p>
           </div>
         </div>
 
         <div class='box'>
-          <div style="min-width: 50%">
-          </div>
-          <div style="width: 50%">
+          <div class="box-content">
             <h2>The layout choice</h2>
-            <p>It is a large single timeline with 5 vertical domains, hybridised with five adjacent date-specific panels. Each domain represents a medical health category. Data are defined by 4 'conceptual dimensions': Entity (e.g., 'HIV test set'); Property (e.g., Result), Temporal (e.g., Point, Interval or Relational) and Evaluative (e.g., Abnormal, Normal etc.).</p>
+            <p>
+              The data shown on the UI represents test results, vaccinations, contraceptive methods and medication. The left hand section of the screen is a <span class='text-bold'>Summary Timeline</span>, showing time on the x-axis and five clinical domains along the y-axis. For space efficiency, data represented in the Summary Timeline are not always fully granular - in some cases they are summarised or merged sub-categories. 
+              Adjacent (to the right) of each of the five domains of the Summary Timeline are five corresponding <span class='text-bold'>Detail Panels</span>, specific to each domain and also to a selected date. All data represented in these panels are fully granular. 
+            </p>
+            <p>
+              The Summary Timeline acts as an launch pad from which the user can explore the more granular data of the Detail Panels, as well as robust support for clinical context for the other representations. 
+            </p>
+            <p>The client required the Timeline and  Detail Panel of each domain to be exactly adjacent to ensure ease of reference between them.</p> 
           </div>
         </div>
 
         <div class='box' style="text-align: center">
           <h3>Before</h3>
-          <p style="text-align: center">The client had prototyped a static version</p>
-          <img width="auto" height="350px"  src="./medical_before.png" class='mockup'>
+          <p>For the five domains, to help inform the visual design, the client had categorized their 'Conceptual Dimensions': Entity-taxonomic, Property, Temporal, Evaluative</p>
+          <img style='border: 1px solid black' width="auto" height="360px"  src="./medical_before1.png" class='mockup'>
+          <img style='border: 1px solid black' width="auto" height="360px"  src="./medical_before2.png" class='mockup'>
+          <p style="text-align: center">The client then prototyped a static version</p>
+          <img width="auto" height="360px"  src="./medical_before.png" class='mockup'>
         </div>
 
         <div class='box'>
-          <div style="width: 50%">
-            <h2>Features</h2>
-            <p>The client required a timeline and side panel of each health category to be aligned exactly to ensure ease of reference between the timeline and panel contents.</p> 
-            <p>Glyphs are customized for each test category and encoded to visualize multiple attributes of the element simultaneously. Glyphs also have to be placed strategically on screen in specific rows and columns. Doctors are accustomed to processing high volume of information and test results to assess the patient condition. Hence, there was a necessity to over-encode the glpyhs so that as much information can be gained at a glance.</p>
-            <p>The 'traffic light' colors alongide a legend help doctors intuitively understand health results. To help doctors understand the color encoding of labels, hover tooltips were implemented</p>
+            <h2>Timeline</h2>
+            <p style="width: 85%; padding: 2px 0px 30px 0px;">
+              The x-axis header shows a timeline for a year, which are divided into months. The timeline can be clicked in year increments, left (past) and right (future). Every date for which data is represented is shown as a blue hyperlink which when clicked, refreshes the dashboard instantly with updated data.
+              A red reference line helps the clinician connect all health records logged on the same selected date, particularly useful because the five domains are spread out vertically across a distance beyond the screen height.
+            </p>
+            <video width="100%" height="auto" src="./medical_timeline.mov" autoplay loop playsinline muted></video>
+        </div>
+
+        <div class='box-flex'>
+          <div class="box-content">
+            <h2>Detail Panels</h2>
+            <p>Data is represented in <span class='text-bold'>categories, sub-categories and labelled glyphs</span>. One of the challenges was implementing the complex logic of encoding and positioning the glyphs and labels, enhanced by the <span class='text-bold'>temporal and hierarchical nature </span>of the data. Glyphs are customized for each domain and encoded to visualize multiple attributes of the record simultaneously. More information about each health record are shown with hover tooltips for each glyph. On click of a glyph, full information is formulated to be shown in the tooltip.</p>
+            <p>For some domains, important values are rendered on the top right corner of a glyph, instead of only been revealed when the tooltip is activated.</p>
+            <p>The 'traffic light' colors alongside a legend help clinicians intuitively identify health results. To help clinicians understand the different color encoding of labels, hover tooltips appear with custom content for each domain.</p>
+            <p>Glyphs are placed strategically on screen in specific rows and columns. Flexbox, CSS and D3.js was used to position the HTML DIV blocks into the correct coordinates on screen, while being responsive to various sreen sizes. A code snippet of how this was done is shown below.</p>
           </div>
-          <div style="display: flex; width: 100%">
-            <img width="50%" height="auto" src="./medical_glyph1.png" class='mockup'>
-            <img width="50%" height="auto" src="./medical_glyph2.png" class='mockup'>
+          <div class="box-content">
+            <img width="100%" height="auto" src="./medical_glyph1.png" class='mockup'>
+            <img width="100%" height="auto" src="./medical_sti.png" class='mockup'>
           </div>
         </div>  
 
-        </br>
-        </br>
-        </br>
-
-        <div class='box'>
-          <p style="width: 80%;">The dashboard refreshes instantly whenver a new date is selected. A red reference line helps the doctor identify the selected date of the health results easily.</p>
-          <video width="100%" height="auto" src="./medical_timeline.mov" autoplay loop playsinline muted></video>
+        <div class='box' style="margin: 0px 20px; max-height: 450px; overflow-y: scroll;">
+          <pre>
+            <code class="javascript atom-one-dark">
+            container
+              .selectAll('.groups')
+              .data(data, (d) => d[0])
+              .join(
+                (enter) => {
+                  // render each sub-category. widthPercs contain an array of percentage values to determine the amount of space each sub-category occupies within a detail panel
+                  const root = enter
+                    .append('div')
+                    .attr('class', (_, i) => `groups group-${i}`)
+                    .style('width', (_, i) => widthPercs[i]);
+          
+                  return root;
+                },
+                (update) => update
+              )
+              .append('div')
+              .style('display', 'flex')
+              .style('flex-direction', 'column')
+              .selectAll('.boxes')
+              .data(
+                (d) => d[1],
+                (d, i) => d[0] + '-' + i
+              )
+              .join(
+                (enter) => {
+                  // box containing rows of glyphs for each sub-category
+                  const root = enter
+                    .append('div')
+                    .attr('class', (_, i) => `boxes box-${i}`)
+                    .style('border-radius', '8px')
+                    .style(
+                      'background',
+                      'linear-gradient(to bottom right, #efefef, white)'
+                    )
+                    .style('margin', '6px');
+                  
+                  root
+                    .append('p')
+                    .style('border-bottom', '1px solid black')
+                    .style('padding', '2px 6px')
+                    .style('font-weight', 'black')
+                    .style('font-size', '14px')
+                    .style('font-family', 'Montserrat')
+                    .style('text-align', 'center')
+                    .html((d) => d[0]); // sub-category title
+          
+                  return root;
+                },
+                (update) => update
+              )
+              .append('div')
+              .selectAll('.marker-group-row')
+              .data(
+                (d) => d[1],
+                (d, i) => d[0] + '-' + i
+              )
+              .join(
+                (enter) => {
+                  // a row of glyphs for each sub-category. which row a glyph belonged to had to be specific, not random placement.
+                  return enter
+                    .append('div')
+                    .attr('class', (d) => `marker-group-row marker-group-row-${d[0]}`)
+                    .style('display', 'flex');
+                },
+                (update) => update
+              )
+              .selectAll('.marker-group')
+              .data(
+                (d) => d[1],
+                (d, i) => d[0] + '-' + i
+              )
+              .join(
+                // append marker group inside each div
+                (enter) => {
+                  const root = enter
+                    .append('div')
+                    .attr('class', (d) => {
+                      return `marker-group marker-group-${d[0]}`;
+                    })
+                    .style('display', 'flex')
+                    .style('flex-direction', 'column')
+                    .style('padding', '2.5px')
+                    .style('width', window.innerWidth <= 1440 ? '33px' : '48px')
+                    .style('height', '50px');
+          
+                  // append container inside each marker group to store shape and labels, necessary to do this also to resent previous css styles
+                  const markerGroup = root
+                    .append('div')
+                    .style('position', 'relative')
+                    .style('width', window.innerWidth <= 1440 ? '33px' : '48px')
+                    .style('height', '20px');
+          
+                  const markers = markerGroup
+                    .selectAll('.marker')
+                    .data(
+                      // filter for test result at selected date and the last test result before the selected date
+                      (d) =>
+                        d[1]
+                          .filter(
+                            (d) =>
+                              d.timestamp &&
+                              d.timestamp.getTime() < selectedDate.getTime()
+                          )
+                          .sort((a, b) => a['timestamp'] - b['timestamp'])
+                          .slice(-1)
+                          .concat(
+                            d[1].filter(
+                              (d) =>
+                                d.timestamp &&
+                                d.timestamp.getTime() === selectedDate.getTime()
+                            )
+                          ),
+                      (d) => d[outerAccessorCol] + '-' + d[innerAccessorCol]
+                    )
+                    .join(
+                      (enter) => {
+                        // render the two test results as glyphs
+                        const markerCurrent = enter
+                          .append('div')
+                          .style('position', 'absolute')
+                          .attr('class', 'marker marker-current')
+                          .style(
+                            'transform',
+                            (d, i) =>
+                              `translate(${
+                                (window.innerWidth <= 1440 ? 45 / 4 : 55 / 4) +
+                                (showPrevious
+                                  ? (window.innerWidth <= 1440 ? 6 : 7.5) * (i + 1)
+                                  : window.innerWidth <= 1440
+                                  ? 6
+                                  : 7.5) +
+                                'px'
+                              },0px)rotate(-135deg)`
+                          )
+                          .style('width', window.innerWidth <= 1440 ? '7px' : '9px')
+                          .style('height', window.innerWidth <= 1440 ? '7px' : '9px')
+                          .on('click', onClick)
+                          .on('mouseover', onMouseEnter)
+                          .on('mouseout', onMouseLeave);
+          
+                        markerCurrent
+                          .filter(
+                            (d) =>
+                              d.timestamp &&
+                              d.timestamp.getTime() === selectedDate.getTime()
+                          )
+                          .style('background-color', colorAccessorScaled);
+                              
+                        if (showPrevious) {
+                          markerCurrent
+                            .filter(
+                              (d) =>
+                                d.timestamp &&
+                                d.timestamp.getTime() < selectedDate.getTime()
+                            )
+                            .style('border-width', '2px')
+                            .style('border-style', 'solid')
+                            .style('border-color', colorAccessorScaled)
+                            .style('border-left', colorAccessorScaled)
+                            .style('border-bottom', colorAccessorScaled);
+                        }
+          
+                        return markerCurrent;
+                      },
+                      (update) => update
+                    );
+          
+                  renderHoverableLabels(root, dataset, selectedDate, 'STIs');
+          
+                  return root;
+                },
+                (update) => update
+              );
+          
+            </code>
+          </pre>
         </div>
 
+        <div class='box-flex'>
+          <div class="box-content">
+            <div class="box-content-faux"style="width: 100%; height: 30%"></div>
+            <img width="100%" height="auto" src="./medical_bbi_vaccine.png" class='mockup'>
+            <img width="100%" height="auto" src="./medical_contraception_med.png" class='mockup'>
+          </div>
+          <div class="box-content">
+            <p>There are quirks for specific domains, which are summarized below</p>
+                
+            <h3>STI tests domain</h3>
+            <p>Regarding STI-related tests, clinicians often ask the question: Was the test result normal on a specific date? Was it normal most recent to that date? Hence, it was necessary to show both test results adjacently. A <span class='text-bold'>diamond-shaped glyph</span>, representing a test result on selected date, was chosen to visually match the <span class='text-bold'>left arrow-shaped glyph</span> representing a previous result.</p>
 
-        <div class='box' style="margin-top: 140px">
+            <h3>BBI tests / Vaccines domain</h3>
+            <p>BBIs and Vaccines are considered together in their own shared domain because of their strong inter-relationships with each other. This is due to the availability of vaccinations for certain BBIs (HAV and HBV) and the impact of being infected by certain BBIs (in particular HIV, HBV and HCV) on the importance, dosing, scheduling and performance of other vaccines. </p>
+            <p>There was further layout customization just for this domain to arrange the BBis and Vaccines into the same card component.</p>
+
+            <h3>Contraception & Medication domain</h3>
+            <p>On the timeline, contraception and medications doses are are either represented as <span class='text-bold'>triangle marks</span> or as a <span class='text-bold'>range with a rectangle bar</span>. If the end date of doses exceeds the first and last date of the current year, an arrow head is attached to end(s) of the rectangle bar to visually convey continuity.</p>
+          </div> 
+      </div> 
+
+
+        <div class="box">
+          <h3>Client feedback</h3>
+          <p>My client made a presentation of the final visualization to a group of other experts in the medical field and here was their response:</p>
+          <i>"They loved it so much that all 16 members unanimously agreed they want it to be the exemplar interface for all future Electronic Health Record tenders. It is going to be part of our speciality's national specification requirements - the first speciality globally that has such sophisticated, tangible requirements."</i>
+        </div>
+
+        <div class='box'>
           <img width="100%" height="auto" src="./health_timeline_mockup.png" class='mockup'>
         </div>
 

@@ -2,26 +2,73 @@
 <html lang="en">
   <head>
     <meta charset='utf-8'>
-    <meta name="viewport" content="width=device-width">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>COVID-19 Network Singapore</title>
-    <link href="https://fonts.googleapis.com/css?family=Poppins|Roboto|Karla" rel="stylesheet">
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <meta name="viewport" ccontent="width=device-width, initial-scale=1">
+    <meta name="description" content="Diana Ow's portfolio article">
+    <meta name="author" content="Diana Ow">
+    <meta name="keywords" content="health, medical, EHR, data, visualization, visualisation, data visualization, data visualisation, information, information visualization, information visualisation, dataviz, datavis, infoviz, infovis, collaboration, data art">
+    <title>Web-based tool for monitoring medical data</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins|Inter" rel="stylesheet">
     <link href="../../../../css/global.css" rel="stylesheet">
     <link href="../../../../css/blog.css" rel="stylesheet">
-    <style>
-      .wrapper-group {
-        height: 600vh;
-      }
-    </style>
   </head>
   <body>
 
-    <div id="portfolio__title_img" style="background-image: url('./fifa19_binned.png');">
-      <div class="portfolio__header">
-          <p class="portfolio__date script">Created during February 2020</p>
-          <h1 class="portfolio__title">FIFA 19 Visualization</h1>
+    <div id="portfolio__title_img">
+      <div class="portfolio__header" style="background-color: MidnightBlue">
+        <div style="width: 50%">
+          <h1 class="portfolio__title" style="color: white">FIFA 19 Visualization</h1>
+        </div>
+        <div style="width: 50%">
+          <h3 class="portfolio__description" style="color: white">Visualizing data from the football simulation video game 'FIFA 19'</h3>
+          <p style="color: white">Tools: React, D3.js</p>
+        </div>
+      </div>
+    </div>
+
+    <div class='wrapper'>
+      <div class='wrapper-group'>
+
+        <div class='box box-landing'>
+          <div class="box-content">
+            <img width="100%" height="auto" src="./macbook_mockup_entity.png">
+          </div>
+          <div class="box-content">
+            <p>Detailed attributes for all 18,207 player registered in football simulation video game 'FIFA 19' is made available on the website <a href="https://sofifa.com" target="_blank">sofifa.com</a>. Players are scored according to 6 categories representing their abilities. An overall score is formulated for each player based on these category scores (ie. sub-score) amongst other parameters.</p>
+            <p>Click <a style='font-family:Poppins;' class="nav-link" href="http://fifa19-viz.s3-website-ap-southeast-1.amazonaws.com/" target="_blank">here</a> to go directly to the interactive visualization.</p>
+          </div>
+        </div>
+
+        <div class='box'>
+          <div class="box-content">
+            <h2>The layout choice</h2>
+            <p>Initially, I wanted to visualize each sub-score per player in a radar chart. This caused clutter as each player has 6 times the number of elements to render. Hence, I decided that it would more useful to only show one node per player and place that node in the category which he has the highest score in. Hence, the 'radar scatter' chart was conceptualized to visualize a player's highest sub-score alongside his overall score.</p> 
+          </div>
+          <img width="100%" height="auto" src="./fifa19_layout.png">
+        </div>
+
+
+        <div class='box-flex'>
+          <div class="box-content">
+            <h2>Features</h2>
+            <p>As there are many individual graphic elements on the chart, I have chosen to provide another view with scores binned. It is also possible to see broader patterns in the data through binning, such as which sub-category had the most number of high overall scoring players.</p>
+            <p>However, I still wanted to keep the individual elements to enable the user to locate a player on the chart and easily see his statistics. Hence, the toggle buttons enable the user to switch between the two views, with a transition effect created to make 'individual' nodes appear to coalesce into 'binned' nodes.</p>
+            <p>The players visualized on the plot can be narrowed down using a slider which filters the players by their overall score. The toggle buttons are 'aware' of the updated state and when clicked, the filtered range of nodes transition accordingly. I have decided to pre-set a filter of players with overall scores above 0.7.</p>
+          </div>
+          <div class="box-content">
+            <video width="100%" height="auto" src="./fifa19_1_new.mov" autoplay loop playsinline muted></video>
+            <video width="100%" height="auto" src="./fifa19_2_new.mov" autoplay loop playsinline muted></video>
+          </div>
+        </div>  
+
+        <div class='box-flex'>
+          <div class="box-content">
+            <img width="100%" height="auto" src="./fifa19_searched.png">
+          </div>
+          <div class="box-content">
+            <p>To see a detailed view of a player's statistics and connections (other players on the same team), hover over his node. A player can also be searched for using the search bar.</p>
+          </div> 
+        </div> 
+
       </div>
     </div>
 
@@ -31,80 +78,40 @@
         <div id="navbarResponsive">
           <ul class="navbar-nav">
             <li class="nav-item active">
-              <a style='font-family:Poppins;' class="nav-link" href="https://dianameow.com">PROJECTS</a>
-            </li>
-            <li class="nav-item">
-              <a style='font-family:Poppins;' class="nav-link" href="https://dianameow.com/projects/fun.html">PLAYGROUND</a>
+              <a style='font-family:Poppins;' class="nav-link" href="https://dianameow.com">Back to Projects</a>
             </li>
           </ul>
         </div>
       </nav>
     </div>
     
-    <div class='wrapper'>
-      <div class='wrapper-group'>
 
-        <div class='box'>
-          <div class='box-group'>
-
-            <div class='box-sub'>
-              <div class='box-group' style='height:auto'>
-                <div class="grid">
-                  <p class='box-sub-desc'>CLIENT</p>
-                  <h4>Work Assignment</h4>
-                </div>
-                <div class="grid">
-                  <p class='box-sub-desc'>LINK</p>
-                  <a href="http://fifa19-viz.s3-website-ap-southeast-1.amazonaws.com/" target="_blank"><h4>FIFA 19 Viz</h4></a>
-                </div>
+      <footer>
+        <div class="flex-container">
+          <div class="left"><h1 class="name">Thanks for visiting!</h1> 
+            <div class="column-content">
+              <p style="font-weight: 400; font-size: 1.2rem;">Diana Ow</p> 
+            </div>
+          </div> 
+          <div class="right">
+            <div class="column">
+              <h5 class="column-header">Connect</h5> 
+              <div class="column-content connect">
+                <a class="link" target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/dianaow/">LinkedIn</a> 
+                <a class="link" target="_blank" rel="noopener noreferrer" href="https://github.com/dianaow/">GitHub</a> 
+                <a class="link" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/follow?screen_name=notforcasual">Twitter</a>
               </div>
-
-              <div class='box-group' style='height:auto'>
-                <div class="grid">
-                  <p class='box-sub-desc'>TOOLS</p>
-                  <h4>d3.js</h4>
-                  <h4>React</h4>
-                </div>
-                <div class="grid">
-                  <h4 class='box-sub-desc'>Data</h4>
-                  <a href="https://www.kaggle.com/karangadiya/fifa19/" target="_blank"><h4>Kaggle</h4></a>
-                </div>
+            </div> 
+            <div class="column">
+              <h5 class="column-header">Contact</h5> 
+              <div class="column-content contact">
+                <a class="link" target="_blank" rel="noopener noreferrer" href="mailto:diana.ow@outlook.com">Personal</a> 
+                <a class="link" target="_blank" rel="noopener noreferrer" href="https://calendly.com/dianaow/meeting">Meet</a>
               </div>
+            </div>
           </div>
-          <div class='box-content'>
-            <p>Detailed attributes for all 18,207 player registered in football simulation video game 'FIFA 19' is made available on the website <a href="https://sofifa.com" target="_blank">sofifa.com</a>. Players are scored according to 6 categories representing their abilities. An overall score is formulated for each player based on these category scores (ie. sub-score) amongst other parameters. Initially, I wanted to visualize each sub-score per player in a radar chart. This caused clutter as each player has 6 times the number of elements to render. Hence, I decided that it would more useful to only show one node per player and place that node in the category which he has the highest score in. Hence, the 'radar scatter' chart was conceptualized to visualize a player's highest sub-score alongside his overall score.</p>
-            <h4>This was originally a mockup of a data dashboard done as a Data Visualization Specialist at ST Electronics (Info-Software Systems). However, for data privacy reason, I have repurposed the dashboard with FIFA 19 dataset.</h4>
-          </div>
-
-        </div>
       </div>
+    </footer>
 
-        <div class='box'>
-          <h2>The Radar Scatter Plot</h2>
-          <img width="100%" height="auto" src="./macbook_mockup_entity.png">
-        </div>
-
-        <div class='box'>
-          <img width="100%" height="auto" src="./macbook_mockup_tooltip.png" class='mockup'>
-        </div>
-
-        <div class='box'>
-          <h2>Features</h2>
-          <p>As there are many individual graphic elements on the chart, I have chosen to provide another view with scores binned. However, I still wanted to keep the individual elements to enable the user to locate a player on the chart and easily see his statistics. Hence, the toggle buttons enable the user to switch between the two views, with a transition effect created to make 'individual' nodes appear to coalesce into 'binned' nodes.</p> 
-          <video width="100%" height="auto" src="./fifa19_1_new.mov" autoplay loop playsinline muted></video>
-        </div>
-
-        <div class='box'>
-          <p>The players visualized on the plot can be narrowed down using a slider which filters the players by their overall score. The toggle buttons are 'aware' of the updated state and when clicked, the filtered range of nodes transition accordingly. I have decided to pre-set a filter of players with overall scores above 0.7.</p>
-          <video width="100%" height="auto" src="./fifa19_2_new.mov" autoplay loop playsinline muted></video>
-        </div>
-
-        <div class='box'>
-          <p>To see a detailed view of a player's statistics and connections (other players on the same team), hover over his node. A player can also be searched for using the search bar.</p>
-          <img width="100%" height="auto" src="./fifa19_searched.png">
-        </div>
-
-      </div>
-    </div>
   </body>
 </html>
